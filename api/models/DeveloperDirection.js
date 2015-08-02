@@ -6,7 +6,7 @@
 */
 
 module.exports = {
-	// connection:'db',
+	 connection:'mongo',
   	attributes: {
   		
   			devDirectName: {
