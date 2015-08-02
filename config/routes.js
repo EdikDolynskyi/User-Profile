@@ -34,7 +34,10 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+  'post /api/dir' : 'DeveloperDirectionController.addDirection',
+  'put /api/dir/:dirId' : 'DeveloperDirectionController.updateDirection',
+  'delete /api/dir/:dirId' : 'DeveloperDirectionController.deleteDirection'
 
   /***************************************************************************
   *                                                                          *
