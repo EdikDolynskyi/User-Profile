@@ -34,7 +34,7 @@ module.exports.routes = {
 
     '/': {
         view: 'homepage'
-    },
+    }
     /***************************************************************************
      *                                                                          *
      * Custom routes here...                                                    *
@@ -44,8 +44,4 @@ module.exports.routes = {
      * for configuration options and examples.                                  *
      *                                                                          *
      ***************************************************************************/
-    'get /api/positions' : 'PositionsController.getAllPosition',
-    'post /api/positions' : 'PositionsController.addPosition',
-    'put /api/positions/:id' : 'PositionsController.updatePosition',
-    'delete /api/positions/:id' : 'PositionsController.deletePosition'
 };

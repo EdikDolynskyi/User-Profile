@@ -6,10 +6,14 @@
  */
 
 module.exports = {
-    //connection: 'someMongodbServer',
+    connection: 'mongo',
     attributes: {
         positionName: {
             type: 'string'
+        },
+        isDeleted: {
+            type: 'boolean',
+            defaultsTo : false
         }
     }
 };
