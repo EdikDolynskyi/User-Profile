@@ -8,12 +8,11 @@
 module.exports = {
 	// connection:'db',
   	attributes: {
-  		DeveloperDirection:{
+  		
   			devDirectName: {
   				type : 'string'
   			}
-  		}
-
+  		
   }
 };
 
