@@ -1,0 +1,20 @@
+{
+  "name": "user-profile",
+  "version": "0.0.0",
+  "homepage": "https://github.com/BinaryStudioAcademy/bsa-2015-user-profile",
+  "authors": [
+    "Boris-Vladimirovich <tuxoh992@gmail.com>"
+  ],
+  "description": "a Sails application",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3"
+  }
+}
