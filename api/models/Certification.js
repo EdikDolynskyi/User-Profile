@@ -6,12 +6,11 @@
 */
 
 module.exports = {
-  connection: 'someMongodbServer',
+  connection: 'mongo',
   attributes: {
-  	_idCertif: 	{type: 'integer'},
-  	certifName: {type: 'string'},
+  	certifName: {type: 'string', unique: true, required: true},
   	img: 		{type: 'string'},
-  	score: 		{type: 'float'}
+  	score: 		{type: 'float'},
+  	isDeleted: 	{type: 'boolean', required: true, defaultsTo: false}
   }
 };
-

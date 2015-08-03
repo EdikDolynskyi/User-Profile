@@ -61,13 +61,8 @@ module.exports.connections = {
     host: 'localhost',
     port: 27017,
     // user: 'username',
-    // password: 'password',
-<<<<<<< HEAD
-    //database: 'your_mongo_db_name_here'
-    //database: 'UserProfileDB'
-=======
+    // password: 'password',    
     database: 'portal-user-profile'
->>>>>>> origin/master
   },
 
   /***************************************************************************

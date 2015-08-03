@@ -36,11 +36,11 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  'GET /api/cert': 'CertificationController.getAllCertificates',
-  'GET /api/cert/:id': 'CertificationController.getCertificatesById',
-  'POST /api/cert/:name': 'CertificationController.addCertificateToCollection',
-  'DELETE /api/cert/:id': 'CertificationController.delCertificateFromCollection',
-  'PUT /api/cert/:id/:name': 'CertificationController.changeCertificateInCollection',
+  // 'GET /api/cert': 'CertificationController.getAllCertificates',
+  // 'GET /api/cert/:id': 'CertificationController.getCertificatesById',
+  // 'POST /api/cert/:name': 'CertificationController.addCertificateToCollection',
+  // 'DELETE /api/cert/:id': 'CertificationController.delCertificateFromCollection',
+  // 'PUT /api/cert/:id/:name': 'CertificationController.changeCertificateInCollection',
 
 
 

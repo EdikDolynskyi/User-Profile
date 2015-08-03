@@ -17,11 +17,9 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-<<<<<<< HEAD
-   connection: 'someMongodbServer',
-=======
+
   connection: 'mongo',
->>>>>>> origin/master
+
 
   /***************************************************************************
   *                                                                          *
