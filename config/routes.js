@@ -36,12 +36,12 @@ module.exports.routes = {
     view: 'homepage'
   },
   //Achievement routes
-  "get /api/ach/:achID":"AchievementController.getAchieveByID",
-  "post /api/ach": "AchievementController.addAchieve",
-  "delete /api/ach/:achID": "AchievementController.deleteAchieveByID",
-  "put /api/ach/:achID": "AchievementController.updateAchieveByID",
-  "put /api/user/:userID/ach/:achID": "AchievementController.addAchieveToUser",
-  "delete /api/user/:userID/ach/:achID": "AchievementController.deleteAchieveFromUser"
+  // "get /api/ach/:achID":"AchievementController.getAchieveByID",
+  // "post /api/ach": "AchievementController.addAchieve",
+  // "delete /api/ach/:achID": "AchievementController.deleteAchieveByID",
+  // "put /api/ach/:achID": "AchievementController.updateAchieveByID",
+  // "put /api/user/:userID/ach/:achID": "AchievementController.addAchieveToUser",
+  // "delete /api/user/:userID/ach/:achID": "AchievementController.deleteAchieveFromUser"
   
 
   /***************************************************************************
