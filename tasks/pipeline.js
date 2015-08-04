@@ -21,10 +21,16 @@ var cssFilesToInject = [
 
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
-var libsToInject = [
-  'js/dependencies/*.js',
-  'js/dependencies/**/*.js'
+var jsLibsToInject = [
+
+    '../../bower_components/angular/angular.js'
 ];
+
+
+var cssLibsToInject = [
+    // some library
+];
+
 var jsFilesToInject = [
     'js/user-profile/*.js',
     'js/user-profile/**/*.js'
@@ -52,8 +58,12 @@ var templateFilesToInject = [
 module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
-module.exports.libsToInject = libsToInject.map(function(path) {
-  return '.tmp/public/' + path;
+module.exports.jsLibsToInject = jsLibsToInject.map(function(path) {
+    return '.tmp/public/' + path;
+});
+
+module.exports.cssLibsToInject = cssLibsToInject.map(function(path) {
+    return '.tmp/public/' + path;
 });
 module.exports.jsFilesToInject = jsFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
