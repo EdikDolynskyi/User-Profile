@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "a Sails application",
   "keywords": [],
-  "dependencpies": {
+  "dependencies": {
     "bower": "^1.4.1",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
