@@ -17,12 +17,18 @@ module.exports = function(grunt) {
 
 	grunt.config.set('copy', {
 		dev: {
-			files: [{
-				expand: true,
-				cwd: './assets',
-				src: ['**/*.!(coffee|less)'],
-				dest: '.tmp/public'
-			}]
+			files: [
+				{
+					expand: true,
+					cwd: './assets',
+					src: ['**/*.!(coffee|less)'],
+					dest: '.tmp/public'
+				},
+				{
+					src: ['./bower_components/angular/angular.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.min.js'
+				}
+			]
 		},
 		build: {
 			files: [{
