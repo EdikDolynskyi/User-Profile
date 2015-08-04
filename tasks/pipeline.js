@@ -34,6 +34,15 @@ var jsFilesToInject = [
   'js/**/*.js'
 ];
 
+var jsLibsToInject = [
+
+  '../../bower_components/angular/angular.js'
+];
+
+
+var cssLibsToInject = [
+  // some library
+];
 
 // Client-side HTML templates are injected using the sources below
 // The ordering of these templates shouldn't matter.
@@ -57,6 +66,13 @@ module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
 module.exports.jsFilesToInject = jsFilesToInject.map(function(path) {
+  return '.tmp/public/' + path;
+});
+module.exports.jsLibsToInject = jsLibsToInject.map(function(path) {
+  return '.tmp/public/' + path;
+});
+
+module.exports.cssLibsToInject = cssLibsToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
 module.exports.templateFilesToInject = templateFilesToInject.map(function(path) {
