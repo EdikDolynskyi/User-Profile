@@ -4,9 +4,9 @@ module.exports = function(grunt) {
 		dev: {
 			files: [{
 				expand: true,
-				cwd: 'views/angular-templates/',
+				cwd: 'assets/js/',
 				src: ['**/*.jade'],
-				dest: '.tmp/public/templates/',
+				dest: '.tmp/public/js',
 				ext: '.html'
 			}]
 		}

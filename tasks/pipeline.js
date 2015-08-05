@@ -24,7 +24,10 @@ var jsLibsToInject = [
 ];
 
 var jsFilesToInject = [
-    'js/user-profile/**/*.js'
+    'js/angular-app.js',
+    'js/user-profile/**/*.js',
+    'js/pdp/**/*.js',
+    'js/cv/**/*.js'
 ];
 
 

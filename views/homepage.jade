@@ -1,13 +1,20 @@
 doctype html
 html(ng-app='myApp')
-  head(lang='en')
-    meta(charset='UTF-8')
-    title
-  body
-    h1 Homepage
+    head(lang='eng')
+        meta(charset='UTF-8')
+        title User Profile
 
-    // SCRIPTS
-    script(src="/js/dependencies/sails.io.js")
-    script(src="/concat/libs.js")
-    script(src="/js/angular-test/myApp.js")
-    // SCRIPTS END
+        // STYLES
+        link(rel="stylesheet", href="styles/src.css")
+        // STYLES END
+    body(ng-controller='GreetingCtrl as ctrl')
+        | {{ctrl.greeting}}
+        br
+        div(m-greeting, text='ctrl.greeting')
+        // SCRIPTS
+        script(src="js/dependencies/angular.min.js")
+        script(src="js/dependencies/sails.io.js")
+        script(src="js/angular-app.js")
+        script(src="js/user-profile/userProfileControllers.js")
+        // SCRIPTS END
+                                                                        
