@@ -1,6 +1,7 @@
 doctype html
 html(ng-app='myApp')
     head(lang='eng')
+        base(href="/")
         meta(charset='UTF-8')
         title User Profile
 
@@ -10,9 +11,10 @@ html(ng-app='myApp')
     body(ng-controller='GreetingCtrl as ctrl')
         | {{ctrl.greeting}}
         br
-        div(m-greeting, text='ctrl.greeting')
+        ng-view
         // SCRIPTS
         script(src="js/dependencies/angular.min.js")
+        script(src="js/dependencies/angular.route.min.js")
         script(src="js/dependencies/sails.io.js")
         script(src="js/angular-app.js")
         script(src="js/user-profile/userProfileControllers.js")

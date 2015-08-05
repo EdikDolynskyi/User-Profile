@@ -27,6 +27,10 @@ module.exports = function(grunt) {
 				{
 					src: ['./bower_components/angular/angular.min.js'],
 					dest: '.tmp/public/js/dependencies/angular.min.js'
+				},
+				{
+					src: ['./bower_components/angular-route/angular-route.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.route.min.js'
 				}
 			]
 		},
