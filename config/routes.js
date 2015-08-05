@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'user-profile'
+    view: 'homepage'
   }
   //Achievement routes
   // "get /api/ach/:achID":"AchievementController.getAchieveByID",
