@@ -5,15 +5,23 @@ html(ng-app='myApp')
         title User Profile
 
         // STYLES
+        link(rel="stylesheet", href="js/dependencies/bootstrap.css")
         link(rel="stylesheet", href="styles/src.css")
         // STYLES END
-    body(ng-controller='GreetingCtrl as ctrl')
-        | {{ctrl.greeting}}
-        br
-        div(m-greeting, text='ctrl.greeting')
+    body
+        header
+            .container-fluid
+        main.container-fluid
+            .row
+                .col-lg-2.col-lg-offset-2
+                    div(ng-controller='TabsDemoCtrl')
+                        tabset
+                            tab(ng-repeat='tab in tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled') {{tab.content}}
+
         // SCRIPTS
         script(src="js/dependencies/angular.min.js")
         script(src="js/dependencies/sails.io.js")
+        script(src="js/dependencies/ui-bootstrap-tpls.js")
         script(src="js/angular-app.js")
         script(src="js/user-profile/userProfileControllers.js")
         // SCRIPTS END
