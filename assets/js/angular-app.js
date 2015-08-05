@@ -1,17 +1,17 @@
-(function() {
-    var app = angular.module('myApp', []);
+(function () {
+    var app = angular.module('myApp', ['ngRoute']);
 
-    app.controller('GreetingCtrl', function(){
-        this.greeting = "Hello"
+    app.config(function ($routeProvider, $locationProvider) {
+        $routeProvider.
+            when('/', {templateUrl: 'js/user-profile/user-profile.html'}).
+            when('/cv', {templateUrl: 'js/cv/cv.html'}).
+            when('/pdp', {templateUrl: 'js/pdp/pdp.html'}).
+            otherwise({ redirectTo: '/' });
+
+        $locationProvider.html5Mode(true);
     });
-    app.directive('mGreeting', function() {
-        return {
-            scope: {
-                text: '='
-            },
-            templateUrl: 'js/user-profile/user-profile.html'
-        }
+
+    app.controller('GreetingCtrl', function () {
+        this.greeting = "Hello, it`s a "
     });
 })();
-
-
