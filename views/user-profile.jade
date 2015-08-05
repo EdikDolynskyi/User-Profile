@@ -1,17 +1,17 @@
-html
-head
-   meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
-   title User Profile
+doctype html
+html(ng-app='myApp')
+   head(lang='eng')
+      meta(charset='UTF-8')
+      title User Profile
 
    // STYLES
-   link(rel="stylesheet", href="concat/production.css")
    // STYLES END
-body
 
-   p Прівєт, Мішу!
-   //CONTENT BEGIN
-   //CONTENT END
+body(ng-controller='GreetingCtrl as ctrl')
+   | {{ctrl.greeting}}
 
    // SCRIPTS
-   script(src="concat/production.js")
    // SCRIPTS END
+
+
+
