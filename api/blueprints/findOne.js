@@ -23,7 +23,8 @@ module.exports = function findOneRecord (req, res) {
   var Model = actionUtil.parseModel(req);
   var pk = actionUtil.requirePk(req);
 
-  var query = Model.findOne(pk).where( { isDeleted : false } );
+  var query = Model.findOne(pk)
+                   .where({ isDeleted : false });
   query = actionUtil.populateEach(query, req);
   query.exec(function found(err, matchingRecord) {
     if (err) return res.serverError(err);
