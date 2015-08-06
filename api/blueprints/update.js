@@ -3,8 +3,8 @@
  */
 
 var actionUtil = require('sails/lib/hooks/blueprints/actionUtil');
-var util = require('util');
-var _ = require('sails/node_modules/lodash/lodash');
+//var util = require('util');
+//var _ = require('lodash');
 
 
 /**
@@ -40,7 +40,7 @@ module.exports = function updateOneRecord (req, res) {
   // (Note: this could be achieved in a single query, but a separate `findOne`
   //  is used first to provide a better experience for front-end developers
   //  integrating with the blueprint API.)
-  Model.findOne(pk).where( { isDeleted : false } ).populateAll().exec(function found(err, matchingRecord) {
+  Model.findOne(pk).where({ isDeleted : false }).populateAll().exec(function found(err, matchingRecord) {
 
     if (err) return res.serverError(err);
     if (!matchingRecord) return res.notFound();

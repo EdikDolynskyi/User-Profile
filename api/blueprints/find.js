@@ -1,8 +1,9 @@
 /**
  * Module dependencies
  */
-var actionUtil = require('sails/lib/hooks/blueprints/actionUtil'),
-  _ = require('sails/node_modules/lodash/lodash');
+
+var actionUtil = require('sails/lib/hooks/blueprints/actionUtil');
+//  _ = require('lodash');
 
 /**
  * Find Records
@@ -38,7 +39,8 @@ module.exports = function findRecords (req, res) {
 
   // Lookup for records that match the specified criteria
   var query = Model.find()
-  .where( actionUtil.parseCriteria(req) && { isDeleted : false } )
+  .where( actionUtil.parseCriteria(req) )
+  .where({ isDeleted : false })
   .limit( actionUtil.parseLimit(req) )
   .skip( actionUtil.parseSkip(req) )
   .sort( actionUtil.parseSort(req) );
@@ -49,7 +51,8 @@ module.exports = function findRecords (req, res) {
 
     // Only `.watch()` for new instances of the model if
     // `autoWatch` is enabled.
-    if (req._sails.hooks.pubsub && req.isSocket ) {
+
+    if (req._sails.hooks.pubsub && req.isSocket) {
       Model.subscribe(req, matchingRecords);
       if (req.options.autoWatch) { Model.watch(req); }
       // Also subscribe to instances of all associated models

@@ -26,13 +26,13 @@ module.exports = function destroyOneRecord (req, res) {
   var query = Model.findOne(pk);
   query = actionUtil.populateEach(query, req);
   query.exec(function foundRecord (err, record) {
-    if (err) return res.serverError(err);
-    if(!record) return res.notFound('No record found with the specified `id`.');
+      if (err) return res.serverError(err);
+      if(!record) return res.notFound('No record found with the specified `id`.');
 
       Model.update({ id: pk}, { isDeleted: true })
-            .exec(function (err) {
-                if (err) return res.json(err, 400);
-                return res.ok(record);
-            });
-     });
+          .exec(function (err, updated) {
+            if (err) return res.json(err, 400);  
+          return res.ok(updated); 
+      });
+  });
 };
