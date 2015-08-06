@@ -20,8 +20,8 @@ html(ng-app='myApp')
                 #nav.col-lg-2.col-lg-offset-2
                     div
                         tabset(vertical="true")
-                            tab(ng-repeat='tab in tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled')
-                .col-lg-6.article(ui-view) 
+                            tab(ng-repeat='tab in tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled', select="changeHash(tab.href)")
+                .col-lg-6.article(ng-view) 
         footer
             .container-fluid
                 .row

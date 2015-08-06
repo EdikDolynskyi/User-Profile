@@ -11,17 +11,19 @@
 	         $locationProvider.html5Mode(true);
     });
 
-    app.controller('TabsCtrl', function ($scope, $window) {
+    app.controller('TabsCtrl', function ($scope, $window, $location) {
 		$scope.tabs = [
-		    { title:'My profile', content:'My profile' },
-		    { title:'myCV', content:'myCV' },
-		    { title:'PDP flow', content:'PDP flow' }
+		    { title:'My profile', href:'/' },
+		    { title:'myCV', href:'/cv' },
+		    { title:'PDP flow', href:'/pdp' }
+		];
+		$scope.changeHash = function(data) {
+  			$location.path(data);
+		};
     
-  ];});
+  });
 
-    app.controller('GreetingCtrl', function () {
-        this.greeting = "Hello, it`s a "
-    });
+   
 
 
 })();
