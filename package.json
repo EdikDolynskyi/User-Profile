@@ -37,6 +37,10 @@
     "url": "git://github.com/mykyta/user-profile.git"
   },
   "author": "mykyta",
-  "license": "",
-  "devDependencies": {}
+  "license": "ISC",
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/mykyta/user-profile/issues"
+  },
+  "homepage": "https://github.com/mykyta/user-profile#readme"
 }
