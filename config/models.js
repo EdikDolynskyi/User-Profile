@@ -30,5 +30,13 @@ module.exports.models = {
   *                                                                          *
   ***************************************************************************/
   // migrate: 'alter'
+  attributes: {
 
+    isDeleted: {
+      type : 'boolean',
+      // columnName : 'isDeleted',
+      required : true,
+      defaultsTo : false
+    }
+  }
 };

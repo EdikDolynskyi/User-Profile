@@ -37,11 +37,19 @@ module.exports.routes = {
     view: 'homepage'
   }
 
+
   // 'GET /api/cert': 'CertificationController.getAllCertificates',
   // 'GET /api/cert/:id': 'CertificationController.getCertificatesById',
   // 'POST /api/cert/:name': 'CertificationController.addCertificateToCollection',
   // 'DELETE /api/cert/:id': 'CertificationController.delCertificateFromCollection',
   // 'PUT /api/cert/:id/:name': 'CertificationController.changeCertificateInCollection',
+  //Achievement routes
+  // "get /api/ach/:achID":"AchievementController.getAchieveByID",
+  // "post /api/ach": "AchievementController.addAchieve",
+  // "delete /api/ach/:achID": "AchievementController.deleteAchieveByID",
+  // "put /api/ach/:achID": "AchievementController.updateAchieveByID",
+  // "put /api/user/:userID/ach/:achID": "AchievementController.addAchieveToUser",
+  // "delete /api/user/:userID/ach/:achID": "AchievementController.deleteAchieveFromUser"
 
   /***************************************************************************
   *                                                                          *
