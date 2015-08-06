@@ -7,10 +7,7 @@
     { title:'myCV', content:'myCV' },
     { title:'PDP flow', content:'PDP flow' }
     
-  ];
-
-  
-});
+  ];});
 })();
 
 
