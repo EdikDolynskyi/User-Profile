@@ -35,6 +35,9 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
+  },
+  '/upload-file':{
+    view: 'uploadfile'
   }
 
 
@@ -61,3 +64,4 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+};
