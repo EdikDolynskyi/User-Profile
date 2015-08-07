@@ -17,12 +17,37 @@ module.exports = function(grunt) {
 
 	grunt.config.set('copy', {
 		dev: {
-			files: [{
-				expand: true,
-				cwd: './assets',
-				src: ['**/*.!(coffee|less)'],
-				dest: '.tmp/public'
-			}]
+			files: [
+				{
+					expand: true,
+					cwd: './assets',
+					src: ['**/*.!(coffee|less)'],
+					dest: '.tmp/public'
+				},
+				{
+					src: ['./bower_components/angular/angular.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.min.js'
+				},
+				{
+
+					src: ['./bower_components/angular-route/angular-route.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.route.min.js'
+				},
+				{
+					src: ['./bower_components/bootstrap/dist/css/bootstrap.css'],
+					dest: '.tmp/public/js/dependencies/bootstrap.css'
+				},
+				{
+					src: ['./bower_components/angular-bootstrap/ui-bootstrap-tpls.js'],
+					dest: '.tmp/public/js/dependencies/ui-bootstrap-tpls.js'
+				},
+				{
+					expand: true,
+					cwd: './bower_components/bootstrap/fonts',
+					src: ['**/*'],
+					dest: '.tmp/public/js/fonts'
+				}
+			]
 		},
 		build: {
 			files: [{

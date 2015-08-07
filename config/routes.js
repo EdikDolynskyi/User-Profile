@@ -34,7 +34,14 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
+  },
+  '/cv': {
+    view: 'homepage'
+  },
+  '/pdp': {
+    view: 'homepage'
   }
+
   /***************************************************************************
    *                                                                          *
    * Custom routes here...                                                    *

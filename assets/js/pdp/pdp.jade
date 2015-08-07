@@ -1,0 +1,36 @@
+div.pdp(ng-controller='PdpCtrl')
+    accordion
+        accordion-group(heading='Position', is-open='status.isPositionOpen')
+            p {{position}}
+    accordion
+        accordion-group(heading='Achievements', is-open='status.isAchievementsOpen')
+            .col-md-3(ng-repeat='achievement in achievements')
+                .clearfix
+                    img.img-responsive(ng-src='{{achievement.img}}')
+                p {{achievement.name}}
+    accordion
+        accordion-group(is-open='status.isStepsOpen')
+          accordion-heading
+              | I can have markup, too! 
+              i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
+          h4 Technologies
+          div(ng-repeat='item in items')
+              label
+                  span {{item}}
+                  input.checkbox.style-2.pull-right(type='checkbox')
+          h4 Certifications
+          div(ng-repeat='item in items')
+              label
+                  span {{item}}
+                  input.checkbox.style-2.pull-right(type='checkbox')
+          h4 Tasks
+          div(ng-repeat='item in items')
+              label
+                  span {{item}}
+                  input.style-2.pull-right(type='checkbox')
+          h4 Tests
+          div(ng-repeat='item in items')
+              label
+                  span {{item}}
+                  input.checkbox.style-2.pull-right(type='checkbox')
+
