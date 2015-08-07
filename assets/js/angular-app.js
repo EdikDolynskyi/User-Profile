@@ -21,9 +21,7 @@
   			$location.path(data);
 		};
     
-  });
-
-   
+  }); 
 
 
 })();

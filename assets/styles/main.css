@@ -18,7 +18,7 @@ header>.container-fluid>.col-lg-2{
 	border-bottom-color:#ddd;
 }
 .article{
-	height: 700px;
+	height: min-height;
 	background-color: white;
 	border-radius: 20px
 }
@@ -26,6 +26,13 @@ header>.container-fluid>.col-lg-2{
 	margin-top: 15px;
 	padding-right: 0px;
 
+}
+.pdp input[type='checkbox'] {
+ position: relative !important;
+ margin-left: 15px;
+}
+.pdp label {
+ font-weight: normal;
 }
 footer{
 	height: 20px;
