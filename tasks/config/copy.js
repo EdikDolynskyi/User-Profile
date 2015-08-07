@@ -29,7 +29,6 @@ module.exports = function(grunt) {
 					dest: '.tmp/public/js/dependencies/angular.min.js'
 				},
 				{
-
 					src: ['./bower_components/angular-route/angular-route.min.js'],
 					dest: '.tmp/public/js/dependencies/angular.route.min.js'
 				},
@@ -40,7 +39,10 @@ module.exports = function(grunt) {
 				{
 					src: ['./bower_components/angular-bootstrap/ui-bootstrap-tpls.js'],
 					dest: '.tmp/public/js/dependencies/ui-bootstrap-tpls.js'
-
+				},
+				{
+					src: ['./node_modules/angular-resource/angular-resource.js'],
+					dest: '.tmp/public/js/dependencies/angular.resource.js'
 				}
 			]
 		},

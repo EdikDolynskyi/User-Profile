@@ -1,1 +1,16 @@
-p {{text}} CV page!
+script(type='text/ng-template', id='dropDownList.html').
+    <a>
+    <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+
+.container-fluid(ng-controller='technologiesCtrl')
+    h4 Technologies
+    form(ng-submit='submit()')
+        input.form-control(type='text',
+                           ng-model="technologiesEnterText",
+                           name="technologiesEnterText",
+                           placeholder='Enter technology name',
+                           typeahead='tech as tech.name for tech in technologies | filter:{name:$viewValue}',
+                           typeahead-template-url='dropDownList.html')
+        pre.
+            \nlist={{technologiesList}}
