@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "bcrypt": "^0.8.4",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
     "grunt-contrib-clean": "~0.5.0",
@@ -34,5 +35,10 @@
     "url": "git://github.com/mykyta/user-profile.git"
   },
   "author": "mykyta",
-  "license": ""
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mykyta/user-profile/issues"
+  },
+  "homepage": "https://github.com/mykyta/user-profile",
+  "devDependencies": {}
 }
