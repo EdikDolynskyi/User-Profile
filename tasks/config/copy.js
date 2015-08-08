@@ -38,15 +38,25 @@ module.exports = function(grunt) {
 				},
 				{
 					src: ['./bower_components/bootstrap/dist/css/bootstrap.css'],
-					dest: '.tmp/public/js/dependencies/bootstrap.css'
+					dest: '.tmp/public/styles/dependencies/bootstrap.css'
 				},
 				{
 					src: ['./bower_components/angular-bootstrap/ui-bootstrap-tpls.js'],
 					dest: '.tmp/public/js/dependencies/ui-bootstrap-tpls.js'
 				},
 				{
-					src: ['./node_modules/angular-resource/angular-resource.js'],
-					dest: '.tmp/public/js/dependencies/angular.resource.js'
+					src: ['./bower_components/jquery/dist/jquery.js'],
+					dest: '.tmp/public/js/dependencies/jquery.js'
+				},
+				{
+					src: ['./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'],
+					dest: '.tmp/public/js/dependencies/bootstrap-datepicker.min.js'
+				},
+				{
+					src: ['./bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'],
+					dest: '.tmp/public/styles/dependencies/bootstrap-datepicker.min.css'
+				},
+				{
 					expand: true,
 					cwd: './bower_components/bootstrap/fonts',
 					src: ['**/*'],

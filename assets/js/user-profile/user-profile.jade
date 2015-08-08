@@ -1,1 +1,32 @@
-p {{text}} User Profile page!
+h3.text-left.login-title Edit profile
+hr
+.container-fluid
+  .row
+    .col-lg-6
+      img.profile-img(src='', alt='')
+      form.form-signin
+        p.UP-edit-form-desc Name
+        h3.UP-edit-form-data(contenteditable='true') Ivan
+        hr
+        p.UP-edit-form-desc Surname
+        h3.UP-edit-form-data(contenteditable='true') Ivanovych
+        hr
+        p.UP-edit-form-desc Country
+        h3.UP-edit-form-data(contenteditable='true') Lviv
+        hr
+        p.UP-edit-form-desc Email
+        h3.UP-edit-form-data(contenteditable='true') iivanov@gmail.com
+        hr
+        p.UP-edit-form-desc Password
+        input.UP-edit-form-data(type='password', contenteditable='true')
+        p.UP-edit-form-desc Birthday
+        #dp3.input-append.date.UP-edit-form-data(data-date='12-02-2012', data-date-format='dd-mm-yyyy')
+          input.datepicker(type='text', name='date')
+          span.add-on
+            i.icon-th
+        p
+        button.btn.btn-lg.btn-primary.btn-sm.btn-custom(type='submit') Update
+        button.btn.btn-lg.btn-primary.btn-sm.btn-custom(type='submit') Cancel
+    .col-lg-6
+  a.pull-right.need-help(href='#') Need help? 
+  span.clearfix
