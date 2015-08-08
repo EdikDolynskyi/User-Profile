@@ -1,19 +1,13 @@
-angular.module('myApp').controller('technologiesCtrl', function($scope, resourceGetDataService) {
+angular.module('myApp').controller('technologiesCtrl', function($scope, technologies) {
+    $scope.technologies = technologies.technologiesMainList;
 
-        resourceGetDataService.resList().query(function( technologies ) {
-            $scope.technologies = technologies;
-        });
+    $scope.submit = function(msg){
+        technologies.serSubmit(msg);
+        $scope.technologiesEnterText = '';
+    };
 
-        $scope.technologiesList = [];
-        $scope.submit = function() {
-            if ($scope.technologiesEnterText) {
-                if (this.technologiesEnterText.name == null) {
-                    $scope.technologiesList.push(this.technologiesEnterText);
-                } else {
-                    $scope.technologiesList.push(this.technologiesEnterText.name);
-                }
-                $scope.technologiesEnterText = '';
-            }
-        };
+    $scope.technologiesList = technologies.technologiesList;
+
+    $scope.techTypeShow = technologies.technologyTypeShow;
 });
 
