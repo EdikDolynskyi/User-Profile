@@ -6,32 +6,32 @@
  */
 
 module.exports = {
-	create : function(req, res){
-		var duplicate = false;
-		 DeveloperDirection.find({devDirectName : req.body.devDirectName}).exec(function (err, found){
-			if(err){
-				console.log(err);
-			}else{
-				if(found.length !== 0){
-					res.send(403, 'Sorry, this Developer Didection has already been created');
-				}else{
-					DeveloperDirection.create(req.body).exec(function(err, newDeveloperDidection){
-						if(err){
-							return res.negotiate(err);
-						}else{
-							return res.ok(newDeveloperDidection);
-							} 
+	// create : function(req, res){
+	// 	var duplicate = false;
+	// 	 DeveloperDirection.find({devDirectName : req.body.devDirectName}).exec(function (err, found){
+	// 		if(err){
+	// 			console.log(err);
+	// 		}else{
+	// 			if(found.length !== 0){
+	// 				res.send(403, 'Sorry, this Developer Didection has already been created');
+	// 			}else{
+	// 				DeveloperDirection.create(req.body).exec(function(err, newDeveloperDidection){
+	// 					if(err){
+	// 						return res.negotiate(err);
+	// 					}else{
+	// 						return res.ok(newDeveloperDidection);
+	// 						} 
 
-						});
-					}
-				}
-			}
+	// 					});
+	// 				}
+	// 			}
+	// 		}
 			
-		);
+	// 	);
 		
 		
 
-	}
+	// }
 
 	
 };

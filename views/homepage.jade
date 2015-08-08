@@ -1,0 +1,43 @@
+doctype html
+html(ng-app='myApp')
+    head(lang='eng')
+        base(href="/")
+        meta(charset='UTF-8')
+        title User Profile
+
+        // STYLES
+        link(rel="stylesheet", href="js/dependencies/bootstrap.css")
+        link(rel="stylesheet", href="styles/cv/cv.css")
+        link(rel="stylesheet", href="styles/main.css")
+        link(rel="stylesheet", href="styles/src.css")
+        // STYLES END
+    body
+        header
+            .container-fluid
+                .col-lg-2
+                .col-lg-10
+        main.container-fluid
+            .row(ng-controller='TabsCtrl') 
+                #nav.col-lg-2.col-lg-offset-2
+                    div
+                        tabset(vertical="true")
+                            tab(ng-repeat='tab in tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled', select="changeHash(tab.href)")
+                .col-lg-6.article(ng-view) 
+        footer
+            .container-fluid
+                .row
+
+
+        // SCRIPTS
+        script(src="js/dependencies/angular.min.js")
+        script(src="js/dependencies/angular.resource.js")
+        script(src="js/dependencies/angular.route.min.js")
+        script(src="js/dependencies/sails.io.js")
+        script(src="js/dependencies/ui-bootstrap-tpls.js")
+        script(src="js/main.js")
+        script(src="js/angular-app.js")
+        script(src="js/user-profile/userProfileControllers.js")
+        script(src="js/pdp/pdpController.js")
+        script(src="js/pdp/pdpService.js")
+        // SCRIPTS END
+                                                                        

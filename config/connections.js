@@ -61,7 +61,7 @@ module.exports.connections = {
     host: 'localhost',
     port: 27017,
     // user: 'username',
-    // password: 'password',    
+    // password: 'password',
     database: 'portal-user-profile'
   },
 

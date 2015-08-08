@@ -35,4 +35,5 @@ module.exports = function destroyOneRecord (req, res) {
           return res.ok(updated); 
       });
   });
+     
 };
