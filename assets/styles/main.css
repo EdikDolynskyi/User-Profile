@@ -45,8 +45,6 @@ footer{
 	height: 20px;
 	background-color:#ffa500;
 }
-
-
 .btn-custom {
   background-color: hsl(0, 2%, 73%) !important;
   background-repeat: repeat-x;
@@ -89,4 +87,28 @@ hr {
 .UP-edit-form-data {
   padding-bottom: 10px;
   margin-top: -10px;
+
+.form-group{
+	width: 100%
+}
+img {
+	width: 30%;
+}
+.page-header{
+	margin: -30px 0px 14px;
+	width: 50%;
+}
+.text-center{
+	width: 30%;
+}
+h3 {
+	margin-top: -10px;
+}
+hr{
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.btn{
+	margin-top: 10%;
+	margin-bottom: 10%;
 }
