@@ -8,7 +8,7 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, resource
         $scope.submit = function() {
             if ($scope.technologiesEnterText) {
                 if (this.technologiesEnterText.name == null) {
-                    $scope.technologiesList.push(this.technologiesEnterText)
+                    $scope.technologiesList.push(this.technologiesEnterText);
                 } else {
                     $scope.technologiesList.push(this.technologiesEnterText.name);
                 }
