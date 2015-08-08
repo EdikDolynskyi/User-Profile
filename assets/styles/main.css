@@ -45,3 +45,27 @@ footer{
 	height: 20px;
 	background-color:#ffa500;
 }
+.form-group{
+	width: 100%
+}
+img {
+	width: 30%;
+}
+.page-header{
+	margin: -30px 0px 14px;
+	width: 50%;
+}
+.text-center{
+	width: 30%;
+}
+h3 {
+	margin-top: -10px;
+}
+hr{
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.btn{
+	margin-top: 10%;
+	margin-bottom: 10%;
+}
