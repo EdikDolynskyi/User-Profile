@@ -4,10 +4,11 @@ form.form-inline
             h1.page-header Edit Profile
             .row
                 // left column
-                .col-md-4.col-sm-6.col-xs-12
+                .col-md-4.col-sm-6.col-xs-12(ng-controller="technologiesCtrl")
                     h3 Personal info
                     form.form-horizontal(role='form')
                         form.form-signin
+                            //|{{user.name}}
                             p.UP-edit-form-desc Name
                             h3.UP-edit-form-data(contenteditable='true') Ivan
                             hr
