@@ -4,25 +4,26 @@ form.form-inline
             h1.page-header Edit Profile
             .row
                 // left column
-                .col-md-4.col-sm-6.col-xs-12(ng-controller="userCtrl")
+
+                .col-md-4.col-sm-6.col-xs-12
+
                     h3 Personal info
                     form.form-horizontal(role='form')
-                        form.form-signin
-                            //|{{user.name}}
+                        form.form-signin(ng-controller="userCtrl")
                             p.UP-edit-form-desc Name
-                            h3.UP-edit-form-data(contenteditable='true') Ivan
+                            h3.UP-edit-form-data(contenteditable='true') {{user.name}}
                             hr
                             p.UP-edit-form-desc Surname
-                            h3.UP-edit-form-data(contenteditable='true') Ivanovych
+                            h3.UP-edit-form-data(contenteditable='true') {{user.surname}}
                             hr
                             p.UP-edit-form-desc Country
-                            h3.UP-edit-form-data(contenteditable='true') Ukraine
+                            h3.UP-edit-form-data(contenteditable='true') {{user.country}}
                             hr
                             p.UP-edit-form-desc City
-                            h3.UP-edit-form-data(contenteditable='true') Lviv
+                            h3.UP-edit-form-data(contenteditable='true') {{user.city}}
                             hr
                             p.UP-edit-form-desc Email
-                            h3.UP-edit-form-data(contenteditable='true') iivanov@gmail.com
+                            h3.UP-edit-form-data(contenteditable='true') {{user.email}}
                             hr
                             p.UP-edit-form-desc Password
                             input.UP-edit-form-data(type='password', contenteditable='true')
@@ -35,6 +36,6 @@ form.form-inline
                             span
                             input.btn.btn-default(value='Cancel', type='reset')
                 .col-md-6.col-sm-6.col-xs-12.personal-info
-                    img.avatar.img-thumbnail(src='images/Unknown.png', alt='avatar')
+                    img.avatar.img-thumbnail(src= "{{user.avatar.urlAva}}", alt='avatar')
                     h6 Upload a different photo...
                     input.text-center.well.well-sm(type='file')
