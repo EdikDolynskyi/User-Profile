@@ -45,8 +45,6 @@ module.exports = function(grunt) {
 					dest: '.tmp/public/js/dependencies/ui-bootstrap-tpls.js'
 				},
 				{
-					src: ['./node_modules/angular-resource/angular-resource.js'],
-					dest: '.tmp/public/js/dependencies/angular.resource.js'
 					expand: true,
 					cwd: './bower_components/bootstrap/fonts',
 					src: ['**/*'],
