@@ -27,7 +27,12 @@ form.form-inline
                             p.UP-edit-form-desc Password
                             input.UP-edit-form-data(type='password', contenteditable='true')
                             p.UP-edit-form-desc Birthday
-                            #dp3.input-append.date.UP-edit-form-data(data-date='12-02-2012', data-date-format='dd-mm-yyyy')
+                            .input-group
+                                input.form-control(type='text', datepicker-popup="dd-MMMMM-yyyy", ng-model='date', is-open='opened', min-date='minDate', max-date="'2020-06-22'", datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+                                span.input-group-btn
+                                  button.btn.btn-default(type='button', ng-click='openDatepicker($event)')
+                                        i.glyphicon.glyphicon-calendar
+                            //- #dp3.input-append.date.UP-edit-form-data(data-date='12-02-2012', data-date-format='dd-mm-yyyy')
                                 input.datepicker(type='text', name='date')
                                 span.add-on
                                     i.icon-th

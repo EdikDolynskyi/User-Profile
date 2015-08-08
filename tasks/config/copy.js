@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 				{
 					src: ['./bower_components/bootstrap/dist/css/bootstrap.css'],
 					dest: '.tmp/public/styles/dependencies/bootstrap.css'
-				},
+				},	
 				{
 					src: ['./bower_components/angular-bootstrap/ui-bootstrap-tpls.js'],
 					dest: '.tmp/public/js/dependencies/ui-bootstrap-tpls.js'
@@ -59,8 +59,8 @@ module.exports = function(grunt) {
 				{
 					expand: true,
 					cwd: './bower_components/bootstrap/fonts',
-					src: ['**/*'],
-					dest: '.tmp/public/js/fonts'
+					src: ['**/*.*'],
+					dest: '.tmp/public/styles/fonts/'
 				}
 			]
 		},
