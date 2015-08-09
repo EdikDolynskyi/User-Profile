@@ -3,7 +3,15 @@ var app = require('../angular-app');
 app.service('UserProfileService', UserProfileService);
 
 function UserProfileService($resource) {
-    this.resUser = function() {
-        return $resource('http://localhost:1337/api/users/55c38b5a956240ba4c6a5f24');
+    this.get = function(id, cb) {
+        $resource('/api/users/:id', {id: id}).get(function (user) {
+            user.birthday = new Date(user.birthday);
+            cb(user);
+        });
     };
+    this.update = function(user, cb) {
+        $resource('/api/users/:id', null, {
+            'update': { method:'PUT' }
+        }).update({id: user.id}, user, cb);
+    }
 }

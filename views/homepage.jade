@@ -1,5 +1,5 @@
 doctype html
-html(ng-app='myApp')
+html
     head(lang='eng')
         base(href="/")
         meta(charset='UTF-8')
@@ -27,9 +27,7 @@ html(ng-app='myApp')
             .container-fluid
                 .row
 
-
         // SCRIPTS
-        script(src="js/dependencies/jquery.js")
         script(src="js/dependencies/angular.min.js")
         script(src="js/dependencies/angular.resource.min.js")
         script(src="js/dependencies/angular.route.min.js")
@@ -38,3 +36,5 @@ html(ng-app='myApp')
         script(src="js/main.js")
         // SCRIPTS END
                                                                         
+        script.
+            angular.bootstrap(document, ['myApp']);
