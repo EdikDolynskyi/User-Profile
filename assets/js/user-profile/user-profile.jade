@@ -9,6 +9,32 @@ form(ng-controller="UserProfileController as ctrl", class="container-fluid")
         .form-group
             label Surname
             input(ng-model="ctrl.user.surname", class="form-control", placeholder="Surname")
+        .form-group
+            label Birthday
+            .input-group
+                input.form-control(
+                    ng-model='ctrl.user.birthday',
+                    is-open='showDatePicker',
+                    min-date="'1900-01-01'",
+                    max-date="ctrl.today",
+                    datepicker-popup="shortDate",
+                    datepicker-append-to-body="true",
+                    close-text='Close')
+                span.input-group-btn
+                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
+                        i.glyphicon.glyphicon-calendar
+        .form-group
+            label Gender
+            .radio.radio-info.radio-inline
+            input#inlineRadio1(ng-model="ctrl.user.gender", type='radio', value='option1', name='radioInline')
+            label(for='inlineRadio1')
+                span.glyphicon.glyphicon-user(aria-hidden='true')
+                |  Male
+            .radio.radio-inline
+            input#inlineRadio2(ng-model="ctrl.user.gender", type='radio', value='option2', name='radioInline')
+            label(for='inlineRadio1')
+                span.glyphicon.glyphicon-heart(aria-hidden='true')
+                |  Female
 
         .form-group
             label Country
@@ -26,20 +52,7 @@ form(ng-controller="UserProfileController as ctrl", class="container-fluid")
             label Password
             input(ng-model="ctrl.user.password", type="password", class="form-control", placeholder="Password")
 
-        .form-group
-            label Birthday
-            .input-group
-                input.form-control(
-                    ng-model='ctrl.user.birthday',
-                    is-open='showDatePicker',
-                    min-date="'1900-01-01'",
-                    max-date="ctrl.today",
-                    datepicker-popup="shortDate",
-                    datepicker-append-to-body="true",
-                    close-text='Close')
-                span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
-                        i.glyphicon.glyphicon-calendar
+
 
     .col-md-6.col-sm-6.col-xs-12.personal-info
         img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
