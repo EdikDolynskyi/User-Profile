@@ -24,19 +24,20 @@
 	            var DevDirection = $resource('http://localhost:1337/api/directions/:id', {id: '@id'});
 	            var dir = DevDirection.get({id: resPDP.userDevDirection}, function(resDir){
 	                userPDP.position = userPDP.position + " " + resDir.devDirectName;
+					callback(userPDP);
 	            }, function(err){
 	                console.log(err);
 	            });
 
-	            var Achievements = $resource('http://localhost:1337/api/achievements/:id', {id: '@id'});
-	            for(var i = 0; i < resPDP.userAch.length; i++){
-	            	var ach = Achievements.get({id: resPDP.userAch[i].idAch}, function(resAch){
-	                	userPDP.userAch.push({achName: resAch.achName}, achImage: resAch.achImage);
-	                	// callback(userPDP);
-	            	}, function(err){
-	                	console.log(err);
-	            	});
-	            }
+	            //var Achievements = $resource('http://localhost:1337/api/achievements/:id', {id: '@id'});
+	            //for(var i = 0; i < resPDP.userAch.length; i++){
+	            //	var ach = Achievements.get({id: resPDP.userAch[i].idAch}, function(resAch){
+	            //    	//userPDP.userAch.push({achName: resAch.achName}, achImage: resAch.achImage);
+	            //    	// callback(userPDP);
+	            //	}, function(err){
+	            //    	console.log(err);
+	            //	});
+	            //}
 
 
 	        }, function(err){
