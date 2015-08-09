@@ -16,38 +16,35 @@ angular.module('myApp').service('technologies', function($resource){
     technologies.techName = '';
 
     // =================================================================================================================
+    // Получаем юзера
     technologies.user = User.get({id:"55c38b5a956240ba4c6a5f24"});
     technologies.user.$promise.then(function (resultUser) {
         technologies.user = resultUser;
+        // получаем CV юзера
         technologies.userCV = CV.get({id:technologies.user.userCV});
         technologies.userCV.$promise.then(function (resultCV) {
             technologies.userCV = resultCV;
+
             angular.forEach(technologies.userCV.tehcnologies, function(element) {
+                // получаем технологии юзера
                 technologies.technology = Technology.get({id:element});
                 technologies.technology.$promise.then(function (resultTech) {
                     technologies.technologiesList.push(resultTech);
-                    if (technologies.categoriesList.length == 0) {
-                        technologies.category = Categories.get({id:resultTech.category});
-                            technologies.category.$promise.then(function (resultCateg){
-                                technologies.categoriesList.push(resultCateg);
-                           
-                            });
-                    }
-                    angular.forEach(technologies.categoriesList, function(elementCateg) {
-                        console.log(elementCateg, 'aaaaaaaaa',  resultTech);
+                    // получаем категории технологии
+                    technologies.category = Categories.get({id:resultTech.category});
+                    technologies.category.$promise.then(function (resultCategory){
                         var isFind  = false;
-                        if (elementCateg.id == resultTech.category) {
-                            isFind = true;
-                        };
+                        angular.forEach(technologies.categoriesList, function(elementCategory) {
+                            if (elementCategory.id == resultTech.category) {
+                                isFind = true;
+                            };
+                        });
+
                         if (!isFind) {
-                            technologies.category = Categories.get({id:resultTech.category});
-                            technologies.category.$promise.then(function (resultCateg){
-                                technologies.categoriesList.push(resultCateg);
-                           
-                            });
+                            technologies.categoriesList.push(resultCategory);
                         };
                     });
-                });                
+                }).catch(function(err){console.log("123",err)});
             });
         });
     });
@@ -77,47 +74,47 @@ angular.module('myApp').service('technologies', function($resource){
 
         if (!isFind) {
             if (obj.name == null) {
-                            
-               
-                saveObj = {}; 
+                saveObj = {};
                 saveObj.name = obj;
 
                 Categories.save(saveObj, function (response) {
                     technologies.categoriesMainList.push(response);
+                    technologies.categoriesList.push(response);
                     saveObj1 = {};
                     saveObj1.category = response.id;
                     saveObj1.name = technologies.techName;
                     var TechPost = $resource(baseTechPath);
                     TechPost.save(saveObj1, function (response1) {
                         technologies.userCV.tehcnologies.push(response1.id);
-                        console.log(response1);
+                        technologies.technologiesList.push(response1);
+                        //console.log(111,response1);
                         saveObj2 = {};
                         saveObj2.tehcnologies = technologies.userCV.tehcnologies;
                         var CVPost = $resource(baseCVPath+'/'+technologies.user.userCV);
                         CVPost.save(saveObj2, function (response2) {
-                        console.log(response2);
-                        technologies.technologiesList.push(response2);
+                            //console.log(222,response2);
                         });
                     });
                 });
+                technologies.technologyTypeShow = false;
             } else {
-                
-                technologies.categoriesMainList.push(obj);
-                    saveObj1 = {};
-                    saveObj1.category = obj.id;
-                    saveObj1.name = technologies.techName;
-                    var TechPost = $resource(baseTechPath);
-                    TechPost.save(saveObj1, function (response1) {
-                        technologies.userCV.tehcnologies.push(response1.id);
-                        console.log(response1);
-                        saveObj2 = {};
-                        saveObj2.tehcnologies = technologies.userCV.tehcnologies;
-                        var CVPost = $resource(baseCVPath+'/'+technologies.user.userCV);
-                        CVPost.save(saveObj2, function (response2) {
-                        console.log(response2);
-                        technologies.technologiesList.push(response2);
-                        });
+                //technologies.categoriesMainList.push(obj);
+                saveObj1 = {};
+                saveObj1.category = obj.id;
+                saveObj1.name = technologies.techName;
+                var TechPost = $resource(baseTechPath);
+                TechPost.save(saveObj1, function (response1) {
+                    technologies.userCV.tehcnologies.push(response1.id);
+                    technologies.technologiesList.push(response1);
+                    console.log(111,response1);
+                    saveObj2 = {};
+                    saveObj2.tehcnologies = technologies.userCV.tehcnologies;
+                    var CVPost = $resource(baseCVPath+'/'+technologies.user.userCV);
+                    CVPost.save(saveObj2, function (response2) {
+                        console.log(222,response2);
                     });
+                });
+                technologies.technologyTypeShow = false;
             }
         }
     };
@@ -138,11 +135,6 @@ angular.module('myApp').service('technologies', function($resource){
                 // BUT BEFORE SELECT CATEGORY FOR THIS TECH
                 technologies.technologyTypeShow = true;
                 technologies.techName = obj;
-                //alert('DO YOU WANT ADD NEW TECH?');
-                //saveObj.name = obj;
-                //Technology.save(saveObj, function (response) {
-                //    technologies.technologiesMainList.push(response);
-                //});
             } else {
                 //HERE WE MUST ADD TECH TO USER COLLECTION
                 technologies.userCV.tehcnologies.push(obj.id);
