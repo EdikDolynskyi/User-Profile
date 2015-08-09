@@ -1,5 +1,6 @@
 form(ng-controller="UserProfileController as ctrl", class="container-fluid")
     h3(class="col-md-12",style="margin-bottom: 0") Personal info
+        p
         hr
     .col-md-6.col-sm-6.col-xs-12
         .form-group
@@ -25,16 +26,17 @@ form(ng-controller="UserProfileController as ctrl", class="container-fluid")
                         i.glyphicon.glyphicon-calendar
         .form-group
             label Gender
-            .radio.radio-info.radio-inline
-            input#inlineRadio1(ng-model="ctrl.user.gender", type='radio', value='option1', name='radioInline')
-            label(for='inlineRadio1')
-                span.glyphicon.glyphicon-user(aria-hidden='true')
-                |  Male
-            .radio.radio-inline
-            input#inlineRadio2(ng-model="ctrl.user.gender", type='radio', value='option2', name='radioInline')
-            label(for='inlineRadio1')
-                span.glyphicon.glyphicon-heart(aria-hidden='true')
-                |  Female
+                p
+                .radio.radio-info.radio-inline
+                input#inlineRadio1(ng-model="ctrl.user.gender", type='radio', value='option1', name='radioInline')
+                label(for='inlineRadio1')
+                    span.glyphicon.glyphicon-user(aria-hidden='true')
+                    |  Male
+                .radio.radio-inline
+                input#inlineRadio2(ng-model="ctrl.user.gender", type='radio', value='option2', name='radioInline')
+                label(for='inlineRadio1')
+                    span.glyphicon.glyphicon-heart(aria-hidden='true')
+                    |  Female
 
         .form-group
             label Country
