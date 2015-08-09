@@ -1,35 +1,47 @@
-div.pdp(ng-controller='PdpCtrl')
+div.pdp(ng-controller='PdpController as pdp')
+    h4 Position
+    span.prettyBadge {{pdp.userPDP.position}}
     accordion
-        accordion-group(heading='Position', is-open='status.isPositionOpen')
-            p {{position}}
-    accordion
-        accordion-group(heading='Achievements', is-open='status.isAchievementsOpen')
-            .col-md-3(ng-repeat='achievement in achievements')
+        accordion-group(is-open='pdp.status.isCertificatesOpen')
+            accordion-heading
+              | User certificates 
+              i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isCertificatesOpen, 'glyphicon-chevron-right': !pdp.status.isCertificatesOpen}")
+            .col-md-3(ng-repeat='achievement in pdp.achievements')
                 .clearfix
                     img.img-responsive(ng-src='{{achievement.img}}')
                 p {{achievement.name}}
     accordion
-        accordion-group(is-open='status.isStepsOpen')
+        accordion-group(is-open='pdp.status.isAchievementsOpen')
+            accordion-heading
+              | User achievements 
+              i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isAchievementsOpen, 'glyphicon-chevron-right': !pdp.status.isAchievementsOpen}")
+            .col-md-3(ng-repeat='achievement in pdp.achievements')
+                .clearfix
+                    img.img-responsive(ng-src='{{achievement.img}}')
+                p {{achievement.name}}
+    accordion
+        accordion-group(is-open='pdp.status.isStepsOpen')
           accordion-heading
-              | I can have markup, too! 
-              i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
+              | Steps needed to reach the next position 
+              i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isStepsOpen, 'glyphicon-chevron-right': !pdp.status.isStepsOpen}")
           h4 Technologies
-          div(ng-repeat='item in items')
+          div(ng-repeat='item in pdp.items')
               label
                   span {{item}}
                   input.checkbox.style-2.pull-right(type='checkbox')
           h4 Certifications
-          div(ng-repeat='item in items')
+          div(ng-repeat='item in pdp.items')
               label
                   span {{item}}
                   input.checkbox.style-2.pull-right(type='checkbox')
           h4 Tasks
-          div(ng-repeat='item in items')
+          div(ng-repeat='item in pdp.userPDP.userTasks')
               label
-                  span {{item}}
-                  input.style-2.pull-right(type='checkbox')
+                  span {{item.taskName}}
+                  span {{item.taskDate}}
+                  input.style-2.pull-right(type='checkbox' ng-model='item.completed')
           h4 Tests
-          div(ng-repeat='item in items')
+          div(ng-repeat='item in pdp.items')
               label
                   span {{item}}
                   input.checkbox.style-2.pull-right(type='checkbox')

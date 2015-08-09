@@ -20,12 +20,12 @@ header>.container-fluid>.col-lg-2{
 .article{
 	height: min-height;
 	background-color: white;
-	border-radius: 20px
+	border-radius: 20px;
+	padding: 50px;
 }
 #nav{
 	margin-top: 15px;
 	padding-right: 0px;
-
 }
 .pdp input[type='checkbox'] {
  position: relative !important;
@@ -33,6 +33,13 @@ header>.container-fluid>.col-lg-2{
 }
 .pdp label {
  font-weight: normal;
+}
+.prettyBadge{
+	background-color: yellow;
+	font-size: 20px;
+	border-radius: 10px;
+	padding-right: 15px;
+	padding-left: 15px;
 }
 footer{
 	height: 20px;
