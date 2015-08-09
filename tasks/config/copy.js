@@ -33,6 +33,10 @@ module.exports = function(grunt) {
 					dest: '.tmp/public/js/dependencies/angular.route.min.js'
 				},
 				{
+					src: ['./bower_components/angular-resource/angular-resource.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.resource.min.js'
+				},
+				{
 					src: ['./bower_components/bootstrap/dist/css/bootstrap.css'],
 					dest: '.tmp/public/js/dependencies/bootstrap.css'
 				},
@@ -43,6 +47,10 @@ module.exports = function(grunt) {
 				{
 					src: ['./node_modules/angular-resource/angular-resource.js'],
 					dest: '.tmp/public/js/dependencies/angular.resource.js'
+					expand: true,
+					cwd: './bower_components/bootstrap/fonts',
+					src: ['**/*'],
+					dest: '.tmp/public/js/fonts'
 				}
 			]
 		},
