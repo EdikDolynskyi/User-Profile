@@ -1,41 +1,51 @@
-form.form-inline
-    .form-group
-        .container(style='padding-top: 60px;')
-            h1.page-header Edit Profile
-            .row
-                // left column
+form(ng-controller="UserProfileController as ctrl", class="container-fluid")
+    h3(class="col-md-12",style="margin-bottom: 0") Personal info
+        hr
+    .col-md-6.col-sm-6.col-xs-12
+        .form-group
+            label Name
+            input(ng-model="ctrl.user.name", class="form-control", placeholder="Name")
 
-                .col-md-4.col-sm-6.col-xs-12
+        .form-group
+            label Surname
+            input(ng-model="ctrl.user.surname", class="form-control", placeholder="Surname")
 
-                    h3 Personal info
-                    form.form-horizontal(role='form')
-                        form.form-signin(ng-controller="userCtrl")
-                            p.UP-edit-form-desc Name
-                            h3.UP-edit-form-data(contenteditable='true') {{user.name}}
-                            hr
-                            p.UP-edit-form-desc Surname
-                            h3.UP-edit-form-data(contenteditable='true') {{user.surname}}
-                            hr
-                            p.UP-edit-form-desc Country
-                            h3.UP-edit-form-data(contenteditable='true') {{user.country}}
-                            hr
-                            p.UP-edit-form-desc City
-                            h3.UP-edit-form-data(contenteditable='true') {{user.city}}
-                            hr
-                            p.UP-edit-form-desc Email
-                            h3.UP-edit-form-data(contenteditable='true') {{user.email}}
-                            hr
-                            p.UP-edit-form-desc Password
-                            input.UP-edit-form-data(type='password', contenteditable='true')
-                            p.UP-edit-form-desc Birthday
-                            #dp3.input-append.date.UP-edit-form-data(data-date='12-02-2012', data-date-format='dd-mm-yyyy')
-                                input.datepicker(type='text', name='date')
-                                span.add-on
-                                    i.icon-th
-                            input.btn.btn-primary(value='Save Changes', type='button')
-                            span
-                            input.btn.btn-default(value='Cancel', type='reset')
-                .col-md-6.col-sm-6.col-xs-12.personal-info
-                    img.avatar.img-thumbnail(src= "{{user.avatar.urlAva}}", alt='avatar')
-                    h6 Upload a different photo...
-                    input.text-center.well.well-sm(type='file')
+        .form-group
+            label Country
+            input(ng-model="ctrl.user.country", class="form-control", placeholder="Country")
+
+        .form-group
+            label City
+            input(ng-model="ctrl.user.city", class="form-control", placeholder="City")
+
+        .form-group
+            label Email address
+            input(ng-model="ctrl.user.email", type="email", class="form-control", placeholder="Email")
+
+        .form-group
+            label Password
+            input(ng-model="ctrl.user.password", type="password", class="form-control", placeholder="Password")
+
+        .form-group
+            label Birthday
+            .input-group
+                input.form-control(
+                    ng-model='ctrl.user.birthday',
+                    is-open='showDatePicker',
+                    min-date="'1900-01-01'",
+                    max-date="ctrl.today",
+                    datepicker-popup="shortDate",
+                    datepicker-append-to-body="true",
+                    close-text='Close')
+                span.input-group-btn
+                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
+                        i.glyphicon.glyphicon-calendar
+
+    .col-md-6.col-sm-6.col-xs-12.personal-info
+        img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+        h6 Upload a different photo...
+        input.text-center.well.well-sm(type='file')
+
+    .col-md-12.form-group
+        input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)
+        input.btn.btn-default(value='Cancel', ng-click='ctrl.cancelUpdate()', readonly)
