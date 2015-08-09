@@ -10,6 +10,12 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
             $scope.technologiesEnterText = '';
         }
     };
+    $scope.submitOne = function(msg){
+        technologies.serSubmitOne(msg);
+       		$scope.technologyTypeEnterText = '';
+            $scope.technologiesEnterText = '';
+      
+    };
 
     $scope.technologiesList = technologies.technologiesList;
 });

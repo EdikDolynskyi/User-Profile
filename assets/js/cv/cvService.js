@@ -34,7 +34,55 @@ angular.module('myApp').service('technologies', function($resource){
             technologies.saveTechnology(technologiesEnterText);
         }
     };
+    // =================================================================================================================
+     technologies.serSubmitOne = function(technologiesEnterTextOne) {
+        if (technologiesEnterTextOne) {
+            technologies.saveTechnologyOne(technologiesEnterTextOne);
+        }
+    };
+ // =================================================================================================================
+    technologies.saveTechnologyOne = function(obj){
+        var saveObj = {},
+            isFind = false;
 
+        angular.forEach(technologies.categoriesMainList, function(element) {
+            if (element == obj.name) {
+                isFind = true;
+            }
+        });
+
+        if (!isFind) {
+            if (obj.name == null) {
+                            
+               
+                saveObj = {}; 
+                saveObj.name = obj;
+
+                Categories.save(saveObj, function (response) {
+                    technologies.categoriesMainList.push(response);
+                   technologies.userCV.tehcnologies.push(obj.id);
+                saveObj = {};
+                saveObj.tehcnologies = technologies.userCV.tehcnologies;
+                var CVPost = $resource(baseCVPath+'/'+technologies.user.userCV);
+                CVPost.save(saveObj, function (response) {
+                    console.log(response);
+                });
+                technologies.technologiesList.push(obj.name);
+
+                });
+            } else {
+                
+                technologies.userCV.tehcnologies.push(obj.id);
+                saveObj = {};
+                saveObj.tehcnologies = technologies.userCV.tehcnologies;
+                var CVPost = $resource(baseCVPath+'/'+technologies.user.userCV);
+                CVPost.save(saveObj, function (response) {
+                    console.log(response);
+                });
+                technologies.technologiesList.push(obj.name);
+            }
+        }
+    };
     // =================================================================================================================
     technologies.saveTechnology = function(obj){
         var saveObj = {},
