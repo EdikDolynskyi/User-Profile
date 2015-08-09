@@ -1,6 +1,6 @@
 angular.module('myApp').controller('technologiesCtrl', function($scope, technologies) {
-    $scope.technologiesMainList = technologies.technologiesMainList;
-    $scope.categoriesMainList = technologies.categoriesMainList;
+    $scope.listOfAllTechnologies = technologies.listOfAllTechnologies;
+    $scope.listOfAllCategories = technologies.listOfAllCategories;
     
     $scope.technologies = technologies;
 
@@ -17,6 +17,6 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
       
     };
 
-    $scope.technologiesList = technologies.technologiesList;
+    $scope.listOfUserTechnologies = technologies.listOfUserTechnologies;
 });
 
