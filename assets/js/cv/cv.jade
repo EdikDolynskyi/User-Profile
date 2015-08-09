@@ -23,7 +23,10 @@ script(type='text/ng-template', id='dropDownList.html').
                                    typeahead='tech as tech.name for tech in categoriesMainList | filter:{name:$viewValue}',
                                    typeahead-template-url='dropDownList.html')
         div.col-lg-8
-            pre.
-                \nlist={{technologiesList}}
-            pre.
-                \qwe={{technologies.technologyTypeShow}}
+          ul
+            li(ng-repeat="Categ in technologies.categoriesList") {{Categ.name}}
+              div(ng-repeat="Tech in technologies.technologiesList | filter: {category:Categ.id}") {{Tech.name}}
+//           pre.
+//                \nlist={{technologiesList}}
+//            pre.
+//                \qwe={{technologies.technologyTypeShow}}
