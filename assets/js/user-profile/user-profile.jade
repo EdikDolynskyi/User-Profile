@@ -1,1 +1,48 @@
-p {{text}} User Profile page!
+form.form-inline(ng-controller='UserProfileController')
+    .form-group
+        .container(style='padding-top: 60px;')
+            h1.page-header Edit Profile
+            .row
+                // left column
+                .col-md-4.col-sm-6.col-xs-12
+                    h3 Personal info
+                    form.form-horizontal(role='form')
+                        form.form-signin
+                            p.UP-edit-form-desc Name
+                            h3.UP-edit-form-data(contenteditable='true') {{user.name}}
+                            hr
+                            p.UP-edit-form-desc Surname
+                            h3.UP-edit-form-data(contenteditable='true') {{user.surname}}
+                            hr
+                            p.UP-edit-form-desc Country
+                            h3.UP-edit-form-data(contenteditable='true') {{user.country}}
+                            hr
+                            p.UP-edit-form-desc City
+                            h3.UP-edit-form-data(contenteditable='true') {{user.city}}
+                            hr
+                            p.UP-edit-form-desc Email
+                            h3.UP-edit-form-data(contenteditable='true') {{user.email}}
+                            hr
+                            p.UP-edit-form-desc Password
+                            input.UP-edit-form-data.input-custom(type='password', contenteditable='true') 
+                            hr
+                            p.UP-edit-form-desc Birthday
+                            .input-group
+                            //- input.form-control(type='text', datepicker-popup="dd-mm-yyyy", data-date='{{user.birthday}}', ng-model='date', is-open='opened', min-date='minDate', max-date="'2020-06-22'", datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+                                span.input-group-btn
+                                  button.btn.btn-default(type='button', ng-click='openDatepicker($event)')
+                                        i.glyphicon.glyphicon-calendar
+                            //- #dp3.input-append.date.UP-edit-form-data(data-date='12-02-2012', data-date-format='dd-mm-yyyy')
+                                input.datepicker(type='text', name='date')
+                                span.add-on
+                                    i.icon-th
+                            form
+                                input.input-custom(type='date', data-date='{{user.birthday}}')
+                            p
+                            input.btn.btn-primary.btn-custom(value='Update', type='button', ng-click='updateUserData()')
+                            span
+                            input.btn.btn-default.btn-custom(value='Cancel', type='reset')
+                .col-md-6.col-sm-6.col-xs-12.personal-info
+                    img.avatar.img-thumbnail(src='images/Unknown.png', alt='avatar')
+                    h6 Upload another photo...
+                    input.btn.btn-default.btn-file(type='file', ng-click='uploadFile($event)')
