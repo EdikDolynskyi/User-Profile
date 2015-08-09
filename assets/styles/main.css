@@ -139,3 +139,6 @@ input {font:small-caption;font-size:18px;}
     cursor: inherit;
     display: block;
 }
+.avatar {
+	width: 50%;
+}

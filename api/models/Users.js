@@ -45,8 +45,7 @@ module.exports = {
             required: true
         },
         avatar: {
-            urlAva: 'string',
-            thumbnailUrlAva: 'string'
+            type: 'json'
         },
         userCV: {
             type: 'string',

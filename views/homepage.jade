@@ -4,12 +4,7 @@ html(ng-app='myApp')
         base(href="/")
         meta(charset='UTF-8')
         title User Profile
-
         // STYLES
-        link(rel="stylesheet", href="styles/cv/cv.css")
-        link(rel="stylesheet", href="styles/dependencies/bootstrap.css")
-        link(rel="stylesheet", href="styles/main.css")
-        link(rel="stylesheet", href="styles/src.css")
         // STYLES END
     body
         header
@@ -17,15 +12,14 @@ html(ng-app='myApp')
                 .col-lg-2
                 .col-lg-10
         main.container-fluid
-            .row(ng-controller='TabsCtrl') 
+            .row(ng-controller='TabsCtrl')
                 #nav.col-lg-2.col-lg-offset-2
                     div
                         tabset(vertical="true")
                             tab(ng-repeat='tab in tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled', select="changeHash(tab.href)")
-                .col-lg-6.article(ng-view) 
+                .col-lg-6.article(ng-view)
         footer
             .container-fluid
                 .row
-
-
-                                                                        
+        // SCRIPTS
+        // SCRIPTS END
