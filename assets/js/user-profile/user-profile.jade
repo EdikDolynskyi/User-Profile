@@ -1,4 +1,4 @@
-form.form-inline
+form.form-inline(ng-controller='UserProfileController')
     .form-group
         .container(style='padding-top: 60px;')
             h1.page-header Edit Profile
@@ -8,27 +8,27 @@ form.form-inline
                     h3 Personal info
                     form.form-horizontal(role='form')
                         form.form-signin
-                            //|{{user.name}}
                             p.UP-edit-form-desc Name
-                            h3.UP-edit-form-data(contenteditable='true') Ivan
+                            h3.UP-edit-form-data(contenteditable='true') {{user.name}}
                             hr
                             p.UP-edit-form-desc Surname
-                            h3.UP-edit-form-data(contenteditable='true') Ivanovych
+                            h3.UP-edit-form-data(contenteditable='true') {{user.surname}}
                             hr
                             p.UP-edit-form-desc Country
-                            h3.UP-edit-form-data(contenteditable='true') Ukraine
+                            h3.UP-edit-form-data(contenteditable='true') {{user.country}}
                             hr
                             p.UP-edit-form-desc City
-                            h3.UP-edit-form-data(contenteditable='true') Lviv
+                            h3.UP-edit-form-data(contenteditable='true') {{user.city}}
                             hr
                             p.UP-edit-form-desc Email
-                            h3.UP-edit-form-data(contenteditable='true') iivanov@gmail.com
+                            h3.UP-edit-form-data(contenteditable='true') {{user.email}}
                             hr
                             p.UP-edit-form-desc Password
-                            input.UP-edit-form-data(type='password', contenteditable='true')
+                            input.UP-edit-form-data.input-custom(type='password', contenteditable='true') 
+                            hr
                             p.UP-edit-form-desc Birthday
                             .input-group
-                                input.form-control(type='text', datepicker-popup="dd-MMMMM-yyyy", ng-model='date', is-open='opened', min-date='minDate', max-date="'2020-06-22'", datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+                            //- input.form-control(type='text', datepicker-popup="dd-mm-yyyy", data-date='{{user.birthday}}', ng-model='date', is-open='opened', min-date='minDate', max-date="'2020-06-22'", datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
                                 span.input-group-btn
                                   button.btn.btn-default(type='button', ng-click='openDatepicker($event)')
                                         i.glyphicon.glyphicon-calendar
@@ -36,10 +36,13 @@ form.form-inline
                                 input.datepicker(type='text', name='date')
                                 span.add-on
                                     i.icon-th
-                            input.btn.btn-primary(value='Save Changes', type='button')
+                            form
+                                input.input-custom(type='date', data-date='{{user.birthday}}')
+                            p
+                            input.btn.btn-primary.btn-custom(value='Update', type='button', ng-click='updateUserData()')
                             span
-                            input.btn.btn-default(value='Cancel', type='reset')
+                            input.btn.btn-default.btn-custom(value='Cancel', type='reset')
                 .col-md-6.col-sm-6.col-xs-12.personal-info
                     img.avatar.img-thumbnail(src='images/Unknown.png', alt='avatar')
-                    h6 Upload a different photo...
-                    input.text-center.well.well-sm(type='file')
+                    h6 Upload another photo...
+                    input.btn.btn-default.btn-file(type='file', ng-click='uploadFile($event)')

@@ -60,6 +60,7 @@ footer{
   color: #333 !important;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.19);
   -webkit-font-smoothing: antialiased;
+  margin: 5px;
 }
 
 hr {
@@ -101,6 +102,10 @@ img {
 .text-center{
 	width: 30%;
 }
+.input-custom{
+  height: 30px;
+  width: 50%;
+}
 h3 {
 	margin-top: -10px;
 }
@@ -111,4 +116,26 @@ hr{
 .btn{
 	margin-top: 10%;
 	margin-bottom: 10%;
+}
+input {font:small-caption;font-size:18px;}
+
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+     width: 35%;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 10%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }

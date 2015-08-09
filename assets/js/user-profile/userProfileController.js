@@ -4,13 +4,20 @@ app.controller('UserProfileController', ['$scope', 'UserProfileService', userCtr
 
 function userCtrl($scope, UserProfileService) {
 
-    UserProfileService.resUser().query(function( user ) {
+    UserProfileService.resUser().get(function( user ) {
         $scope.user = user;
     });
 
+    $scope.updateUserData = function (argument) {
+    	// body...
+    };
+
+    $scope.uploadFile = function($event) {
+	 	// $('input[type=file]').bootstrapFileInput();
+		// $('.file-inputs').bootstrapFileInput();
+	};
 
 	$scope.openDatepicker = function($event) {
 		$scope.opened = true;
 	};
-
 }
