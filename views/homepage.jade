@@ -6,8 +6,11 @@ html(ng-app='myApp')
         title User Profile
 
         // STYLES
+        link(rel="stylesheet", href="js/dependencies/bootstrap.css")
+        link(rel="stylesheet", href="styles/dependencies/bootstrap.css")
         link(rel="stylesheet", href="styles/importer.css")
         link(rel="stylesheet", href="styles/main.css")
+        link(rel="stylesheet", href="styles/src.css")
         // STYLES END
     body
         header
@@ -26,6 +29,11 @@ html(ng-app='myApp')
                 .row
 
         // SCRIPTS
+        script(src="js/dependencies/angular.min.js")
+        script(src="js/dependencies/angular.resource.js")
+        script(src="js/dependencies/angular.route.min.js")
         script(src="js/dependencies/sails.io.js")
+        script(src="js/dependencies/ui-bootstrap-tpls.js")
+        script(src="js/main.js")
         // SCRIPTS END
                                                                         
