@@ -3,12 +3,14 @@ angular.module('myApp').service('technologies', function($resource){
         baseCVPath = '/api/cvs',
         User = $resource('/api/users'),
         CV = $resource(baseCVPath),
+        Categories = $resource('/api/categories'),
         Technology = $resource('/api/technologies');
 
     // =================================================================================================================
     technologies.technologiesMainList = Technology.query();
+    technologies.categoriesMainList = Categories.query();
     technologies.technologiesList = [];
-    technologies.technologyTypeShow = true;
+    technologies.technologyTypeShow = false;
 
     // =================================================================================================================
     technologies.user = User.get({id:"55c38b5a956240ba4c6a5f24"});
@@ -48,13 +50,13 @@ angular.module('myApp').service('technologies', function($resource){
             if (obj.name == null) {
                 // HERE WE MUST ADD TECH TO USER COLLECTION
                 // BUT BEFORE SELECT CATEGORY FOR THIS TECH
-                technologies.technologyTypeShow = false;
-                alert('DO YOU WANT ADD NEW TECH?');
+                technologies.technologyTypeShow = true;
+                //alert('DO YOU WANT ADD NEW TECH?');
                 technologies.technologiesList.push(obj);
-                saveObj.name = obj;
-                Technology.save(saveObj, function (response) {
-                    technologies.technologiesMainList.push(response);
-                });
+                //saveObj.name = obj;
+                //Technology.save(saveObj, function (response) {
+                //    technologies.technologiesMainList.push(response);
+                //});
             } else {
                 //HERE WE MUST ADD TECH TO USER COLLECTION
                 technologies.userCV.tehcnologies.push(obj.id);

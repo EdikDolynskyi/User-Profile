@@ -15,12 +15,12 @@ script(type='text/ng-template', id='dropDownList.html').
                                    typeahead='tech as tech.name for tech in technologiesMainList | filter:{name:$viewValue}',
                                    typeahead-template-url='dropDownList.html')
             form(ng-submit='submitOne(technologyTypeEnterText)')
-                input.form-control(ng-show="technologiesMainList.technologyTypeShow",
+                input.form-control(ng-show="technologies.technologyTypeShow",
                                    type='text',
                                    ng-model='technologyTypeEnterText',
                                    name='technologyTypeEnterText',
                                    placeholder='Enter technology type name',
-                                   typeahead='tech as tech.name for tech in technologiesMainList | filter:{name:$viewValue}',
+                                   typeahead='tech as tech.name for tech in categoriesMainList | filter:{name:$viewValue}',
                                    typeahead-template-url='dropDownList.html')
         div.col-lg-8
             pre.
