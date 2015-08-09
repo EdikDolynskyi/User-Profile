@@ -1,1 +1,29 @@
-p {{text}} CV page!
+script(type='text/ng-template', id='dropDownList.html').
+    <a>
+    <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+
+.container-fluid(ng-controller='technologiesCtrl')
+    div.row
+        div.col-lg-4
+            h4 Technologies
+            form(ng-submit='submit(technologiesEnterText)')
+                input.form-control(type='text',
+                                   ng-model="technologiesEnterText",
+                                   name="technologiesEnterText",
+                                   placeholder='Enter technology name',
+                                   typeahead='tech as tech.name for tech in technologiesMainList | filter:{name:$viewValue}',
+                                   typeahead-template-url='dropDownList.html')
+            form(ng-submit='submitOne(technologyTypeEnterText)')
+                input.form-control(ng-show="technologiesMainList.technologyTypeShow",
+                                   type='text',
+                                   ng-model='technologyTypeEnterText',
+                                   name='technologyTypeEnterText',
+                                   placeholder='Enter technology type name',
+                                   typeahead='tech as tech.name for tech in technologiesMainList | filter:{name:$viewValue}',
+                                   typeahead-template-url='dropDownList.html')
+        div.col-lg-8
+            pre.
+                \nlist={{technologiesList}}
+            pre.
+                \qwe={{technologies.technologyTypeShow}}
