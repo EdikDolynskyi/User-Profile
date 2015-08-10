@@ -1,0 +1,39 @@
+script(type='text/ng-template', id='dropDownList.html').
+    <a>
+    <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+
+.container-fluid(ng-controller='technologiesCtrl')
+  div.row.technologies
+    div.col-lg-4
+        h4 Technologies
+        form(ng-submit='submit(technologiesEnterText)')
+            input.form-control(type='text',
+                               ng-model="technologiesEnterText",
+                               name="technologiesEnterText",
+                               placeholder='Enter technology name',
+                               typeahead='tech as tech.name for tech in listOfAllTechnologies | filter:{name:$viewValue}',
+                               typeahead-template-url='dropDownList.html')
+        form(ng-submit='submitOne(technologyTypeEnterText)')
+            input.form-control(ng-show="technologies.technologyTypeShow",
+                               type='text',
+                               ng-model='technologyTypeEnterText',
+                               name='technologyTypeEnterText',
+                               placeholder='Enter technology type name',
+                               typeahead='tech as tech.name for tech in listOfAllCategories | filter:{name:$viewValue}',
+                               typeahead-template-url='dropDownList.html')
+    div.col-lg-8
+      ul
+        li.Categories(ng-repeat="Categ in technologies.categoriesList") {{Categ.name}}
+           button.tehButton(ng-repeat="Tech in technologies.listOfUserTechnologies | filter: {category:Categ.id}") {{Tech.name}}
+  .row.project
+    accordion(close-others='oneAtATime = true')
+      
+      accordion-group(heading='{{group.title}}', ng-repeat='group in groups')
+        | {{group.content}}
+     
+      accordion-group(is-open='status.open')
+        accordion-heading
+          | add new Project
+          i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
+        |         This is just some content to illustrate fancy headings.

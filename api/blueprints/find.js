@@ -1,7 +1,6 @@
 /**
  * Module dependencies
  */
-
 var actionUtil = require('sails/lib/hooks/blueprints/actionUtil');
 //  _ = require('lodash');
 
@@ -51,7 +50,6 @@ module.exports = function findRecords (req, res) {
 
     // Only `.watch()` for new instances of the model if
     // `autoWatch` is enabled.
-
     if (req._sails.hooks.pubsub && req.isSocket) {
       Model.subscribe(req, matchingRecords);
       if (req.options.autoWatch) { Model.watch(req); }

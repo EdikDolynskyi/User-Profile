@@ -1,0 +1,23 @@
+{
+  "name": "user-profile",
+  "version": "0.0.0",
+  "homepage": "https://github.com/BinaryStudioAcademy/bsa-2015-user-profile",
+  "authors": [
+    "Boris-Vladimirovich <tuxoh992@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.13.2",
+    "angular-resource": "~1.4.3"
+  }
+}

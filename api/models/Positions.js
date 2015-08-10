@@ -8,12 +8,13 @@
 module.exports = {
     connection: 'mongo',
     attributes: {
-        positionName: {
-            type: 'string'
+        name: {
+            type: 'string',
+            unique: true
         },
         isDeleted: {
             type: 'boolean',
-            defaultsTo : false
+            defaultsTo: false
         }
     }
 };

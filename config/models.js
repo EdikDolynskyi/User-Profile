@@ -19,7 +19,13 @@ module.exports.models = {
   ***************************************************************************/
 
   connection: 'mongo',
-
+  attributes: {
+    isDeleted: { 
+        type: 'boolean',
+        columnName: 'isDeleted',
+        defaultsTo: false
+    }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -29,14 +35,8 @@ module.exports.models = {
   * See http://sailsjs.org/#/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-  // migrate: 'alter'
-  attributes: {
 
-    isDeleted: {
-      type : 'boolean',
-      // columnName : 'isDeleted',
-      required : true,
-      defaultsTo : false
-    }
-  }
+  migrate: 'alter'
+
 };
+
