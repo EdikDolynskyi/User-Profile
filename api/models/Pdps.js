@@ -14,6 +14,7 @@ module.exports = {
         certification: "array",
         userTasks: "array",
         userTests: "array",
+        technologies: "array",
         isDeleted: {
             type: 'boolean',
             defaultsTo: false
