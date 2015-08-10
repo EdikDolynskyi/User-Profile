@@ -12,18 +12,17 @@ script(type='text/ng-template', id='dropDownList.html').
                                    ng-model="technologiesEnterText",
                                    name="technologiesEnterText",
                                    placeholder='Enter technology name',
-                                   typeahead='tech as tech.name for tech in technologiesMainList | filter:{name:$viewValue}',
+                                   typeahead='tech as tech.name for tech in listOfAllTechnologies | filter:{name:$viewValue}',
                                    typeahead-template-url='dropDownList.html')
             form(ng-submit='submitOne(technologyTypeEnterText)')
-                input.form-control(ng-show="technologiesMainList.technologyTypeShow",
+                input.form-control(ng-show="technologies.technologyTypeShow",
                                    type='text',
                                    ng-model='technologyTypeEnterText',
                                    name='technologyTypeEnterText',
                                    placeholder='Enter technology type name',
-                                   typeahead='tech as tech.name for tech in technologiesMainList | filter:{name:$viewValue}',
+                                   typeahead='tech as tech.name for tech in listOfAllCategories | filter:{name:$viewValue}',
                                    typeahead-template-url='dropDownList.html')
         div.col-lg-8
-            pre.
-                \nlist={{technologiesList}}
-            pre.
-                \qwe={{technologies.technologyTypeShow}}
+          ul
+            li(ng-repeat="Categ in technologies.categoriesList") {{Categ.name}}
+               button.tehButton(ng-repeat="Tech in technologies.listOfUserTechnologies | filter: {category:Categ.id}") {{Tech.name}}
