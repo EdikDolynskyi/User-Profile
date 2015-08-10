@@ -13,46 +13,12 @@
             });
         };
 
-        vm.items = ['Item 1', 'Item 2', 'Item 3'];
 
-        
         vm.status = {
             isCertificatesOpen: true,
             isAchievementsOpen: true,
             isStepsOpen: true
         };
-        vm.achievements =  [
-            {
-                name: 'Some achievement',
-                img: 'http://placehold.it/140x100'
-            },
-            {
-                name: 'Some achievement',
-                img: 'http://placehold.it/140x100'
-            },
-            {
-                name: 'Some achievement',
-                img: 'http://placehold.it/140x100'
-            },
-            {
-                name: 'Some achievement',
-                img: 'http://placehold.it/140x100'
-            },
-            {
-                name: 'Some achievement',
-                img: 'http://placehold.it/140x100'
-            },
-            {
-                name: 'Some achievement',
-                img: 'http://placehold.it/140x100'
-            },
-            {
-                name: 'Some achievement',
-                img: 'http://placehold.it/140x100'
-            }
-            
-        ];
-
 
     });
 
