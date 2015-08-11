@@ -5,39 +5,46 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var path = require('path');
+var mime = require('mime');
+var fs = require('fs');
+var filesFolder = __dirname + '../../../upload';
 
 module.exports = {
     upload: function (req, res) {
         if (req.method === 'GET')
             return res.json({'status': 'GET not allowed'});
-        //	Call to /upload via GET is error
 
-        var uploadFile = req.file('uploadFile');
-        //Use this to upload to custom folder
-        //If you don't want this remove {dirname: ''}
-        //There are other options also .Check at skipper docs
+        var uploadFile = req.file('file');
 
-        //If dirname is not set the upload will be done to ./tmp/uploads
         uploadFile.upload(
             {
-                dirname: '../../upload',
-                saveAs: function (file, cb) {
-                    var filename = file.filename,
-                        newName = req.param('id') + path.extname(filename);
-                    return cb(null, newName);
-                }
+                dirname: filesFolder
             },
-            function onUploadComplete(err, files) {
-                // Files will be uploaded to /assets/images/
-                // Access the files via localhost:1337/images/yourfilename
-
+            function (err, files) {
                 if (err) return res.serverError(err);
-                //	IF ERROR Return and send 500 error with error
 
-                res.json({status: 200, file: files});
-                //This will print the details including new file name upload path etc
+                var filepath = files[0].fd;
+
+                res.json({status: 200, file: path.basename(filepath)});
             }
         );
+    },
+    get: function (req, res) {
+        var filename = path.basename(req.url);
+        var filepath = path.join(filesFolder, filename);
+
+        fs.exists(filepath, function (exists) {
+            if (!exists) {
+                res.statusCode = 404;
+                res.end();
+                return;
+            }
+            var mimetype = mime.lookup(filepath);
+            res.setHeader('Content-Type', mimetype);
+
+            var filestream = fs.createReadStream(filepath);
+            filestream.pipe(res);
+        });
     }
 };
 

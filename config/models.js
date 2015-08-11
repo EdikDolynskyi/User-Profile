@@ -19,13 +19,13 @@ module.exports.models = {
   ***************************************************************************/
 
   connection: 'mongo',
-  attributes: {
-    isDeleted: { 
-        type: 'boolean',
-        columnName: 'isDeleted',
-        defaultsTo: false
-    }
-  },
+  //attributes: {
+  //  isDeleted: {
+  //      type: 'boolean',
+  //      columnName: 'isDeleted',
+  //      defaultsTo: false
+  //  }
+  //},
 
   /***************************************************************************
   *                                                                          *

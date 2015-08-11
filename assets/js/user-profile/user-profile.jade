@@ -1,4 +1,4 @@
-form(ng-controller="UserProfileController as ctrl", class="container-fluid")
+div(ng-controller="UserProfileController as ctrl", class="container-fluid")
     h3(class="col-md-12",style="margin-bottom: 0") Personal info
         p
         hr
@@ -59,7 +59,8 @@ form(ng-controller="UserProfileController as ctrl", class="container-fluid")
     .col-md-6.col-sm-6.col-xs-12.personal-info
         img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
         h6 Upload a different photo...
-        input.text-center.well.well-sm(type='file')
+        .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Upload on file change
+        //input.text-center.well.well-sm(type='file')
 
     .col-md-12.form-group
         input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)
