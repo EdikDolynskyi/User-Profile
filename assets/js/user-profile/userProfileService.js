@@ -15,6 +15,6 @@ function UserProfileService($resource) {
         }).update({id: user.id}, user, cb);
     },
     this.getAvatarUrl = function(filename) {
-        return '/api/file/get/' + filename;
+        return '/api/files/get/' + filename;
     }
 }

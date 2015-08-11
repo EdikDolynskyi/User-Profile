@@ -25,7 +25,7 @@ function userCtrl($scope, service, upload) {
     this.upload = function (file) {
         if (file) {
             upload.upload({
-                url: '/api/file/upload',
+                url: '/api/files/upload',
                 file: file
             }).success(function (data) {
                 ctrl.user.avatar.urlAva = service.getAvatarUrl(data.file);
