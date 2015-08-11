@@ -5,43 +5,62 @@ var async=require('async');
 module.exports = {
 
 	getUserCV:function(id, res, callback){
-		console.log(id, "id");
 		Users
 			.findOne(id)
 			.populate('userCV')
-			.exec(function (err, itemCV){
-			    															console.log(itemCV, "cvItem");
-			    async.map(itemCV.userCV.projects, function (project, callback){
-			    											// 	console.log(itemCV.userCV.projects, 'Продж');
-            		Projects
-            		.find({id:project})
-            		.populateAll()
-            		.exec(function (err, itemProj){
-            			async.map(itemProj.technologies, function (techn, callback){
-            				Technologies
-            				.find({id:techn})
-            				.populateAll()
-            				.exec(function (errProjects, TechnItem){
-               		 			if(errTechn){return callback(errTechn)};
-               				 callback(null, TechnItem);
-               				 	console.log(TechnItem);
-            			});
-            		});
-               				 												
-            }),
-			        
-			        function (errFromIterator, results){
-			            if(errFromIterator){res.serverError()};
+			.exec(function (err, itemCV) {
 
-			            var itemCVoJSON = itemCV.toJSON();
+				async.map(itemCV.userCV.projects,
+					function (project, callback) {
 
-			            itemCVoJSON = results;
-			            													 console.log(results, 'result');
-			            // var clone = _.clone(itemPostToJSON);
-			            // 													console.log(clone);
-			            callback(err, results);
-			        }
-			    });
+						Projects
+							.find({id:project})
+							.populateAll()
+							.exec(function (err, itemProj){
+
+								async.map(itemProj[0].technologies,
+									function (technology, callback) {
+
+										Technologies
+											.find({id:technology})
+											.populateAll()
+											.exec(function (errProjects, TechnItem){
+
+												//if(errTechn){return callback(errTechn)}
+												//callback(null, TechnItem);
+												console.log(TechnItem);
+											});
+
+									},
+									function (errFromIterator, results){
+										if(errFromIterator){res.serverError()}
+
+										var itemCVoJSON = itemCV.toJSON();
+
+										itemCVoJSON = results;
+										console.log(results, 'result');
+										// var clone = _.clone(itemPostToJSON);
+										// 													console.log(clone);
+										callback(err, results);
+									}
+								)
+							});
+
+
+					},
+					function (errFromIterator, results){
+						if(errFromIterator){res.serverError()};
+
+						var itemCVoJSON = itemCV.toJSON();
+
+						itemCVoJSON = results;
+						console.log(results, 'result');
+						// var clone = _.clone(itemPostToJSON);
+						// 													console.log(clone);
+						callback(err, results);
+					}
+				)
+
 			});
 	}
 };
