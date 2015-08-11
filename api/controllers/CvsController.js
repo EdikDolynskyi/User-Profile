@@ -7,4 +7,13 @@
 
 module.exports = {
 
+	findOne : function(req, res){
+		servProject.getUserCV(req.param('id'), res, function(err, data){
+			if(err){
+				res.send(err);
+			}else{
+				res.send(data);
+			}
+		});
+	}
 };

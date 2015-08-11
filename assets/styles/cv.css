@@ -3,6 +3,7 @@ li {
 }
 .technologies {
     border-bottom: 2px solid grey;
+    margin-bottom: 10px;
 }
 .Categories{
 	border: 1px solid grey;

@@ -8,14 +8,14 @@ script(type='text/ng-template', id='dropDownList.html').
     div.col-lg-4
         h4 Technologies
         form(ng-submit='submit(technologiesEnterText)')
-            input.form-control(type='text',
+          input.form-control(type='text',
                                ng-model="technologiesEnterText",
                                name="technologiesEnterText",
                                placeholder='Enter technology name',
                                typeahead='tech as tech.name for tech in listOfAllTechnologies | filter:{name:$viewValue}',
                                typeahead-template-url='dropDownList.html')
         form(ng-submit='submitOne(technologyTypeEnterText)')
-            input.form-control(ng-show="technologies.technologyTypeShow",
+          input.form-control(ng-show="technologies.technologyTypeShow",
                                type='text',
                                ng-model='technologyTypeEnterText',
                                name='technologyTypeEnterText',
@@ -23,17 +23,22 @@ script(type='text/ng-template', id='dropDownList.html').
                                typeahead='tech as tech.name for tech in listOfAllCategories | filter:{name:$viewValue}',
                                typeahead-template-url='dropDownList.html')
     div.col-lg-8
+      rating(ng-model="filtrRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']")
       ul
         li.Categories(ng-repeat="Categ in technologies.categoriesList") {{Categ.name}}
            button.tehButton(ng-repeat="Tech in technologies.listOfUserTechnologies | filter: {category:Categ.id}") {{Tech.name}}
+              br
+              rating(ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']") 
   .row.project
     accordion(close-others='oneAtATime = true')
       
-      accordion-group(heading='{{group.title}}', ng-repeat='group in groups')
-        | {{group.content}}
+      accordion-group(heading='{{project.name}}', ng-repeat='project in projects')
+        | {{project.productowner}}{{project.description}}
+        .technologiesUsedProject(ng-repeat = "technInProj in projectTehnologies") {{technInProj.name}}
      
       accordion-group(is-open='status.open')
         accordion-heading
           | add new Project
           i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
         |         This is just some content to illustrate fancy headings.
+//- , rate:filtrRate

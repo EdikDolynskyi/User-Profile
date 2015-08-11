@@ -1,4 +1,4 @@
-angular.module('myApp').controller('technologiesCtrl', function($scope, technologies) {
+angular.module('myApp').controller('technologiesCtrl', function($scope, technologies, ProjectServ) {
     $scope.listOfAllTechnologies = technologies.listOfAllTechnologies;
     $scope.listOfAllCategories = technologies.listOfAllCategories;
     
@@ -16,24 +16,14 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
             $scope.technologiesEnterText = '';
       
     };
-
+    $scope.rate = 1;
+  	$scope.max = 5;
+ 	$scope.filtrRate=1;
     $scope.listOfUserTechnologies = technologies.listOfUserTechnologies;
-    $scope.groups = [
-    {
-      title: 'some project',
-      content: 'Project - 1'
-    },
-    {
-      title: 'some project',
-      content: 'Project - 2'
-    },
-    {
-      title: 'some project',
-      content: 'Project - 2'
-    },{
-      title: 'some project',
-      content: 'Project - 2'
-    }
-  ];
+ //=================PROJECT================================================================================================================================================================================
+    $scope.projects = ProjectServ.listOfUserProjects;
+    $scope.projectTehnologies = ProjectServ.projectTehnologies;
+    
+
 });
 

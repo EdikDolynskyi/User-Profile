@@ -18,6 +18,8 @@
     "angular-route": "~1.4.3",
     "bootstrap": "~3.3.5",
     "angular-bootstrap": "~0.13.2",
-    "angular-resource": "~1.4.3"
+    "angular-resource": "~1.4.3",
+    "async": "~1.4.2",
+    "underscore": "~1.8.3"
   }
 }
