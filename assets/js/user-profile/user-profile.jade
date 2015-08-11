@@ -28,13 +28,13 @@ div(ng-controller="UserProfileController as ctrl", class="container-fluid")
             label Gender
                 p
                 .radio.radio-info.radio-inline
-                input#inlineRadio1(ng-model="ctrl.user.gender", type='radio', value='option1', name='radioInline')
+                input#inlineRadio1(ng-model="ctrl.user.gender", type='radio', value='male', name='radioInline')
                 label(for='inlineRadio1')
                     span.glyphicon.glyphicon-user(aria-hidden='true')
                     |  Male
                 .radio.radio-inline
-                input#inlineRadio2(ng-model="ctrl.user.gender", type='radio', value='option2', name='radioInline')
-                label(for='inlineRadio1')
+                input#inlineRadio2(ng-model="ctrl.user.gender", type='radio', value='female', name='radioInline')
+                label(for='inlineRadio2')
                     span.glyphicon.glyphicon-heart(aria-hidden='true')
                     |  Female
 
