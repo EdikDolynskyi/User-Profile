@@ -1,4 +1,4 @@
-angular.module('myApp').service('technologies', function($resource){
+п»їangular.module('myApp').service('technologies', function($resource){
     var T = {},
         baseCVPath = '/api/cvs',
         baseTechPath = '/api/technologies',
@@ -16,21 +16,21 @@ angular.module('myApp').service('technologies', function($resource){
     T.techName = '';
 
     // =================================================================================================================
-    // Получаем юзера
+
     T.user = User.get({id:"55c38b5a956240ba4c6a5f24"});
     T.user.$promise.then(function (resultUser) {
         T.user = resultUser;
-        // получаем CV юзера
+
         T.userCV = CV.get({id:T.user.userCV});
         T.userCV.$promise.then(function (resultCV) {
             T.userCV = resultCV;
 
             angular.forEach(T.userCV.tehcnologies, function(element) {
-                // получаем технологии юзера
+
                 T.technology = Technology.get({id:element});
                 T.technology.$promise.then(function (resultTech) {
                     T.listOfUserTechnologies.push(resultTech);
-                    // получаем категории технологии
+
                     T.category = Categories.get({id:resultTech.category});
                     T.category.$promise.then(function (resultCategory){
                         var isFind  = false;
@@ -144,7 +144,7 @@ angular.module('myApp').service('technologies', function($resource){
                 });
 
                 if (!isFindCategory) {
-                    // получаем категории технологии
+
                     T.category = Categories.get({id:obj.category});
                     T.category.$promise.then(function (resultCategory){
                         T.categoriesList.push(resultCategory);

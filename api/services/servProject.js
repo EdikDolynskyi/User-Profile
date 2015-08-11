@@ -1,77 +1,84 @@
 var async = require('async');
 
 module.exports = {
-getUserCV : function(id, res, callback){
-	async.waterfall([
-		// function(callback){
-		// 	callback(id, res, callback);
-		// },
-			function (callback){     //getUserProj:
-		
-// console.log(id,'************************************************');		        
-					Users
-						.findOne(id)
-						.populate('userCV')
-						.exec(function (err, itemCV) {
-// console.log(itemCV, '///////////////////////////////////////////////////////');
-			                async.map(itemCV.userCV.projects,
-								function (project, callback) {
-
-									Projects
-										.findOne(project)
-										.exec(function (err, itemProject){
-			                                 
-			                                callback(null, itemProject);
-										});
-
-
-								},
-								function (errFromIterator, results){
-									if(errFromIterator){
-			                            res.serverError();
-			                        }
-
-									callback(null, results);
-								}
-							);
-
-						});
-				},// getUserProj
-			    
-			    function ( projectItem,  callback){		// getProjectTechnologies :
-			    	// console.log(projectItem);
-			        async.map(projectItem,
-			            function (project, callback) {
-			            		 
-			            	async.map(project.technologies,
-			            		function (techn, callback){
-			            			Technologies
-					                    .findOne(techn)
-					                    .exec(function (errTechn, TechnItem){
-					                        if(errTechn){
-					                            return callback(errTechn);
-					                        }
-					                        callback(null, TechnItem);
-					                        console.log(TechnItem);
-			                    		});
-			            		});
-			              console.log(project);
-
-			            },
-			            function (errFromIterator, projectItem, results){
-			                if(errFromIterator){
-			                    res.serverError();
-			                }
-			                callback(null, results, projectItem);
-			            }
-			        );
-			    }],
-
-			    function ( results, projectItem){
-			    	
-			    			    	callback(results);
-			    });	// getProjectTechnologies
-		
+    getUserCV : function(id, callback){
+        Users
+            .findOne({id: id })
+            .populate('userCV')
+            .exec(function (err, projects) {  
+                async.parallel([
+                    getUserProjects.bind(null,projects),
+                    getUserTechnologies.bind(null,projects),
+                    ],
+                    callback.bind(null,null, projects)
+                ); //async.parallel
+        }); //Users.exec        
     } //getUserCV
+}; //module.exports
     
-};
+
+    function getUserProjects(projects, asyncCallback){   
+        async.map(projects.userCV.projects, 
+            function (id, callback){
+                Projects
+                    .findOne(id)
+                    .exec(function (err, item){
+                        if(err){return 
+                            callback(err);
+                        }
+                        async.parallel([                            
+                            getProjectTechnologies.bind(null,item),
+                            ],
+                            callback.bind(null,null, item)
+                        ); //async.parallel
+                    });
+            },
+            function (errFromIterator, results){
+                if(errFromIterator){
+                    res.serverError();
+                } else {
+                    projects.userCV.projects = results;
+                }         
+                asyncCallback(null);
+            });
+    }   
+
+    function getProjectTechnologies(project, asyncCallback){
+        async.map(project.technologies, 
+            function (id, callback){
+                Technologies
+                    .findOne(id)
+                    .exec(function (err, item){
+                        if(err){return callback(err);}
+                            callback(null, item);
+                        });
+            },
+            function (errFromIterator, results){
+                if(errFromIterator){
+                    res.serverError();
+                } else {
+                    project.technologies = results;
+                }         
+                asyncCallback(null);
+            });
+    } 
+    
+    function getUserTechnologies(projects, asyncCallback){   
+        async.map(projects.userCV.tehcnologies, 
+            function (id, callback){
+                Technologies
+                    .findOne(id)
+                    .exec(function (err, item){
+                        if(err){return callback(err);}
+                            callback(null, item);
+                        });
+            },
+            function (errFromIterator, results){
+                if(errFromIterator){
+                    res.serverError();
+                } else {
+                    projects.userCV.tehcnologies = results;
+                }         
+                asyncCallback(null);
+            });
+    }
