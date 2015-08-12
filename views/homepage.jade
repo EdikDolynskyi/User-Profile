@@ -11,6 +11,13 @@ html(ng-app='myApp')
             .container-fluid
                 .col-lg-2
                 .col-lg-10
+                    .container-fluid
+                        .col-lg-10
+                        .col-lg-2
+                            .input-group
+                                input.form-control(type='text', placeholder='Search for...')
+                                span.input-group-btn
+                                    button.btn.btn-default(type='button') Go!
         main.container-fluid
             .row(ng-controller='TabsCtrl')
                 #nav.col-lg-2.col-lg-offset-2

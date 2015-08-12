@@ -2,12 +2,12 @@ body{
 	background-color: #ddd;
 }
 header{
-height: 150px;
+height: 70px;
 background-color: gray;
 }
 header>.container-fluid>.col-lg-2{
 	background-color: #ffa500;
-	height: 150px;
+	height: 70px;
 }
 .nav-tabs > li > a{
 	background-color: #ffa500;
@@ -142,3 +142,4 @@ input {font:small-caption;font-size:18px;}
 .avatar {
 	width: 40%;
 }
+
