@@ -8,18 +8,16 @@
 module.exports = {
     connection: 'mongo',
     attributes: {
-        // position: "string",
         position: {
             model: 'Positions'
         },
-        // direction: "string",
         direction: {
             model: 'Directions'
         },
         achievements: "array",
-        certification: "array",
-        userTasks: "array",
-        userTests: "array",
+        certifications: "array",
+        tasks: "array",
+        tests: "array",
         technologies: "array",
         isDeleted: {
             type: 'boolean',
