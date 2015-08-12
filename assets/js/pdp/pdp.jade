@@ -1,12 +1,12 @@
 div.pdp(ng-controller='PdpController as pdp')
     h4 Position
-    span.prettyBadge {{pdp.userPDP.position}}
+    span.prettyBadge {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
     accordion
         accordion-group(is-open='pdp.status.isAchievementsOpen')
             accordion-heading
               | Achievements
               i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isAchievementsOpen, 'glyphicon-chevron-right': !pdp.status.isAchievementsOpen}")
-            .col-md-3(ng-repeat='achievement in pdp.userPDP.userAch')
+            .col-md-3(ng-repeat='achievement in pdp.userPDP.achievements')
                 .clearfix
                     img.img-responsive(ng-src='{{achievement.img}}')
                 p {{achievement.name}}
@@ -19,20 +19,20 @@ div.pdp(ng-controller='PdpController as pdp')
           div(ng-repeat='technology in pdp.userPDP.technologies')
               label
                   span {{technology.name}}
-                  input.checkbox.style-2.pull-right(type='checkbox')
+                  input.checkbox.style-2.pull-right(type='checkbox' ng-model='technology.completed' ng-change='pdp.updateTechnologies(technology)')
           h4 Certifications
           div(ng-repeat='certification in pdp.userPDP.certifications')
               label
                   span {{certification.name}}
-                  input.checkbox.style-2.pull-right(type='checkbox')
+                  input.checkbox.style-2.pull-right(type='checkbox' ng-model='certification.completed' ng-change='pdp.updateCertifications(certification)')
           h4 Tasks
-          div(ng-repeat='task in pdp.userPDP.userTasks')
+          div(ng-repeat='task in pdp.userPDP.tasks')
               label
                   span {{task.name}}
-                  input.style-2.pull-right(type='checkbox' ng-model='task.complited')
+                  input.style-2.pull-right(type='checkbox' ng-model='task.completed' ng-change='pdp.updateTasks(task)')
           h4 Tests
           div(ng-repeat='test in pdp.userPDP.tests')
               label
                   span {{test.name}}
-                  input.checkbox.style-2.pull-right(type='checkbox')
+                  input.checkbox.style-2.pull-right(type='checkbox' ng-model='test.completed' ng-change='pdp.updateTests(test)')
 

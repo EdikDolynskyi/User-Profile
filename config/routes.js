@@ -34,7 +34,13 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+  'get /getpdp/:id': 'PdpsController.getPDP',
+  'put /updatetech/:id': 'PdpsController.updateTechnologies',
+  'put /updatecert/:id': 'PdpsController.updateCertifications',
+  'put /updatetask/:id': 'PdpsController.updateTasks',
+  'put /updatetest/:id': 'PdpsController.updateTests'
+
 
 
   /***************************************************************************

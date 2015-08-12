@@ -8,9 +8,15 @@
 module.exports = {
     connection: 'mongo',
     attributes: {
-        position: "string",
-        direction: "string",
-        achievement: "array",
+        // position: "string",
+        position: {
+            model: 'Positions'
+        },
+        // direction: "string",
+        direction: {
+            model: 'Directions'
+        },
+        achievements: "array",
         certification: "array",
         userTasks: "array",
         userTests: "array",

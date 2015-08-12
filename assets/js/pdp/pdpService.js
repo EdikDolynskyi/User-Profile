@@ -3,81 +3,44 @@
 
     app.factory('PdpService', function($resource){
     	var service = {
-    		getPDP:getPDP
+    		getPDP:getPDP,
+    		updateTechnologies:updateTechnologies,
+    		updateCertifications:updateCertifications,
+    		updateTasks: updateTasks,
+    		updateTests: updateTests
     	};
     	return service;
 
     	function getPDP(callback){
     		var userPDP = {};
-    		userPDP.userAch = [];
-			userPDP.technologies = [];
-			userPDP.certifications = [];
-			userPDP.tests = [];
-
-
-	    	var Pdps = $resource('/api/pdps/:id', {id: '@id'});
-	        var pdp = Pdps.get({id: '55c3906d7533125308baafa2'}, function(resPDP){
-	            
-	           	userPDP.userTasks = resPDP.tasks;
-
-	            var Positions = $resource('/api/positions/:id', {id: '@id'});
-	            var position = Positions.get({id: resPDP.position}, function(data){
-	                userPDP.position = data.name;
-	            }, function(err){
-	                console.log(err);
-	            });
-	            
-	            var DevDirection = $resource('/api/directions/:id', {id: '@id'});
-	            var direction = DevDirection.get({id: resPDP.direction}, function(data){
-	                userPDP.position = userPDP.position + " " + data.name;
-
-	            }, function(err){
-	                console.log(err);
-	            });
-
-	            var Achievements = $resource('/api/achievements/:id', {id: '@id'});
-	            for(var i = 0; i < resPDP.achievements.length; i++){
-	            	var achievement = Achievements.get({id: resPDP.achievements[i].ach}, function(data){
-	                	userPDP.userAch.push({name: data.name, img: 'http://placehold.it/140x100'/*data.image*/});
-	            	}, function(err){
-	                	console.log(err);
-	            	});
-	            }
-
-				var Technologies = $resource("/api/technologies/:id", {id: '@id'});
-				for(var i = 0; i < resPDP.technologies.length; i++){
-					var technology = Technologies.get({id: resPDP.technologies[i].name},function(data){
-						userPDP.technologies.push({name: data.name});
-					}, function(err){
-						console.log(err);
-					});
-				}
-
-				var Certifications = $resource("/api/certifications/:id", {id: '@id'});
-				for(var i = 0; i < resPDP.certificates.length; i++){
-					var certification = Certifications.get({id: resPDP.certificates[i].name},function(data){
-						userPDP.certifications.push({name: data.name});
-					}, function(err){
-						console.log(err);
-					});
-				}
-
-				var Tests = $resource("/api/tests/:id", {id: '@id'});
-				for(var i = 0; i < resPDP.tests.length; i++){
-					var test = Tests.get({id: resPDP.tests[i].name},function(data){
-						userPDP.tests.push({name: data.name});
-
-						callback(userPDP);
-					}, function(err){
-						console.log(err);
-					});
-				}
-
-			}, function(err){
+    		var Pdps = $resource('/getpdp/:id', {id: '@id'})
+    		var pdp = Pdps.get({id: '55c3906d7533125308baafa2'}, function(resPDP){
+    			userPDP = resPDP;    			
+    			callback(userPDP);
+    		}, function(err){
 	            console.log(err);
 	        });
 	    }
 
+	    function updateTechnologies(obj){
+	    	var Pdps = $resource('/updatetech/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function updateCertifications(obj){
+	    	var Pdps = $resource('/updatecert/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function updateTasks(obj){
+	    	var Pdps = $resource('/updatetask/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function updateTests(obj){
+	    	var Pdps = $resource('/updatetest/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
     });
 
 })();
