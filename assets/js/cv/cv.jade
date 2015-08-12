@@ -32,9 +32,9 @@ script(type='text/ng-template', id='dropDownList.html').
   .row.project
     accordion(close-others='oneAtATime = true')
       
-      accordion-group(heading='{{project.name}}', ng-repeat='project in projects')
+      accordion-group(heading='{{project.name}}', ng-repeat='project in userProjects')
         | {{project.productowner}}{{project.description}}
-        .technologiesUsedProject(ng-repeat = "technInProj in projectTehnologies") {{technInProj.name}}
+        
      
       accordion-group(is-open='status.open')
         accordion-heading

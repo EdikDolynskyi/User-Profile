@@ -21,8 +21,15 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
  	$scope.filtrRate=1;
     $scope.listOfUserTechnologies = technologies.listOfUserTechnologies;
  //=================PROJECT================================================================================================================================================================================
-    $scope.projects = ProjectServ.listOfUserProjects;
-    $scope.projectTehnologies = ProjectServ.projectTehnologies;
+    $scope.userProjects=[];
+    $scope.projectstechnologies = [];
+
+    $scope.userProjects=ProjectServ.user.userCV.projects;
+    console.log(ProjectServ.user);
+    $scope.projectstechnologies = ProjectServ.user.userCV.projects.technologies;
+    
+   
+
     
 
 });
