@@ -19,7 +19,7 @@ html(ng-app='myApp')
                                 span.input-group-btn
                                     button.btn.btn-default(type='button', ng-click='ctrl.search()') Go!
                             .list-group(ng-model="ctrl.usersList")
-                                button.list-group-item(ng-repeat="user in ctrl.usersList",type='button') {{user.name}}
+                                button.list-group-item(ng-repeat="user in ctrl.usersList",type='button', ng-click='ctrl.showUserPage($index)') {{user.name}}
         main.container-fluid
             .row(ng-controller='TabsCtrl')
                 #nav.col-lg-2.col-lg-offset-2
