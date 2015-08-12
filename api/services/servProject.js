@@ -15,8 +15,7 @@ module.exports = {
         }); //Users.exec        
     } //getUserCV
 }; //module.exports
-    
-
+ 
     function getUserProjects(projects, asyncCallback){   
         async.map(projects.userCV.projects, 
             function (id, callback){
@@ -63,15 +62,21 @@ module.exports = {
             });
     } 
     
-    function getUserTechnologies(projects, asyncCallback){   
+    function getUserTechnologies(projects, asyncCallback){
         async.map(projects.userCV.tehcnologies, 
             function (id, callback){
                 Technologies
                     .findOne(id)
                     .exec(function (err, item){
                         if(err){return callback(err);}
-                            callback(null, item);
+                        async.parallel([                            
+                            getTechnologyCategory.bind(null,item),
+                            ],
+                            callback.bind(null,null, item)
+
+                        ); //async.parallel                            
                         });
+
             },
             function (errFromIterator, results){
                 if(errFromIterator){
@@ -80,5 +85,15 @@ module.exports = {
                     projects.userCV.tehcnologies = results;
                 }         
                 asyncCallback(null);
-            });
+            });   
+    }
+
+    function getTechnologyCategory(technology, callback){
+                Categories
+                    .findOne(technology.category)
+                    .exec(function (err, item){
+                        if(err){return callback(err);}
+                        	technology.category = item;
+                            callback(null, item);
+                        });         
     }
