@@ -63,7 +63,7 @@ module.exports = {
     } 
     
     function getUserTechnologies(projects, asyncCallback){
-        async.map(projects.userCV.tehcnologies, 
+        async.map(projects.userCV.technologies, 
             function (id, callback){
                 Technologies
                     .findOne(id)
@@ -82,7 +82,7 @@ module.exports = {
                 if(errFromIterator){
                     res.serverError();
                 } else {
-                    projects.userCV.tehcnologies = results;
+                    projects.userCV.technologies = results;
                 }         
                 asyncCallback(null);
             });   

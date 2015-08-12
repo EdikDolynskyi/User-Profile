@@ -1,21 +1,3 @@
-
-angular.module('myApp').filter('unique', function() {
-               return function(collection, keyname) {
-                console.log(collection, '222222222222');
-                  var output = [], 
-                      keys = [];
-
-                  angular.forEach(collection, function(item) {
-                      var key = item[keyname];
-                      if(keys.indexOf(key) === -1) {
-                          keys.push(key);
-                          output.push(item);
-                      }
-                  });
-                  return output;
-               };
-            });
-
 angular.module('myApp').controller('technologiesCtrl', function($scope, technologies, cvServise) {
     $scope.listOfAllTechnologies = technologies.listOfAllTechnologies;
     $scope.listOfAllCategories = technologies.listOfAllCategories;
@@ -55,5 +37,25 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
 
 });
 
+angular.module('myApp').filter('uniqueTechnology', function () {
+    return function (collection) {
+        var output = [],
+            isFind = false;
 
+        angular.forEach(collection, function (item) {
+            isFind = false;
 
+            angular.forEach(output, function (outputItem) {
+                if (item.category.id == outputItem.category.id) {
+                    isFind = true;
+                }
+            });
+
+            if (!isFind) {
+                output.push(item);
+            }
+        });
+        
+        return output;
+    };
+});

@@ -25,8 +25,8 @@ script(type='text/ng-template', id='dropDownList.html').
     div.col-lg-8
       rating(ng-model="filtrRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']")
       ul
-        li.Categories(ng-repeat="Categ in userTechnologies | unique: 'category.name'") {{Categ.category.name}}
-           button.tehButton(ng-repeat="Tech in userTechnologies | filter: {category:Categ.id}") {{Tech.name}}
+        li.Categories(ng-repeat="Categ in userTechnologies | uniqueTechnology") {{Categ.category.name}}
+           button.tehButton(ng-repeat="Tech in userTechnologies | filter: {category: {id:Categ.category.id}}") {{Tech.name}}
               br
               rating(ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']") 
   .row.project
