@@ -13,8 +13,13 @@ function UserProfileService($resource) {
         $resource('/api/users/:id', null, {
             'update': { method:'PUT' }
         }).update({id: user.id}, user, cb);
-    },
+    };
     this.getAvatarUrl = function(filename) {
         return '/api/files/get/' + filename;
-    }
+    };
+    this.search = function(surname, cb) {
+        $resource('/api/users/?surname=', {surname: surname}).query(function (users) {
+            cb(users);
+        });
+    };
 }

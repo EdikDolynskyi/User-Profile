@@ -8,16 +8,18 @@ html(ng-app='myApp')
         // STYLES END
     body
         header
-            .container-fluid
+            div(ng-controller="MainController as ctrl", class="container-fluid")
                 .col-lg-2
                 .col-lg-10
                     .container-fluid
                         .col-lg-10
                         .col-lg-2
                             .input-group
-                                input.form-control(type='text', placeholder='Search for...')
+                                input.form-control(ng-model="ctrl.searchText", type='text', placeholder='Search for...')
                                 span.input-group-btn
-                                    button.btn.btn-default(type='button') Go!
+                                    button.btn.btn-default(type='button', ng-click='ctrl.search()') Go!
+                            .list-group(ng-model="ctrl.usersList")
+                                button.list-group-item(ng-repeat="user in ctrl.usersList",type='button') {{user.name}}
         main.container-fluid
             .row(ng-controller='TabsCtrl')
                 #nav.col-lg-2.col-lg-offset-2

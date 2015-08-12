@@ -34,4 +34,12 @@ function userCtrl($scope, service, upload) {
             })
         }
     };
+    this.search = function () {
+        var searcValue = ctrl.searchText;
+        service.search('Dikkens', function (users) {
+            ctrl.users = users;
+            alert(ctrl.users[0].name);
+            alert(ctrl.users[1].name);
+        });
+    };
 }
