@@ -1,13 +1,13 @@
 var app = require('../angular-app');
 
-app.controller('UserProfileController', ['$scope', 'UserProfileService', 'Upload', userCtrl]);
+app.controller('UserProfileController', ['$scope', 'UserProfileService', 'Upload', '$rootScope', userCtrl]);
 
-function userCtrl($scope, service, upload) {
+function userCtrl($scope, service, upload, $rootScope) {
     var ctrl = this;
     //Init
     ctrl.today = new Date();
 
-    service.get('55c38b5a956240ba4c6a5f24', function (user) {
+    service.get($rootScope.var, function (user) {
         ctrl.user = user;
         ctrl.userOriginal = angular.extend({}, user);
     });
@@ -33,13 +33,5 @@ function userCtrl($scope, service, upload) {
                 console.log('error status: ' + status);
             })
         }
-    };
-    this.search = function () {
-        var searcValue = ctrl.searchText;
-        service.search('Dikkens', function (users) {
-            ctrl.users = users;
-            alert(ctrl.users[0].name);
-            alert(ctrl.users[1].name);
-        });
     };
 }
