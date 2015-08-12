@@ -25,20 +25,37 @@ script(type='text/ng-template', id='dropDownList.html').
     div.col-lg-8
       rating(ng-model="filtrRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']")
       ul
-        li.Categories(ng-repeat="Categ in technologies.categoriesList") {{Categ.name}}
-           button.tehButton(ng-repeat="Tech in technologies.listOfUserTechnologies | filter: {category:Categ.id}") {{Tech.name}}
+        li.Categories(ng-repeat="Categ in userTechnologies | unique: 'category.name'") {{Categ.category.name}}
+           button.tehButton(ng-repeat="Tech in userTechnologies | filter: {category:Categ.id}") {{Tech.name}}
               br
               rating(ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']") 
   .row.project
     accordion(close-others='oneAtATime = true')
       
       accordion-group(heading='{{project.name}}', ng-repeat='project in userProjects')
-        | {{project.productowner}}{{project.description}}
-        
-     
+        .row
+          .col-lg-6
+            .row productowner project:
+              br 
+              | {{project.productowner}}
+            .row description project: 
+              br
+              | {{project.description}}
+          .col-lg-6
+            button.tehButton(ng-repeat = "techn in project.technologies") {{techn.name}}
       accordion-group(is-open='status.open')
         accordion-heading
           | add new Project
           i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
         |         This is just some content to illustrate fancy headings.
 //- , rate:filtrRate
+  .row  
+          .row 
+            .col-lg-6
+              .row
+                .col-lg-6 productowner project:{{project.productowner}}
+              .row
+                .col-lg-6 description project: {{project.description}}
+          .row
+            .col-lg-6 
+              button.tehButton(ng-repeat = "techn in project.technologies") {{techn.name}}

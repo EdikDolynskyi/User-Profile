@@ -1,4 +1,22 @@
-angular.module('myApp').controller('technologiesCtrl', function($scope, technologies, ProjectServ) {
+
+angular.module('myApp').filter('unique', function() {
+               return function(collection, keyname) {
+                console.log(collection, '222222222222');
+                  var output = [], 
+                      keys = [];
+
+                  angular.forEach(collection, function(item) {
+                      var key = item[keyname];
+                      if(keys.indexOf(key) === -1) {
+                          keys.push(key);
+                          output.push(item);
+                      }
+                  });
+                  return output;
+               };
+            });
+
+angular.module('myApp').controller('technologiesCtrl', function($scope, technologies, cvServise) {
     $scope.listOfAllTechnologies = technologies.listOfAllTechnologies;
     $scope.listOfAllCategories = technologies.listOfAllCategories;
     
@@ -22,15 +40,20 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
     $scope.listOfUserTechnologies = technologies.listOfUserTechnologies;
  //=================PROJECT================================================================================================================================================================================
     $scope.userProjects=[];
-    $scope.projectstechnologies = [];
-
-    $scope.userProjects=ProjectServ.user.userCV.projects;
-    console.log(ProjectServ.user);
-    $scope.projectstechnologies = ProjectServ.user.userCV.projects.technologies;
-    
-   
+    $scope.userTechnologies= [];
+    cvServise.getUserData(function(user){
+     
+        $scope.userProjects = user.userCV.projects;
+                        
+        $scope.userTechnologies = user.userCV.technologies;
+                    console.log(user.userCV.technologies);
+       
+    });
+      
 
     
 
 });
+
+
 
