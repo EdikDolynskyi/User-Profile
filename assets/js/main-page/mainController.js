@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('MainController', ['$scope', 'MainService', '$rootScope', mainCtrl]);
+app.controller('MainController', ['$scope', 'MainService', '$rootScope', '$location', mainCtrl]);
 
-function mainCtrl($scope, service, $rootScope) {
+function mainCtrl($scope, service, $rootScope, $location) {
     var ctrl = this;
     $rootScope.var = '55c38b5a956240ba4c6a5f24';
     ctrl.usersList = [];
@@ -14,6 +14,6 @@ function mainCtrl($scope, service, $rootScope) {
     };
     this.showUserPage = function (index) {
         $rootScope.var = ctrl.usersList[index].id;
-        alert($rootScope.var);
+        $location.path('/#/');
     };
 }
