@@ -18,5 +18,22 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
     };
 
     $scope.listOfUserTechnologies = technologies.listOfUserTechnologies;
+    $scope.groups = [
+    {
+      title: 'some project',
+      content: 'Project - 1'
+    },
+    {
+      title: 'some project',
+      content: 'Project - 2'
+    },
+    {
+      title: 'some project',
+      content: 'Project - 2'
+    },{
+      title: 'some project',
+      content: 'Project - 2'
+    }
+  ];
 });
 
