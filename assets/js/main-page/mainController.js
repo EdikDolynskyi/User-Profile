@@ -15,5 +15,7 @@ function mainCtrl($scope, service, $rootScope, $location) {
     this.showUserPage = function (index) {
         $rootScope.var = ctrl.usersList[index].id;
         $location.path('/#/');
+        ctrl.usersList = [];
+        ctrl.searchText = '';
     };
-}
+};
