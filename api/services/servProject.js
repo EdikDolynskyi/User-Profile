@@ -22,8 +22,7 @@ module.exports = {
                 Projects
                     .findOne(id)
                     .exec(function (err, item){
-                        if(err){return 
-                            callback(err);
+                        if(err){return callback(err);
                         }
                         async.parallel([                            
                             getProjectTechnologies.bind(null,item),
@@ -63,11 +62,14 @@ module.exports = {
     } 
     
     function getUserTechnologies(projects, asyncCallback){
+        
+
         async.map(projects.userCV.technologies, 
-            function (id, callback){
+            function (objUserTechn, callback){
                 Technologies
-                    .findOne(id)
+                    .findOne(objUserTechn.userTech)
                     .exec(function (err, item){
+                        item.stars = objUserTechn.stars;
                         if(err){return callback(err);}
                         async.parallel([                            
                             getTechnologyCategory.bind(null,item),
@@ -82,7 +84,7 @@ module.exports = {
                 if(errFromIterator){
                     res.serverError();
                 } else {
-                    projects.userCV.technologies = results;
+                   projects.userCV.technologies= results;
                 }         
                 asyncCallback(null);
             });   

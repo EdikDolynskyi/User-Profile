@@ -10,7 +10,7 @@ app.config(function ($routeProvider, $locationProvider) {
 		when('/cv', {templateUrl: 'js/cv/cv.html'}).
 		when('/pdp', {templateUrl: 'js/pdp/pdp.html'}).
 		otherwise({ redirectTo: '/' });
-		 $locationProvider.html5Mode(true);
+		 $locationProvider.html5Mode(false);
 });
 
 app.controller('TabsCtrl', function ($scope, $window, $location) {

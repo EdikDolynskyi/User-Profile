@@ -12,23 +12,22 @@ script(type='text/ng-template', id='dropDownList.html').
                                ng-model="technologiesEnterText",
                                name="technologiesEnterText",
                                placeholder='Enter technology name',
-                               typeahead='tech as tech.name for tech in listOfAllTechnologies | filter:{name:$viewValue}',
+                               typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
                                typeahead-template-url='dropDownList.html')
         form(ng-submit='submitOne(technologyTypeEnterText)')
-          input.form-control(ng-show="technologies.technologyTypeShow",
+          input.form-control(ng-show="technologyTypeShow",
                                type='text',
                                ng-model='technologyTypeEnterText',
                                name='technologyTypeEnterText',
                                placeholder='Enter technology type name',
-                               typeahead='tech as tech.name for tech in listOfAllCategories | filter:{name:$viewValue}',
+                               typeahead='tech as tech.name for tech in allCategories | filter:{name:$viewValue}',
                                typeahead-template-url='dropDownList.html')
-    div.col-lg-8
-      rating(ng-model="filtrRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']")
+    div.col-lg-8 {{filtrRate}}
+      rating(ng-model="filtrRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" )
       ul
         li.Categories(ng-repeat="Categ in userTechnologies | uniqueTechnology") {{Categ.category.name}}
-           button.tehButton(ng-repeat="Tech in userTechnologies | filter: {category: {id:Categ.category.id}}") {{Tech.name}}
-              br
-              rating(ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']") 
+           button(ng-repeat="Tech in userTechnologies | filter: {category: {id:Categ.category.id}} | ratingFilter: filtrRate", ng-class = "getColor(Tech.stars)", ng-click = "addStars(Tech.stars)") {{Tech.name}}
+              //- rating(ng-model="Tech.stars" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['знаю, но плохо','знаю','знаю неплохо','знаю хорошо','гуру']") 
   .row.project
     accordion(close-others='oneAtATime = true')
       
@@ -42,20 +41,10 @@ script(type='text/ng-template', id='dropDownList.html').
               br
               | {{project.description}}
           .col-lg-6
-            button.tehButton(ng-repeat = "techn in project.technologies") {{techn.name}}
+            button.tehButton4Stars(ng-repeat = "techn in project.technologies") {{techn.name}}
       accordion-group(is-open='status.open')
         accordion-heading
           | add new Project
           i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
-        |         This is just some content to illustrate fancy headings.
-//- , rate:filtrRate
-  .row  
-          .row 
-            .col-lg-6
-              .row
-                .col-lg-6 productowner project:{{project.productowner}}
-              .row
-                .col-lg-6 description project: {{project.description}}
-          .row
-            .col-lg-6 
-              button.tehButton(ng-repeat = "techn in project.technologies") {{techn.name}}
+          |         This is just some content to illustrate fancy headings.
+          
