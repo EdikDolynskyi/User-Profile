@@ -17,6 +17,202 @@ module.exports = {
             });
     },
 
+    addAchievement: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp){
+                if (err) {
+                    res.send(err);
+                } else {
+                    var newObj = {};
+                    newObj.id = body.id;
+                    newObj.description = body.description;
+                    pdp.achievements.push(newObj);
+                    pdp.save();
+                }
+                callback(null);
+            })
+    },
+
+    removeAchievement: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    for(var i = 0; i<pdp.achievements.length; i++)
+                    {
+                        if(pdp.achievements[i].id == body.id){
+                            pdp.achievements.splice(i, 1);
+                            pdp.save();
+                            break;
+                        }
+                    }
+                }
+                callback(null);    
+            });
+    },
+
+    addTechnology: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp){
+                if (err) {
+                    res.send(err);
+                } else {
+                    var newObj = {};
+                    newObj.id = body.id;
+                    newObj.completed = body.completed;
+                    pdp.technologies.push(newObj);
+                    pdp.save();
+                }
+                callback(null);
+            })
+    },
+
+    removeTechnology: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    for(var i = 0; i<pdp.technologies.length; i++)
+                    {
+                        if(pdp.technologies[i].id == body.id){
+                            pdp.technologies.splice(i, 1);
+                            pdp.save();
+                            break;
+                        }
+                    }
+                }
+                callback(null);    
+            });
+    },
+
+    addCertification: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp){
+                if (err) {
+                    res.send(err);
+                } else {
+                    var newObj = {};
+                    newObj.id = body.id;
+                    newObj.completed = body.completed;
+                    pdp.certifications.push(newObj);
+                    pdp.save();
+                }
+                callback(null);
+            })
+    },
+
+    removeCertification: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    for(var i = 0; i<pdp.certifications.length; i++)
+                    {
+                        if(pdp.certifications[i].id == body.id){
+                            pdp.certifications.splice(i, 1);
+                            pdp.save();
+                            break;
+                        }
+                    }
+                }
+                callback(null);    
+            });
+    },
+
+    addTest: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp){
+                if (err) {
+                    res.send(err);
+                } else {
+                    var newObj = {};
+                    newObj.id = body.id;
+                    newObj.completed = body.completed;
+                    pdp.tests.push(newObj);
+                    pdp.save();
+                }
+                callback(null);
+            })
+    },
+
+    removeTest: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    for(var i = 0; i<pdp.tests.length; i++)
+                    {
+                        if(pdp.tests[i].id == body.id){
+                            pdp.tests.splice(i, 1);
+                            pdp.save();
+                            break;
+                        }
+                    }
+                }
+                callback(null);    
+            });
+    },
+
+    addTask: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    pdp.tasks.push(body);
+                    pdp.save();
+                }
+                callback(null);    
+            });
+    },
+
+    removeTask: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    for(var i = 0; i<pdp.tasks.length; i++)
+                    {
+                        if(pdp.tasks[i].name == body.name){
+                            pdp.tasks.splice(i, 1);
+                            pdp.save();
+                            break;
+                        }
+                    }
+                }
+                callback(null);    
+            });
+    },
+
+    updatePosition: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp){
+                if (err) {
+                    res.send(err);
+                } else {
+                    pdp.position = body.id;
+                    pdp.save();
+                }
+                callback(null);
+            })
+    },
+
     updateTechnologies: function(id, body, callback){
 
         Pdps.findOne({id: id})
@@ -106,7 +302,7 @@ module.exports = {
                 if(errFromIterator){res.serverError()};
                 for(var i = 0; i<results.length; i++){
                     pdp.achievements[i].name = results[i].name;
-                    pdp.achievements[i].img = results[i].image;
+                    pdp.achievements[i].src = results[i].src;
                 }               
                 asyncCallback(null);
             });

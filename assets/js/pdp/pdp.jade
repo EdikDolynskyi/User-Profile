@@ -1,17 +1,18 @@
 div.pdp(ng-controller='PdpController as pdp')
     h4 Position
-    span.prettyBadge {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
+    span.prettyBadge {{pdp.userPDP.position.name}}
     accordion
-        accordion-group(is-open='pdp.status.isAchievementsOpen')
+        accordion-group.voffset4(is-open='pdp.status.isAchievementsOpen')
             accordion-heading
               | Achievements
               i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isAchievementsOpen, 'glyphicon-chevron-right': !pdp.status.isAchievementsOpen}")
-            .col-md-3(ng-repeat='achievement in pdp.userPDP.achievements')
-                .clearfix
-                    img.img-responsive(ng-src='{{achievement.img}}')
-                p {{achievement.name}}
+            .col-md-4(ng-repeat='achievement in pdp.userPDP.achievements')
+                div.thumbnail(popover="{{achievement.description}}" popover-trigger="mouseenter")
+                  .clearfix
+                    img.img-responsive(ng-src='{{achievement.src}}')
+                  div.achieve-name {{achievement.name}}
     accordion
-        accordion-group(is-open='pdp.status.isStepsOpen')
+        accordion-group.voffset4(is-open='pdp.status.isStepsOpen')
           accordion-heading
               | Steps needed to reach the next position 
               i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isStepsOpen, 'glyphicon-chevron-right': !pdp.status.isStepsOpen}")

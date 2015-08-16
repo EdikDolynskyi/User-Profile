@@ -1,38 +1,130 @@
-(function () {
-    var app = angular.module('myApp');
+var app = require('../angular-app');
 
-    app.controller('PdpController', function ($scope, PdpService) {
-        var vm = this;    
-        vm.userPDP = {};
-        activate();
-        
-        vm.updateTasks = function(obj){
-            PdpService.updateTasks(obj);
-        };
-        vm.updateTechnologies = function(obj){
-            PdpService.updateTechnologies(obj);
-        };
-        vm.updateTests = function(obj){
-            PdpService.updateTests(obj);
-        };
-        vm.updateCertifications = function(obj){
-            PdpService.updateCertifications(obj);
-        };
+app.controller('PdpController', function ($scope, $modal, PdpService) {
+    var vm = this;    
+    vm.userPDP = {};
+    vm.positions = [];
+    vm.technologies = [];
+    vm.achievements = [];
+    vm.certifications = [];
+    vm.tests = [];
+    vm.taskInput = true;
+    activate();
+    
+    function activate(){
+        PdpService.getPDP(function(obj){
+            vm.userPDP = obj;
+        });
+        PdpService.getPositions(function(array){
+            vm.positions = array;
+        });
+        PdpService.getTechnologies(function(array){
+            vm.technologies = array;
+        });
+        PdpService.getCertifications(function(array){
+            vm.certifications = array;
+        });
+        PdpService.getTests(function(array){
+            vm.tests = array;
+        });
+        PdpService.getAchievements(function(array){
+            vm.achievements = array;
+        });
+    };
 
-        function activate(){
-            PdpService.getPDP(function(obj){
-                vm.userPDP = obj;
-            });
-        };
+    vm.removeAchievement = function(obj){
+        var index = vm.userPDP.achievements.indexOf(obj);
+        vm.userPDP.achievements.splice(index, 1);
+        PdpService.removeAchievement(obj);
+    };
 
+    vm.addTask = function(){
+        var newObj = {};
+        newObj.completed = false;
+        newObj.name = vm.newTask;
+        PdpService.addTask(newObj);
+        vm.userPDP.tasks.push(newObj);
+        vm.newTask = '';
+        vm.taskInput = true;
+    };
 
-        vm.status = {
-            isCertificatesOpen: true,
-            isAchievementsOpen: true,
-            isStepsOpen: true
-        };
+    vm.removeTask = function(obj){
+        var index = vm.userPDP.tasks.indexOf(obj);
+        vm.userPDP.tasks.splice(index, 1);
+        PdpService.removeTask(obj);
+    };
 
-    });
+    vm.addTechnology = function(obj){
+        var newObj = obj;
+        newObj.completed = false;
+        PdpService.addTechnology(newObj);
+        vm.userPDP.technologies.push(newObj);
+    };
+    vm.removeTechnology = function(obj){
+        var index = vm.userPDP.technologies.indexOf(obj);
+        vm.userPDP.technologies.splice(index, 1);
+        PdpService.removeTechnology(obj);
+    };
+    vm.addCertification = function(obj){
+        var newObj = obj;
+        newObj.completed = false;
+        PdpService.addCertification(newObj);
+        vm.userPDP.certifications.push(newObj);
+    };
+    vm.removeCertification = function(obj){
+        var index = vm.userPDP.certifications.indexOf(obj);
+        vm.userPDP.certifications.splice(index, 1);
+        PdpService.removeCertification(obj);
+    };
+    vm.addTest = function(obj){
+        var newObj = obj;
+        newObj.completed = false;
+        PdpService.addTest(newObj);
+        vm.userPDP.tests.push(newObj);
+    };
+    vm.removeTest = function(obj){
+        var index = vm.userPDP.tests.indexOf(obj);
+        vm.userPDP.tests.splice(index, 1);
+        PdpService.removeTest(obj);
+    };
+    vm.updatePosition = function(obj){
+        PdpService.updatePosition(obj);
+        vm.userPDP.position.name = obj.name;
+    };
+    vm.updateTasks = function(obj){
+        PdpService.updateTasks(obj);
+    };
+    vm.updateTechnologies = function(obj){
+        PdpService.updateTechnologies(obj);
+    };
+    vm.updateTests = function(obj){
+        PdpService.updateTests(obj);
+    };
+    vm.updateCertifications = function(obj){
+        PdpService.updateCertifications(obj);
+    };
 
+    vm.addAchievement = function () {
+        var modalInstance = $modal.open({
+          templateUrl: 'modalPdpContent.html',
+          controller: 'ModalPdpCtrl',
+          controllerAs: 'modalpdp',
+          resolve: {
+            achievements: function() {
+                return vm.achievements;
+            }
+        }
+        });
 
-})();
+        modalInstance.result.then(function (addedAchievement) {
+                PdpService.addAchievement(addedAchievement);
+                vm.userPDP.achievements.push(addedAchievement);
+          });
+    };    
+
+    vm.status = {
+        isCertificatesOpen: true,
+        isAchievementsOpen: true,
+        isStepsOpen: true
+    };
+});

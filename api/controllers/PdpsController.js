@@ -15,6 +15,105 @@ module.exports = {
             }
         });
     },
+    addAchievement: function(req, res){
+        PDPservice.addAchievement(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    removeAchievement: function(req, res){
+        PDPservice.removeAchievement(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    addTechnology: function(req, res){
+        PDPservice.addTechnology(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    removeTechnology: function(req, res){
+        PDPservice.removeTechnology(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    addCertification: function(req, res){
+        PDPservice.addCertification(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    removeCertification: function(req, res){
+        PDPservice.removeCertification(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    addTest: function(req, res){
+        PDPservice.addTest(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    removeTest: function(req, res){
+        PDPservice.removeTest(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    addTask: function(req,res){
+        PDPservice.addTask(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    removeTask: function(req, res){
+        PDPservice.removeTask(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    updatePosition: function(req, res){
+        PDPservice.updatePosition(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
     updateTechnologies: function(req, res){
         PDPservice.updateTechnologies(req.param('id'), req.body, function(err,data){
             if (err) {

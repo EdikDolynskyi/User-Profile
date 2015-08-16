@@ -1,0 +1,50 @@
+div.test(ng-controller="AchievementsController as achiev")
+	script(type='text/ng-template', id='myModalContent.html').
+		<div class="modal-header">
+			<h3 class="modal-title">Edit achievement</h3>
+		</div>
+		<div class="modal-body row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<img class="img-responsive" ng-src="{{modal.tmpSrc}}" height="300px" width="300px">
+				<button class="btn btn-default upload-btn" ngf-select ngf-change="modal.upload($file)">
+					<span class="glyphicon glyphicon-upload"></span>
+				</button>	
+				<form class="voffset3">
+					<div class="form-group">
+						<input type="text" ng-model="modal.tmpName" class="form-control">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-danger pull-left" ng-click="modal.delete()">Delete</button>
+		<button class="btn btn-primary" type="button" ng-click="modal.save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="modal.cancel()">Cancel</button>
+		</div>
+	.row
+		.col-md-6
+			input.form-control.input-lg(type="text" placeholder="Search" ng-model="searchText") 
+		.col-md-3
+			button.btn.btn-primary.btn-lg(type='button', ng-click='achiev.isCollapsed = false') Create new achievement
+		.col-md-12
+			.alert.alert-success.voffset4(role="alert", ng-show="achiev.showAlert") Achievement has been created successfully!
+	.row.voffset5(collapse="achiev.isCollapsed")
+		.col-md-6.col-md-offset-3
+			img.img-responsive(src= "{{achiev.achievement.src}}")
+			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="achiev.upload($file)")
+				span.glyphicon.glyphicon-upload
+			form.voffset3(name="achievementsForm", role="form", ng-submit="achiev.createAchievement()")
+				.form-group(ng-class="{ 'has-error': achievementsForm.name.$touched && achievementsForm.name.$invalid }")
+					input.form-control.input-lg(type="text", name="name", ng-model="achiev.achievement.name", placeholder="Achievement name",required)
+				.btn-group.full-width
+					button.btn.btn-primary.btn-lg.col-md-6(type='submit') Create
+					button.btn.btn-warning.btn-lg.col-md-6(ng-click='achiev.isCollapsed = true') Cancel			
+	.row.voffset5
+		.col-md-4(ng-repeat='achievement in achiev.achievements | filter:searchText track by $index')
+			div.thumbnail
+				.clearfix
+					img.img-responsive(ng-src='{{achievement.src}}')
+				div.achieve-name {{achievement.name}}
+				.btn.btn-default.btn-lg.edit-btn(ng-click="achiev.open(achievement)")
+					span.glyphicon.glyphicon-pencil
+
