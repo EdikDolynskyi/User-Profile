@@ -1,0 +1,53 @@
+div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ctrl.allUsers();ctrl.allPositions();ctrl.allTechnologies();ctrl.allDirections();ctrl.allPositions();ctrl.allCertificates();')
+    h3(class="col-md-12",style="margin-bottom: 0") Search with filters
+        p
+        hr
+    .col-md-8.col-sm-8.col-xs-12    
+        .list-group(ng-model="allUsersList", ng-repeat="user in ctrl.allUsersList track by $index")
+            
+            button.list-group-item( type='button', ng-click='ctrl.showUserPageFromFilter($index)') {{user.name}}&#160;{{user.surname}}&#160;
+                img.avatar.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar.urlAva}}", width='40', height='60', alt='avatar')
+    .col-md-4.col-sm-4.col-xs-12.personal-info
+        .form-group
+            label Technologie
+            hr
+            select.form-control(ng-model="selected_technology", ng-options='tech.name for tech in ctrl.allTechList')
+                //- option(value='{{tech.name}}', ng-repeat='tech in ctrl.allTechList', type='button') {{tech.name}}
+                option(value='', selected="selected", type='button') none
+                option(value='', type='button')
+
+        .form-group
+            label Knowledge level
+            hr
+            select.form-control.glyphicon
+                optgroup(style='font-family:arial')
+                    option(value='') none
+                option(value='') &#xe006;
+                option(value='') &#xe006;&#xe006;
+                option(value='') &#xe006;&#xe006;&#xe006;
+                option(value='') &#xe006;&#xe006;&#xe006;&#xe006;
+                option(value='') &#xe006;&#xe006;&#xe006;&#xe006;&#xe006;
+
+        .form-group
+            label Department
+            hr
+            select.form-control(ng-model="selected_direction", ng-options='department.name for department in ctrl.allDirectionList')
+                option(value='', selected="selected", type='button') none
+                option(value='', type='button')
+        
+        .form-group
+            label Level
+            hr
+            select.form-control(ng-model="selected_position", ng-options='position.name for position in ctrl.allPositionsList')
+                option(value='', selected="selected", type='button') none
+                option(value='', type='button')
+
+        .form-group
+            label Certificates
+            hr
+            select.form-control(ng-model="selected_certificate", ng-options='certificate.name for certificate in ctrl.allCertificatesList')
+                option(value='', selected="selected", type='button') none
+                option(value='', type='button')
+        
+        input.btn.btn-primary(value='Search', ng-click='ctrl.GlobalSearch(selected_technology, selected_direction, selected_position, selected_certificate)', readonly)
+        input.btn.btn-default(value='Cancel', ng-click='ctrl.go("/")', readonly)

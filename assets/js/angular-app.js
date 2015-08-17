@@ -7,6 +7,10 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: 'js/user-profile/user-profile.html',
 			controller: 'UserProfileController'
 		}).
+		when('/search', {
+			templateUrl: 'js/user-profile/expanded-users-search.html',
+			controller: 'UserProfileController'
+		}).
 		when('/cv', {templateUrl: 'js/cv/cv.html'}).
 		when('/pdp', {templateUrl: 'js/pdp/pdp.html'}).
 		otherwise({ redirectTo: '/' });
