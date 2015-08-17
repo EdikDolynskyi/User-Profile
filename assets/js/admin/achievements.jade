@@ -1,25 +1,25 @@
 div.test(ng-controller="AchievementsController as achiev")
-	script(type='text/ng-template', id='myModalContent.html').
+	script(type='text/ng-template', id='modalAchievements.html').
 		<div class="modal-header">
 			<h3 class="modal-title">Edit achievement</h3>
 		</div>
 		<div class="modal-body row">
 			<div class="col-sm-6 col-sm-offset-3">
-				<img class="img-responsive" ng-src="{{modal.tmpSrc}}" height="300px" width="300px">
-				<button class="btn btn-default upload-btn" ngf-select ngf-change="modal.upload($file)">
+				<img class="img-responsive" ng-src="{{modalach.tmpSrc}}" height="300px" width="300px">
+				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalach.upload($file)">
 					<span class="glyphicon glyphicon-upload"></span>
 				</button>	
 				<form class="voffset3">
 					<div class="form-group">
-						<input type="text" ng-model="modal.tmpName" class="form-control">
+						<input type="text" ng-model="modalach.tmpName" class="form-control">
 					</div>
 				</form>
 			</div>
 		</div>
 		<div class="modal-footer">
-		<button type="button" class="btn btn-danger pull-left" ng-click="modal.delete()">Delete</button>
-		<button class="btn btn-primary" type="button" ng-click="modal.save()">Save</button>
-		<button class="btn btn-warning" type="button" ng-click="modal.cancel()">Cancel</button>
+		<button type="button" class="btn btn-danger pull-left" ng-click="modalach.delete()">Delete</button>
+		<button class="btn btn-primary" type="button" ng-click="modalach.save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="modalach.cancel()">Cancel</button>
 		</div>
 	.row
 		.col-md-6

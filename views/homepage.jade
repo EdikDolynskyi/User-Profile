@@ -7,10 +7,9 @@ html(ng-app='myApp')
         // STYLES
         // STYLES END
     body
-        header
-            .container-fluid
-                .col-lg-2
-                .col-lg-10
+        header.container-fluid
+            .col-lg-1
+                img.logo(src="http://academy.binary-studio.com/resources/logo.png")
         main.container-fluid
             .row(ng-controller='TabsCtrl')
                 #nav.col-lg-2.col-lg-offset-2
@@ -18,8 +17,8 @@ html(ng-app='myApp')
                         tabset(vertical="true")
                             tab(ng-repeat='tab in tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled', select="changeHash(tab.href)")
                 .col-lg-6.article(ng-view)
-        footer
-            .container-fluid
-                .row
+        //- footer
+        //-     .container-fluid
+        //-         .row
         // SCRIPTS
         // SCRIPTS END

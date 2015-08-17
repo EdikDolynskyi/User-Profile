@@ -21,9 +21,9 @@ app.controller('AchievementsController', function($resource, $timeout, $modal, u
 
     vm.open = function (obj) {
         var modalInstance = $modal.open({
-          templateUrl: 'myModalContent.html',
-          controller: 'ModalInstanceCtrl',
-          controllerAs: 'modal',
+          templateUrl: 'modalAchievements.html',
+          controller: 'ModalAchController',
+          controllerAs: 'modalach',
           resolve: {
             achievement: function () {
                 return obj;

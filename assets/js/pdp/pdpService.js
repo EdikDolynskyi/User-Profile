@@ -23,7 +23,9 @@
     		removeTask:removeTask,
     		addAchievement: addAchievement,
     		removeAchievement: removeAchievement,
-    		getAchievements: getAchievements
+    		getAchievements: getAchievements,
+    		addCompletedCertification: addCompletedCertification,
+    		removeCompletedCertification: removeCompletedCertification
     	};
     	return service;
 
@@ -81,6 +83,16 @@
     		}, function(err){
 	            console.log(err);
 	        });
+	    }
+
+	    function addCompletedCertification(obj){
+	    	var Pdps = $resource('/addcompcert/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	    function removeCompletedCertification(obj){
+	    	var Pdps = $resource('/removecompcert/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
 	    }
 
 	    function addAchievement(obj){

@@ -50,7 +50,9 @@ module.exports.routes = {
   'put /addtask/:id': 'PdpsController.addTask',
   'put /removetask/:id': 'PdpsController.removeTask',
   'put /addach/:id': 'PdpsController.addAchievement',
-  'put /removeach/:id': 'PdpsController.removeAchievement'
+  'put /removeach/:id': 'PdpsController.removeAchievement',
+  'put /addcompcert/:id': 'PdpsController.addCompletedCertification',
+  'put /removecompcert/:id': 'PdpsController.removeCompletedCertification'
 
 
   /***************************************************************************

@@ -25,6 +25,32 @@ div.pdp(ng-controller='PdpController as pdp')
         <button class="btn btn-primary" type="button" ng-click="modalpdp.ok()">OK</button>
         <button class="btn btn-warning" type="button" ng-click="modalpdp.cancel()">Cancel</button>
       </div>
+    script(type='text/ng-template', id='modalPdpCertification.html').
+      <div class="modal-header">
+        <h3 class="modal-title">Add certificate</h3>
+      </div>
+      <div class="modal-body row">
+        <div class="col-sm-6">
+          <div class="list-group scrollable-list">
+            <a href="#" class="list-group-item" ng-repeat="certification in modalpdpcert.certifications" ng-click="modalpdpcert.selectCertification(certification)">
+              {{certification.name}}
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive" ng-src="{{modalpdpcert.selected.src}}" height="300px" width="300px">
+          <div class="horizontal-align">{{modalpdpcert.selected.name}}</div>
+          <form class="voffset3">
+            <div class="form-group">
+              <textarea class="form-control no-resize" ng-model="modalpdpcert.description" placeholder="Description"></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="modalpdpcert.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="modalpdpcert.cancel()">Cancel</button>
+      </div>
     h4 Position
     .btn-group(dropdown='', keyboard-nav='')
       button.btn.btn-default(type='button')
@@ -34,6 +60,26 @@ div.pdp(ng-controller='PdpController as pdp')
       ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
         li(role='menuitem' ng-repeat="position in pdp.positions | orderBy : 'name'")
           a(href='#' ng-click="pdp.updatePosition(position)") {{position.name}}
+    accordion
+        accordion-group.voffset4(is-open='pdp.status.isCertificationsOpen')
+            accordion-heading
+              | Certifications
+              i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isCertificationsOpen, 'glyphicon-chevron-right': !pdp.status.isCertificationsOpen}")
+            .col-md-4
+                div.add-achievement(ng-click="pdp.addCompletedCertification()")
+                  span.glyphicon.glyphicon-plus-sign.plus
+                  br
+                  b
+                    |Add
+                    br
+                    |certification
+            .col-md-4(ng-repeat='certification in pdp.userPDP.completedCertifications')
+                div.thumbnail(popover="{{certification.description}}" popover-trigger="mouseenter") 
+                  .clearfix
+                    img.img-responsive(ng-src='{{certification.src}}')
+                  div.achieve-name {{certification.name}}
+                .btn.btn-danger.btn-xs.del-btn(ng-click="pdp.removeCompletedCertification(certification)")
+                  span.glyphicon.glyphicon-remove
     accordion
         accordion-group.voffset4(is-open='pdp.status.isAchievementsOpen')
             accordion-heading

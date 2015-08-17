@@ -32,6 +32,24 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
         });
     };
 
+    vm.addAchievement = function () {
+        var modalInstance = $modal.open({
+          templateUrl: 'modalPdpContent.html',
+          controller: 'ModalPdpCtrl',
+          controllerAs: 'modalpdp',
+          resolve: {
+            achievements: function() {
+                return vm.achievements;
+            }
+        }
+        });
+
+        modalInstance.result.then(function (addedAchievement) {
+                PdpService.addAchievement(addedAchievement);
+                vm.userPDP.achievements.push(addedAchievement);
+          });
+    };  
+
     vm.removeAchievement = function(obj){
         var index = vm.userPDP.achievements.indexOf(obj);
         vm.userPDP.achievements.splice(index, 1);
@@ -102,29 +120,37 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
     };
     vm.updateCertifications = function(obj){
         PdpService.updateCertifications(obj);
-    };
+    };  
 
-    vm.addAchievement = function () {
+    vm.addCompletedCertification = function (){
         var modalInstance = $modal.open({
-          templateUrl: 'modalPdpContent.html',
-          controller: 'ModalPdpCtrl',
-          controllerAs: 'modalpdp',
+          templateUrl: 'modalPdpCertification.html',
+          controller: 'ModalPdpCertController',
+          controllerAs: 'modalpdpcert',
           resolve: {
-            achievements: function() {
-                return vm.achievements;
+            certifications: function() {
+                return vm.certifications;
             }
         }
         });
 
-        modalInstance.result.then(function (addedAchievement) {
-                PdpService.addAchievement(addedAchievement);
-                vm.userPDP.achievements.push(addedAchievement);
+        modalInstance.result.then(function (addedCertification) {
+                PdpService.addCompletedCertification(addedCertification);
+                vm.userPDP.completedCertifications.push(addedCertification);
           });
-    };    
+    };
+    
+    vm.removeCompletedCertification = function(obj){
+        var index = vm.userPDP.completedCertifications.indexOf(obj);
+        vm.userPDP.completedCertifications.splice(index, 1);
+        PdpService.removeCompletedCertification(obj);
+    };
+
 
     vm.status = {
-        isCertificatesOpen: true,
+        isCertificationsOpen: true,
         isAchievementsOpen: true,
         isStepsOpen: true
     };
+
 });

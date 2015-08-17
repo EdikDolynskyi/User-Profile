@@ -10,10 +10,48 @@ module.exports = {
             .exec(function (err, pdp) {
                 async.parallel([
                     populateAchievements.bind(null, pdp),
+                    populateCompletedCertifications.bind(null, pdp),
                     populateCertifications.bind(null, pdp),
                     populateTests.bind(null, pdp),
                     populateTechnologies.bind(null, pdp)
                     ], callback.bind(null,null, pdp));
+            });
+    },
+
+    addCompletedCertification: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp){
+                if (err) {
+                    res.send(err);
+                } else {
+                    var newObj = {};
+                    newObj.id = body.id;
+                    newObj.description = body.description;
+                    pdp.completedCertifications.push(newObj);
+                    pdp.save();
+                }
+                callback(null);
+            })
+    },
+
+    removeCompletedCertification: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    for(var i = 0; i<pdp.completedCertifications.length; i++)
+                    {
+                        if(pdp.completedCertifications[i].id == body.id){
+                            pdp.completedCertifications.splice(i, 1);
+                            pdp.save();
+                            break;
+                        }
+                    }
+                }
+                callback(null);    
             });
     },
 
@@ -303,6 +341,24 @@ module.exports = {
                 for(var i = 0; i<results.length; i++){
                     pdp.achievements[i].name = results[i].name;
                     pdp.achievements[i].src = results[i].src;
+                }               
+                asyncCallback(null);
+            });
+    }
+    function populateCompletedCertifications(pdp, asyncCallback){
+        async.map(pdp.completedCertifications, function (certification, callback){
+            Certifications
+            .findOne(certification.id)
+            .exec(function (err, item){
+                if(err){return callback(err)};
+                    callback(null, item);
+                });
+            },
+            function (errFromIterator, results){
+                if(errFromIterator){res.serverError()};
+                for(var i = 0; i<results.length; i++){
+                    pdp.completedCertifications[i].name = results[i].name;
+                    pdp.completedCertifications[i].src = results[i].src;
                 }               
                 asyncCallback(null);
             });

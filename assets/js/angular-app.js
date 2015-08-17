@@ -10,6 +10,7 @@ app.config(function ($routeProvider, $locationProvider) {
 		when('/cv', {templateUrl: 'js/cv/cv.html'}).
 		when('/pdp', {templateUrl: 'js/pdp/pdp.html'}).
 		when('/adminach', {templateUrl: 'js/admin/achievements.html'}).
+		when('/admincert', {templateUrl: 'js/admin/certifications.html'}).
 		when('/adminpdp', {templateUrl: 'js/admin/adminpdp.html'}).
 		otherwise({ redirectTo: '/' });
 		 $locationProvider.html5Mode(true);
@@ -20,7 +21,8 @@ app.controller('TabsCtrl', function ($scope, $window, $location) {
 		{ title:'My profile', href:'/' },
 		{ title:'myCV', href:'/cv' },
 		{ title:'PDP flow', href:'/pdp' },
-		{ title: 'Admin', href: '/adminach'},
+		{ title: 'Admin achievements', href: '/adminach'},
+		{ title: 'Admin certifications', href: '/admincert'},
 		{ title: 'Admin pdp', href: '/adminpdp'}
 	];
 	$scope.changeHash = function(data) {

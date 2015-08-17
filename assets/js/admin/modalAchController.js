@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('ModalInstanceCtrl', function ($modalInstance, $resource, achievement, achievements, uploadService) {
+app.controller('ModalAchController', function ($modalInstance, $resource, achievement, achievements, uploadService) {
 	var vm = this;
     vm.achievements = achievements;
     vm.achievement = achievement;

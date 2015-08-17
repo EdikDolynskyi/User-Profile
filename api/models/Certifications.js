@@ -9,7 +9,7 @@ module.exports = {
     connection: 'mongo',
     attributes: {
         name: {type: 'string', unique: true, required: true},
-        image: 'string',
+        src: 'string',
         score: 'float',
         isDeleted: {
             type: 'boolean',

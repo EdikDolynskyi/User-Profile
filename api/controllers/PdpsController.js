@@ -15,6 +15,24 @@ module.exports = {
             }
         });
     },
+    addCompletedCertification: function(req, res){
+        PDPservice.addCompletedCertification(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
+    removeCompletedCertification: function(req, res){
+        PDPservice.removeCompletedCertification(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
     addAchievement: function(req, res){
         PDPservice.addAchievement(req.param('id'), req.body, function(err,data){
             if (err) {
