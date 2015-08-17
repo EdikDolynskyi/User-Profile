@@ -9,10 +9,13 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
      ****************************************************************************/
 
     $scope.userProjects = [];
+    $scope.allProjects = [];
     $scope.userTechnologies = [];
     $scope.allCategories = [];
     $scope.max = 5;
     $scope.filtrRate = 0;
+    $scope.projectName='';
+    $scope.technologiesInNewProject = [];
     // $scope.technologyTypeShow = false;
     // console.log($scope.technologyTypeShow);
 
@@ -43,6 +46,12 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
        
 
     });
+    cvFactory.getAllProjects(function(projects) {
+
+        $scope.allProjects = projects;
+       
+
+    });
 
     /****************************************************************************
      *                                                                           *
@@ -62,8 +71,34 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
         cvFactory.serSubmitOne(msg, $scope.userTechnologies, $scope.userCV, $scope.allTechnologies);
         $scope.technologyTypeEnterText = '';
         $scope.technologiesEnterText = '';
+        cvFactory.technologyTypeShow = false;
 
     };
+    $scope.enterProjectName = function($event){
+        console.log($scope.projectName,'1111111111111111111111111');
+        if ($event.keyCode == 13){
+            $scope.findProject($scope.projectName);
+        }
+    };
+    $scope.findProject = function (project){
+        console.log(project,'222222222222222222222');
+        $scope.showFieldNewProjects = cvFactory.showFieldNewProjects;
+            cvFactory.findProject(project, $scope.allProjects, $scope.userProjects, $scope.userCV);
+            $scope.projectName = '';
+    }; 
+    $scope.addtechnologiesInProject = function(technol){
+        $scope.technologiesInNewProject.push(technol);
+    };
+   $scope.submitNewProject =function (productowner, description, projectNewName){
+
+        cvFactory.submitNewProject (productowner, description, projectNewName, $scope.technologiesInNewProject);
+
+        $scope.projectNewName = '';
+        $scope.productowner = '';
+        $scope.description = '';
+        $scope.technologiesInNewProject=[];
+
+   };
     // $scope.addStars=function(stars){
     //     
     //     if(stars==6){

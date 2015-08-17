@@ -5,6 +5,7 @@ angular.module('myApp').factory('cvFactory', function($resource) {
     var cv = $resource('api/cvs/' + userId);
     var categories = $resource('api/categories');
     var technologies = $resource('api/technologies');
+    var projects = $resource('api/projects');
     var F = {};
     var baseCVPath = '/api/cvs';
     var CategoriesRes = $resource('api/categories');
@@ -18,6 +19,11 @@ angular.module('myApp').factory('cvFactory', function($resource) {
 
 
     };
+    F.getAllProjects = function(callback) {
+        projects.query(function(result) {
+            callback(result);
+        });
+    };
     F.getAllCategories = function(callback) {
         categories.query(function(result) {
             callback(result);
@@ -28,12 +34,58 @@ angular.module('myApp').factory('cvFactory', function($resource) {
             callback(result);
         });
     };
+
     F.serSubmit = function(technologiesEnterText, userTechnogies, userCV) {
 
         if (technologiesEnterText) {
             saveTechnology(technologiesEnterText, userTechnogies, userCV);
         }
 
+    };
+    F.findProject = function(project, allProjects,userProjects, userCV){
+      console.log(project,'3333333333333333333333333');
+      var isFindInCv = false;
+      var dublicate =false;
+      
+      angular.forEach(allProjects,function(projectInDb){
+        if (projectInDb.id == project.id) {
+          isFindInCv=true;
+        }
+      angular.forEach(userProjects, function(userProject){
+        if(project.id == userProject.id){
+          dublicate=true;
+        }
+        
+      });
+
+        if(isFindInCv && !dublicate){
+          userProjects.push(project);
+          console.log(userProjects);
+          var updateCv = {};
+          updateCv.projects =[];
+          angular.forEach (userProjects, function(proj){
+            updateCv.projects.push(proj.id);
+             var CVPost = $resource(baseCVPath + '/' + userCV.id);
+                    CVPost.save(updateCv, function() {});
+
+          });
+
+        }else if(!isFindInCv){
+          F.showFieldNewProjects = true;
+
+        }else if(dublicate){
+          F.showFieldNewProjects = true;
+
+        }
+      });
+    };
+    F.submitNewProject  = function (productowner, description, projectNewName, technologies){
+      newProject = {};
+      newProject.name = projectNewName;
+      newProject.productowner =productowner;
+      newProject.technologies =technologies;
+      newProject.description = description;
+      console.log(newProject);
     };
     // =================================================================================================================
     F.serSubmitOne = function(technologiesEnterTextOne, userTechnogies, userCV, allTechnologies) {
@@ -42,9 +94,10 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         }
     };
     // =================================================================================================================
+    
     var saveTechnologyOne = function(obj, userTechnogies, userCV, allTechnologies) {
 
-    
+
         var isFind = false;
 
         angular.forEach(allTechnologies, function(element) {
@@ -98,7 +151,7 @@ angular.module('myApp').factory('cvFactory', function($resource) {
 
                 });
 
-                
+
 
 
 
@@ -202,5 +255,5 @@ angular.module('myApp').factory('cvFactory', function($resource) {
     };
 
     return F;
-    
+
 });
