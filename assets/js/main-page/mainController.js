@@ -8,6 +8,13 @@ function mainCtrl($scope, service, $rootScope, $location) {
     $rootScope.var = '55c38b5a956240ba4c6a5f24';
 
 
+    this.search = function () {
+        var surname = ctrl.searchText;
+        service.search(surname, function (users) {
+            ctrl.usersList = users;
+        });
+    };
+
     this.searchByFilter = function () {
 
         service.searchByFilter(ctrl.search, function (users) {
@@ -47,13 +54,6 @@ function mainCtrl($scope, service, $rootScope, $location) {
     };
 
 
-    this.search = function () {
-        var surname = ctrl.searchText;
-        service.search(surname, function (users) {
-            ctrl.usersList = users;
-        });
-    };
-
     this.showUserPage = function (index) {
         $rootScope.var = ctrl.usersList[index].id;
         $location.path('/#/');
@@ -70,7 +70,7 @@ function mainCtrl($scope, service, $rootScope, $location) {
         $location.path(path);
     };
 
-    //sory, it`s a big govnokod(
+    //sory, it`s a big govnocod(
     this.GlobalSearch = function () {
         ctrl.allUsersList = [];
         if (!ctrl.search.hasOwnProperty("technology"))

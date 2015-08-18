@@ -3,7 +3,7 @@ var app = require('../angular-app');
 app.service('MainService', MainService);
 function MainService($resource) {
 
-    this.search = function (username, cb) {
+    this.search = function(username, cb) {
         var selectedUsers = [];
         $resource('/api/users/').query(function (users) {
             var searchUserName = username.toUpperCase();
@@ -11,17 +11,17 @@ function MainService($resource) {
             for (var i = users.length - 1; i >= 0; i--) {
                 var userName = users[i].name.toUpperCase();
                 var userSurname = users[i].surname.toUpperCase();
-                if (patt.test(userName)) {
+                if(patt.test(userName)&&searchUserName.length>=2) {
                     selectedUsers.push(users[i]);
                 }
-                if (patt.test(userSurname)) {
+                if(patt.test(userSurname)&&searchUserName.length>=2&&(patt.test(userSurname)!==patt.test(userName))) {
                     selectedUsers.push(users[i]);
                 }
-            }
-            ;
+            };
             cb(selectedUsers);
         });
     };
+
 
 
     this.searchByFilter = function (params, cb) {
