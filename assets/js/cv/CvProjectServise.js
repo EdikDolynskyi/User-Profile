@@ -86,6 +86,7 @@ angular.module('myApp').factory('cvFactory', function($resource) {
       newProject.technologies =technologies;
       newProject.description = description;
       console.log(newProject);
+      F.showFieldNewProjects =false;
     };
     // =================================================================================================================
     F.serSubmitOne = function(technologiesEnterTextOne, userTechnogies, userCV, allTechnologies) {

@@ -102,3 +102,15 @@ li {
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
   -webkit-font-smoothing: antialiased;
 }
+.project{
+  margin-top: 5px;
+  /*border: 1px solid black;*/
+  /*padding: 20px;*/
+  border-radius: 10px;
+}
+.addNewProject{
+  min-height: 20px
+}
+.qwe{
+  margin-top: 10px
+}

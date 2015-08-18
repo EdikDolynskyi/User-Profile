@@ -26,48 +26,56 @@ script(type='text/ng-template', id='dropDownList.html').
       rating(ng-model="filtrRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" )
       ul
         li.Categories(ng-repeat="Categ in userTechnologies | uniqueTechnology") {{Categ.category.name}}
-           button(ng-repeat="Tech in userTechnologies | filter: {category: {id:Categ.category.id}} | ratingFilter: filtrRate", ng-class = "getColor(Tech.stars)", ng-click = "addStars(Tech.stars)") {{Tech.name}}
+          button(ng-repeat="Tech in userTechnologies | filter: {category: {id:Categ.category.id}} | ratingFilter: filtrRate", ng-class = "getColor(Tech.stars)", ng-click = "addStars(Tech.stars)") {{Tech.name}}
   .row.project
-    accordion(close-others='oneAtATime = true')
-      
-      accordion-group(heading='{{project.name}}', ng-repeat='project in userProjects')
-        .row
-          .col-lg-6
-            .row productowner project:
-              br 
-              | {{project.productowner}}
-            .row description project: 
-              br
-              | {{project.description}}
-          .col-lg-6
-            button.tehButton4Stars(ng-repeat = "techn in project.technologies") {{techn.name}}
-      accordion-group(is-open='status.open')
-        accordion-heading
-          | add new Project
-          i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
-        form
+    h4 Projects
+    row.addNewProject
+      .col-lg-6
+        form(ng-keydown='enterProjectName($event,projectName)')
           input.form-control(type='text',
-          										ng-keypress='enterProjectName($event)',
-          										 ng-model="projectName",
-                               name="projectName",
-                               placeholder='Enter project name',
-                               typeahead='project as project.name for project in allProjects | filter:{name:$viewValue}',
-                               typeahead-template-url='dropDownList.html')
+													 ng-model="projectName",
+		                       name="projectName",
+		                       placeholder='Enter project name',
+		                       typeahead='project as project.name for project in allProjects | filter:{name:$viewValue}',
+		                       typeahead-template-url='dropDownList.html')
           input.form-control(type='text',
-                               ng-model="productowner",
-                               name="productowner",
-                               placeholder='Enter productowner',
-                               typeahead='tech as project.productowner for project in allProjects | filter:{name:$viewValue}',
-                               typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
-          input.form-control(type='text',
-                               ng-model="technologiesInProject",
-                               name="technologies",
-                               placeholder='Enter technology name',
-                               typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
-                               typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
+		                       ng-model="productowner",
+		                       name="productowner",
+		                       placeholder='Enter productowner',
+		                       typeahead='tech as project.productowner for project in allProjects | filter:{name:$viewValue}',
+		                       typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
           input.form-control(tipe = 'text',
-                                placeholder='Enter description',
-                                ng-model = 'description', ng-show = "showFieldNewProjects")
-          //- button(name= "submit", ng-click = 'submitNewProject(productowner, description, projectNewName, technologies)', ng-show = "true") submit
+		                        placeholder='Enter description',
+		                        ng-model = 'description', ng-show = "showFieldNewProjects")
+      .col-lg-6
+        form(ng-keydown ='enterTechnologyName($event, technologiesInProject)')
+          input.form-control(type='text',
+		                       ng-model="technologiesInProject",
+		                       name="technologies",
+		                       placeholder='Enter technology name',
+		                       typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
+		                       typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
+          div.qwe
+          button.tehButton4Stars(ng-repeat="Tech in technologiesInNewProject ") {{Tech.name}}
+    row
+      .col-lg-2.col-lg-offset-10     
+          button(name= "submit", ng-click = 'submitNewProject(productowner, description, projectName, technologies)', ng-show = "showFieldNewProjects") submit
+    .row.project(ng-repeat='project in userProjects')
+      .row.ProjectName 
+      h4 {{project.name}}
+      .col-lg-6
+        .row 
+          strong productowner project:
+          br 
+          | {{project.productowner}}
+        .row 
+          strong description project: 
+          br
+          | {{project.description}}
+      .col-lg-6
+        button.tehButton4Stars(ng-repeat = "techn in project.technologies") {{techn.name}}
+
+
+
  //- ng-keypress='enterProjecName($event)',
  //- ng-submit = "addtechnologiesInProject(technologiesInProject)"
