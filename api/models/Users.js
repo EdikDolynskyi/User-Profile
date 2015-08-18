@@ -48,6 +48,7 @@ module.exports = {
             type: 'json'
         },
         userCV: {
+            model : 'Cvs',
             type: 'string',
             unique: true
         },
