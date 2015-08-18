@@ -1,11 +1,21 @@
 var app = require('../angular-app');
 
 app.controller('MainController', ['$scope', 'MainService', '$rootScope', '$location', mainCtrl]);
-     
+
 function mainCtrl($scope, service, $rootScope, $location) {
     var ctrl = this;
+    ctrl.search = {};
     $rootScope.var = '55c38b5a956240ba4c6a5f24';
-    
+
+
+    this.searchByFilter = function () {
+
+        service.searchByFilter(ctrl.search, function (users) {
+            ctrl.allUsersList = users;
+        });
+    };
+
+
     this.allUsers = function () {
         service.allUsers(function (allusers) {
             ctrl.allUsersList = allusers;
@@ -36,6 +46,7 @@ function mainCtrl($scope, service, $rootScope, $location) {
         });
     };
 
+
     this.search = function () {
         var surname = ctrl.searchText;
         service.search(surname, function (users) {
@@ -59,63 +70,27 @@ function mainCtrl($scope, service, $rootScope, $location) {
         $location.path(path);
     };
 
-    this.GlobalSearch = function (selected_technology, selected_direction, selected_position, selected_certificate) {
+    //sory, it`s a big govnokod(
+    this.GlobalSearch = function () {
         ctrl.allUsersList = [];
-        if(selected_technology||selected_direction||selected_position||selected_certificate) {
-            if(selected_technology) {
-                searchByTechnologyName(selected_technology);
-            }
-            if(selected_position) {
-                searchByPosition(selected_position);
-            }
-            if(selected_direction) {
-                searchByDirection(selected_direction);
-            }
-            if(selected_certificate) {
-                searchByCertificate(selected_certificate);
-            }
-        } else alert("Please, chose some parameter for searching."); 
-    };
+        if (!ctrl.search.hasOwnProperty("technology"))
+            ctrl.search.technology = {name: 'none'};
+        if (!ctrl.search.hasOwnProperty("direction"))
+            ctrl.search.direction = {name: 'none'};
+        if (!ctrl.search.hasOwnProperty("position"))
+            ctrl.search.position = {name: 'none'};
+        if (!ctrl.search.hasOwnProperty("certificate"))
+            ctrl.search.certificate = {name: 'none'};
 
-    function searchByTechnologyName (selected_technology) {
-       service.searchbytechnologyname(selected_technology.id, function (cvs) {
-           searchByCV(cvs);
-       });
-    };
+        if (!ctrl.search.technology)
+            ctrl.search.technology = {name: 'none'};
+        if (!ctrl.search.direction)
+            ctrl.search.direction = {name: 'none'};
+        if (!ctrl.search.position)
+            ctrl.search.position = {name: 'none'};
+        if (!ctrl.search.certificate)
+            ctrl.search.certificate = {name: 'none'};
 
-    function searchByDirection (selected_direction) {
-       service.searchbydirection(selected_direction.id, function (pdps) {
-           searchByPDP(pdps);
-       });
-    };
-
-    function searchByPosition (selected_position) {
-       service.searchbyposition(selected_position.id, function (pdps) {
-           searchByPDP(pdps);
-       });
-    };
-   
-    function searchByCertificate (selected_certificate) {
-       service.searchbycertificate(selected_certificate.id, function (pdps) {
-           searchByPDP(pdps);
-       });
-    };
-
-    function searchByPDP (pdpId) {
-        var userARR=[];
-        ctrl.allUsersList = [];
-        service.searchbypdp(pdpId, function (user) {
-            userARR.push(user[0]);
-        });
-        ctrl.allUsersList = userARR;
-    };
-
-    function searchByCV (cvId) {
-        var userARR=[];
-        ctrl.allUsersList = [];
-        service.searchbycv(cvId, function (user) {
-            userARR.push(user[0]);
-        });
-        ctrl.allUsersList = userARR;
+        ctrl.searchByFilter();
     };
 };

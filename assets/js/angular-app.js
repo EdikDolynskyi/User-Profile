@@ -8,8 +8,8 @@ app.config(function ($routeProvider, $locationProvider) {
 			controller: 'UserProfileController'
 		}).
 		when('/search', {
-			templateUrl: 'js/user-profile/expanded-users-search.html',
-			controller: 'UserProfileController'
+			templateUrl: 'js/main-page/user-search.html',
+			controller: 'MainController'
 		}).
 		when('/cv', {templateUrl: 'js/cv/cv.html'}).
 		when('/pdp', {templateUrl: 'js/pdp/pdp.html'}).
