@@ -6,7 +6,7 @@ div.pdp(ng-controller='PdpController as pdp')
       <div class="modal-body row">
         <div class="col-sm-6">
           <div class="list-group scrollable-list">
-            <a href="#" class="list-group-item" ng-repeat="achievement in modalpdp.achievements" ng-click="modalpdp.selectAchievement(achievement)">
+            <a class="list-group-item" ng-repeat="achievement in modalpdp.achievements" ng-click="modalpdp.selectAchievement(achievement)">
               {{achievement.name}}
             </a>
           </div>
@@ -32,7 +32,7 @@ div.pdp(ng-controller='PdpController as pdp')
       <div class="modal-body row">
         <div class="col-sm-6">
           <div class="list-group scrollable-list">
-            <a href="#" class="list-group-item" ng-repeat="certification in modalpdpcert.certifications" ng-click="modalpdpcert.selectCertification(certification)">
+            <a class="list-group-item" ng-repeat="certification in modalpdpcert.certifications" ng-click="modalpdpcert.selectCertification(certification)">
               {{certification.name}}
             </a>
           </div>
@@ -59,7 +59,7 @@ div.pdp(ng-controller='PdpController as pdp')
         span.caret
       ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
         li(role='menuitem' ng-repeat="position in pdp.positions | orderBy : 'name'")
-          a(href='#' ng-click="pdp.updatePosition(position)") {{position.name}}
+          a(ng-click="pdp.updatePosition(position)") {{position.name}}
     accordion
         accordion-group.voffset4(is-open='pdp.status.isCertificationsOpen')
             accordion-heading
@@ -111,7 +111,7 @@ div.pdp(ng-controller='PdpController as pdp')
                 span.glyphicon.glyphicon-plus
               ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
                 li(role='menuitem' ng-repeat="technology in pdp.technologies | orderBy : 'name'")
-                  a(href='#' ng-click="pdp.addTechnology(technology)") {{technology.name}}
+                  a( ng-click="pdp.addTechnology(technology)") {{technology.name}}
           div.checkbox(ng-repeat='technology in pdp.userPDP.technologies track by $index')
               label
                   input(type='checkbox' ng-model='technology.completed' ng-change='pdp.updateTechnologies(technology)')
@@ -124,7 +124,7 @@ div.pdp(ng-controller='PdpController as pdp')
                 span.glyphicon.glyphicon-plus
               ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
                 li(role='menuitem' ng-repeat="certification in pdp.certifications | orderBy : 'name'")
-                  a(href='#' ng-click="pdp.addCertification(certification)") {{certification.name}}
+                  a( ng-click="pdp.addCertification(certification)") {{certification.name}}
           div.checkbox(ng-repeat='certification in pdp.userPDP.certifications track by $index')
               label
                   input(type='checkbox' ng-model='certification.completed' ng-change='pdp.updateCertifications(certification)')
@@ -151,7 +151,7 @@ div.pdp(ng-controller='PdpController as pdp')
                 span.glyphicon.glyphicon-plus
               ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
                 li(role='menuitem' ng-repeat="test in pdp.tests | orderBy : 'name'")
-                  a(href='#' ng-click="pdp.addTest(test)") {{test.name}}
+                  a( ng-click="pdp.addTest(test)") {{test.name}}
           div.checkbox(ng-repeat='test in pdp.userPDP.tests track by $index')
               label
                   input(type='checkbox' ng-model='test.completed' ng-change='pdp.updateTests(test)')
