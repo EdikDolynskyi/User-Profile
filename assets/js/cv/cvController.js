@@ -109,7 +109,7 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
     };
     $scope.submitNewProject = function(productowner, description, projectNewName) {
 
-        cvFactory.submitNewProject(productowner, description, projectNewName, $scope.technologiesInNewProject);
+        cvFactory.submitNewProject(productowner, description, projectNewName, $scope.technologiesInNewProject, $scope.allProjects);
 
         $scope.projectName = '';
         $scope.productowner = '';
