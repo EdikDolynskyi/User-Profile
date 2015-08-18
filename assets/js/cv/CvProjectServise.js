@@ -71,6 +71,7 @@ angular.module('myApp').factory('cvFactory', function($resource) {
           });
 
         }else if(!isFindInCv){
+          console.log(8888888888888888888888888888888);
           F.showFieldNewProjects = true;
 
         }else if(dublicate){
@@ -79,13 +80,17 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         }
       });
     };
-    F.submitNewProject  = function (productowner, description, projectNewName, technologies){
+    F.submitNewProject  = function (productowner, description, projectNewName, technologies, allProjects){
       newProject = {};
       newProject.name = projectNewName;
       newProject.productowner =productowner;
       newProject.technologies =technologies;
       newProject.description = description;
       console.log(newProject);
+      projects.save(newProject, function(response){
+
+        allProjects.push(response);
+      });
       F.showFieldNewProjects =false;
     };
     // =================================================================================================================
