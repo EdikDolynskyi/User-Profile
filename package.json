@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "angular-resource": "^1.4.3",
+    "async": "^1.4.2",
     "bcrypt-nodejs": "0.0.3",
     "bower": "^1.4.1",
     "browserify": "^11.0.1",

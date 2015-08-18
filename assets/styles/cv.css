@@ -3,6 +3,7 @@ li {
 }
 .technologies {
     border-bottom: 2px solid grey;
+    margin-bottom: 10px;
 }
 .Categories{
 	border: 1px solid grey;
@@ -11,10 +12,82 @@ li {
 	margin-bottom: 4px;
 
 }
-.tehButton{
+.tehButton1Stars{
 	border-radius: 20px;
 	margin-left: 5px;
-	 background-color: hsl(36, 100%, 40%) !important;
+	 background-color: hsl(36, 100%, 79%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fffcf9", endColorstr="#ffd493");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#fffcf9), to(#ffd493));
+  background-image: -moz-linear-gradient(top, #fffcf9, #ffd493);
+  background-image: -ms-linear-gradient(top, #fffcf9, #ffd493);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fffcf9), color-stop(100%, #ffd493));
+  background-image: -webkit-linear-gradient(top, #fffcf9, #ffd493);
+  background-image: -o-linear-gradient(top, #fffcf9, #ffd493);
+  background-image: linear-gradient(#fffcf9, #ffd493);
+  border-color: #ffd493 #ffd493 hsl(36, 100%, 74%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+  -webkit-font-smoothing: antialiased;
+}
+.tehButton2Stars{
+  border-radius: 20px;
+  margin-left: 5px;
+  background-color: hsl(36, 100%, 70%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#feeacc", endColorstr="#ffc165");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#feeacc), to(#ffc165));
+  background-image: -moz-linear-gradient(top, #feeacc, #ffc165);
+  background-image: -ms-linear-gradient(top, #feeacc, #ffc165);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #feeacc), color-stop(100%, #ffc165));
+  background-image: -webkit-linear-gradient(top, #feeacc, #ffc165);
+  background-image: -o-linear-gradient(top, #feeacc, #ffc165);
+  background-image: linear-gradient(#feeacc, #ffc165);
+  border-color: #ffc165 #ffc165 hsl(36, 100%, 65%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+  -webkit-font-smoothing: antialiased;
+}
+.tehButton3Stars{
+  border-radius: 20px;
+  margin-left: 5px;
+   background-color: hsl(36, 100%, 59%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffd493", endColorstr="#feab2d");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffd493), to(#feab2d));
+  background-image: -moz-linear-gradient(top, #ffd493, #feab2d);
+  background-image: -ms-linear-gradient(top, #ffd493, #feab2d);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffd493), color-stop(100%, #feab2d));
+  background-image: -webkit-linear-gradient(top, #ffd493, #feab2d);
+  background-image: -o-linear-gradient(top, #ffd493, #feab2d);
+  background-image: linear-gradient(#ffd493, #feab2d);
+  border-color: #feab2d #feab2d hsl(36, 100%, 54%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+  -webkit-font-smoothing: antialiased;
+}
+.tehButton4Stars{
+  border-radius: 20px;
+  margin-left: 5px;
+  background-color: hsl(36, 100%, 50%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffc165", endColorstr="#ff9900");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffc165), to(#ff9900));
+  background-image: -moz-linear-gradient(top, #ffc165, #ff9900);
+  background-image: -ms-linear-gradient(top, #ffc165, #ff9900);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffc165), color-stop(100%, #ff9900));
+  background-image: -webkit-linear-gradient(top, #ffc165, #ff9900);
+  background-image: -o-linear-gradient(top, #ffc165, #ff9900);
+  background-image: linear-gradient(#ffc165, #ff9900);
+  border-color: #ff9900 #ff9900 hsl(36, 100%, 45%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+  -webkit-font-smoothing: antialiased;
+}
+.tehButton5Stars{
+  border-radius: 20px;
+  margin-left: 5px;
+  background-color: hsl(36, 100%, 40%) !important;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffad32", endColorstr="#cc7a00");
   background-image: -khtml-gradient(linear, left top, left bottom, from(#ffad32), to(#cc7a00));
@@ -28,4 +101,16 @@ li {
   color: #333 !important;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
   -webkit-font-smoothing: antialiased;
+}
+.project{
+  margin-top: 5px;
+  /*border: 1px solid black;*/
+  /*padding: 20px;*/
+  border-radius: 10px;
+}
+.addNewProject{
+  min-height: 20px
+}
+.qwe{
+  margin-top: 10px
 }
