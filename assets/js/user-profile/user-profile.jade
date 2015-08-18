@@ -18,7 +18,7 @@ div(ng-controller="UserProfileController as ctrl", class="container-fluid")
                     is-open='showDatePicker',
                     min-date="'1900-01-01'",
                     max-date="ctrl.today",
-                    datepicker-popup="shortDate",
+                    datepicker-popup='dd-MMMM-yyyy',
                     datepicker-append-to-body="true",
                     close-text='Close')
                 span.input-group-btn

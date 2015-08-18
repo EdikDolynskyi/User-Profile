@@ -27,7 +27,7 @@ function MainService($resource) {
     this.searchByFilter = function (params, cb) {
         $resource('/user/filter').query({
             technology: params.technology.name,
-            knowLevel: "none",
+            knowlevel: params.knowlevel,
             direction: params.direction.name,
             position: params.position.name,
             certificate: params.certificate.name

@@ -74,22 +74,26 @@ function mainCtrl($scope, service, $rootScope, $location) {
     this.GlobalSearch = function () {
         ctrl.allUsersList = [];
         if (!ctrl.search.hasOwnProperty("technology"))
-            ctrl.search.technology = {name: 'none'};
+            ctrl.search.technology = {name: ''};
+        if (!ctrl.search.hasOwnProperty("knowlevel"))
+            ctrl.search.knowlevel = '';
         if (!ctrl.search.hasOwnProperty("direction"))
-            ctrl.search.direction = {name: 'none'};
+            ctrl.search.direction = {name: ''};
         if (!ctrl.search.hasOwnProperty("position"))
-            ctrl.search.position = {name: 'none'};
+            ctrl.search.position = {name: ''};
         if (!ctrl.search.hasOwnProperty("certificate"))
-            ctrl.search.certificate = {name: 'none'};
+            ctrl.search.certificate = {name: ''};
 
         if (!ctrl.search.technology)
-            ctrl.search.technology = {name: 'none'};
+            ctrl.search.technology = {name: ''};
+        if (!ctrl.search.knowlevel)
+            ctrl.search.knowlevel = '';
         if (!ctrl.search.direction)
-            ctrl.search.direction = {name: 'none'};
+            ctrl.search.direction = {name: ''};
         if (!ctrl.search.position)
-            ctrl.search.position = {name: 'none'};
+            ctrl.search.position = {name: ''};
         if (!ctrl.search.certificate)
-            ctrl.search.certificate = {name: 'none'};
+            ctrl.search.certificate = {name: ''};
 
         ctrl.searchByFilter();
     };
