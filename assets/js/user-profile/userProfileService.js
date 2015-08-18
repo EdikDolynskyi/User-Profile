@@ -13,8 +13,8 @@ function UserProfileService($resource) {
         $resource('/api/users/:id', null, {
             'update': { method:'PUT' }
         }).update({id: user.id}, user, cb);
-    },
+    };
     this.getAvatarUrl = function(filename) {
         return '/api/files/get/' + filename;
-    }
+    };
 }
