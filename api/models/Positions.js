@@ -8,6 +8,10 @@
 module.exports = {
     connection: 'mongo',
     attributes: {
+        pdps: {
+            collection: "pdps",
+            via: "position"
+        },
         name: {
             type: 'string',
             unique: true

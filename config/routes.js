@@ -35,7 +35,27 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  '/user/filter' : 'UsersController.filter'
+
+  '/user/filter' : 'UsersController.filter',
+  'get /getpdp/:id': 'PdpsController.getPDP',
+  'put /updatetech/:id': 'PdpsController.updateTechnologies',
+  'put /updatecert/:id': 'PdpsController.updateCertifications',
+  'put /updatetask/:id': 'PdpsController.updateTasks',
+  'put /updatetest/:id': 'PdpsController.updateTests',
+  'put /updatepos/:id': 'PdpsController.updatePosition',
+  'put /addtech/:id': 'PdpsController.addTechnology',
+  'put /removetech/:id': 'PdpsController.removeTechnology',
+  'put /addcert/:id': 'PdpsController.addCertification',
+  'put /removecert/:id': 'PdpsController.removeCertification',
+  'put /addtest/:id': 'PdpsController.addTest',
+  'put /removetest/:id': 'PdpsController.removeTest',
+  'put /addtask/:id': 'PdpsController.addTask',
+  'put /removetask/:id': 'PdpsController.removeTask',
+  'put /addach/:id': 'PdpsController.addAchievement',
+  'put /removeach/:id': 'PdpsController.removeAchievement',
+  'put /addcompcert/:id': 'PdpsController.addCompletedCertification',
+  'put /removecompcert/:id': 'PdpsController.removeCompletedCertification'
+
 
   /***************************************************************************
   *                                                                          *

@@ -1,4 +1,4 @@
-body{
+/*body{
 	background-color: #ddd;
 }
 header{
@@ -26,20 +26,6 @@ header>.container-fluid>.col-lg-2{
 #nav{
 	margin-top: 15px;
 	padding-right: 0px;
-}
-.pdp input[type='checkbox'] {
- position: relative !important;
- margin-left: 15px;
-}
-.pdp label {
- font-weight: normal;
-}
-.prettyBadge{
-	background-color: yellow;
-	font-size: 20px;
-	border-radius: 10px;
-	padding-right: 15px;
-	padding-left: 15px;
 }
 footer{
 	height: 20px;
@@ -130,3 +116,8 @@ input {font:small-caption;font-size:18px;}
 #thumbnailsInFilter {
   float:right;
 }
+
+.avatar {
+	width: 40%;
+}
+
