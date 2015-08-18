@@ -3,81 +3,172 @@
 
     app.factory('PdpService', function($resource){
     	var service = {
-    		getPDP:getPDP
+    		getPDP:getPDP,
+    		updateTechnologies:updateTechnologies,
+    		updateCertifications:updateCertifications,
+    		updateTasks: updateTasks,
+    		updateTests: updateTests,
+    		getPositions:getPositions,
+    		getTechnologies:getTechnologies,
+    		getCertifications:getCertifications,
+    		getTests:getTests,
+    		addTechnology: addTechnology,
+    		removeTechnology: removeTechnology,
+    		addCertification: addCertification,
+    		removeCertification: removeCertification,
+    		addTest: addTest,
+    		removeTest: removeTest,
+    		updatePosition: updatePosition,
+    		addTask:addTask,
+    		removeTask:removeTask,
+    		addAchievement: addAchievement,
+    		removeAchievement: removeAchievement,
+    		getAchievements: getAchievements,
+    		addCompletedCertification: addCompletedCertification,
+    		removeCompletedCertification: removeCompletedCertification
     	};
     	return service;
 
     	function getPDP(callback){
     		var userPDP = {};
-    		userPDP.userAch = [];
-			userPDP.technologies = [];
-			userPDP.certifications = [];
-			userPDP.tests = [];
-
-
-	    	var Pdps = $resource('/api/pdps/:id', {id: '@id'});
-	        var pdp = Pdps.get({id: '55c3906d7533125308baafa2'}, function(resPDP){
-	            
-	           	userPDP.userTasks = resPDP.tasks;
-
-	            var Positions = $resource('/api/positions/:id', {id: '@id'});
-	            var position = Positions.get({id: resPDP.position}, function(data){
-	                userPDP.position = data.name;
-	            }, function(err){
-	                console.log(err);
-	            });
-	            
-	            var DevDirection = $resource('/api/directions/:id', {id: '@id'});
-	            var direction = DevDirection.get({id: resPDP.direction}, function(data){
-	                userPDP.position = userPDP.position + " " + data.name;
-
-	            }, function(err){
-	                console.log(err);
-	            });
-
-	            var Achievements = $resource('/api/achievements/:id', {id: '@id'});
-	            for(var i = 0; i < resPDP.achievements.length; i++){
-	            	var achievement = Achievements.get({id: resPDP.achievements[i].ach}, function(data){
-	                	userPDP.userAch.push({name: data.name, img: 'http://placehold.it/140x100'/*data.image*/});
-	            	}, function(err){
-	                	console.log(err);
-	            	});
-	            }
-
-				var Technologies = $resource("/api/technologies/:id", {id: '@id'});
-				for(var i = 0; i < resPDP.technologies.length; i++){
-					var technology = Technologies.get({id: resPDP.technologies[i].name},function(data){
-						userPDP.technologies.push({name: data.name});
-					}, function(err){
-						console.log(err);
-					});
-				}
-
-				var Certifications = $resource("/api/certifications/:id", {id: '@id'});
-				for(var i = 0; i < resPDP.certificates.length; i++){
-					var certification = Certifications.get({id: resPDP.certificates[i].name},function(data){
-						userPDP.certifications.push({name: data.name});
-					}, function(err){
-						console.log(err);
-					});
-				}
-
-				var Tests = $resource("/api/tests/:id", {id: '@id'});
-				for(var i = 0; i < resPDP.tests.length; i++){
-					var test = Tests.get({id: resPDP.tests[i].name},function(data){
-						userPDP.tests.push({name: data.name});
-
-						callback(userPDP);
-					}, function(err){
-						console.log(err);
-					});
-				}
-
-			}, function(err){
+    		var Pdps = $resource('/getpdp/:id', {id: '@id'})
+    		var pdp = Pdps.get({id: '55c3906d7533125308baafa2'}, function(resPDP){
+    			userPDP = resPDP;    			
+    			callback(userPDP);
+    		}, function(err){
 	            console.log(err);
 	        });
 	    }
 
+	    function getAchievements(callback){
+	        var Achievements = $resource('/api/achievements');
+	        var achs = Achievements.query(function(res){
+	                callback(res);              
+	            }, function(err){
+	                console.log(err);
+	            });
+	    };
+
+	    function getPositions(callback){
+	    	var Positions = $resource('/api/positions');
+	    	var positions = Positions.query(function(res){    			
+    			callback(res);
+    		}, function(err){
+	            console.log(err);
+	        });
+	    }
+
+	   	function getTechnologies(callback){
+	    	var Technologies = $resource('/api/technologies');
+	    	var technologies = Technologies.query(function(res){    			
+    			callback(res);
+    		}, function(err){
+	            console.log(err);
+	        });
+	    }
+
+	    function getCertifications(callback){
+	    	var Certifications = $resource('/api/certifications');
+	    	var certifications = Certifications.query(function(res){    			
+    			callback(res);
+    		}, function(err){
+	            console.log(err);
+	        });
+	    }
+
+	    function getTests(callback){
+	    	var Tests = $resource('/api/tests');
+	    	var tests = Tests.query(function(res){    			
+    			callback(res);
+    		}, function(err){
+	            console.log(err);
+	        });
+	    }
+
+	    function addCompletedCertification(obj){
+	    	var Pdps = $resource('/addcompcert/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	    function removeCompletedCertification(obj){
+	    	var Pdps = $resource('/removecompcert/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	    function addAchievement(obj){
+	    	var Pdps = $resource('/addach/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	   	function removeAchievement(obj){
+	    	var Pdps = $resource('/removeach/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	    function addTask(obj){
+	    	var Pdps = $resource('/addtask/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function removeTask(obj){
+	    	var Pdps = $resource('/removetask/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	    function addTechnology(obj){
+	    	var Pdps = $resource('/addtech/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function removeTechnology(obj){
+	    	var Pdps = $resource('/removetech/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	    function addCertification(obj){
+	    	var Pdps = $resource('/addcert/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function removeCertification(obj){
+	    	var Pdps = $resource('/removecert/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	    function addTest(obj){
+	    	var Pdps = $resource('/addtest/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function removeTest(obj){
+	    	var Pdps = $resource('/removetest/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
+	    }
+
+	    function updatePosition(obj){
+	    	var Pdps = $resource('/updatepos/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function updateTechnologies(obj){
+	    	var Pdps = $resource('/updatetech/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function updateCertifications(obj){
+	    	var Pdps = $resource('/updatecert/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function updateTasks(obj){
+	    	var Pdps = $resource('/updatetask/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function updateTests(obj){
+	    	var Pdps = $resource('/updatetest/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
     });
 
 })();

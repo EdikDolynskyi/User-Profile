@@ -1,13 +1,13 @@
-body{
+/*body{
 	background-color: #ddd;
 }
 header{
-height: 150px;
+height: 70px;
 background-color: gray;
 }
 header>.container-fluid>.col-lg-2{
 	background-color: #ffa500;
-	height: 150px;
+	height: 70px;
 }
 .nav-tabs > li > a{
 	background-color: #ffa500;
@@ -26,20 +26,6 @@ header>.container-fluid>.col-lg-2{
 #nav{
 	margin-top: 15px;
 	padding-right: 0px;
-}
-.pdp input[type='checkbox'] {
- position: relative !important;
- margin-left: 15px;
-}
-.pdp label {
- font-weight: normal;
-}
-.prettyBadge{
-	background-color: yellow;
-	font-size: 20px;
-	border-radius: 10px;
-	padding-right: 15px;
-	padding-left: 15px;
 }
 footer{
 	height: 20px;
@@ -80,32 +66,23 @@ hr {
 
 }
 
-.UP-edit-form-desc {
-  padding-bottom: 0px;
-  margin-top: 0px;
-  opacity: 0.8;
-}
-.UP-edit-form-data {
-  padding-bottom: 10px;
-  margin-top: -10px;
 
 .form-group{
 	width: 100%
 }
-img {
-	width: 30%;
-}
+
 .page-header{
 	margin: -30px 0px 14px;
 	width: 50%;
 }
-.text-center{
-	width: 30%;
-}
+/*.text-center{*/
+	/*width: 30%;*/
+/*}*/
 .input-custom{
   height: 30px;
   width: 50%;
 }
+
 h3 {
 	margin-top: -10px;
 }
@@ -113,12 +90,8 @@ hr{
 	margin-top: auto;
 	margin-bottom: auto;
 }
-.btn{
-	margin-top: 10%;
-	margin-bottom: 10%;
-}
-input {font:small-caption;font-size:18px;}
 
+input {font:small-caption;font-size:18px;}
 
 .btn-file {
     position: relative;
@@ -139,6 +112,12 @@ input {font:small-caption;font-size:18px;}
     cursor: inherit;
     display: block;
 }
+
+#thumbnailsInFilter {
+  float:right;
+}
+
 .avatar {
 	width: 40%;
 }
+
