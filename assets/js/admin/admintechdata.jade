@@ -1,0 +1,10 @@
+div(ng-controller="TechDataController as techdata")
+	.row
+		div(ng-repeat="position in techdata.positions")
+			.col-md-8
+				input.form-control(ng-model="position.name")
+			.btn-group
+				.btn.btn-primary(ng-click="techdata.updatePositionInCollection(position)")
+					span.glyphicon.glyphicon-ok-circle
+				.btn.btn-danger()
+					span.glyphicon.glyphicon-remove

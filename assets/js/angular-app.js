@@ -16,6 +16,7 @@ app.config(function ($routeProvider, $locationProvider) {
 		when('/adminach', {templateUrl: 'js/admin/achievements.html'}).
 		when('/admincert', {templateUrl: 'js/admin/certifications.html'}).
 		when('/adminpdp', {templateUrl: 'js/admin/adminpdp.html'}).
+		when('/admintechdata', {templateUrl: 'js/admin/admintechdata.html'}).
 		otherwise({ redirectTo: '/' });
 		 $locationProvider.html5Mode(false);
 });
@@ -27,7 +28,8 @@ app.controller('TabsCtrl', function ($scope, $window, $location) {
 		{ title:'PDP flow', href:'/pdp' },
 		{ title: 'Admin achievements', href: '/adminach'},
 		{ title: 'Admin certifications', href: '/admincert'},
-		{ title: 'Admin pdp', href: '/adminpdp'}
+		{ title: 'Admin pdp', href: '/adminpdp'},
+		{ title: 'Admin tech data', href: '/admintechdata'}
 	];
 	$scope.changeHash = function(data) {
 		$location.path(data);

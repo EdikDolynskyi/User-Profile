@@ -12,6 +12,9 @@ module.exports = {
             type: "string",
             unique: true
         },
+        category: {
+            model: 'AchievementCategories'
+        },
         image: "string",
         isDeleted: {
             type: 'boolean',

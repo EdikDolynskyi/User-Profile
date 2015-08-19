@@ -1,11 +1,17 @@
 var app = require('../angular-app');
 
-app.controller('ModalAchController', function ($modalInstance, $resource, achievement, achievements, uploadService) {
+app.controller('ModalAchController', function ($modalInstance, $resource, achievement, achievements, categories, uploadService) {
 	var vm = this;
     vm.achievements = achievements;
     vm.achievement = achievement;
+    vm.categories = categories;
     vm.tmpSrc = achievement.src;
     vm.tmpName = achievement.name;
+    vm.tmpCategory = achievement.category;
+
+    vm.selectCategory = function(category){
+        vm.tmpCategory = category;
+    };
 
     vm.upload = function(file){
         uploadService.upload(file, function(fileSrc){
@@ -16,6 +22,7 @@ app.controller('ModalAchController', function ($modalInstance, $resource, achiev
     vm.save = function () {
       vm.achievement.src = vm.tmpSrc;
       vm.achievement.name = vm.tmpName;
+      vm.achievement.category = vm.tmpCategory;
       $modalInstance.close(vm.achievement);
     };
 
