@@ -9,7 +9,7 @@
 
 module.exports = {
 
-	findOne : function(req, res){
+	findCv : function(req, res){
 
 		servProject.getUserCV(req.param('id'), function(err, data){
 			if(err){

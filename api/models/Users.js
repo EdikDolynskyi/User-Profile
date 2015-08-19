@@ -53,6 +53,7 @@ module.exports = {
             unique: true
         },
         userPDP: {
+            model : 'Pdps',
             type: 'string',
             unique: true
         },

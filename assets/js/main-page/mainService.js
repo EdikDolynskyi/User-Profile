@@ -22,20 +22,11 @@ function MainService($resource) {
         });
     };
 
-
-
     this.searchByFilter = function (params, cb) {
-        $resource('/user/filter').query({
-            technology: params.technology.name,
-            knowlevel: params.knowlevel,
-            direction: params.direction.name,
-            position: params.position.name,
-            certificate: params.certificate.name
-        }, function (users) {
+        $resource('/user/filter').query(params, function (users) {
             cb(users);
         });
     };
-
 
     this.get = function (id, cb) {
         $resource('/api/users/:id', {id: id}).get(function (user) {
@@ -44,9 +35,8 @@ function MainService($resource) {
         });
     };
 
-
     this.allUsers = function (cb) {
-        $resource('/api/users/', {}).query(function (users) {
+        $resource('/api/users/filter', {}).query(function (users) {
             cb(users);
         });
     };

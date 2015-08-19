@@ -3,27 +3,28 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
         p
         hr
     .col-md-8.col-sm-8.col-xs-12
-        .list-group(ng-model="allUsersList", ng-repeat="user in ctrl.allUsersList track by $index")
-
-            button.list-group-item( type='button', ng-click='ctrl.showUserPageFromFilter($index)') {{user.name}}&#160;{{user.surname}}&#160;
-                img.avatar.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar.urlAva}}", width='40', height='60', alt='avatar')
-
-
+        .list-group(ng-model="allUsersList", ng-repeat="user in ctrl.allUsersList | orderBy:'department'")
+            button.list-group-item( type='button', ng-click='ctrl.showUserPageFromFilter(user.id)')
+                .col-md-8
+                    | {{user.name}} <br>
+                    | {{user.department}}
+                .col-md-4
+                    img.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')
 
     .col-md-4.col-sm-4.col-xs-12.personal-info
         .form-group
             label Technology
             hr
-            select.form-control(ng-model="ctrl.search.technology",
-                ng-options='tech.name for tech in ctrl.allTechList',
+            select.form-control(
+                ng-model="ctrl.searchParams.technology",
+                ng-options='tech.name as tech.name for tech in ctrl.allTechList',
                 ng-change="ctrl.GlobalSearch()")
-                option(value='', selected="selected", type='button') none
-                option(value='', type='button')
+                option(value='' selected) none
 
         .form-group
             label Knowledge level
             hr
-            select.form-control.glyphicon(ng-model="ctrl.search.knowlevel", ng-change="ctrl.GlobalSearch()")
+            select.form-control.glyphicon(ng-model="ctrl.searchParams.knowlevel", ng-change="ctrl.GlobalSearch()")
                 optgroup(style='font-family:arial')
                     option(value='') none
                 option(value='1') &#xe006;
@@ -35,28 +36,29 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
         .form-group
             label Department
             hr
-            select.form-control(ng-model="ctrl.search.direction",
-                ng-options='department.name for department in ctrl.allDirectionList',
+            select.form-control(
+                ng-model="ctrl.searchParams.direction",
+                ng-options='department.name as department.name for department in ctrl.allDirectionList',
                 ng-change="ctrl.GlobalSearch()")
-                option(value='', selected="selected", type='button') none
-                option(value='', type='button')
+                option(value='' selected) none
 
         .form-group
             label Level
             hr
-            select.form-control(ng-model="ctrl.search.position",
-                ng-options='position.name for position in ctrl.allPositionsList',
+            select.form-control(
+                ng-model="ctrl.searchParams.position",
+                ng-options='position.name as position.name for position in ctrl.allPositionsList',
                 ng-change="ctrl.GlobalSearch()")
-                option(value='', selected="selected", type='button') none
-                option(value='', type='button')
+                option(value='' selected) none
+
 
         .form-group
             label Certificates
             hr
-            select.form-control(ng-model="ctrl.search.certificate",
-                ng-options='certificate.name for certificate in ctrl.allCertificatesList',
+            select.form-control(
+                ng-model="ctrl.searchParams.certificate",
+                ng-options='certificate.name as certificate.name for certificate in ctrl.allCertificatesList',
                 ng-change="ctrl.GlobalSearch()")
-                option(value='', selected="selected", type='button') none
-                option(value='', type='button')
+                option(value='' selected) none
 
         input.btn.btn-default(value='Exit', ng-click='ctrl.go("/")', readonly)

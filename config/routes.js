@@ -35,6 +35,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+  'Get /findCv/:id' : 'CvsController.findCv',
 
   '/user/filter' : 'UsersController.filter',
   'get /getpdp/:id': 'PdpsController.getPDP',

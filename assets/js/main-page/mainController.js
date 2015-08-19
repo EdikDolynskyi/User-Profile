@@ -4,7 +4,7 @@ app.controller('MainController', ['$scope', 'MainService', '$rootScope', '$locat
 
 function mainCtrl($scope, service, $rootScope, $location) {
     var ctrl = this;
-    ctrl.search = {};
+    ctrl.searchParams = {};
     $rootScope.var = '55c38b5a956240ba4c6a5f24';
 
 
@@ -14,14 +14,6 @@ function mainCtrl($scope, service, $rootScope, $location) {
             ctrl.usersList = users;
         });
     };
-
-    this.searchByFilter = function () {
-
-        service.searchByFilter(ctrl.search, function (users) {
-            ctrl.allUsersList = users;
-        });
-    };
-
 
     this.allUsers = function () {
         service.allUsers(function (allusers) {
@@ -54,15 +46,15 @@ function mainCtrl($scope, service, $rootScope, $location) {
     };
 
 
-    this.showUserPage = function (index) {
-        $rootScope.var = ctrl.usersList[index].id;
+    this.showUserPage = function (id) {
+        $rootScope.var = id;
         $location.path('/#/');
         ctrl.usersList = [];
         ctrl.searchText = '';
     };
 
-    this.showUserPageFromFilter = function (index) {
-        $rootScope.var = ctrl.allUsersList[index].id;
+    this.showUserPageFromFilter = function (id) {
+        $rootScope.var = id;
         $location.path('/#/');
     };
 
@@ -72,29 +64,8 @@ function mainCtrl($scope, service, $rootScope, $location) {
 
     //sory, it`s a big govnocod(
     this.GlobalSearch = function () {
-        ctrl.allUsersList = [];
-        if (!ctrl.search.hasOwnProperty("technology"))
-            ctrl.search.technology = {name: ''};
-        if (!ctrl.search.hasOwnProperty("knowlevel"))
-            ctrl.search.knowlevel = '';
-        if (!ctrl.search.hasOwnProperty("direction"))
-            ctrl.search.direction = {name: ''};
-        if (!ctrl.search.hasOwnProperty("position"))
-            ctrl.search.position = {name: ''};
-        if (!ctrl.search.hasOwnProperty("certificate"))
-            ctrl.search.certificate = {name: ''};
-
-        if (!ctrl.search.technology)
-            ctrl.search.technology = {name: ''};
-        if (!ctrl.search.knowlevel)
-            ctrl.search.knowlevel = '';
-        if (!ctrl.search.direction)
-            ctrl.search.direction = {name: ''};
-        if (!ctrl.search.position)
-            ctrl.search.position = {name: ''};
-        if (!ctrl.search.certificate)
-            ctrl.search.certificate = {name: ''};
-
-        ctrl.searchByFilter();
+        service.searchByFilter(ctrl.searchParams, function (users) {
+            ctrl.allUsersList = users;
+        });
     };
-};
+}

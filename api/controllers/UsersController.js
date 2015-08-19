@@ -16,7 +16,11 @@ module.exports = {
         var certificate = req.query.certificate;
 
         if (!(technology || knowLevel || direction || position || certificate)) {
-            Users.find({}).exec(function (err, users) { res.send(users); });
+            Users.find({}).exec(function (err, users) {
+                prepareSearchUserDTOs(users, function (data) {
+                    res.send(data);
+                });
+            });
             return;
         }
 
@@ -73,9 +77,30 @@ module.exports = {
                     upLookupParams.userPDP = { $in: results.pdps};
 
                 Users.find(upLookupParams).exec(function (err, users) {
-                    res.send(users);
+                    prepareSearchUserDTOs(users, function (data) {
+                        res.send(data);
+                    });
                 });
             });
         });
     }
 };
+
+function prepareSearchUserDTOs(users, cb) {
+    var pdpIdList =  _.pluck(users, 'userPDP');
+    Pdps.find().where({ id: pdpIdList }).populate('direction').exec(function(err, pdps) {
+        var temp = {};
+        _.each(pdps, function (pdp) {
+            temp[pdp.id] = pdp.direction.name;
+        });
+        var result = _.map(users, function(user) {
+            return {
+                id: user.id,
+                name: user.name + ' ' + user.surname,
+                department: temp[user.userPDP],
+                avatar: user.avatar.thumbnailUrlAva
+            }
+        });
+        cb(result);
+    });
+}

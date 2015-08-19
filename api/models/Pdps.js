@@ -9,7 +9,8 @@ module.exports = {
     connection: 'mongo',
     attributes: {
         position: {
-            model: 'Positions'
+            model: 'Positions',
+            type: 'string'
         },
         direction: {
             model: 'Directions'

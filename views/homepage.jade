@@ -11,8 +11,8 @@ html(ng-app='myApp')
             .col-lg-1
                 img.logo(src="http://academy.binary-studio.com/resources/logo.png")
             div(ng-controller="MainController as ctrl", class="container-fluid")
-                .col-lg-4
-                .col-lg-8
+                .col-lg-2
+                .col-lg-10
                     .container-fluid
                         .col-lg-8
                         .col-lg-4
@@ -22,7 +22,7 @@ html(ng-app='myApp')
                                     //- button.btn.btn-primary(type='button', ng-click='ctrl.search()') Go!
                                     button.btn.btn-default(type='button', ng-click='ctrl.go("/search")') filters
                             .list-group(ng-model="ctrl.usersList")
-                                button.list-group-item(ng-repeat="user in ctrl.usersList track by $index",type='button', ng-click='ctrl.showUserPage($index)') {{user.name}}&#160;{{user.surname}}
+                                button#usersListInSearch.list-group-item(ng-repeat="user in ctrl.usersList",type='button', ng-click='ctrl.showUserPage(user.id)') {{user.name}}&#160;{{user.surname}}
         main.container-fluid
             .row(ng-controller='TabsCtrl')
                 #nav.col-lg-2.col-lg-offset-2
