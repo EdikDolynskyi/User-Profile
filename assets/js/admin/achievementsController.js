@@ -4,16 +4,27 @@ app.controller('AchievementsController', function($resource, $timeout, $modal, u
 	var vm = this;
 	vm.achievements = [];
     vm.achievement = {};
+    vm.categories = [];
     vm.achievement.src = "/api/files/get/default-image.png";
 	vm.isCollapsed = true;
 	vm.showAlert = false;
 
     getAchievements();
+    getCategories();
 
     function getAchievements(){
         var Achievements = $resource('/api/achievements');
         var achs = Achievements.query(function(res){
                 vm.achievements = res;               
+            }, function(err){
+                console.log(err);
+            });
+    };
+    function getCategories(){
+        var Categories = $resource('/api/achievementcategories');
+        var cat = Categories.query(function(res){
+                vm.categories = res;
+                vm.achievement.category = vm.categories[0];               
             }, function(err){
                 console.log(err);
             });
@@ -30,6 +41,9 @@ app.controller('AchievementsController', function($resource, $timeout, $modal, u
             },
             achievements: function() {
                 return vm.achievements;
+            },
+            categories: function(){
+                return vm.categories;
             }
         }
         });
@@ -40,20 +54,28 @@ app.controller('AchievementsController', function($resource, $timeout, $modal, u
           });
     };
 
-	vm.createAchievement = function(){	
+	vm.createAchievement = function(){
+        var tmp = vm.achievement.category;
+        vm.achievement.category = vm.achievement.category.id;	
 		var Achievements = $resource('/api/achievements', null, {'post': { method:'POST' }});
     	var ach = Achievements.post(vm.achievement, function(newAch){
+                newAch.category = tmp;
                 vm.achievements.push(newAch);
             }, function(err){
                 console.log(err);
             });
         
     	vm.achievement = {};
+        vm.achievement.category = vm.achievement[0];
         vm.achievement.src = "/api/files/get/default-image.png";
     	vm.showAlert = true;
         vm.isCollapsed = true;
         $timeout( function() {vm.showAlert = false}, 5000);
 	};
+
+    vm.selectCategory = function(category){
+        vm.achievement.category = category;
+    };
 
     vm.upload = function(file){
         uploadService.upload(file, function(fileSrc){

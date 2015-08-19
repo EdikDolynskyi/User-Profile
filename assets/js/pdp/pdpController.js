@@ -4,6 +4,7 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
     var vm = this;    
     vm.userPDP = {};
     vm.positions = [];
+    vm.directions = [];
     vm.technologies = [];
     vm.achievements = [];
     vm.certifications = [];
@@ -17,6 +18,9 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
         });
         PdpService.getPositions(function(array){
             vm.positions = array;
+        });
+        PdpService.getDirections(function(array){
+            vm.directions = array;
         });
         PdpService.getTechnologies(function(array){
             vm.technologies = array;
@@ -108,6 +112,10 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
     vm.updatePosition = function(obj){
         PdpService.updatePosition(obj);
         vm.userPDP.position.name = obj.name;
+    };
+    vm.updateDirection = function(obj){
+        PdpService.updateDirection(obj);
+        vm.userPDP.direction.name = obj.name;
     };
     vm.updateTasks = function(obj){
         PdpService.updateTasks(obj);

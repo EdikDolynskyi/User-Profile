@@ -1,11 +1,17 @@
 var app = require('../angular-app');
 
-app.controller('ModalCertController', function ($modalInstance, $resource, certification, certifications, uploadService) {
+app.controller('ModalCertController', function ($modalInstance, $resource, certification, certifications, categories, uploadService) {
 	var vm = this;
     vm.certifications = certifications;
     vm.certification = certification;
+    vm.categories = categories;
     vm.tmpSrc = certification.src;
     vm.tmpName = certification.name;
+    vm.tmpCategory = certification.category;
+
+    vm.selectCategory = function(category){
+        vm.tmpCategory = category;
+    };
 
     vm.upload = function(file){
         uploadService.upload(file, function(fileSrc){
@@ -16,6 +22,7 @@ app.controller('ModalCertController', function ($modalInstance, $resource, certi
     vm.save = function () {
       vm.certification.src = vm.tmpSrc;
       vm.certification.name = vm.tmpName;
+      vm.certification.category = vm.tmpCategory;
       $modalInstance.close(vm.certification);
     };
 

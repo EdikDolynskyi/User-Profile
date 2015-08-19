@@ -60,6 +60,14 @@ div.pdp(ng-controller='PdpController as pdp')
       ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
         li(role='menuitem' ng-repeat="position in pdp.positions | orderBy : 'name'")
           a(ng-click="pdp.updatePosition(position)") {{position.name}}
+    .btn-group(dropdown='', keyboard-nav='')
+      button.btn.btn-default(type='button')
+        | {{pdp.userPDP.direction.name}}
+      button#simple-btn-keyboard-nav.btn.btn-default(type='button', dropdown-toggle='')
+        span.caret
+      ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
+        li(role='menuitem' ng-repeat="direction in pdp.directions | orderBy : 'name'")
+          a(ng-click="pdp.updateDirection(direction)") {{direction.name}}
     accordion
         accordion-group.voffset4(is-open='pdp.status.isCertificationsOpen')
             accordion-heading
@@ -73,11 +81,13 @@ div.pdp(ng-controller='PdpController as pdp')
                     |Add
                     br
                     |certification
-            .col-md-4(ng-repeat='certification in pdp.userPDP.completedCertifications')
+            .col-md-4.col-height(ng-repeat='certification in pdp.userPDP.completedCertifications')
                 div.thumbnail(popover="{{certification.description}}" popover-trigger="mouseenter") 
                   .clearfix
                     img.img-responsive(ng-src='{{certification.src}}')
-                  div.achieve-name {{certification.name}}
+                  div.cert-name
+                    b {{certification.name}}
+                  div.cert-category Category: {{certification.category.name}}
                 .btn.btn-danger.btn-xs.del-btn(ng-click="pdp.removeCompletedCertification(certification)")
                   span.glyphicon.glyphicon-remove
     accordion
@@ -93,11 +103,13 @@ div.pdp(ng-controller='PdpController as pdp')
                     |Add
                     br
                     |achievement
-            .col-md-4(ng-repeat='achievement in pdp.userPDP.achievements')
+            .col-md-4.col-height(ng-repeat='achievement in pdp.userPDP.achievements')
                 div.thumbnail(popover="{{achievement.description}}" popover-trigger="mouseenter") 
                   .clearfix
                     img.img-responsive(ng-src='{{achievement.src}}')
-                  div.achieve-name {{achievement.name}}
+                  div.achieve-name
+                    b {{achievement.name}}
+                  div.achieve-category Category: {{achievement.category.name}}
                 .btn.btn-danger.btn-xs.del-btn(ng-click="pdp.removeAchievement(achievement)")
                   span.glyphicon.glyphicon-remove
     accordion

@@ -132,6 +132,15 @@ module.exports = {
             }
         });
     },
+    updateDirection: function(req, res){
+        PDPservice.updateDirection(req.param('id'), req.body, function(err,data){
+            if (err) {
+                    res.send(err);
+            } else {
+                return res.send(data);
+            }
+        });
+    },
     updateTechnologies: function(req, res){
         PDPservice.updateTechnologies(req.param('id'), req.body, function(err,data){
             if (err) {

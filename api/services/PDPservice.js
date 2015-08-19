@@ -251,6 +251,20 @@ module.exports = {
             })
     },
 
+    updateDirection: function(id, body, callback){
+
+        Pdps.findOne({id: id})
+            .exec(function(err, pdp){
+                if (err) {
+                    res.send(err);
+                } else {
+                    pdp.direction = body.id;
+                    pdp.save();
+                }
+                callback(null);
+            })
+    },
+
     updateTechnologies: function(id, body, callback){
 
         Pdps.findOne({id: id})
@@ -331,6 +345,7 @@ module.exports = {
         async.map(pdp.achievements, function (achievement, callback){
             Achievements
             .findOne(achievement.id)
+            .populate('category')
             .exec(function (err, item){
                 if(err){return callback(err)};
                     callback(null, item);
@@ -341,6 +356,7 @@ module.exports = {
                 for(var i = 0; i<results.length; i++){
                     pdp.achievements[i].name = results[i].name;
                     pdp.achievements[i].src = results[i].src;
+                    pdp.achievements[i].category = results[i].category;
                 }               
                 asyncCallback(null);
             });
@@ -349,6 +365,7 @@ module.exports = {
         async.map(pdp.completedCertifications, function (certification, callback){
             Certifications
             .findOne(certification.id)
+            .populate('category')
             .exec(function (err, item){
                 if(err){return callback(err)};
                     callback(null, item);
@@ -359,6 +376,7 @@ module.exports = {
                 for(var i = 0; i<results.length; i++){
                     pdp.completedCertifications[i].name = results[i].name;
                     pdp.completedCertifications[i].src = results[i].src;
+                    pdp.completedCertifications[i].category = results[i].category;
                 }               
                 asyncCallback(null);
             });
