@@ -8,16 +8,14 @@ function userCtrl($scope, service, upload, $rootScope) {
     ctrl.today = new Date();
 
     service.get($rootScope.var, function (user) {
-        ctrl.user = user;
+        ctrl.user = user.adminData;
         ctrl.userOriginal = angular.extend({}, user);
     });
 
     this.doUpdate = function () {
-        //ctrl.userOriginal.adminData = ctrl.user;
+        ctrl.userOriginal.adminData = angular.copy(ctrl.user);
         angular.copy(ctrl.userOriginal, ctrl.user);
         service.update(ctrl.user, function (user) {
-            //angular.copy(user, ctrl.userOriginal);
-            //angular.copy(ctrl.userOriginal, ctrl.user);
             alert('User Updated');
         });
     };
