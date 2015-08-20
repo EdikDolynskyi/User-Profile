@@ -61,7 +61,7 @@ module.exports = {
             type: 'boolean',
             defaultsTo: false
         },
-        adminData: {
+        preModeration: {
             type: 'json'
         },
         toJSON: function () {
