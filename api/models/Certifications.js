@@ -11,6 +11,9 @@ module.exports = {
         name: {type: 'string', unique: true, required: true},
         src: 'string',
         score: 'float',
+        category: {
+            model: 'Categories'
+        },
         isDeleted: {
             type: 'boolean',
             defaultsTo: false

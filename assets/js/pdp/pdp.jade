@@ -1,26 +1,30 @@
 div.pdp(ng-controller='PdpController as pdp')
     h4 Position
-    span.prettyBadge {{pdp.userPDP.position.name}}
+    span.prettyBadge {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
     accordion
         accordion-group.voffset4(is-open='pdp.status.isCertificationsOpen')
             accordion-heading
               | Certifications
               i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isCertificationsOpen, 'glyphicon-chevron-right': !pdp.status.isCertificationsOpen}")
-            .col-md-4(ng-repeat='certification in pdp.userPDP.completedCertifications')
+            .col-md-4.col-height(ng-repeat='certification in pdp.userPDP.completedCertifications')
                 div.thumbnail(popover="{{certification.description}}" popover-trigger="mouseenter")
                   .clearfix
                     img.img-responsive(ng-src='{{certification.src}}')
-                  div.achieve-name {{certification.name}}
+                  div.cert-name 
+                    b {{certification.name}}
+                  div.cert-category Category: {{certification.category.name}}
     accordion
         accordion-group.voffset4(is-open='pdp.status.isAchievementsOpen')
             accordion-heading
               | Achievements
               i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isAchievementsOpen, 'glyphicon-chevron-right': !pdp.status.isAchievementsOpen}")
-            .col-md-4(ng-repeat='achievement in pdp.userPDP.achievements')
+            .col-md-4.col-height(ng-repeat='achievement in pdp.userPDP.achievements')
                 div.thumbnail(popover="{{achievement.description}}" popover-trigger="mouseenter")
                   .clearfix
                     img.img-responsive(ng-src='{{achievement.src}}')
-                  div.achieve-name {{achievement.name}}
+                  div.achieve-name
+                    b {{achievement.name}}
+                  div.achieve-category Category: {{achievement.category.name}}
     accordion
         accordion-group.voffset4(is-open='pdp.status.isStepsOpen')
           accordion-heading

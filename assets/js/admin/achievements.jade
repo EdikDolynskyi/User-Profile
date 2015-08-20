@@ -14,6 +14,19 @@ div.test(ng-controller="AchievementsController as achiev")
 						<input type="text" ng-model="modalach.tmpName" class="form-control">
 					</div>
 				</form>
+				<div class="btn-group full-width" dropdown='' keyboard-nav=''>
+					<button class="btn btn-default col-md-10">
+						{{modalach.tmpCategory.name}}
+					</button>
+					<button id="simple-btn-keyboard-nav" class="btn btn-default col-md-2" dropdown-toggle=''>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu scrollable-menu" role='menu' aria-labelledby='simple-btn-keyboard-nav'>
+						<li role='menuitem' ng-repeat="category in modalach.categories | orderBy : 'name'">
+							<a ng-click="modalach.selectCategory(category)"> {{category.name}}</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
@@ -36,15 +49,25 @@ div.test(ng-controller="AchievementsController as achiev")
 			form.voffset3(name="achievementsForm", role="form", ng-submit="achiev.createAchievement()")
 				.form-group(ng-class="{ 'has-error': achievementsForm.name.$touched && achievementsForm.name.$invalid }")
 					input.form-control.input-lg(type="text", name="name", ng-model="achiev.achievement.name", placeholder="Achievement name",required)
-				.btn-group.full-width
+				.btn-group.full-width(dropdown='', keyboard-nav='')
+					button.btn.btn-default.btn-lg.col-md-10(type='button')
+						| {{achiev.achievement.category.name}}
+					button#simple-btn-keyboard-nav.btn.btn-default.btn-lg.col-md-2(type='button', dropdown-toggle='')
+						span.caret
+					ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
+						li(role='menuitem' ng-repeat="category in achiev.categories | orderBy : 'name'")
+							a(ng-click="achiev.selectCategory(category)") {{category.name}}
+				.btn-group.full-width.voffset3
 					button.btn.btn-primary.btn-lg.col-md-6(type='submit') Create
 					button.btn.btn-warning.btn-lg.col-md-6(ng-click='achiev.isCollapsed = true') Cancel			
 	.row.voffset5
-		.col-md-4(ng-repeat='achievement in achiev.achievements | filter:searchText track by $index')
+		.col-md-4.col-height(ng-repeat='achievement in achiev.achievements | filter:searchText track by $index')
 			div.thumbnail
 				.clearfix
 					img.img-responsive(ng-src='{{achievement.src}}')
-				div.achieve-name {{achievement.name}}
+				div.achieve-name
+					b {{achievement.name}}
+				div.achieve-category Category: {{achievement.category.name}}
 				.btn.btn-default.btn-lg.edit-btn(ng-click="achiev.open(achievement)")
 					span.glyphicon.glyphicon-pencil
 

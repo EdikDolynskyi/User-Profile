@@ -9,6 +9,7 @@
     		updateTasks: updateTasks,
     		updateTests: updateTests,
     		getPositions:getPositions,
+    		getDirections: getDirections,
     		getTechnologies:getTechnologies,
     		getCertifications:getCertifications,
     		getTests:getTests,
@@ -19,6 +20,7 @@
     		addTest: addTest,
     		removeTest: removeTest,
     		updatePosition: updatePosition,
+    		updateDirection: updateDirection,
     		addTask:addTask,
     		removeTask:removeTask,
     		addAchievement: addAchievement,
@@ -52,6 +54,15 @@
 	    function getPositions(callback){
 	    	var Positions = $resource('/api/positions');
 	    	var positions = Positions.query(function(res){    			
+    			callback(res);
+    		}, function(err){
+	            console.log(err);
+	        });
+	    }
+
+	    function getDirections(callback){
+	    	var Directions = $resource('/api/directions');
+	    	var directions = Directions.query(function(res){    			
     			callback(res);
     		}, function(err){
 	            console.log(err);
@@ -147,6 +158,11 @@
 
 	    function updatePosition(obj){
 	    	var Pdps = $resource('/updatepos/:id', {id: '@id'}, {'update': { method:'PUT' }});
+	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    }
+
+	    function updateDirection(obj){
+	    	var Pdps = $resource('/updatedir/:id', {id: '@id'}, {'update': { method:'PUT' }});
 	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
 	    }
 

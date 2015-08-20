@@ -44,6 +44,7 @@ module.exports.routes = {
   'put /updatetask/:id': 'PdpsController.updateTasks',
   'put /updatetest/:id': 'PdpsController.updateTests',
   'put /updatepos/:id': 'PdpsController.updatePosition',
+  'put /updatedir/:id': 'PdpsController.updateDirection',
   'put /addtech/:id': 'PdpsController.addTechnology',
   'put /removetech/:id': 'PdpsController.removeTechnology',
   'put /addcert/:id': 'PdpsController.addCertification',
