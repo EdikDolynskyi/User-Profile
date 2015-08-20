@@ -5,16 +5,12 @@ function MainService($resource) {
 
     this.search = function(username, cb) {
         var selectedUsers = [];
-        $resource('/api/users/').query(function (users) {
+        $resource('/user/filter').query(function (users) {
             var searchUserName = username.toUpperCase();
             var patt = new RegExp(searchUserName);
             for (var i = users.length - 1; i >= 0; i--) {
                 var userName = users[i].name.toUpperCase();
-                var userSurname = users[i].surname.toUpperCase();
                 if(patt.test(userName)&&searchUserName.length>=2) {
-                    selectedUsers.push(users[i]);
-                }
-                if(patt.test(userSurname)&&searchUserName.length>=2&&(patt.test(userSurname)!==patt.test(userName))) {
                     selectedUsers.push(users[i]);
                 }
             };

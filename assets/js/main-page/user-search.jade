@@ -5,11 +5,13 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
     .col-md-8.col-sm-8.col-xs-12
         .list-group(ng-model="allUsersList", ng-repeat="user in ctrl.allUsersList | orderBy:'department'")
             button.list-group-item( type='button', ng-click='ctrl.showUserPageFromFilter(user.id)')
-                .col-md-8
+                .col-md-3
+                    img.img-responsive.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')
+
+                .col-md-9
                     | {{user.name}} <br>
                     | {{user.department}}
-                .col-md-4
-                    img.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')
+
 
     .col-md-4.col-sm-4.col-xs-12.personal-info
         .form-group
