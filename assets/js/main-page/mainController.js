@@ -62,7 +62,6 @@ function mainCtrl($scope, service, $rootScope, $location) {
         $location.path(path);
     };
 
-    //sory, it`s a big govnocod(
     this.GlobalSearch = function () {
         service.searchByFilter(ctrl.searchParams, function (users) {
             ctrl.allUsersList = users;
