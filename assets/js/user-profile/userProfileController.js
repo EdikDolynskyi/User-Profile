@@ -13,8 +13,11 @@ function userCtrl($scope, service, upload, $rootScope) {
     });
 
     this.doUpdate = function () {
+        //ctrl.userOriginal.adminData = ctrl.user;
+        angular.copy(ctrl.userOriginal, ctrl.user);
         service.update(ctrl.user, function (user) {
-            angular.copy(user, ctrl.userOriginal);
+            //angular.copy(user, ctrl.userOriginal);
+            //angular.copy(ctrl.userOriginal, ctrl.user);
             alert('User Updated');
         });
     };

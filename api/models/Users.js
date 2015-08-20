@@ -53,12 +53,16 @@ module.exports = {
             unique: true
         },
         userPDP: {
+            model : 'Pdps',
             type: 'string',
             unique: true
         },
         isDeleted: {
             type: 'boolean',
             defaultsTo: false
+        },
+        adminData: {
+            type: 'json'
         },
         toJSON: function () {
             var obj = this.toObject();
