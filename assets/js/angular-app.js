@@ -11,6 +11,14 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: 'js/main-page/user-search.html',
 			controller: 'MainController'
 		}).
+		when('/user', {
+			templateUrl: 'js/user-profile/user-profile-public.html',
+			controller: 'UserProfilePublicController'
+		}).
+		when('/admin', {
+			templateUrl: 'js/user-profile/user-profile-admin.html',
+			controller: 'UserProfileAdminController'
+		}).
 		when('/cv', {templateUrl: 'js/cv/cv.html'}).
 		when('/pdp', {templateUrl: 'js/pdp/pdp.html'}).
 		when('/adminach', {templateUrl: 'js/admin/achievements.html'}).
@@ -24,6 +32,7 @@ app.config(function ($routeProvider, $locationProvider) {
 app.controller('TabsCtrl', function ($scope, $window, $location) {
 	$scope.tabs = [
 		{ title:'My profile', href:'/' },
+		{ title:'Admin', href:'/admin' },
 		{ title:'My experience', href:'/cv' },
 		{ title:'PDP flow', href:'/pdp' },
 		{ title: 'Admin achievements', href: '/adminach'},
