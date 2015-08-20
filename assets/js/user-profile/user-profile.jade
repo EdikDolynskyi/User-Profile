@@ -1,7 +1,7 @@
-div(ng-controller="UserProfileController as ctrl", class="container-fluid")
-    h3(class="col-md-12",style="margin-bottom: 0") Personal info
-        p
-        hr
+div.container-fluid(ng-controller="UserProfileController as ctrl")
+    .page-header
+        h2 Personal info
+            .alert.alert-success.status(role='alert', ng-style="ctrl.messageStyle") {{ctrl.changeMessage}}
     .col-md-6.col-sm-6.col-xs-12
         .form-group
             label Name

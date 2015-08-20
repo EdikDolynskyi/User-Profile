@@ -12,16 +12,15 @@ function userCtrl($scope, service, upload) {
         // ctrl.user.preModeration = user.preModeration;
     });
 
+
+
     this.doUpdate = function () {
         angular.extend(ctrl.user, ctrl.user.preModeration);
+        ctrl.user.changeAccept = true;
+        //ctrl.checkChange(ctrl.user.changeAccept);
         service.update(ctrl.user, function (user) {
-            console.log(ctrl.user, 'Old user data')
-            console.log(ctrl.user.preModeration, 'Moderated user data')
             angular.extend(ctrl.user, ctrl.user.preModeration);
-            alert('User info changed!');
             ctrl.user.preModeration = {};
-            console.log(ctrl.user.preModeration, '*********')
-            console.log(ctrl.user, '+++++++++++++')
         });
     };
     this.cancelUpdate = function () {

@@ -61,6 +61,10 @@ module.exports = {
             type: 'boolean',
             defaultsTo: false
         },
+        changeAccept: {
+            type: 'boolean',
+            defaultsTo: true
+        },
         preModeration: {
             type: 'json'
         },

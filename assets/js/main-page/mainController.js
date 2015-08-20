@@ -5,7 +5,9 @@ app.controller('MainController', ['$scope', 'MainService', '$rootScope', '$locat
 function mainCtrl($scope, service, $rootScope, $location) {
     var ctrl = this;
     ctrl.searchParams = {};
-    $rootScope.var = '55c38b5a956240ba4c6a5f24';
+
+    //ownerId - id who login //userId - id of view user //adminId - id of admin
+    $rootScope.ownerId = '55c38b5a956240ba4c6a5f24';
 
 
     this.search = function () {
@@ -47,15 +49,15 @@ function mainCtrl($scope, service, $rootScope, $location) {
 
 
     this.showUserPage = function (id) {
-        $rootScope.var = id;
-        $location.path('/#/');
+        $rootScope.userId = id;
+        $location.path('/userpage');
         ctrl.usersList = [];
         ctrl.searchText = '';
     };
 
     this.showUserPageFromFilter = function (id) {
-        $rootScope.var = id;
-        $location.path('/#/');
+        $rootScope.userId = id;
+        $location.path('/userpage');
     };
 
     this.go = function (path) {

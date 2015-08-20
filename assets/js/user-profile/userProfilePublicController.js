@@ -7,8 +7,9 @@ function userCtrl($scope, service, upload, $rootScope) {
     //Init
     ctrl.today = new Date();
 
-    service.get($rootScope.var, function (user) {
-        ctrl.user = user.adminData;
+
+    service.get($rootScope.userId, function (user) {
+        ctrl.user = user;
         ctrl.userOriginal = angular.extend({}, user);
     });
 }

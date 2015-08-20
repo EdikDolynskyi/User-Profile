@@ -72,8 +72,7 @@ hr {
 }
 
 .page-header{
-	margin: -30px 0px 14px;
-	width: 50%;
+	margin: -30px 0 14px;
 }
 /*.text-center{*/
 	/*width: 30%;*/
@@ -119,4 +118,12 @@ input {font:small-caption;font-size:18px;}
 
 #usersListInSearch {
   position: absolute;
+}
+
+.status{
+    float: right;
+    display: inline;
+    padding: 5px;
+    font-size: 2.5vh;
+    margin-left: 10%;
 }

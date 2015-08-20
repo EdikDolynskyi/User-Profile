@@ -11,7 +11,7 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: 'js/main-page/user-search.html',
 			controller: 'MainController'
 		}).
-		when('/user', {
+		when('/userpage', {
 			templateUrl: 'js/user-profile/user-profile-public.html',
 			controller: 'UserProfilePublicController'
 		}).
