@@ -8,8 +8,17 @@ function userCtrl($scope, service, upload, $rootScope) {
     ctrl.today = new Date();
 
     service.get($rootScope.ownerId, function (user) {
-        ctrl.user = user.preModeration;
-        ctrl.userOriginal = angular.extend({}, user);
+
+        delete user.$promise;
+        delete user.$resolved;
+
+        if(!user.changeAccept){
+            ctrl.user = user.preModeration;
+        }
+        else {
+            ctrl.userOriginal = angular.extend({}, user);
+            ctrl.user = angular.copy(ctrl.userOriginal);
+        }
 
         ctrl.checkChange(user.changeAccept);
     });
@@ -36,8 +45,12 @@ function userCtrl($scope, service, upload, $rootScope) {
 
     this.doUpdate = function () {
         ctrl.userOriginal.preModeration = angular.copy(ctrl.user);
-        angular.copy(ctrl.userOriginal, ctrl.user);
-        service.update(ctrl.user, function (user) {
+        ctrl.userOriginal.preModeration.preModeration = {};
+        //angular.copy(ctrl.userOriginal, ctrl.user);
+        ctrl.user.changeAccept = false;
+        ctrl.checkChange(ctrl.user.changeAccept);
+
+        service.update(ctrl.userOriginal, function (user) {
             alert('User Updated');
         });
     };

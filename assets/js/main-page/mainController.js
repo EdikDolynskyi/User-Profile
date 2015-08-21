@@ -9,6 +9,17 @@ function mainCtrl($scope, service, $rootScope, $location) {
     //ownerId - id who login //userId - id of view user //adminId - id of admin
     $rootScope.ownerId = '55c38b5a956240ba4c6a5f24';
 
+    $rootScope.userId = '55c38b5a956240ba4c6a5f24';
+
+
+    //set when admin login
+    $rootScope.isAdmin = false;
+    $rootScope.adminId = '55d6f0af768851c79c9dd781';
+
+    if($rootScope.isAdmin)
+        $rootScope.userId = $rootScope.adminId = '55d6f0af768851c79c9dd781';
+    console.log($rootScope.ownerId);
+
 
     this.search = function () {
         var surname = ctrl.searchText;

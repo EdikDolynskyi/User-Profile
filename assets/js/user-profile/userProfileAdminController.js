@@ -1,17 +1,16 @@
 var app = require('../angular-app');
 
-app.controller('UserProfileAdminController', ['$scope', 'UserProfileAdminService', 'Upload', userCtrl]);
+app.controller('UserProfileAdminController', ['$scope', 'UserProfileAdminService', 'Upload', '$rootScope', userCtrl]);
 
-function userCtrl($scope, service, upload) {
+function userCtrl($scope, service, upload, $rootScope) {
     var ctrl = this;
     //Init
     ctrl.today = new Date();
 
-    service.get('55c38b5a956240ba4c6a5f24', function (user) {
+    service.get($rootScope.userId, function (user) {
         ctrl.user = user;
         // ctrl.user.preModeration = user.preModeration;
     });
-
 
 
     this.doUpdate = function () {

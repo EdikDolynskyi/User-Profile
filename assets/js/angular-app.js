@@ -29,17 +29,27 @@ app.config(function ($routeProvider, $locationProvider) {
 		 $locationProvider.html5Mode(false);
 });
 
-app.controller('TabsCtrl', function ($scope, $window, $location) {
-	$scope.tabs = [
-		{ title:'My profile', href:'/' },
-		{ title:'Admin', href:'/admin' },
-		{ title:'My experience', href:'/cv' },
-		{ title:'PDP flow', href:'/pdp' },
-		{ title: 'Admin achievements', href: '/adminach'},
-		{ title: 'Admin certifications', href: '/admincert'},
-		{ title: 'Admin pdp', href: '/adminpdp'},
-		{ title: 'Admin tech data', href: '/admintechdata'}
-	];
+app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
+    if ($rootScope.isAdmin) {
+        $scope.tabs = [
+            {title: 'User profile', href: '/userpage'},
+            {title: 'User experience', href: '/cv'},
+            {title: 'User PDP flow', href: '/pdp'},
+            {title: 'Admin', href: '/admin'},
+            {title: 'Admin achievements', href: '/adminach'},
+            {title: 'Admin certifications', href: '/admincert'},
+            {title: 'Admin pdp', href: '/adminpdp'},
+            {title: 'Admin tech data', href: '/admintechdata'}
+        ]
+    }
+    else {
+        $scope.tabs = [
+            {title: 'My profile', href: '/'},
+            {title: 'My experience', href: '/cv'},
+            {title: 'PDP flow', href: '/pdp'}
+        ]
+    }
+
 	$scope.changeHash = function(data) {
 		$location.path(data);
 	};
