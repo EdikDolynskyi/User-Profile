@@ -29,54 +29,61 @@ script(type='text/ng-template', id='dropDownList.html').
           button(ng-repeat="Tech in userTechnologies | filter: {category: {id:Categ.category.id}} | ratingFilter: filtrRate", ng-class = "getColor(Tech.stars)", ng-click = "addStars(Tech.stars)") {{Tech.name}}
   .row.project
     h4 Projects
-    row.addNewProject
-      .col-lg-6
-        form(ng-keydown='enterProjectName($event,projectName)')
-          input.form-control(type='text',
+    .panel.panel-default
+      .panel-body
+        .col-lg-6
+          form(ng-keydown='enterProjectName($event,projectName)')
+            input.form-control.inputProject(type='text',
 													 ng-model="projectName",
 		                       name="projectName",
 		                       placeholder='Enter project name',
 		                       typeahead='project as project.name for project in allProjects | filter:{name:$viewValue}',
 		                       typeahead-template-url='dropDownList.html')
-          input.form-control(type='text',
+            input.form-control.inputProject(type='text',
 		                       ng-model="productowner",
 		                       name="productowner",
 		                       placeholder='Enter productowner',
 		                       typeahead='tech as project.productowner for project in allProjects | filter:{name:$viewValue}',
 		                       typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
-          input.form-control(tipe = 'text',
+            input.form-control.inputProject(tipe = 'text',
 		                        placeholder='Enter description',
 		                        ng-model = 'description', ng-show = "showFieldNewProjects")
-      .col-lg-6
-        form(ng-keydown ='enterTechnologyName($event, technologiesInProject)')
-          input.form-control(type='text',
+            p.input-group(ng-show = "showFieldNewProjects") enter date when you start the project
+              input.form-control(type='date', datepicker-popup='', ng-model='startDate', is-open='status.opened', min-date='minDate', max-date="'2020-06-22'", datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+              span.input-group-btn
+        .col-lg-6
+          form(ng-keydown ='enterTechnologyName($event, technologiesInProject)')
+            input.form-control.inputProject(type='text',
 		                       ng-model="technologiesInProject",
 		                       name="technologies",
 		                       placeholder='Enter technology name',
 		                       typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
 		                       typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
-          div.qwe
-          button.tehButton4Stars(ng-repeat="Tech in technologiesInNewProject ") {{Tech.name}}
-    row
-      .col-lg-2.col-lg-offset-10     
-          button(name= "submit", ng-click = 'submitNewProject(productowner, description, projectName, technologies)', ng-show = "showFieldNewProjects") submit
-    .row.project(ng-repeat='project in userProjects')
-      .row.ProjectName 
-      h4 {{project.name}}
-      .col-lg-6
-        .row 
-          strong productowner project:
-          br 
-          | {{project.productowner}}
-        .row 
-          strong description project: 
-          br
-          | {{project.description}}
-      .col-lg-6
-        button.tehButton4Stars(ng-repeat = "techn in project.technologies") {{techn.name}}
-        
+            button.tehButton4Stars(ng-repeat="Tech in technologiesInNewProject ") {{Tech.name}}
+            .col-md-6(ng-show = "showFieldNewProjects")
+        .col-lg-2.col-lg-offset-10     
+              button(name= "submit", ng-click = 'submitNewProject(productowner, description, projectName, technologies)', ng-show = "showFieldNewProjects") Submit
+              button(name= "submit", ng-click = 'cancel()', ng-show = "showFieldNewProjects") Cancel
+    .panel.panel-default(ng-repeat='project in userProjects')
+      .panel-heading(ng-click="isCollapsed = !isCollapsed") {{project.name}}
+      .panel-body(collapse="isCollapsed")
+        .col-lg-6
+          .row 
+            strong productowner project:
+            br 
+            | {{project.productowner}}
+          .row 
+            strong description project: 
+            br
+            | {{project.description}}
+          .row
+            strong  i start the project:
+            br
+            | {{project.startUserOnProject | date:"dd/MM/yyyy"}}  
+        .col-lg-6
+          button.tehButton4Stars(ng-repeat = "techn in project.technologies") {{techn.name}}
 
 
-
+      
  //- ng-keypress='enterProjecName($event)',
  //- ng-submit = "addtechnologiesInProject(technologiesInProject)"

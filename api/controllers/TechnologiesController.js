@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    find: function(req, res) {
+    findOne: function(req, res) {
 
         servTechnolgies.getAllTechnologies(function(err, data) {
             if (err) {

@@ -18,10 +18,11 @@ module.exports = {
  
     function getUserProjects(projects, asyncCallback){   
         async.map(projects.userCV.projects, 
-            function (id, callback){
+            function (objUserProject, callback){
                 Projects
-                    .findOne(id)
+                    .findOne(objUserProject.projectId)
                     .exec(function (err, item){
+                        item.startUserOnProject = objUserProject.startUserOnProject;
                         if(err){return callback(err);
                         }
                         async.parallel([                            

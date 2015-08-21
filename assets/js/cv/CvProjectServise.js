@@ -13,11 +13,8 @@ angular.module('myApp').factory('cvFactory', function($resource) {
 
     F.getUserData = function(callback) {
         cv.get(function(resultUser) {
-
             callback(resultUser);
         });
-
-
     };
     F.getAllProjects = function(callback) {
         projects.query(function(result) {
@@ -42,56 +39,140 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         }
 
     };
-    F.findProject = function(project, allProjects,userProjects, userCV){
-      console.log(project,'3333333333333333333333333');
-      var isFindInCv = false;
-      var dublicate =false;
-      
-      angular.forEach(allProjects,function(projectInDb){
-        if (projectInDb.id == project.id) {
-          isFindInCv=true;
+    F.findProject = function(project, allTechnologies, userProjects, userCV) {
+
+        var isDublicate = false;
+        var isNewProject = false;
+        if (typeof(project) == 'object') {
+            angular.forEach(userProjects, function(projectInArray) {
+                if (project.id == projectInArray.id) {
+                    isDublicate = true;
+                }
+            });
+        } else {
+            isNewProject = true;
         }
-      angular.forEach(userProjects, function(userProject){
-        if(project.id == userProject.id){
-          dublicate=true;
+        if (!isDublicate && project !== '' && !isNewProject) {
+            arrayTechnologies = [];
+            angular.forEach(project.technologies, function(technologyOfProject) {
+                angular.forEach(allTechnologies, function(technologyFromArray) {
+                    if (technologyOfProject == technologyFromArray.id) {
+                        arrayTechnologies.push(technologyFromArray);
+                    }
+
+                });
+            });
+            project.technologies = arrayTechnologies;
+            addProjectTime = new Date();
+            project.startUserOnProject = addProjectTime;
+            userProjects.push(project);
+            var addProjectInProjectColection = {};
+            addProjectInProjectColection.projects = [];
+            angular.forEach(userProjects, function(projectInUserCV) {
+              objUserProject = {};
+                objUserProject.projectId = projectInUserCV.id;
+                objUserProject.startUserOnProject = projectInUserCV.startUserOnProject;
+                addProjectInProjectColection.projects.push(objUserProject);
+              
+            });
+            var CVPost = $resource(baseCVPath + '/' + userCV.id);
+            CVPost.save(addProjectInProjectColection, function(response2) {});
+
+        } else {
+            F.showFieldNewProjects = true;
+
+
         }
-        
-      });
 
-        if(isFindInCv && !dublicate){
-          userProjects.push(project);
-          console.log(userProjects);
-          var updateCv = {};
-          updateCv.projects =[];
-          angular.forEach (userProjects, function(proj){
-            updateCv.projects.push(proj.id);
-             var CVPost = $resource(baseCVPath + '/' + userCV.id);
-                    CVPost.save(updateCv, function() {});
-
-          });
-
-        }else if(!isFindInCv){
-          console.log(8888888888888888888888888888888);
-          F.showFieldNewProjects = true;
-
-        }else if(dublicate){
-          F.showFieldNewProjects = true;
-
-        }
-      });
     };
-    F.submitNewProject  = function (productowner, description, projectNewName, technologies, allProjects){
-      newProject = {};
-      newProject.name = projectNewName;
-      newProject.productowner =productowner;
-      newProject.technologies =technologies;
-      newProject.description = description;
-      console.log(newProject);
-      projects.save(newProject, function(response){
-
-        allProjects.push(response);
-      });
-      F.showFieldNewProjects =false;
+    var submitUpdateProject = function(productowner, description, projectNewName, technologies, userProjects, userCV, updateProjectId, startDate, allProjects) {
+        var updateProject = {};
+        var updateProjectToServer = {};
+        var technologiesArray = [];
+        updateProject.name = projectNewName;
+        updateProject.productowner = productowner;
+        updateProject.technologies = technologies;
+        updateProject.description = description;
+        updateProject.id = updateProjectId;
+        updateProject.startUserOnProject = startDate;
+        angular.forEach(userProjects, function(project, i) {
+            if (project.id == updateProject.id) {
+                userProjects[i] = updateProject;
+            }
+        });
+        angular.forEach(allProjects, function(project, i) {
+            if (project.id == updateProject.id) {
+                allProjects[i] = updateProject;
+            }
+        });
+        updateProjectToServer.name = projectNewName;
+        updateProjectToServer.productowner = productowner;
+        updateProjectToServer.technologies = [];
+        updateProjectToServer.description = description;
+        updateProjectToServer.id = updateProjectId;
+        angular.forEach(technologies, function(technology) {
+            technologiesArray.push(technology.id);
+        });
+        updateProjectToServer.technologies = technologiesArray;
+        var projectPost = $resource('api/projects/' + updateProjectId);
+        projectPost.save(updateProjectToServer, function(response2) {});
+        updateProjectToUserCv = {};
+        updateProjectToUserCv.projects = [];
+        angular.forEach(userProjects, function(oneProjects) {
+                updateOneProject={};
+                updateOneProject.projectId = oneProjects.id;
+                updateOneProject.startUserOnProject = oneProjects.startUserOnProject;
+                updateProjectToUserCv.projects.push(updateOneProject);
+        });
+        var CVPost = $resource(baseCVPath + '/' + userCV.id);
+                CVPost.save(updateProjectToUserCv, function(response2) {});
+    };
+    F.submitNewProject = function(productowner, description, projectNewName, technologies, userProjects, userCV, updateProjectId, startDate, allProjects) {
+        if (!updateProjectId || updateProjectId == '') {
+            var newProject = {};
+            var newProjectToServer = {};
+            var newProjectToUserCv = {};
+            newProjectToUserCv.projects = [];
+            var technologiesArray = [];
+            newProject.name = projectNewName;
+            newProject.productowner = productowner;
+            newProject.technologies = technologies;
+            newProject.description = description;
+            allProjects.push(newProject);
+            if(!startDate && startDate ==''){
+              startDate = new Date();
+            }
+            newProject.startUserOnProject = startDate;
+            userProjects.push(newProject);
+            newProjectToServer.name = projectNewName;
+            newProjectToServer.productowner = productowner;
+            newProjectToServer.technologies = [];
+            newProjectToServer.description = description;
+            angular.forEach(technologies, function(technology) {
+                technologiesArray.push(technology.id);
+            });
+            angular.forEach(userProjects, function(userProject) {
+                if (userProject.id) {
+                  var projObj = {};
+                  projObj.startUserOnProject = userProject.startUserOnProject;
+                  projObj.projectId = userProject.id;
+                    newProjectToUserCv.projects.push(projObj);
+                }
+            });
+            newProjectToServer.technologies = technologiesArray;
+            projects.save(newProjectToServer, function(response) {
+                var projObj = {};
+                projObj.projectId = response.id;
+                projObj.startUserOnProject  = startDate ;
+                newProjectToUserCv.projects.push(projObj);
+                var CVPost = $resource(baseCVPath + '/' + userCV.id);
+                CVPost.save(newProjectToUserCv, function(response2) {});
+            });
+            F.showFieldNewProjects = false;
+        } else {
+            submitUpdateProject(productowner, description, projectNewName, technologies, userProjects, userCV, updateProjectId, startDate, allProjects);
+            F.showFieldNewProjects = false;
+        }
     };
     // =================================================================================================================
     F.serSubmitOne = function(technologiesEnterTextOne, userTechnogies, userCV, allTechnologies) {
@@ -100,43 +181,26 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         }
     };
     // =================================================================================================================
-    
+
     var saveTechnologyOne = function(obj, userTechnogies, userCV, allTechnologies) {
-
-
         var isFind = false;
-
         angular.forEach(allTechnologies, function(element) {
             if (element.category.name == obj.name) {
-                console.log(obj.name);
                 isFind = true;
-                console.log(isFind);
             }
-
         });
-
         if (!isFind) {
-
-
             categorySaveObject = {};
             categorySaveObject.name = obj;
-
             CategoriesRes.save(categorySaveObject, function(response) {
-
                 technologySaveObject = {};
                 technologySaveObject.category = response.id;
                 technologySaveObject.name = F.techName;
-
-
-
                 TechnologiesRes.save(technologySaveObject, function(responseTechnologies) {
                     technologySaveObject.id = responseTechnologies.id;
-
                     technologySaveObject.category = response;
                     technologySaveObject.stars = '1';
-
                     userTechnogies.push(technologySaveObject);
-
                     postTechnologyToUserCv = {};
                     postTechnologyToUserCv.technologies = [];
                     angular.forEach(userTechnogies, function(technology) {
@@ -151,36 +215,20 @@ angular.module('myApp').factory('cvFactory', function($resource) {
                     });
                     var CVPost = $resource(baseCVPath + '/' + userCV.id);
                     CVPost.save(postTechnologyToUserCv, function(response2) {
-
                         F.technologyTypeShow = false;
                     });
-
                 });
-
-
-
-
-
             });
             F.technologyTypeShow = false;
-
         } else {
-
             technologySaveObject = {};
-            console.log(obj);
             technologySaveObject.category = obj.id;
             technologySaveObject.name = F.techName;
-
             TechnologiesRes.save(technologySaveObject, function(response) {
                 technologySaveObject.id = response.id;
                 technologySaveObject.stars = '1';
-
-
                 technologySaveObject.category = obj;
-
                 userTechnogies.push(technologySaveObject);
-
-
                 postTechnologyToUserCv = {};
                 postTechnologyToUserCv.technologies = [];
                 angular.forEach(userTechnogies, function(technology) {
@@ -195,66 +243,48 @@ angular.module('myApp').factory('cvFactory', function($resource) {
                 });
                 var CVPost = $resource(baseCVPath + '/' + userCV.id);
                 CVPost.save(postTechnologyToUserCv, function(response2) {
-
                     F.technologyTypeShow = false;
                 });
-
-
-
-
-
-
             });
-
         }
-        // }
     };
     // =================================================================================================================
     var saveTechnology = function(obj, userTechnogies, userCV) {
         var saveObj = {},
-            isFind = false;
+            isFind = false,
+            dubl = false;
 
-
-
-        angular.forEach(userTechnogies, function(element) {
-
-            if (element.category.name == obj.name) {
-                isFind = true;
-
+        angular.forEach(userTechnogies, function(validTechnology) {
+            if (obj.id == validTechnology.id) {
+                dubl = true;
             }
         });
-
-        if (!isFind) {
+        angular.forEach(userTechnogies, function(element) {
+            if (element.category.name == obj.name) {
+                isFind = true;
+            }
+        });
+        if (!isFind && !dubl) {
             if (obj.name == null) {
-
                 F.technologyTypeShow = true;
                 F.techName = obj;
             } else {
-
                 obj.stars = "1";
                 userTechnogies.push(obj);
-
-
-
                 saveObj = {};
                 saveObj.technologies = [];
                 angular.forEach(userTechnogies, function(technology) {
                     var objElement = {};
                     objElement.userTech = technology.id;
-
-
                     if (technology.stars == null) {
                         objElement.stars = "1";
                     } else {
                         objElement.stars = technology.stars;
                     }
                     saveObj.technologies.push(objElement);
-
                 });
-
                 var CVPost = $resource(baseCVPath + '/' + userCV.id);
                 CVPost.save(saveObj, function(response) {
-
                 });
             }
         }

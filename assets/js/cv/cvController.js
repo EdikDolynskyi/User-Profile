@@ -16,8 +16,11 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
     $scope.filtrRate = 0;
     $scope.projectName = '';
     $scope.technologiesInNewProject = [];
+    $scope.updateProjectId = '';
+    $scope.startDate = '';
+     $scope.isCollapsed = true;
     // $scope.technologyTypeShow = false;
-    // console.log($scope.technologyTypeShow);
+   
 
     /****************************************************************************
      *                                                                           *
@@ -31,8 +34,8 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
         $scope.userTechnologies = user.userCV.technologies; //array USER TECHNOLOGIES
 
         $scope.userCV = user.userCV;
-
     });
+
 
     cvFactory.getAllCategories(function(categories) {
 
@@ -73,28 +76,50 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
         $scope.technologiesEnterText = '';
         // cvFactory.technologyTypeShow = false;
         $scope.technologyTypeShow = cvFactory.technologyTypeShow;
+       
 
     };
     $scope.enterProjectName = function($event, project) {
-        // console.log(project,'1111111111111111111111111');
+        
 
-        console.log($scope.projectName);
+       
         if ($event.keyCode == 13) {
             $scope.findProject(project);
         }
     };
     $scope.findProject = function(project) {
-        console.log(project, '222222222222222222222');
+        
+      
+        cvFactory.findProject(project,$scope.allTechnologies, $scope.userProjects, $scope.userCV);
         $scope.showFieldNewProjects = cvFactory.showFieldNewProjects;
-        cvFactory.findProject(project, $scope.allProjects, $scope.userProjects, $scope.userCV);
-        $scope.projectName = '';
+        if($scope.showFieldNewProjects && typeof(project) == 'object'){
+            $scope.projectName = project.name;
+            $scope.productowner = project.productowner;
+            angular.forEach(project.technologies, function(technology){
+                if(typeof(technology) == 'object'){
+                    $scope.technologiesInNewProject.push(technology);
+                }
+                angular.forEach($scope.allTechnologies, function(technolInArray){
+                    if(technology == technolInArray.id){
+                        $scope.technologiesInNewProject.push(technolInArray);
+
+                    }
+                });
+                
+            });
+            // $scope.technologiesInNewProject = project.technologies;
+            $scope.description =project.description;
+            $scope.updateProjectId =project.id;
+        }
+        if(!$scope.showFieldNewProjects){
+            $scope.projectName ='';
+        }
     };
     $scope.enterTechnologyName = function($event, technology) {
-        // console.log(technology,'1111111111111111111111111');
+      
         var count = true;
         if ($event.keyCode == 13) {
 
-             console.log($scope.projectName);
             $scope.addtechnologiesInProject(technology);
 
         }
@@ -103,18 +128,28 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
     $scope.addtechnologiesInProject = function(technol) {
         if (technol !== '') {
             $scope.technologiesInNewProject.push(technol);
+           
             $scope.technologiesInProject = '';
-            console.log($scope.technologiesInNewProject);
         }
     };
-    $scope.submitNewProject = function(productowner, description, projectNewName) {
-
-        cvFactory.submitNewProject(productowner, description, projectNewName, $scope.technologiesInNewProject, $scope.allProjects);
+    $scope.cancel = function(){
+        $scope.projectName = '';
+        $scope.productowner = '';
+        $scope.description = '';
+        $scope.technologiesInNewProject = [];
+        $scope.showFieldNewProjects = false;
+    };
+    $scope.submitNewProject = function(productowner, description, projectNewName, startDate) {
+        if(productowner !=='' && productowner !=='' && projectNewName !=='' && $scope.technologiesInNewProject !=='' && $scope.userProjects){
+            
+        cvFactory.submitNewProject(productowner, description, projectNewName, $scope.technologiesInNewProject, $scope.userProjects, $scope.userCV ,$scope.updateProjectId, $scope.startDate, $scope.allProjects);
 
         $scope.projectName = '';
         $scope.productowner = '';
         $scope.description = '';
         $scope.technologiesInNewProject = [];
+        $scope.showFieldNewProjects = cvFactory.showFieldNewProjects;
+        }
         
     };
     // $scope.addStars=function(stars){
@@ -124,12 +159,10 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
     //     }else{
     //         stars++;
     //     }
-    //     console.log(stars,'2222');
     //     return stars;
 
     // };
 
-    console.log($scope.projectName);
 
     $scope.getColor = function(stars) {
 
