@@ -46,9 +46,11 @@ div.test(ng-controller="CertificationsController as cert")
 			img.img-responsive(src= "{{cert.certification.src}}")
 			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="cert.upload($file)")
 				span.glyphicon.glyphicon-upload
+			a(href='javascript: void(0)', ng-click="cert.showUrlInput=!cert.showUrlInput") Add a photo from a website
 			form.voffset3(name="certificationsForm", role="form", ng-submit="cert.createCertification()")
-				.form-group(ng-class="{ 'has-error': certificationsForm.name.$touched && certificationsForm.name.$invalid }")
-					input.form-control.input-lg(type="text", name="name", ng-model="cert.certification.name", placeholder="Certificate name",required)
+				.form-group(ng-class="{ 'has-error': certificationsForm.name.$touched && certificationsForm.name.$invalid || certificationsForm.url.$touched && certificationsForm.url.$invalid}")
+					input.form-control.input-lg(type="url", name="url", ng-model="cert.url", ng-show = "cert.showUrlInput" placeholder="http://" ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
+					input.form-control.input-lg.voffset3(type="text", name="name", ng-model="cert.certification.name", placeholder="Certificate name",required)
 				.btn-group.full-width(dropdown='', keyboard-nav='')
 					button.btn.btn-default.btn-lg.col-md-10(type='button')
 						| {{cert.certification.category.name}}

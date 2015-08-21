@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('CertificationsController', function($resource, $timeout, $modal, uploadService ){
+app.controller('CertificationsController', function($scope, $resource, $timeout, $modal, uploadService, downloadService){
 	var vm = this;
 	vm.certifications = [];
     vm.categories = [];
@@ -8,6 +8,7 @@ app.controller('CertificationsController', function($resource, $timeout, $modal,
     vm.certification.src = "/api/files/get/default-image.png";
 	vm.isCollapsed = true;
 	vm.showAlert = false;
+    vm.showUrlInput = false;
 
     getCertifications();
     getCategories();
@@ -55,9 +56,29 @@ app.controller('CertificationsController', function($resource, $timeout, $modal,
           });
     };
 
+
+    $scope.$watch(angular.bind(this, function () {
+        return this.url;
+    }), function(url) {
+        if(url) {
+           vm.certification.src = url;
+        }
+    });
+
 	vm.createCertification = function(){
         var tmp = vm.certification.category;
-        vm.certification.category = vm.certification.category.id;	
+        vm.certification.category = vm.certification.category.id;
+        if(vm.url){
+            var obj = {};
+            obj.url = vm.certification.src;
+            var pathArray = obj.url.split( '/' );
+            var fileName = pathArray[pathArray.length-1];
+            obj.fileName = './upload/' + fileName;
+
+            downloadService.downloadFile(obj);
+            vm.certification.src = '/api/files/get/' + fileName;
+        }
+
 		var Certifications = $resource('/api/certifications', null, {'post': { method:'POST' }});
     	var cert = Certifications.post(vm.certification, function(newCert){
                 newCert.category = tmp;
@@ -69,6 +90,7 @@ app.controller('CertificationsController', function($resource, $timeout, $modal,
     	vm.certification = {};
         vm.certification.category = vm.categories[0];
         vm.certification.src = "/api/files/get/default-image.png";
+        vm.url = "";
     	vm.showAlert = true;
         vm.isCollapsed = true;
         $timeout( function() {vm.showAlert = false}, 5000);

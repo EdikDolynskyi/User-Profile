@@ -57,9 +57,12 @@ div(ng-controller="UserProfileController as ctrl", class="container-fluid")
 
 
     .col-md-6.col-sm-6.col-xs-12.personal-info
-        img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
-        h6 Upload a different photo...
-        .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Upload on file change
+        img.avatar.img-responisve(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+        br
+        a(href='javascript: void(0)', ng-click="ctrl.showUrlInput=!ctrl.showUrlInput") Add a photo from a website
+        .form-group
+            input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
+        .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
         //input.text-center.well.well-sm(type='file')
 
     .col-md-12.form-group

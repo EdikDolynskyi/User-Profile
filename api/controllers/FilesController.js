@@ -45,6 +45,12 @@ module.exports = {
             var filestream = fs.createReadStream(filepath);
             filestream.pipe(res);
         });
+    },
+
+    downloadFile: function(req, res){
+        downloadService.downloadFile(req.body.url, req.body.fileName, function(data){
+            res.send(data)
+        })
     }
 };
 
