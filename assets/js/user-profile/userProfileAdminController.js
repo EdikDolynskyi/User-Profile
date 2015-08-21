@@ -20,6 +20,7 @@ function userCtrl($scope, service, upload, $rootScope) {
         service.update(ctrl.user, function (user) {
             angular.extend(ctrl.user, ctrl.user.preModeration);
             ctrl.user.preModeration = {};
+            alert('User Updated');
         });
     };
     this.cancelUpdate = function () {

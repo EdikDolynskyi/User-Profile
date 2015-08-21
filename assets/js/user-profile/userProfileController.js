@@ -13,7 +13,8 @@ function userCtrl($scope, service, upload, $rootScope) {
         delete user.$resolved;
 
         if(!user.changeAccept){
-            ctrl.user = user.preModeration;
+            //ctrl.user = user.preModeration;
+            ctrl.user = angular.copy(user.preModeration);
         }
         else {
             ctrl.userOriginal = angular.extend({}, user);
@@ -47,11 +48,11 @@ function userCtrl($scope, service, upload, $rootScope) {
         ctrl.userOriginal.preModeration = angular.copy(ctrl.user);
         ctrl.userOriginal.preModeration.preModeration = {};
         //angular.copy(ctrl.userOriginal, ctrl.user);
-        ctrl.user.changeAccept = false;
-        ctrl.checkChange(ctrl.user.changeAccept);
+        ctrl.userOriginal.changeAccept = false;
+        ctrl.checkChange(ctrl.userOriginal.changeAccept);
 
         service.update(ctrl.userOriginal, function (user) {
-            alert('User Updated');
+            alert('Your changes send to moderate. Changes will be made when the administrator becomes sober.');
         });
     };
     this.cancelUpdate = function () {

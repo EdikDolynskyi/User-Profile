@@ -6,7 +6,7 @@ app.config(function ($routeProvider, $locationProvider) {
 		when('/', {
 			templateUrl: 'js/user-profile/user-profile.html',
 			controller: 'UserProfileController'
-		}).
+		})
 		when('/search', {
 			templateUrl: 'js/main-page/user-search.html',
 			controller: 'MainController'
