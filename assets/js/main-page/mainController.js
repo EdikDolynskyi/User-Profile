@@ -13,7 +13,7 @@ function mainCtrl($scope, service, $rootScope, $location) {
 
 
     //set when admin login
-    $rootScope.isAdmin = false;
+    $rootScope.isAdmin = true;
     $rootScope.adminId = '55d6f0af768851c79c9dd781';
 
     if($rootScope.isAdmin)
