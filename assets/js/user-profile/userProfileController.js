@@ -18,8 +18,8 @@ function userCtrl($scope, service, upload, $rootScope) {
         if (!user.changeAccept) {
 
             ctrl.user = angular.copy(user);
-            for(var key in user.preModeration){
-                    ctrl.user[key] = user.preModeration[key];
+            for (var key in user.preModeration) {
+                ctrl.user[key] = user.preModeration[key];
             }
         }
         else {
@@ -57,7 +57,7 @@ function userCtrl($scope, service, upload, $rootScope) {
         ctrl.getChangesFields(ctrl.userOriginal, ctrl.user);
 
         var data = {
-            "owner": {"name" : ctrl.userOriginal.name},
+            "owner": {"name": ctrl.userOriginal.name},
             "original": ctrl.oldUserData,
             "changes": ctrl.newUserData,
             "date": {"date": ctrl.today}
@@ -74,10 +74,6 @@ function userCtrl($scope, service, upload, $rootScope) {
 
 
     };
-
-
-
-
 
 
     this.cancelUpdate = function () {
@@ -104,9 +100,9 @@ function userCtrl($scope, service, upload, $rootScope) {
         });
     };
 
-    this.getChangesFields = function(original, edited) {
-        for(var key in ctrl.dataInFields){
-            if(original[key] !== edited[key]){
+    this.getChangesFields = function (original, edited) {
+        for (var key in ctrl.dataInFields) {
+            if (original[key] !== edited[key]) {
                 ctrl.oldUserData[key] = original[key];
                 ctrl.newUserData[key] = edited[key];
             }
@@ -114,7 +110,7 @@ function userCtrl($scope, service, upload, $rootScope) {
         }
     };
 
-    this.change = function(prop, propValue){
+    this.change = function (prop, propValue) {
         ctrl.dataInFields[prop] = propValue;
     }
 }
