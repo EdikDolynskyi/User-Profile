@@ -12,10 +12,16 @@ module.exports = {
         userId: {
             type: 'string'
         },
+        owner: {
+            type: 'array'
+        },
         original: {
             type: 'array'
         },
         changes: {
+            type: 'array'
+        },
+        date: {
             type: 'array'
         },
         isDeleted: {

@@ -84,3 +84,8 @@ div.container-fluid(ng-controller="UserProfileAdminController as ctrl")
     .col-md-12.form-group
         input.btn.btn-primary(value='Submit Changes', ng-click='ctrl.doUpdate()', readonly)
         input.btn.btn-default(value='Cancel Changes', ng-click='ctrl.cancelUpdate()', readonly)
+        button.btn.btn-info(type='button', ng-click='ctrl.showLogs()') Show log
+
+    .col-md-12.form-group
+        ul.list-group.logs(ng-repeat="log in ctrl.userLogList", ng-show="ctrl.showElement.logs")
+            li.list-group-item.logs-item.list-group-item-info {{log}}

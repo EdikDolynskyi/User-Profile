@@ -57,24 +57,20 @@ function userCtrl($scope, service, upload, $rootScope) {
         ctrl.getChangesFields(ctrl.userOriginal, ctrl.user);
 
         var data = {
+            "owner": {"name" : ctrl.userOriginal.name},
             "original": ctrl.oldUserData,
-            "changes": ctrl.newUserData
+            "changes": ctrl.newUserData,
+            "date": {"date": ctrl.today}
         };
 
         ctrl.addUserChangeLog(data);
 
-        //ctrl.userOriginal.preModeration = angular.copy(ctrl.user);
-       // ctrl.userOriginal.preModeration.preModeration = {};
-        //angular.copy(ctrl.userOriginal, ctrl.user);
+        ctrl.userOriginal.changeAccept = false;
+        service.update(ctrl.userOriginal, function (user) {
 
-
-
-        //ctrl.userOriginal.changeAccept = false;
-        //service.update(ctrl.userOriginal, function (user) {
-        //
-        //    ctrl.checkChange(ctrl.userOriginal.changeAccept);
-        //    alert('Your changes send to moderate. Changes will be made when the administrator becomes sober.');
-        //});
+            ctrl.checkChange(ctrl.userOriginal.changeAccept);
+            alert('Your changes send to moderate. Changes will be made when the administrator becomes sober.');
+        });
 
 
     };

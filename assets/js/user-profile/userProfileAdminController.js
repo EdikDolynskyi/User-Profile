@@ -7,6 +7,8 @@ function userCtrl($scope, service, upload, $rootScope) {
     //Init
     ctrl.today = new Date();
     ctrl.showElement = {};
+    ctrl.userLog = {};
+    ctrl.userLogList = [];
 
     service.get($rootScope.userId, function (user) {
         ctrl.user = user;
@@ -17,7 +19,7 @@ function userCtrl($scope, service, upload, $rootScope) {
 
     this.doUpdate = function () {
 
-        for(var key in ctrl.user.preModeration){
+        for (var key in ctrl.user.preModeration) {
             ctrl.user[key] = ctrl.user.preModeration[key];
             ctrl.showElement[key] = false;
         }
@@ -45,9 +47,46 @@ function userCtrl($scope, service, upload, $rootScope) {
             })
         }
     };
-    this.showChangesFields = function(changes){
-        for(var key in changes){
+    this.showChangesFields = function (changes) {
+        for (var key in changes) {
             ctrl.showElement[key] = true;
+        }
+    };
+
+    this.showLogs = function () {
+        ctrl.getUserLog();
+        ctrl.showElement.logs = !ctrl.showElement.logs
+    };
+
+    this.getUserLog = function () {
+
+        service.getUserLog(ctrl.user.id, function (userLog) {
+
+            delete userLog.$promise;
+            delete userLog.$resolved;
+
+            ctrl.userLog = angular.copy(userLog[0]);
+            console.log(userLog);
+            ctrl.makeLogList(ctrl.userLog);
+        });
+    };
+
+
+    this.makeLogList = function (userLog) {
+        var original = userLog.original;
+        var changes = userLog.changes;
+        var owner = userLog.owner;
+        var date = userLog.date;
+
+        for (var i = 0; i < changes.length; i++) {
+            var message = 'User ' + owner[i].name + ' do next changes:' + '\n';
+            for (var key in changes[i]) {
+                message = message +
+                    'Field '  + key + ' ' + original[i][key] +
+                    ' changed to ' + changes[i][key] + '\n';
+            }
+            message = message + date[i].date;
+            ctrl.userLogList.push(message);
         }
     }
 }

@@ -127,3 +127,13 @@ input {font:small-caption;font-size:18px;}
     font-size: 2.5vh;
     margin-left: 10%;
 }
+.logs{
+    margin-bottom: 0;
+}
+
+.logs-item{
+    background-color: #d9edf7;
+    color: #000000;
+    border-color: #acbaf7;
+    white-space: pre;
+}
