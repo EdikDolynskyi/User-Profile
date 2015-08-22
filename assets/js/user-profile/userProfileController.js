@@ -6,15 +6,21 @@ function userCtrl($scope, service, upload, $rootScope) {
     var ctrl = this;
     //Init
     ctrl.today = new Date();
+    ctrl.oldUserData = {};
+    ctrl.newUserData = {};
+    ctrl.dataInFields = {};
 
     service.get($rootScope.ownerId, function (user) {
 
         delete user.$promise;
         delete user.$resolved;
 
-        if(!user.changeAccept){
-            //ctrl.user = user.preModeration;
-            ctrl.user = angular.copy(user.preModeration);
+        if (!user.changeAccept) {
+
+            ctrl.user = angular.copy(user);
+            for(var key in user.preModeration){
+                    ctrl.user[key] = user.preModeration[key];
+            }
         }
         else {
             ctrl.userOriginal = angular.extend({}, user);
@@ -24,11 +30,11 @@ function userCtrl($scope, service, upload, $rootScope) {
         ctrl.checkChange(user.changeAccept);
     });
 
-    this.checkChange = function (changeAccept){
-        if (changeAccept){
+    this.checkChange = function (changeAccept) {
+        if (changeAccept) {
             ctrl.changeMessage = "User Profile Data moderate";
             ctrl.messageStyle = {
-                "color" : "#3c763d",
+                "color": "#3c763d",
                 "background-color": "#dff0d8",
                 "border-color": "#d6e9c6"
             };
@@ -37,7 +43,7 @@ function userCtrl($scope, service, upload, $rootScope) {
         else {
             ctrl.changeMessage = "User Profile Data not yet moderate";
             ctrl.messageStyle = {
-                "color" : "#a94442",
+                "color": "#a94442",
                 "background-color": "#f2dede",
                 "border-color": "#ebccd1"
             };
@@ -45,16 +51,39 @@ function userCtrl($scope, service, upload, $rootScope) {
     };
 
     this.doUpdate = function () {
-        ctrl.userOriginal.preModeration = angular.copy(ctrl.user);
-        ctrl.userOriginal.preModeration.preModeration = {};
-        //angular.copy(ctrl.userOriginal, ctrl.user);
-        ctrl.userOriginal.changeAccept = false;
-        ctrl.checkChange(ctrl.userOriginal.changeAccept);
+        ctrl.userOriginal.preModeration = ctrl.newUserData;
 
-        service.update(ctrl.userOriginal, function (user) {
-            alert('Your changes send to moderate. Changes will be made when the administrator becomes sober.');
-        });
+
+        ctrl.getChangesFields(ctrl.userOriginal, ctrl.user);
+
+        var data = {
+            "original": ctrl.oldUserData,
+            "changes": ctrl.newUserData
+        };
+
+        ctrl.addUserChangeLog(data);
+
+        //ctrl.userOriginal.preModeration = angular.copy(ctrl.user);
+       // ctrl.userOriginal.preModeration.preModeration = {};
+        //angular.copy(ctrl.userOriginal, ctrl.user);
+
+
+
+        //ctrl.userOriginal.changeAccept = false;
+        //service.update(ctrl.userOriginal, function (user) {
+        //
+        //    ctrl.checkChange(ctrl.userOriginal.changeAccept);
+        //    alert('Your changes send to moderate. Changes will be made when the administrator becomes sober.');
+        //});
+
+
     };
+
+
+
+
+
+
     this.cancelUpdate = function () {
         angular.copy(ctrl.userOriginal, ctrl.user);
     };
@@ -71,4 +100,25 @@ function userCtrl($scope, service, upload, $rootScope) {
             })
         }
     };
+
+
+    this.addUserChangeLog = function (data) {
+        service.addLog(ctrl.userOriginal.id, data, function (data) {
+            alert('user data added to logs!');
+        });
+    };
+
+    this.getChangesFields = function(original, edited) {
+        for(var key in ctrl.dataInFields){
+            if(original[key] !== edited[key]){
+                ctrl.oldUserData[key] = original[key];
+                ctrl.newUserData[key] = edited[key];
+            }
+
+        }
+    };
+
+    this.change = function(prop, propValue){
+        ctrl.dataInFields[prop] = propValue;
+    }
 }

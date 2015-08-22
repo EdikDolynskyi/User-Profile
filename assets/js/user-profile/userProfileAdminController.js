@@ -6,25 +6,31 @@ function userCtrl($scope, service, upload, $rootScope) {
     var ctrl = this;
     //Init
     ctrl.today = new Date();
+    ctrl.showElement = {};
 
     service.get($rootScope.userId, function (user) {
         ctrl.user = user;
-        // ctrl.user.preModeration = user.preModeration;
+        ctrl.originPreModeration = angular.copy(user.preModeration);
+        ctrl.showChangesFields(user.preModeration);
     });
 
 
     this.doUpdate = function () {
-        angular.extend(ctrl.user, ctrl.user.preModeration);
+
+        for(var key in ctrl.user.preModeration){
+            ctrl.user[key] = ctrl.user.preModeration[key];
+            ctrl.showElement[key] = false;
+        }
+        ctrl.user.preModeration = {};
         ctrl.user.changeAccept = true;
-        //ctrl.checkChange(ctrl.user.changeAccept);
+
         service.update(ctrl.user, function (user) {
-            angular.extend(ctrl.user, ctrl.user.preModeration);
-            ctrl.user.preModeration = {};
             alert('User Updated');
         });
     };
+
     this.cancelUpdate = function () {
-        ctrl.user.preModeration = {};
+        ctrl.user.preModeration = angular.copy(ctrl.originPreModeration);
     };
 
     this.upload = function (file) {
@@ -39,4 +45,9 @@ function userCtrl($scope, service, upload, $rootScope) {
             })
         }
     };
+    this.showChangesFields = function(changes){
+        for(var key in changes){
+            ctrl.showElement[key] = true;
+        }
+    }
 }
