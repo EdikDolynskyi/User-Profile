@@ -1,0 +1,8 @@
+main.container-fluid
+    .row(ng-controller='userProfileDataController as ctrl')
+            div
+                tabset
+                    tab(ng-repeat='tab in ctrl.tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled', select="changeHash(tab.href)")
+                        | {{tab.content}}
+
+                //.col-lg-6.article(ng-view)

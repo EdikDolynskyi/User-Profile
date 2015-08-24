@@ -15,6 +15,10 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: 'js/user-profile/user-profile-public.html',
 			controller: 'UserProfilePublicController'
 		}).
+		when('/userdata', {
+			templateUrl: 'js/user-profile/user-profile-data.html',
+			controller: 'userProfileDataController'
+		}).
 		when('/admin', {
 			templateUrl: 'js/user-profile/user-profile-admin.html',
 			controller: 'UserProfileAdminController'
@@ -46,7 +50,8 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
         $scope.tabs = [
             {title: 'My profile', href: '/'},
             {title: 'My experience', href: '/cv'},
-            {title: 'PDP flow', href: '/pdp'}
+            {title: 'PDP flow', href: '/pdp'},
+			{title: 'User Data', href: '/userdata'}
         ]
     }
 
@@ -55,6 +60,5 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 	};
 
 });
-
 module.exports = app;
 
