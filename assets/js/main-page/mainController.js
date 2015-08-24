@@ -61,14 +61,14 @@ function mainCtrl($scope, service, $rootScope, $location) {
 
     this.showUserPage = function (id) {
         $rootScope.userId = id;
-        $location.path('/userpage');
+        $location.path('/userdata');
         ctrl.usersList = [];
         ctrl.searchText = '';
     };
 
     this.showUserPageFromFilter = function (id) {
         $rootScope.userId = id;
-        $location.path('/userpage');
+        $location.path('/userdata');
     };
 
     this.go = function (path) {
