@@ -1,5 +1,8 @@
-div(ng-controller='userProfileDataController as ctrl')
+div(ng-controller='userProfileDataController as updCtrl', ng-init='ctrl.deactivateUserProfileTab()')
     tabset
-        tab(ng-repeat='tab in ctrl.tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled')
+        tab(ng-repeat='tab in updCtrl.tabs',
+            heading='{{tab.title}}',
+            active='tab.active',
+            disable='tab.disabled')
             br
             .page(ng-include='', src="tab.content")

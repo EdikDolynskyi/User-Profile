@@ -4,6 +4,8 @@ app.controller('MainController', ['$scope', 'MainService', '$rootScope', '$locat
 
 function mainCtrl($scope, service, $rootScope, $location) {
     var ctrl = this;
+
+    ctrl.usersList = [];
     ctrl.searchParams = {};
 
     //ownerId - id who login //userId - id of view user //adminId - id of admin
@@ -17,7 +19,7 @@ function mainCtrl($scope, service, $rootScope, $location) {
     $rootScope.adminId = '55d6f0af768851c79c9dd781';
 
     if($rootScope.isAdmin)
-        $rootScope.userId = $rootScope.adminId = '55d6f0af768851c79c9dd781';
+        $rootScope.userId = $rootScope.adminId = '55c38b5a956240ba4c6a5f24';
     console.log($rootScope.ownerId);
 
 
@@ -64,6 +66,7 @@ function mainCtrl($scope, service, $rootScope, $location) {
         $location.path('/userdata');
         ctrl.usersList = [];
         ctrl.searchText = '';
+        //ng-init="TabsCtrl.deactivateUserProfileTab()";
     };
 
     this.showUserPageFromFilter = function (id) {

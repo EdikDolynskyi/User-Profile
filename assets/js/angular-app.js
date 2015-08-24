@@ -29,9 +29,10 @@ app.config(function ($routeProvider) {
 });
 
 app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
-    if ($rootScope.isAdmin) {
-        $scope.tabs = [
-            {title: 'User profile', href: '/userpage'},
+    var vm = this;
+	if ($rootScope.isAdmin) {
+		vm.tabs = [
+            {title: 'User profile', href: '/userdata'},
             {title: 'User experience', href: '/cv'},
             {title: 'User PDP flow', href: '/pdp'},
             {title: 'Admin', href: '/admin'},
@@ -42,16 +43,22 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
         ]
     }
     else {
-        $scope.tabs = [
-            {title: 'My profile', href: '/'},
-            {title: 'My experience', href: '/cv'},
-            {title: 'PDP flow', href: '/pdp'},
-			{title: 'User Data', href: '/userdata'}
+		vm.tabs = [
+            {title: 'My profile', href: '/', active: true},
+            {title: 'My experience', href: '/cv', couldBeHidden: true},
+            {title: 'PDP flow', href: '/pdp', couldBeHidden: true}
         ]
     }
 
-	$scope.changeHash = function(data) {
+	vm.isMyProfile = function () {
+		return $rootScope.ownerId == $rootScope.userId;
+	};
+	vm.changeHash = function(data) {
+		$rootScope.userId = $rootScope.ownerId;
 		$location.path(data);
+	};
+	vm.deactivateUserProfileTab = function() {
+		vm.tabs[0].active = false;
 	};
 
 });

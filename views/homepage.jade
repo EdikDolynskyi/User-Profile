@@ -31,11 +31,16 @@ html(ng-app='myApp')
                                         | {{user.department}}
                                         
         main.container-fluid
-            .row(ng-controller='TabsCtrl')
+            .row(ng-controller='TabsCtrl as ctrl')
                 #nav.col-lg-2.col-lg-offset-2
                     div
                         tabset(vertical="true")
-                            tab(ng-repeat='tab in tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled', select="changeHash(tab.href)")
+                            tab(ng-repeat='tab in ctrl.tabs',
+                                ng-hide="tab.couldBeHidden && !ctrl.isMyProfile()",
+                                heading='{{tab.title}}',
+                                active='tab.active',
+                                disable='tab.disabled',
+                                select="ctrl.changeHash(tab.href)")
                 .col-lg-6.article(ng-view)
         //- footer
         //-     .container-fluid

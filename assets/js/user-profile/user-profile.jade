@@ -1,7 +1,7 @@
 div.container-fluid(ng-controller="UserProfileController as ctrl")
     .page-header
         h2 Personal info
-            .alert.alert-success.status(role='alert', ng-style="ctrl.messageStyle") {{ctrl.changeMessage}}
+            .alert.alert-warning.status(ng-class="{hidden: ctrl.user.changeAccept}") {{ctrl.changeMessage}}
     .col-md-6.col-sm-6.col-xs-12
         .form-group
             label Name
