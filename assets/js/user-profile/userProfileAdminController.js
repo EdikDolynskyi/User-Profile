@@ -9,6 +9,8 @@ function userCtrl($scope, service, upload, $rootScope) {
     ctrl.showElement = {};
     ctrl.userLog = {};
     ctrl.userLogList = [];
+    ctrl.oldUserData = {};
+    ctrl.newUserData = {};
 
     service.get($rootScope.userId, function (user) {
         ctrl.user = user;
@@ -20,14 +22,29 @@ function userCtrl($scope, service, upload, $rootScope) {
     this.doUpdate = function () {
 
         for (var key in ctrl.user.preModeration) {
+
+            ctrl.oldUserData[key] = ctrl.user[key];
+            ctrl.newUserData[key] = ctrl.user.preModeration[key];
+
             ctrl.user[key] = ctrl.user.preModeration[key];
             ctrl.showElement[key] = false;
+
         }
         ctrl.user.preModeration = {};
         ctrl.user.changeAccept = true;
 
+        var data = {
+            "owner": {"name": "Admin"}, //Must be admin name
+            "original": ctrl.oldUserData,
+            "changes": ctrl.newUserData,
+            "date": {"date": ctrl.today}
+        };
+
+        ctrl.addUserChangeLog(data);
+
         service.update(ctrl.user, function (user) {
             alert('User Updated');
+            ctrl.getUserLog();
         });
     };
 
@@ -55,7 +72,9 @@ function userCtrl($scope, service, upload, $rootScope) {
 
     this.showLogs = function () {
         ctrl.getUserLog();
-        ctrl.showElement.logs = !ctrl.showElement.logs
+        ctrl.showElement.logs = !ctrl.showElement.logs;
+        ctrl.userLog = {};
+        ctrl.userLogList = [];
     };
 
     this.getUserLog = function () {
@@ -82,11 +101,17 @@ function userCtrl($scope, service, upload, $rootScope) {
             var message = 'User ' + owner[i].name + ' do next changes:' + '\n';
             for (var key in changes[i]) {
                 message = message +
-                    'Field '  + key + ' ' + original[i][key] +
+                    'Field ' + key + ' ' + original[i][key] +
                     ' changed to ' + changes[i][key] + '\n';
             }
             message = message + date[i].date;
             ctrl.userLogList.push(message);
         }
     }
+
+    this.addUserChangeLog = function (data) {
+        service.addLog(ctrl.user.id, data, function (data) {
+            alert('user data added to logs!');
+        });
+    };
 }
