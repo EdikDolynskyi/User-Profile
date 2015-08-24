@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ngRoute', 'ngResource', 'ngFileUpload', 'ui.bootstrap']);
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider) {
 
 	$routeProvider.
 		when('/', {
@@ -30,7 +30,6 @@ app.config(function ($routeProvider, $locationProvider) {
 		when('/adminpdp', {templateUrl: 'js/admin/adminpdp.html'}).
 		when('/admintechdata', {templateUrl: 'js/admin/admintechdata.html'}).
 		otherwise({ redirectTo: '/' });
-		 $locationProvider.html5Mode(false);
 });
 
 app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {

@@ -1,8 +1,19 @@
-main.container-fluid
-    .row(ng-controller='userProfileDataController as ctrl')
-            div
-                tabset
-                    tab(ng-repeat='tab in ctrl.tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled', select="changeHash(tab.href)")
-                        | {{tab.content}}
+ul.nav.nav-tabs(ng-init="tab = 1")
+    li.active(role='presentation')
+        a(ng-click="tab = 1") Home
+    li(role='presentation')
+        a(ng-click="tab = 2") Profile
+    li(role='presentation')
+        a(ng-click="tab = 3") Messages
+.tab-content
+    #user-profile.tab-pane.content-block(ng-class="{active: tab == 1}")
+        br
+        .page(ng-include='', src="'js/user-profile/user-profile-public.html'")
 
-                //.col-lg-6.article(ng-view)
+    #cvdata.tab-pane.content-block(ng-class="{active: tab == 2}")
+        br
+        .page(ng-include='', src="'js/user-profile/user-profile-public.html'")
+
+    #pdp.tab-pane.content-block(ng-class="{active: tab == 3}")
+        br
+        .page(ng-include='', src="'js/user-profile/user-profile-public.html'")
