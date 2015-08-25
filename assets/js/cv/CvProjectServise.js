@@ -32,10 +32,10 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         });
     };
 
-    F.serSubmit = function(technologiesEnterText, userTechnogies, userCV) {
+    F.serSubmit = function(technologiesEnterText, userTechnologies, userCV, allCategories) {
 
         if (technologiesEnterText) {
-            saveTechnology(technologiesEnterText, userTechnogies, userCV);
+            saveTechnology(technologiesEnterText, userTechnologies, userCV, allCategories);
         }
 
     };
@@ -85,12 +85,11 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         }
 
     };
-    var submitUpdateProject = function(productowner, description, projectNewName, technologies, userProjects, userCV, updateProjectId, startDate, allProjects) {
+    var submitUpdateProject = function(description, projectNewName, technologies, userProjects, userCV, updateProjectId, startDate, allProjects) {
         var updateProject = {};
         var updateProjectToServer = {};
         var technologiesArray = [];
         updateProject.name = projectNewName;
-        updateProject.productowner = productowner;
         updateProject.technologies = technologies;
         updateProject.description = description;
         updateProject.id = updateProjectId;
@@ -106,7 +105,6 @@ angular.module('myApp').factory('cvFactory', function($resource) {
             }
         });
         updateProjectToServer.name = projectNewName;
-        updateProjectToServer.productowner = productowner;
         updateProjectToServer.technologies = [];
         updateProjectToServer.description = description;
         updateProjectToServer.id = updateProjectId;
@@ -127,7 +125,7 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         var CVPost = $resource(baseCVPath + '/' + userCV.id);
                 CVPost.save(updateProjectToUserCv, function(response2) {});
     };
-    F.submitNewProject = function(productowner, description, projectNewName, technologies, userProjects, userCV, updateProjectId, startDate, allProjects) {
+    F.submitNewProject = function( description, projectNewName, technologies, userProjects, userCV, updateProjectId, startDate, allProjects) {
         if (!updateProjectId || updateProjectId == '') {
             var newProject = {};
             var newProjectToServer = {};
@@ -135,7 +133,6 @@ angular.module('myApp').factory('cvFactory', function($resource) {
             newProjectToUserCv.projects = [];
             var technologiesArray = [];
             newProject.name = projectNewName;
-            newProject.productowner = productowner;
             newProject.technologies = technologies;
             newProject.description = description;
             allProjects.push(newProject);
@@ -145,7 +142,6 @@ angular.module('myApp').factory('cvFactory', function($resource) {
             newProject.startUserOnProject = startDate;
             userProjects.push(newProject);
             newProjectToServer.name = projectNewName;
-            newProjectToServer.productowner = productowner;
             newProjectToServer.technologies = [];
             newProjectToServer.description = description;
             angular.forEach(technologies, function(technology) {
@@ -168,11 +164,11 @@ angular.module('myApp').factory('cvFactory', function($resource) {
                 var CVPost = $resource(baseCVPath + '/' + userCV.id);
                 CVPost.save(newProjectToUserCv, function(response2) {});
             });
-            F.showFieldNewProjects = false;
-        } else {
+            //F.showFieldNewProjects = false;
+        } /*else {
             submitUpdateProject(productowner, description, projectNewName, technologies, userProjects, userCV, updateProjectId, startDate, allProjects);
             F.showFieldNewProjects = false;
-        }
+        }*/
     };
     // =================================================================================================================
     F.serSubmitOne = function(technologiesEnterTextOne, userTechnogies, userCV, allTechnologies) {
@@ -180,6 +176,48 @@ angular.module('myApp').factory('cvFactory', function($resource) {
             saveTechnologyOne(technologiesEnterTextOne, userTechnogies, userCV, allTechnologies);
         }
     };
+
+    F.updateCVTechnologies = function(obj, userCV, userTechnologies){
+        $resource('/updatetechnologies/:id', {id: '@id'}, {'update': { method:'PUT' }})
+        .update({id: userCV.id}, obj);
+
+        if(userTechnologies) {
+            var newTechnology = {};
+            var Technologies = $resource('api/technologies', {id: '@id'});
+            Technologies.get({id: obj.userTech}, function(technology) {
+                newTechnology = technology;
+                newTechnology.stars = obj.stars;
+
+                var Categories = $resource('api/categories', {id: '@id'});
+                Categories.get({id: newTechnology.category}, function(category) {
+                    newTechnology.category = category;
+                    userTechnologies.push(newTechnology);
+                });
+            });
+        }
+
+    };
+
+    F.createTechnology = function(obj, userCV, callback){
+        var newTechnology = {};
+        newTechnology.name = obj.name;
+        newTechnology.category = obj.category.id;
+
+        var Technologies = $resource('api/technologies', null, {'post': { method:'POST' }});
+        Technologies.post(newTechnology, function(res){
+            newTechnology = {userTech: res.id};
+
+            callback(newTechnology);
+        });
+
+    };
+
+    /*F.getTechCategory = function(techId, callback){
+        var Categories = $resource('api/categories', {id: '@id'});
+        Categories.get({id: techId}, function(category) {
+            callback(category);
+        });
+    };*/
     // =================================================================================================================
 
     var saveTechnologyOne = function(obj, userTechnogies, userCV, allTechnologies) {
@@ -249,7 +287,7 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         }
     };
     // =================================================================================================================
-    var saveTechnology = function(obj, userTechnogies, userCV) {
+    var saveTechnology = function(obj, userTechnogies, userCV, allCategories) {
         var saveObj = {},
             isFind = false,
             dubl = false;
@@ -270,6 +308,12 @@ angular.module('myApp').factory('cvFactory', function($resource) {
                 F.techName = obj;
             } else {
                 obj.stars = "1";
+                angular.forEach(allCategories, function(category){
+                    if(category.id == obj.category){
+                        obj.category = category;
+                    }
+
+                });
                 userTechnogies.push(obj);
                 saveObj = {};
                 saveObj.technologies = [];

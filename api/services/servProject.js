@@ -5,7 +5,7 @@ module.exports = {
         Users
             .findOne({id: id })
             .populate('userCV')
-            .exec(function (err, projects) {  
+            .exec(function (err, projects) {
                 async.parallel([
                     getUserProjects.bind(null,projects),
                     getUserTechnologies.bind(null,projects),
@@ -13,10 +13,44 @@ module.exports = {
                     callback.bind(null,null, projects)
                 ); //async.parallel
         }); //Users.exec        
-    } //getUserCV
+    }, //getUserCV
+
+    updateCVTechnologies: function(id, body, callback){
+        Cvs.findOne({id: id})
+            .exec(function(err, cv) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    var newTechnology = {};
+                    newTechnology.userTech = body.userTech;
+                    newTechnology.stars = body.stars.toString();
+
+                    if(cv.technologies.length == 0) {
+                        cv.technologies.push(newTechnology);
+                        cv.save();
+                    } else {
+                        for(var i = 0; i < cv.technologies.length; i++){
+                            if(cv.technologies[i].userTech == body.id){
+                                cv.technologies[i].stars = body.stars;
+                                cv.save();
+
+                                break;
+                            }
+                        }
+
+                        if(body.userTech) {
+                            cv.technologies.push(newTechnology);
+                            cv.save();
+                        }
+                    }
+                }
+
+                callback(null);
+            });
+    }
 }; //module.exports
  
-    function getUserProjects(projects, asyncCallback){   
+    function getUserProjects(projects, asyncCallback){
         async.map(projects.userCV.projects, 
             function (objUserProject, callback){
                 Projects

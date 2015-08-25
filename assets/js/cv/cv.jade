@@ -4,86 +4,119 @@ script(type='text/ng-template', id='dropDownList.html').
     </a>
 
 .container-fluid(ng-controller='technologiesCtrl')
-  div.row.technologies
-    div.col-lg-4
-        h4 Technologies
-        form(ng-submit='submit(technologiesEnterText)')
-          input.form-control(type='text',
-                               ng-model="technologiesEnterText",
-                               name="technologiesEnterText",
-                               placeholder='Enter technology name',
-                               typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
-                               typeahead-template-url='dropDownList.html')
-        form(ng-submit='submitOne(technologyTypeEnterText)')
-          input.form-control(ng-show="technologyTypeShow",
-                               type='text',
-                               ng-model='technologyTypeEnterText',
-                               name='technologyTypeEnterText',
-                               placeholder='Enter technology type name',
-                               typeahead='tech as tech.name for tech in allCategories | filter:{name:$viewValue}',
-                               typeahead-template-url='dropDownList.html')
-    div.col-lg-8 sort
-      rating(ng-model="filtrRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" )
-      ul
-        li.Categories(ng-repeat="Categ in userTechnologies | uniqueTechnology") {{Categ.category.name}}
-          button(ng-repeat="Tech in userTechnologies | filter: {category: {id:Categ.category.id}} | ratingFilter: filtrRate", ng-class = "getColor(Tech.stars)", ng-click = "addStars(Tech.stars)") {{Tech.name}}
-  .row.project
-    h4 Projects
-    .panel.panel-default
-      .panel-body
-        .col-lg-6
-          form(ng-keydown='enterProjectName($event,projectName)')
-            input.form-control.inputProject(type='text',
-													 ng-model="projectName",
-		                       name="projectName",
-		                       placeholder='Enter project name',
-		                       typeahead='project as project.name for project in allProjects | filter:{name:$viewValue}',
-		                       typeahead-template-url='dropDownList.html')
-            input.form-control.inputProject(type='text',
-		                       ng-model="productowner",
-		                       name="productowner",
-		                       placeholder='Enter productowner',
-		                       typeahead='tech as project.productowner for project in allProjects | filter:{name:$viewValue}',
-		                       typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
-            input.form-control.inputProject(tipe = 'text',
-		                        placeholder='Enter description',
-		                        ng-model = 'description', ng-show = "showFieldNewProjects")
-            p.input-group(ng-show = "showFieldNewProjects") enter date when you start the project
-              input.form-control(type='date', datepicker-popup='', ng-model='startDate', is-open='status.opened', min-date='minDate', max-date="'2020-06-22'", datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
-              span.input-group-btn
-        .col-lg-6
-          form(ng-keydown ='enterTechnologyName($event, technologiesInProject)')
-            input.form-control.inputProject(type='text',
-		                       ng-model="technologiesInProject",
-		                       name="technologies",
-		                       placeholder='Enter technology name',
-		                       typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
-		                       typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
-            button.tehButton4Stars(ng-repeat="Tech in technologiesInNewProject ") {{Tech.name}}
-            .col-md-6(ng-show = "showFieldNewProjects")
-        .col-lg-2.col-lg-offset-10     
-              button(name= "submit", ng-click = 'submitNewProject(productowner, description, projectName, technologies)', ng-show = "showFieldNewProjects") Submit
-              button(name= "submit", ng-click = 'cancel()', ng-show = "showFieldNewProjects") Cancel
-    .panel.panel-default(ng-repeat='project in userProjects')
-      .panel-heading(ng-click="isCollapsed = !isCollapsed") {{project.name}}
-      .panel-body(collapse="isCollapsed")
-        .col-lg-6
-          .row 
-            strong productowner project:
-            br 
-            | {{project.productowner}}
-          .row 
-            strong description project: 
-            br
-            | {{project.description}}
-          .row
-            strong  i start the project:
-            br
-            | {{project.startUserOnProject | date:"dd/MM/yyyy"}}  
-        .col-lg-6
-          button.tehButton4Stars(ng-repeat = "techn in project.technologies") {{techn.name}}
+    .row.technologies
+        div.col-lg-12.v-center
+            h4 Technologies
+            span(dropdown='')
+                a#simple-dropdown(href='', dropdown-toggle='')
+                    | add technologies
+                ul.dropdown-menu.pull-right(aria-labelledby='simple-dropdown')
+                    li
+                        a(ng-href='', ng-click='showTechForm1=true; showTechForm2=false; $event.preventDefault()') Select from existing technologies
+                        a(ng-href='', ng-click='showTechForm2=true; showTechForm1=false; $event.preventDefault()') Create technology
+        div.col-lg-6.col-lg-offset-3(ng-show='showTechForm1')
+            form(ng-submit='addTechnology(tech); showTechForm1=!showTechForm1')
+                .form-group
+                    label(for='sel-technology') Technology
+                    select#sel-technology.form-control(ng-model='tech', required)
+                        option(value='') ---Please select---
+                        option(ng-repeat='tech in allTechnologies | orderBy : "name"' value='{{tech}}')
+                            | {{tech.name}}
+                .form-group
+                    label(for='knowledgelevel') Knowledge level
+                    rating#knowledgelevel(max='5', readonly='false',on-hover='hoveringOver(value)',
+                    on-leave='overStar = null', ng-model='tech.stars', required)
+                button.btn.btn-primary(type='submit') Submit
+                button.btn.btn-danger(type='reset' ng-click='showTechForm1=false') Cancel
 
+        div.col-lg-6.col-lg-offset-3(ng-show='showTechForm2')
+            form(ng-submit='createTechnology(technology); showTechForm2=!showTechForm2')
+                .form-group
+                    label(for='tech-name') Technology name
+                    input#tech-name.form-control(type='text', ng-model='technology.name', required)
+                .form-group
+                    label(for='sel-category') Technology Category
+                    select#sel-category.form-control(ng-model='techcategory', ng-change='selectTechCategory(techcategory)', required)
+                        option(value='') ---Please select---
+                        option(ng-repeat='category in allCategories | orderBy : "name"' value='{{category}}')
+                            | {{category.name}}
+                .form-group
+                    label(for='knowledgelevel') Knowledge level
+                    rating#knowledgelevel(max='5', readonly='false',on-hover='hoveringOver(value)',
+                        on-leave='overStar = null', ng-model='technology.stars', required)
+                button.btn.btn-primary(type='submit') Create technology
+                button.btn.btn-danger(type='reset' ng-click='showTechForm2=!showTechForm2') Cancel
+        div.col-lg-12.voffset3
+            | Sort by knowledge level:
+            rating(ng-model='filtrRate' max='5' readonly='isReadonly' on-hover='hoveringOver(value)' on-leave='overStar = null')
+            ul.technologies-list.voffset3
+                li.categories(ng-repeat='Categ in userTechnologies | uniqueTechnology')
+                    span.category-name
+                        | {{Categ.category.name}}:
+                    button(ng-repeat='Tech in userTechnologies | filter: {category: {id:Categ.category.id}} | ratingFilter: filtrRate',
+                            class = 'stars stars-{{Tech.stars}}', ng-click='showRating = !showRating')
+                        | {{Tech.name}}
+                        rating(ng-model='Tech.stars' max='5' readonly='false' on-hover='hoveringOver(value)' on-leave='overStar = null', ng-show='showRating' ng-click='updateCVTechnologies(Tech)')
+    .row.projects
+        div.col-lg-12.v-center
+            h4 Projects
+            span(dropdown='')
+                a#simple-dropdown2(href='', dropdown-toggle='')
+                    | add projects
+                ul.dropdown-menu.pull-right(aria-labelledby='simple-dropdown2')
+                    li
+                        a(ng-href='', ng-click='showProjectForm1=true; showProjectForm2=false; $event.preventDefault()') Select from existing projects
+                        a(ng-href='', ng-click='showProjectForm2=true; showProjectForm1=false; $event.preventDefault()') Create project
+        div.col-lg-6.col-lg-offset-3(ng-show='showProjectForm1')
+            form(ng-submit='addProject(proj); showProjectForm1=!showProjectForm1')
+                .form-group
+                    label(for='sel-project') Project
+                    select#sel-project.form-control(ng-model='proj', required)
+                        option(value='') ---Please select---
+                        option(ng-repeat='proj in allProjects | orderBy : "name"' value='{{proj}}')
+                            | {{proj.name}}
+                button.btn.btn-primary(type='submit') Submit
+                button.btn.btn-danger(type='reset' ng-click='showProjectForm1=false') Cancel
+        div.col-lg-6.col-lg-offset-3(ng-show='showProjectForm2')
+            form(ng-submit='submitNewProject(description, projectName, technologies); showProjectForm2 = false')
+                .form-group
+                    label(for='project-name') Project name
+                    input#project-name.form-control(type='text', ng-model='projectName', required)
+                .form-group
+                    label(for='startDate') Start date
+                    input#start-date.form-control(type='date', datepicker-popup='', ng-model='startDate',
+                        is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
+                        date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
+                .form-group
+                    label(for='technologies') Technologies
+                    input#technologies.form-control(type='text', ng-model='technologiesInProject',
+                        ng-keydown ='enterTechnologyName($event, technologiesInProject)',
+                        typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
+                        typeahead-template-url='dropDownList.html')
+                    button.stars-4.voffset2(ng-repeat='Tech in technologiesInNewProject') {{Tech.name}}
+                .form-group
+                    label(for='description') Description
+                    textarea.form-control(rows='3', id='description', ng-model='description', required)
+                button.btn.btn-primary(type='submit') Create project
+                button.btn.btn-danger(type='reset' ng-click='showProjectForm2 = false') Cancel
+        div.col-lg-12.voffset3
+            .panel.panel-default(ng-repeat='project in userProjects')
+                .panel-heading(ng-click='isCollapsed = !isCollapsed')
+                    b {{project.name}}
+                .panel-body(collapse='isCollapsed')
+                    .row
+                        div.col-lg-3.project-label
+                             | Start date:
+                        div.col-lg-9
+                            | {{project.startUserOnProject | date:'dd/MM/yyyy'}}
+                    .row.voffset3
+                        div.col-lg-3.project-label
+                            | Technologies:
+                        div.col-lg-9
+                            button.stars-4(ng-repeat = 'techn in project.technologies') {{techn.name}}
+                    .row.voffset3
+                        div.col-lg-3.project-label
+                            | Description:
+                        div.col-lg-9
+                            | {{project.description}}
 
-      
- //- ng-keypress='enterProjecName($event)',
- //- ng-submit = "addtechnologiesInProject(technologiesInProject)"

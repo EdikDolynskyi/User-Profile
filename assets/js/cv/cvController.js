@@ -1,7 +1,4 @@
-angular.module('myApp').controller('technologiesCtrl', function($scope, technologies, cvFactory) {
-    // $scope.listOfAllTechnologies = technologies.listOfAllTechnologies;
-    // $scope.listOfAllCategories = technologies.listOfAllCategories;
-    // $scope.technologies = technologies;
+angular.module('myApp').controller('technologiesCtrl', function($scope, cvFactory) {
     /****************************************************************************
      *                                                                           *
      *                               SCOPE VARIABLE                              *
@@ -12,15 +9,20 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
     $scope.allProjects = [];
     $scope.userTechnologies = [];
     $scope.allCategories = [];
-    $scope.max = 5;
+    $scope.allTechnologies = [];
     $scope.filtrRate = 0;
     $scope.projectName = '';
     $scope.technologiesInNewProject = [];
     $scope.updateProjectId = '';
     $scope.startDate = '';
-     $scope.isCollapsed = true;
-    // $scope.technologyTypeShow = false;
-   
+    $scope.isCollapsed = true;
+    $scope.showRating = false;
+    $scope.showTechForm1 = false;
+    $scope.showTechForm2 = false;
+    $scope.showProjectForm1 = false;
+    $scope.showProjectForm2 = false;
+    $scope.technology = {};
+
 
     /****************************************************************************
      *                                                                           *
@@ -64,26 +66,16 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
 
     $scope.submit = function(msg) {
 
-        cvFactory.serSubmit(msg, $scope.userTechnologies, $scope.userCV);
+        cvFactory.serSubmit(msg, $scope.userTechnologies, $scope.userCV, $scope.allCategories);
         $scope.technologyTypeShow = cvFactory.technologyTypeShow;
         if (!cvFactory.technologyTypeShow) {
             $scope.technologiesEnterText = '';
         }
     };
-    $scope.submitOne = function(msg) {
-        cvFactory.serSubmitOne(msg, $scope.userTechnologies, $scope.userCV, $scope.allTechnologies);
-        $scope.technologyTypeEnterText = '';
-        $scope.technologiesEnterText = '';
-        // cvFactory.technologyTypeShow = false;
-        $scope.technologyTypeShow = cvFactory.technologyTypeShow;
-       
 
-    };
     $scope.enterProjectName = function($event, project) {
-        
-
-       
         if ($event.keyCode == 13) {
+            $event.preventDefault();
             $scope.findProject(project);
         }
     };
@@ -91,10 +83,8 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
         
       
         cvFactory.findProject(project,$scope.allTechnologies, $scope.userProjects, $scope.userCV);
-        $scope.showFieldNewProjects = cvFactory.showFieldNewProjects;
-        if($scope.showFieldNewProjects && typeof(project) == 'object'){
+        if(typeof(project) == 'object'){
             $scope.projectName = project.name;
-            $scope.productowner = project.productowner;
             angular.forEach(project.technologies, function(technology){
                 if(typeof(technology) == 'object'){
                     $scope.technologiesInNewProject.push(technology);
@@ -111,15 +101,13 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
             $scope.description =project.description;
             $scope.updateProjectId =project.id;
         }
-        if(!$scope.showFieldNewProjects){
-            $scope.projectName ='';
-        }
+
     };
     $scope.enterTechnologyName = function($event, technology) {
       
         var count = true;
         if ($event.keyCode == 13) {
-
+            $event.preventDefault();
             $scope.addtechnologiesInProject(technology);
 
         }
@@ -134,60 +122,59 @@ angular.module('myApp').controller('technologiesCtrl', function($scope, technolo
     };
     $scope.cancel = function(){
         $scope.projectName = '';
-        $scope.productowner = '';
         $scope.description = '';
         $scope.technologiesInNewProject = [];
-        $scope.showFieldNewProjects = false;
+        $scope.showProjectForm = false;
     };
-    $scope.submitNewProject = function(productowner, description, projectNewName, startDate) {
-        if(productowner !=='' && productowner !=='' && projectNewName !=='' && $scope.technologiesInNewProject !=='' && $scope.userProjects){
+    $scope.submitNewProject = function(description, projectNewName, startDate) {
+        if(projectNewName !=='' && $scope.technologiesInNewProject !=='' && $scope.userProjects){
             
-        cvFactory.submitNewProject(productowner, description, projectNewName, $scope.technologiesInNewProject, $scope.userProjects, $scope.userCV ,$scope.updateProjectId, $scope.startDate, $scope.allProjects);
+        cvFactory.submitNewProject(description, projectNewName, $scope.technologiesInNewProject, $scope.userProjects, $scope.userCV ,$scope.updateProjectId, $scope.startDate, $scope.allProjects);
 
         $scope.projectName = '';
-        $scope.productowner = '';
         $scope.description = '';
         $scope.technologiesInNewProject = [];
-        $scope.showFieldNewProjects = cvFactory.showFieldNewProjects;
+        $scope.showProjectForm = false;
         }
         
     };
-    // $scope.addStars=function(stars){
-    //     
-    //     if(stars==6){
-    //         stars=1;
-    //     }else{
-    //         stars++;
-    //     }
-    //     return stars;
 
-    // };
+    $scope.selectTechCategory = function(category) {
+        $scope.technology.category = JSON.parse(category);
+    };
 
-
-    $scope.getColor = function(stars) {
-
-        var color = 1;
-        switch (stars) {
-            case "1":
-                color = "tehButton1Stars";
-                break;
-            case "2":
-                color = "tehButton2Stars";
-                break;
-            case "3":
-                color = "tehButton3Stars";
-                break;
-            case "4":
-                color = "tehButton4Stars";
-                break;
-            case "5":
-                color = "tehButton5Stars";
-                break;
-        }
-        return color;
+    $scope.updateCVTechnologies = function(obj){
+        obj.stars = obj.stars.toString();
+        cvFactory.updateCVTechnologies(obj, $scope.userCV);
     };
 
 
+    $scope.selectTechnology = function(technology){
+        var categoryId = technology.category;
+        cvFactory.getTechCategory(categoryId, function(res) {
+            ///some code
+        })
+    };
+
+    /*$scope.addTechnology = function(technology) {
+        ///some code
+    };*/
+
+
+    $scope.createTechnology = function(obj) {
+        cvFactory.createTechnology(obj, $scope.userCV, function(res) {
+            if(obj.stars) {
+                res.stars = obj.stars;
+            } else {
+                res.stars = "1";
+            }
+
+            cvFactory.updateCVTechnologies(res, $scope.userCV, $scope.userTechnologies);
+        });
+
+        $scope.technology = {};
+        $scope.techcategory = "";
+    }
 
 });
 /****************************************************************************

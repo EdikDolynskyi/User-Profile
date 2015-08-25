@@ -34,9 +34,10 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
 
+  'put /updatetechnologies/:id': 'CvsController.updateCVTechnologies'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
