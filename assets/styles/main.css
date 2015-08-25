@@ -137,3 +137,11 @@ input {font:small-caption;font-size:18px;}
     border-color: #acbaf7;
     white-space: pre;
 }
+
+.panel-image{
+    padding-left: 0;
+    padding-right: 0;
+}
+.admin-user-image{
+    padding:10px;
+}

@@ -23,10 +23,10 @@ function userCtrl($scope, service, upload, $rootScope) {
 
         for (var key in ctrl.user.preModeration) {
 
-            ctrl.oldUserData[key] = ctrl.user[key];
-            ctrl.newUserData[key] = ctrl.user.preModeration[key];
+            ctrl.oldUserData[key] = angular.copy(ctrl.user[key]);
+            ctrl.newUserData[key] = angular.copy(ctrl.user.preModeration[key]);
 
-            ctrl.user[key] = ctrl.user.preModeration[key];
+            ctrl.user[key] = angular.copy(ctrl.user.preModeration[key]);
             ctrl.showElement[key] = false;
 
         }
@@ -58,12 +58,13 @@ function userCtrl($scope, service, upload, $rootScope) {
                 url: '/api/files/upload',
                 file: file
             }).success(function (data) {
-                ctrl.user.avatar.urlAva = service.getAvatarUrl(data.file);
+                ctrl.user.preModeration.avatar.urlAva = service.getAvatarUrl(data.file);
             }).error(function (data, status) {
                 console.log('error status: ' + status);
             })
         }
     };
+
     this.showChangesFields = function (changes) {
         for (var key in changes) {
             ctrl.showElement[key] = true;

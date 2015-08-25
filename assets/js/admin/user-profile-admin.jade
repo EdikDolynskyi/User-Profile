@@ -68,16 +68,38 @@ div.container-fluid(ng-controller="UserProfileAdminController as ctrl")
 
             |{{ctrl.user.email}}
 
+        .form-group(ng-show="ctrl.showElement.password")
+            label User change personal password
+
+    .col-md-12.col-sm-12.col-xs-12.panel.panel-default.panel-image(ng-show="ctrl.showElement.avatar")
+        .panel-heading User Avatar
+        .panel-body
+            .row
+                .col-xs-6.col-md-6.admin-user-image
+                    h5 Original User avatar
+                    .thumbnail
+                        img(src='{{ctrl.user.avatar.urlAva}}', alt='avatar')
+
+                .col-xs-6.col-md-6.admin-user-image
+                    h5 New User avatar
+                    .thumbnail
+                        img(src='{{ctrl.user.preModeration.avatar.urlAva}}', alt='avatar')
+        .panel-footer
+            h6 Upload a different photo...
+            .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Upload on file change
+        //    //input.text-center.well.well-sm(type='file')
 
 
-    .col-md-6.col-sm-6.col-xs-12.personal-info(ng-show="ctrl.showElement.avatar")
-        img.avatar.img-thumbnail(src= "{{ctrl.user.preModeration.avatar.urlAva}}", alt='avatar')
-        h6 Upload a different photo...
-        .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Upload on file change
-        //input.text-center.well.well-sm(type='file')
 
-    .col-md-6.col-sm-6.col-xs-12.personal-info(ng-show="ctrl.showElement.avatar")
-        img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+
+    //.col-md-6.col-sm-6.col-xs-12.personal-info(ng-show="ctrl.showElement.avatar")
+    //    img.avatar.img-thumbnail(src= "{{ctrl.user.preModeration.avatar.urlAva}}", alt='avatar')
+    //    h6 Upload a different photo...
+    //    .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Upload on file change
+    //    //input.text-center.well.well-sm(type='file')
+    //
+    //.col-md-6.col-sm-6.col-xs-12.personal-info(ng-show="ctrl.showElement.avatar")
+    //    img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
 
 
 

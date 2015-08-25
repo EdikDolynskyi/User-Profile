@@ -15,8 +15,8 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: 'js/user-profile/user-profile-public.html',
 			controller: 'UserProfilePublicController'
 		}).
-		when('/admin', {
-			templateUrl: 'js/user-profile/user-profile-admin.html',
+		when('/adminup', {
+			templateUrl: 'js/admin/user-profile-admin.html',
 			controller: 'UserProfileAdminController'
 		}).
 		when('/cv', {templateUrl: 'js/cv/cv.html'}).
@@ -35,7 +35,7 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
             {title: 'User profile', href: '/userpage'},
             {title: 'User experience', href: '/cv'},
             {title: 'User PDP flow', href: '/pdp'},
-            {title: 'Admin', href: '/admin'},
+            {title: 'Admin', href: '/adminup'},
             {title: 'Admin achievements', href: '/adminach'},
             {title: 'Admin certifications', href: '/admincert'},
             {title: 'Admin pdp', href: '/adminpdp'},

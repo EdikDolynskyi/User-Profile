@@ -53,7 +53,7 @@ div.container-fluid(ng-controller="UserProfileController as ctrl")
 
         .form-group
             label Password
-            input(ng-model="ctrl.user.password", type="password", class="form-control", placeholder="Password")
+            input(ng-model="ctrl.user.password", ng-change="ctrl.change('password', ctrl.user.password)", type="password", class="form-control", placeholder="Password")
 
 
 
