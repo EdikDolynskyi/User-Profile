@@ -1,0 +1,113 @@
+div.container-fluid(ng-controller="UserProfileAdminController as ctrl")
+    .page-header
+        h2 Personal info
+    .col-md-6.col-sm-6.col-xs-12
+        .form-group(ng-show="ctrl.showElement.name")
+            label Name
+            input(ng-model="ctrl.user.preModeration.name", class="form-control", placeholder="Name")
+
+            |{{ctrl.user.name}}
+
+        .form-group(ng-show="ctrl.showElement.surname")
+            label Surname
+            input(ng-model="ctrl.user.preModeration.surname", class="form-control", placeholder="Surname")
+
+            |{{ctrl.user.surname}}
+
+        .form-group(ng-show="ctrl.showElement.birthday")
+            label Birthday
+            .input-group
+                input.form-control(
+                    ng-model='ctrl.user.preModeration.birthday',
+                    is-open='showDatePicker',
+                    min-date="'1900-01-01'",
+                    max-date="ctrl.today",
+                    datepicker-popup="shortDate",
+                    datepicker-append-to-body="true",
+                    close-text='Close')
+                span.input-group-btn
+                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
+                        i.glyphicon.glyphicon-calendar
+
+            |{{ctrl.user.Birthday}}
+
+        .form-group(ng-show="ctrl.showElement.gender")
+            label Gender
+                p
+                .radio.radio-info.radio-inline
+                input#inlineRadio1(ng-model="ctrl.user.preModeration.gender", type='radio', value='male', name='radioInline')
+                label(for='inlineRadio1')
+                    span.glyphicon.glyphicon-user(aria-hidden='true')
+                    |  Male
+                .radio.radio-inline
+                input#inlineRadio2(ng-model="ctrl.user.preModeration.gender", type='radio', value='female', name='radioInline')
+                label(for='inlineRadio2')
+                    span.glyphicon.glyphicon-heart(aria-hidden='true')
+                    |  Female
+
+            |{{ctrl.user.gender}}
+
+
+        .form-group(ng-show="ctrl.showElement.country")
+            label Country
+            input(ng-model="ctrl.user.preModeration.country", class="form-control", placeholder="Country")
+
+            |{{ctrl.user.country}}
+
+
+        .form-group(ng-show="ctrl.showElement.city")
+            label City
+            input(ng-model="ctrl.user.preModeration.city", class="form-control", placeholder="City")
+
+            |{{ctrl.user.city}}
+
+
+        .form-group(ng-show="ctrl.showElement.email")
+            label Email address
+            input(ng-model="ctrl.user.preModeration.email", type="email", class="form-control", placeholder="Email")
+
+            |{{ctrl.user.email}}
+
+        .form-group(ng-show="ctrl.showElement.password")
+            label User change personal password
+
+    .col-md-12.col-sm-12.col-xs-12.panel.panel-default.panel-image(ng-show="ctrl.showElement.avatar")
+        .panel-heading User Avatar
+        .panel-body
+            .row
+                .col-xs-6.col-md-6.admin-user-image
+                    h5 Original User avatar
+                    .thumbnail
+                        img(src='{{ctrl.user.avatar.urlAva}}', alt='avatar')
+
+                .col-xs-6.col-md-6.admin-user-image
+                    h5 New User avatar
+                    .thumbnail
+                        img(src='{{ctrl.user.preModeration.avatar.urlAva}}', alt='avatar')
+        .panel-footer
+            h6 Upload a different photo...
+            .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Upload on file change
+        //    //input.text-center.well.well-sm(type='file')
+
+
+
+
+    //.col-md-6.col-sm-6.col-xs-12.personal-info(ng-show="ctrl.showElement.avatar")
+    //    img.avatar.img-thumbnail(src= "{{ctrl.user.preModeration.avatar.urlAva}}", alt='avatar')
+    //    h6 Upload a different photo...
+    //    .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Upload on file change
+    //    //input.text-center.well.well-sm(type='file')
+    //
+    //.col-md-6.col-sm-6.col-xs-12.personal-info(ng-show="ctrl.showElement.avatar")
+    //    img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+
+
+
+    .col-md-12.form-group
+        input.btn.btn-primary(value='Submit Changes', ng-click='ctrl.doUpdate()', readonly)
+        input.btn.btn-default(value='Cancel Changes', ng-click='ctrl.cancelUpdate()', readonly)
+        button.btn.btn-info(type='button', ng-click='ctrl.showLogs()') Show log
+
+    .col-md-12.form-group
+        ul.list-group.logs(ng-repeat="log in ctrl.userLogList track by $index", ng-show="ctrl.showElement.logs")
+            li.list-group-item.logs-item.list-group-item-info {{log}}

@@ -61,6 +61,13 @@ module.exports = {
             type: 'boolean',
             defaultsTo: false
         },
+        changeAccept: {
+            type: 'boolean',
+            defaultsTo: true
+        },
+        preModeration: {
+            type: 'json'
+        },
         toJSON: function () {
             var obj = this.toObject();
             delete obj.password;

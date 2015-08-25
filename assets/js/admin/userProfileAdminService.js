@@ -1,27 +1,14 @@
 var app = require('../angular-app');
 
-app.service('UserProfileService', UserProfileService);
+app.service('UserProfileAdminService', UserProfileAdminService);
 
-function UserProfileService($resource) {
-
-    //this.get = function(cb) {
-    //    var Users = $resource('/api/users/:id', {id: '@id'});
-    //    Users.get({id: '55c38b5a956240ba4c6a5f24'}, function (user) {
-    //        user.birthday = new Date(user.birthday);
-    //
-    //        cb(user);
-    //    });
-    //};
-
+function UserProfileAdminService($resource) {
     this.get = function (id, cb) {
         $resource('/api/users/:id', {id: id}).get(function (user) {
-
             user.birthday = new Date(user.birthday);
-
             cb(user);
         });
     };
-
     this.update = function (user, cb) {
         $resource('/api/users/:id', null, {
             'update': {method: 'PUT'}
@@ -30,6 +17,12 @@ function UserProfileService($resource) {
 
     this.getAvatarUrl = function (filename) {
         return '/api/files/get/' + filename;
+    };
+
+    this.getUserLog = function (userId, cb) {
+        $resource('/api/logs/?userId=:userId', {userId: userId}).query(function (log) {
+            cb(log);
+        })
     };
 
     this.addLog = function (userId, data, cb) {
@@ -61,4 +54,3 @@ function UserProfileService($resource) {
         });
     };
 }
-
