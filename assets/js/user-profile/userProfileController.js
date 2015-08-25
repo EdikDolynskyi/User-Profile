@@ -1,37 +1,59 @@
 var app = require('../angular-app');
 
-app.controller('UserProfileController', ['$scope', 'UserProfileService', 'Upload', '$rootScope', userCtrl]);
+app.controller('UserProfileController', ['$scope', 'UserProfileService', 'uploadService', 'downloadService', userCtrl]);
 
-function userCtrl($scope, service, upload, $rootScope) {
-    var ctrl = this;
-    //Init
-    ctrl.today = new Date();
+function userCtrl($scope, UserProfileService, uploadService, downloadService) {
+    var vm = this;
+    vm.today = new Date();
+    vm.showUrlInput = false;
 
-    service.get($rootScope.var, function (user) {
-        ctrl.user = user;
-        ctrl.userOriginal = angular.extend({}, user);
+    getUser();
+
+    function getUser() {
+        UserProfileService.get(function(user) {
+            vm.user = user;
+            vm.userOriginal = angular.extend({}, user);
+        });
+    }
+
+    $scope.$watch(angular.bind(this, function() {
+        return this.url;
+    }), function(url) {
+        if(url) {
+            vm.user.avatar.urlAva = url;
+        }
     });
 
-    this.doUpdate = function () {
-        service.update(ctrl.user, function (user) {
-            angular.copy(user, ctrl.userOriginal);
+    vm.doUpdate = function () {
+        if(vm.url){
+            var obj = {};
+            obj.url = vm.user.avatar.urlAva;
+            var pathArray = obj.url.split( '/' );
+            var fileName = pathArray[pathArray.length-1];
+            obj.fileName = './upload/' + fileName;
+
+            downloadService.downloadFile(obj);
+            vm.user.avatar.urlAva = '/api/files/get/' + fileName;
+        }
+
+        UserProfileService.update(vm.user, function (user) {
+            angular.copy(user, vm.userOriginal);
+            vm.user.avatar.urlAva = user.avatar.urlAva;
             alert('User Updated');
         });
-    };
-    this.cancelUpdate = function () {
-        angular.copy(ctrl.userOriginal, ctrl.user);
+
+        vm.showUrlInput = false;
+        vm.url = "";
     };
 
-    this.upload = function (file) {
-        if (file) {
-            upload.upload({
-                url: '/api/files/upload',
-                file: file
-            }).success(function (data) {
-                ctrl.user.avatar.urlAva = service.getAvatarUrl(data.file);
-            }).error(function (data, status) {
-                console.log('error status: ' + status);
-            })
-        }
+    vm.cancelUpdate = function () {
+        angular.copy(vm.userOriginal, vm.user);
     };
+
+    vm.upload = function(file) {
+        uploadService.upload(file, function(fileSrc){
+            vm.user.avatar.urlAva = fileSrc;
+        });
+    };
+
 }

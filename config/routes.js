@@ -56,7 +56,8 @@ module.exports.routes = {
   'put /addach/:id': 'PdpsController.addAchievement',
   'put /removeach/:id': 'PdpsController.removeAchievement',
   'put /addcompcert/:id': 'PdpsController.addCompletedCertification',
-  'put /removecompcert/:id': 'PdpsController.removeCompletedCertification'
+  'put /removecompcert/:id': 'PdpsController.removeCompletedCertification',
+  'post /downloadimg': 'FilesController.downloadFile'
 
 
   /***************************************************************************

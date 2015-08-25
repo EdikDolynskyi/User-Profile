@@ -46,9 +46,11 @@ div.test(ng-controller="AchievementsController as achiev")
 			img.img-responsive(src= "{{achiev.achievement.src}}")
 			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="achiev.upload($file)")
 				span.glyphicon.glyphicon-upload
+			a(href='javascript: void(0)', ng-click="achiev.showUrlInput=!achiev.showUrlInput") Add a photo from a website
 			form.voffset3(name="achievementsForm", role="form", ng-submit="achiev.createAchievement()")
 				.form-group(ng-class="{ 'has-error': achievementsForm.name.$touched && achievementsForm.name.$invalid }")
-					input.form-control.input-lg(type="text", name="name", ng-model="achiev.achievement.name", placeholder="Achievement name",required)
+					input.form-control.input-lg(type="url", name="url", ng-model="achiev.url", ng-show="achiev.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
+					input.form-control.input-lg.voffset3(type="text", name="name", ng-model="achiev.achievement.name", placeholder="Achievement name",required)
 				.btn-group.full-width(dropdown='', keyboard-nav='')
 					button.btn.btn-default.btn-lg.col-md-10(type='button')
 						| {{achiev.achievement.category.name}}
