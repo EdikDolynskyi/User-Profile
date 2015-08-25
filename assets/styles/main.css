@@ -9,28 +9,8 @@ header>.container-fluid>.col-lg-2{
 	background-color: #ffa500;
 	height: 70px;
 }*/
-.nav-tabs > li > a{
-	background-color: #ffa500;
-	border-radius: 6px;
-	margin-right: -6px;
-}
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
-	border-bottom-color:#ddd;
-}
-.article{
-	height: min-height;
-	background-color: white;
-	border-radius: 20px;
-	padding: 50px;
-}
-#nav{
-	margin-top: 56px;
-	padding-right: 0px;
-}
-footer{
-	height: 20px;
-	background-color:#ffa500;
-}
+
+
 .btn-custom {
   background-color: hsl(0, 2%, 73%) !important;
   background-repeat: repeat-x;
@@ -125,7 +105,6 @@ input {font:small-caption;font-size:18px;}
     display: inline;
     padding: 5px;
     font-size: 2.5vh;
-    margin-left: 10%;
 }
 .logs{
     margin-bottom: 0;

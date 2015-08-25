@@ -86,7 +86,6 @@ function userCtrl($scope, service, upload, $rootScope) {
             delete userLog.$resolved;
 
             ctrl.userLog = angular.copy(userLog[0]);
-            console.log(userLog);
             ctrl.makeLogList(ctrl.userLog);
         });
     };
@@ -112,7 +111,6 @@ function userCtrl($scope, service, upload, $rootScope) {
 
     this.addUserChangeLog = function (data) {
         service.addLog(ctrl.user.id, data, function (data) {
-            alert('user data added to logs!');
         });
     };
 }

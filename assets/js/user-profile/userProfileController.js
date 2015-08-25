@@ -10,6 +10,9 @@ function userCtrl($scope, service, upload, $rootScope) {
     ctrl.newUserData = {};
     ctrl.dataInFields = {}; //here fields, wich changed
 
+    ctrl.changeMessage = 'User Profile Data is waiting for moderation';
+
+
     service.get($rootScope.ownerId, function (user) {
 
         delete user.$promise;
@@ -26,33 +29,10 @@ function userCtrl($scope, service, upload, $rootScope) {
             ctrl.userOriginal = angular.extend({}, user);
             ctrl.user = angular.copy(ctrl.userOriginal);
         }
-
-        ctrl.checkChange(user.changeAccept);
     });
-
-    this.checkChange = function (changeAccept) {
-        if (changeAccept) {
-            ctrl.changeMessage = "User Profile Data moderate";
-            ctrl.messageStyle = {
-                "color": "#3c763d",
-                "background-color": "#dff0d8",
-                "border-color": "#d6e9c6"
-            };
-        }
-
-        else {
-            ctrl.changeMessage = "User Profile Data not yet moderate";
-            ctrl.messageStyle = {
-                "color": "#a94442",
-                "background-color": "#f2dede",
-                "border-color": "#ebccd1"
-            };
-        }
-    };
 
     this.doUpdate = function () {
         ctrl.userOriginal.preModeration = ctrl.newUserData;
-
 
         ctrl.getChangesFields(ctrl.userOriginal, ctrl.user);
 
@@ -63,18 +43,14 @@ function userCtrl($scope, service, upload, $rootScope) {
             "date": {"date": ctrl.today}
         };
 
-
         if (Object.keys(ctrl.newUserData).length !== 0) {
             ctrl.addUserChangeLog(data);
             ctrl.userOriginal.changeAccept = false;
             service.update(ctrl.userOriginal, function (user) {
-
-                ctrl.checkChange(ctrl.userOriginal.changeAccept);
                 alert('Your changes send to moderate. Changes will be made when the administrator becomes sober.');
             });
         }
     };
-
 
     this.cancelUpdate = function () {
         angular.copy(ctrl.userOriginal, ctrl.user);
@@ -95,10 +71,9 @@ function userCtrl($scope, service, upload, $rootScope) {
         }
     };
 
-
     this.addUserChangeLog = function (data) {
         service.addLog(ctrl.userOriginal.id, data, function (data) {
-            alert('user data added to logs!');
+            //alert('user data added to logs!');
         });
     };
 
@@ -108,11 +83,10 @@ function userCtrl($scope, service, upload, $rootScope) {
                 ctrl.oldUserData[key] = angular.copy(original[key]);
                 ctrl.newUserData[key] = angular.copy(edited[key]);
             }
-
         }
     };
 
     this.change = function (prop, propValue) {
         ctrl.dataInFields[prop] = propValue;
-    }
+    };
 }

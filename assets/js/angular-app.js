@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ngRoute', 'ngResource', 'ngFileUpload', 'ui.bootstrap']);
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider) {
 
 	$routeProvider.
 		when('/', {
@@ -11,9 +11,9 @@ app.config(function ($routeProvider, $locationProvider) {
 			templateUrl: 'js/main-page/user-search.html',
 			controller: 'MainController'
 		}).
-		when('/userpage', {
-			templateUrl: 'js/user-profile/user-profile-public.html',
-			controller: 'UserProfilePublicController'
+		when('/userdata', {
+			templateUrl: 'js/user-profile/user-profile-data.html',
+			controller: 'userProfileDataController'
 		}).
 		when('/adminup', {
 			templateUrl: 'js/admin/user-profile-admin.html',
@@ -26,13 +26,13 @@ app.config(function ($routeProvider, $locationProvider) {
 		when('/adminpdp', {templateUrl: 'js/admin/adminpdp.html'}).
 		when('/admintechdata', {templateUrl: 'js/admin/admintechdata.html'}).
 		otherwise({ redirectTo: '/' });
-		 $locationProvider.html5Mode(false);
 });
 
 app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
-    if ($rootScope.isAdmin) {
-        $scope.tabs = [
-            {title: 'User profile', href: '/userpage'},
+    var vm = this;
+	if ($rootScope.isAdmin) {
+		vm.tabs = [
+            {title: 'User profile', href: '/userdata'},
             {title: 'User experience', href: '/cv'},
             {title: 'User PDP flow', href: '/pdp'},
             {title: 'Admin', href: '/adminup'},
@@ -43,18 +43,24 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
         ]
     }
     else {
-        $scope.tabs = [
-            {title: 'My profile', href: '/'},
-            {title: 'My experience', href: '/cv'},
-            {title: 'PDP flow', href: '/pdp'}
+		vm.tabs = [
+            {title: 'My profile', href: '/', active: true},
+            {title: 'My experience', href: '/cv', couldBeHidden: true},
+            {title: 'PDP flow', href: '/pdp', couldBeHidden: true}
         ]
     }
 
-	$scope.changeHash = function(data) {
+	vm.isMyProfile = function () {
+		return $rootScope.ownerId == $rootScope.userId;
+	};
+	vm.changeHash = function(data) {
+		$rootScope.userId = $rootScope.ownerId;
 		$location.path(data);
+	};
+	vm.deactivateUserProfileTab = function() {
+		vm.tabs[0].active = false;
 	};
 
 });
-
 module.exports = app;
 
