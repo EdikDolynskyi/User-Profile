@@ -4,15 +4,6 @@ app.service('UserProfileService', UserProfileService);
 
 function UserProfileService($resource) {
 
-    //this.get = function(cb) {
-    //    var Users = $resource('/api/users/:id', {id: '@id'});
-    //    Users.get({id: '55c38b5a956240ba4c6a5f24'}, function (user) {
-    //        user.birthday = new Date(user.birthday);
-    //
-    //        cb(user);
-    //    });
-    //};
-
     this.get = function (id, cb) {
         $resource('/api/users/:id', {id: id}).get(function (user) {
 
@@ -34,7 +25,6 @@ function UserProfileService($resource) {
 
     this.addLog = function (userId, data, cb) {
         $resource('/api/logs/?userId=:userId', {userId: userId}).query(function (log) {
-
 
             if (log.length == 0) {
                 data.original = [data.original];

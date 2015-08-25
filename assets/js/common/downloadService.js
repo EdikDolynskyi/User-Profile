@@ -5,13 +5,13 @@ app.factory('downloadService', function($resource){
         downloadFile : downloadFile
     };
 
-    function downloadFile(obj) {
+    function downloadFile(obj, callback) {
         var newFile = $resource('/downloadimg', null, {'post': { method:'POST' }});
         newFile.post(obj, function(res) {
             console.log(res);
+            callback();
         }, function(err){
             console.log(err);
         });
-
     }
 });
