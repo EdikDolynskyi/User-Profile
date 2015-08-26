@@ -26,11 +26,15 @@ module.exports = function(grunt) {
 				},
 				{
 					src: ['./bower_components/angular/angular.min.js'],
-					dest: '.tmp/public/js/dependencies/angular.min.js'
+					dest: '.tmp/public/js/dependencies/angular.amin.js'
 				},
 				{
 					src: ['./bower_components/angular-route/angular-route.min.js'],
 					dest: '.tmp/public/js/dependencies/angular.route.min.js'
+				},
+				{
+					src: ['./bower_components/angular-cookies/angular-cookies.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.cookies.min.js'
 				},
 				{
 					src: ['./bower_components/ng-file-upload/ng-file-upload.min.js'],

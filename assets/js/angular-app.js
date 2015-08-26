@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngResource', 'ngFileUpload', 'ui.bootstrap']);
+var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngFileUpload', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
 
