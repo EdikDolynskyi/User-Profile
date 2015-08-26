@@ -55,7 +55,7 @@ angular.module('myApp').factory('cvFactory', function($resource) {
         if(project.id == userProject.id){
           dublicate=true;
         }
-        
+
       });
 
         if(isFindInCv && !dublicate){
