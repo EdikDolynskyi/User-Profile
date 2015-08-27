@@ -8,7 +8,10 @@
 module.exports = {
     connection: 'mongo',
     attributes: {
-        userId: 'string',
+        userId: {
+            model : 'Users',
+            type: 'string'
+        },
         projectId: 'string',
         userRole: 'string',
         isDeleted: {

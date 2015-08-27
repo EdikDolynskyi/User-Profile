@@ -35,6 +35,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+
   'Get /findCv/:id' : 'CvsController.findCv',
 
   '/user/filter' : 'UsersController.filter',
@@ -57,9 +58,11 @@ module.exports.routes = {
   'put /removeach/:id': 'PdpsController.removeAchievement',
   'put /addcompcert/:id': 'PdpsController.addCompletedCertification',
   'put /removecompcert/:id': 'PdpsController.removeCompletedCertification',
-  'post /downloadimg': 'FilesController.downloadFile'
+  'post /downloadimg': 'FilesController.downloadFile',
 
-
+  'put /cv/:cv_id/technology/:id': 'CvsController.updateCVTechnologies',
+  'post /cv/:cv_id/technology/:id': 'CvsController.addTechnologyToCV',
+  'post /cv/:cv_id/project/:id': 'CvsController.addProjectToCV'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

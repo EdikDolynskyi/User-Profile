@@ -4,6 +4,7 @@ module.exports = {
     getAllTechnologies: function(asyncCallback) {
         Technologies
             .find()
+            .where({ isDeleted : false })
             .exec(function(err, technologies) {
                 async.map(technologies, function(technology, callback) {
 
