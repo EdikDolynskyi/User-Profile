@@ -16,7 +16,7 @@ module.exports = function(req, res, next){
             }
         });
     } else {
-        res.cookie('Referer', "http://localhost:1337/");
+        //res.cookie('Referer', "http://localhost:1337/");
         res.redirect('http://localhost:2020/');
     }
 };
