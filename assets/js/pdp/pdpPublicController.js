@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('PdpController', function ($scope, $modal, PdpService) {
+app.controller('PdpPublicController', function ($scope, $modal, $location, PdpPublicService) {
     var vm = this;
     vm.userPDP = {};
     vm.positions = [];
@@ -13,25 +13,28 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
     activate();
 
     function activate(){
-        PdpService.getPDP(function(obj){
+        var userId = $location.path().split("/")[2];
+
+        PdpPublicService.getPDP(userId,function(obj){
             vm.userPDP = obj;
+            console.log(obj);
         });
-        PdpService.getPositions(function(array){
+        PdpPublicService.getPositions(function(array){
             vm.positions = array;
         });
-        PdpService.getDirections(function(array){
+        PdpPublicService.getDirections(function(array){
             vm.directions = array;
         });
-        PdpService.getTechnologies(function(array){
+        PdpPublicService.getTechnologies(function(array){
             vm.technologies = array;
         });
-        PdpService.getCertifications(function(array){
+        PdpPublicService.getCertifications(function(array){
             vm.certifications = array;
         });
-        PdpService.getTests(function(array){
+        PdpPublicService.getTests(function(array){
             vm.tests = array;
         });
-        PdpService.getAchievements(function(array){
+        PdpPublicService.getAchievements(function(array){
             vm.achievements = array;
         });
     };
@@ -49,7 +52,7 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
         });
 
         modalInstance.result.then(function (addedAchievement) {
-            PdpService.addAchievement(addedAchievement);
+            PdpPublicService.addAchievement(addedAchievement);
             vm.userPDP.achievements.push(addedAchievement);
         });
     };
@@ -57,14 +60,14 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
     vm.removeAchievement = function(obj){
         var index = vm.userPDP.achievements.indexOf(obj);
         vm.userPDP.achievements.splice(index, 1);
-        PdpService.removeAchievement(obj);
+        PdpPublicService.removeAchievement(obj);
     };
 
     vm.addTask = function(){
         var newObj = {};
         newObj.completed = false;
         newObj.name = vm.newTask;
-        PdpService.addTask(newObj);
+        PdpPublicService.addTask(newObj);
         vm.userPDP.tasks.push(newObj);
         vm.newTask = '';
         vm.taskInput = true;
@@ -73,61 +76,61 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
     vm.removeTask = function(obj){
         var index = vm.userPDP.tasks.indexOf(obj);
         vm.userPDP.tasks.splice(index, 1);
-        PdpService.removeTask(obj);
+        PdpPublicService.removeTask(obj);
     };
 
     vm.addTechnology = function(obj){
         var newObj = obj;
         newObj.completed = false;
-        PdpService.addTechnology(newObj);
+        PdpPublicService.addTechnology(newObj);
         vm.userPDP.technologies.push(newObj);
     };
     vm.removeTechnology = function(obj){
         var index = vm.userPDP.technologies.indexOf(obj);
         vm.userPDP.technologies.splice(index, 1);
-        PdpService.removeTechnology(obj);
+        PdpPublicService.removeTechnology(obj);
     };
     vm.addCertification = function(obj){
         var newObj = obj;
         newObj.completed = false;
-        PdpService.addCertification(newObj);
+        PdpPublicService.addCertification(newObj);
         vm.userPDP.certifications.push(newObj);
     };
     vm.removeCertification = function(obj){
         var index = vm.userPDP.certifications.indexOf(obj);
         vm.userPDP.certifications.splice(index, 1);
-        PdpService.removeCertification(obj);
+        PdpPublicService.removeCertification(obj);
     };
     vm.addTest = function(obj){
         var newObj = obj;
         newObj.completed = false;
-        PdpService.addTest(newObj);
+        PdpPublicService.addTest(newObj);
         vm.userPDP.tests.push(newObj);
     };
     vm.removeTest = function(obj){
         var index = vm.userPDP.tests.indexOf(obj);
         vm.userPDP.tests.splice(index, 1);
-        PdpService.removeTest(obj);
+        PdpPublicService.removeTest(obj);
     };
     vm.updatePosition = function(obj){
-        PdpService.updatePosition(obj);
+        PdpPublicService.updatePosition(obj);
         vm.userPDP.position.name = obj.name;
     };
     vm.updateDirection = function(obj){
-        PdpService.updateDirection(obj);
+        PdpPublicService.updateDirection(obj);
         vm.userPDP.direction.name = obj.name;
     };
     vm.updateTasks = function(obj){
-        PdpService.updateTasks(obj);
+        PdpPublicService.updateTasks(obj);
     };
     vm.updateTechnologies = function(obj){
-        PdpService.updateTechnologies(obj);
+        PdpPublicService.updateTechnologies(obj);
     };
     vm.updateTests = function(obj){
-        PdpService.updateTests(obj);
+        PdpPublicService.updateTests(obj);
     };
     vm.updateCertifications = function(obj){
-        PdpService.updateCertifications(obj);
+        PdpPublicService.updateCertifications(obj);
     };
 
     vm.addCompletedCertification = function (){
@@ -143,7 +146,7 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
         });
 
         modalInstance.result.then(function (addedCertification) {
-            PdpService.addCompletedCertification(addedCertification);
+            PdpPublicService.addCompletedCertification(addedCertification);
             vm.userPDP.completedCertifications.push(addedCertification);
         });
     };
@@ -151,7 +154,7 @@ app.controller('PdpController', function ($scope, $modal, PdpService) {
     vm.removeCompletedCertification = function(obj){
         var index = vm.userPDP.completedCertifications.indexOf(obj);
         vm.userPDP.completedCertifications.splice(index, 1);
-        PdpService.removeCompletedCertification(obj);
+        PdpPublicService.removeCompletedCertification(obj);
     };
 
 

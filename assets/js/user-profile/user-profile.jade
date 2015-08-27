@@ -65,6 +65,9 @@ div.container-fluid(ng-controller="UserProfileController as ctrl")
             input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
         .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
         //input.text-center.well.well-sm(type='file')
+    .form-group(ng-controller='PdpController as pdp')
+        h4 Position
+            span {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
 
     .col-md-12.form-group
         input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)

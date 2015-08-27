@@ -31,16 +31,21 @@
     	};
     	return service;
 
-    	function getPDP(callback){
-    		var userPDP = {};
-    		var Pdps = $resource('/getpdp/:id', {id: '@id'})
-    		var pdp = Pdps.get({id: '55c390937533125308baafa3'}, function(resPDP){
-    			userPDP = resPDP;    			
-    			callback(userPDP);
-    		}, function(err){
-	            console.log(err);
-	        });
-	    }
+		function getPDP(userId, callback) {
+
+			$resource('/api/users/:id', {id: userId}).get(function (user) {
+				console.log(user.userPDP.id);
+				var userPDP = {};
+				$resource('/getpdp/:id', {id: user.userPDP.id}).get(function (resPDP) {
+					userPDP = resPDP;
+					console.log(resPDP);
+					callback(userPDP);
+
+				}, function (err) {
+					console.log(err);
+				});
+			});
+		}
 
 	    function getAchievements(callback){
 	        var Achievements = $resource('/api/achievements');
