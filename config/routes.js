@@ -37,7 +37,9 @@ module.exports.routes = {
   },
 
 
-  'put /updatetechnologies/:id': 'CvsController.updateCVTechnologies'
+  'put /cv/:cv_id/technology/:id': 'CvsController.updateCVTechnologies',
+  'post /cv/:cv_id/technology/:id': 'CvsController.addTechnologyToCV',
+  'post /cv/:cv_id/project/:id': 'CvsController.addProjectToCV'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

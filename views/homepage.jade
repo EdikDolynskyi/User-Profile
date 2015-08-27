@@ -18,8 +18,5 @@ html(ng-app='myApp')
                         tabset(vertical="true")
                             tab(ng-repeat='tab in tabs', heading='{{tab.title}}', active='tab.active', disable='tab.disabled', select="changeHash(tab.href)")
                 .col-lg-6.article(ng-view)
-        footer
-            .container-fluid
-                .row
         // SCRIPTS
         // SCRIPTS END
