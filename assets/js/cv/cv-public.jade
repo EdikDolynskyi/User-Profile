@@ -1,105 +1,53 @@
-div.container-fluid(ng-controller="technologiesCtrl")
-    .page-header
-        h2 User CV
-    .col-md-6.col-sm-6.col-xs-12
-        .panel.panel-default
-            .panel-heading
-                h3.panel-title Technologies
-            .panel-body
-                .up-title User technologies
-                .up-data Technology 1
+script(type='text/ng-template', id='dropDownList.html').
+    <a>
+    <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+.container-fluid(ng-controller='CVController')
+    .row.technologies
+        div.col-lg-12.v-center
+            h4 Technologies
 
-        .panel.panel-default
-            .panel-heading
-                h3.panel-title Projects
-            .panel-body
-                .up-title User project
-                .up-data Project 1
-
-
-
-
-
-
-
-
-
-
-//
-//script(type='text/ng-template', id='dropDownList.html').
-//    <a>
-//    <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-//    </a>
-//.container-fluid(ng-controller='technologiesCtrl')
-//    div.row.technologies
-//        div.col-lg-4
-//            h4 Technologies
-//            form(ng-submit='submit(technologiesEnterText)')
-//                input.form-control(type='text',
-//                ng-model="technologiesEnterText",
-//                name="technologiesEnterText",
-//                placeholder='Enter technology name',
-//                typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
-//                typeahead-template-url='dropDownList.html')
-//            form(ng-submit='submitOne(technologyTypeEnterText)')
-//                input.form-control(ng-show="technologyTypeShow",
-//                type='text',
-//                ng-model='technologyTypeEnterText',
-//                name='technologyTypeEnterText',
-//                placeholder='Enter technology type name',
-//                typeahead='tech as tech.name for tech in allCategories | filter:{name:$viewValue}',
-//                typeahead-template-url='dropDownList.html')
-//        div.col-lg-8 sort
-//            rating(ng-model="filtrRate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" )
-//            ul
-//                li.Categories(ng-repeat="Categ in userTechnologies | uniqueTechnology") {{Categ.category.name}}
-//                    button(ng-repeat="Tech in userTechnologies | filter: {category: {id:Categ.category.id}} | ratingFilter: filtrRate", ng-class = "getColor(Tech.stars)", ng-click = "addStars(Tech.stars)") {{Tech.name}}
-//    .row.project
-//        h4 Projects
-//        row.addNewProject
-//            .col-lg-6
-//                form(ng-keydown='enterProjectName($event,projectName)')
-//                    input.form-control(type='text',
-//                    ng-model="projectName",
-//                    name="projectName",
-//                    placeholder='Enter project name',
-//                    typeahead='project as project.name for project in allProjects | filter:{name:$viewValue}',
-//                    typeahead-template-url='dropDownList.html')
-//                    input.form-control(type='text',
-//                    ng-model="productowner",
-//                    name="productowner",
-//                    placeholder='Enter productowner',
-//                    typeahead='tech as project.productowner for project in allProjects | filter:{name:$viewValue}',
-//                    typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
-//                    input.form-control(tipe = 'text',
-//                    placeholder='Enter description',
-//                    ng-model = 'description', ng-show = "showFieldNewProjects")
-//            .col-lg-6
-//                form(ng-keydown ='enterTechnologyName($event, technologiesInProject)')
-//                    input.form-control(type='text',
-//                    ng-model="technologiesInProject",
-//                    name="technologies",
-//                    placeholder='Enter technology name',
-//                    typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
-//                    typeahead-template-url='dropDownList.html', ng-show = "showFieldNewProjects")
-//                    div.qwe
-//                    button.tehButton4Stars(ng-repeat="Tech in technologiesInNewProject ") {{Tech.name}}
-//        row
-//            .col-lg-2.col-lg-offset-10
-//                button(name= "submit", ng-click = 'submitNewProject(productowner, description, projectName, technologies)', ng-show = "showFieldNewProjects") submit
-//        .row.project(ng-repeat='project in userProjects')
-//            .row.ProjectName
-//            h4 {{project.name}}
-//            .col-lg-6
-//                .row
-//                    strong productowner project:
-//                    br
-//                    | {{project.productowner}}
-//                .row
-//                    strong description project:
-//                    br
-//                    | {{project.description}}
-//            .col-lg-6
-//                button.tehButton4Stars(ng-repeat = "techn in project.technologies") {{techn.name}}
-//- ng-keypress='enterProjecName($event)',
-//- ng-submit = "addtechnologiesInProject(technologiesInProject)"
+        div.col-lg-12.voffset3
+            | Sort by knowledge level:
+            rating(ng-model='knowledgeRating' max='5' readonly='isReadonly' on-hover='hoveringOver(value)' on-leave='overStar = null')
+            ul.technologies-list.voffset3
+                li.categories(ng-repeat='Categ in userTechnologies | uniqueTechnology')
+                    span.category-name
+                        | {{Categ.category.name}}:
+                    button(ng-repeat='Tech in userTechnologies | filter: {category: {id:Categ.category.id}} | ratingFilter: knowledgeRating',
+                    class = 'stars stars-{{Tech.stars}}', ng-click='showRating = !showRating')
+                        | {{Tech.name}}
+                        rating(ng-model='Tech.stars' max='5' readonly='true' on-hover='hoveringOver(value)' on-leave='overStar = null', ng-show='showRating')
+    .row.projects
+        div.col-lg-12.v-center
+            h4 Projects
+        div.col-lg-12.voffset3
+            .panel.panel-default(ng-repeat='project in userProjects')
+                .panel-heading(ng-click='isCollapsed = !isCollapsed')
+                    b {{project.name}}
+                .panel-body(collapse='isCollapsed')
+                    .row
+                        div.col-lg-3.project-label
+                            | Start date:
+                        div.col-lg-9
+                            | {{project.startDate | date:'dd/MM/yyyy'}}
+                    .row.voffset3
+                        div.col-lg-3.project-label
+                            | Technologies:
+                        div.col-lg-9
+                            button.stars-4(ng-repeat = 'techn in project.technologies') {{techn.name}}
+                    .row.voffset3
+                        div.col-lg-3.project-label
+                            | Description:
+                        div.col-lg-9
+                            | {{project.description}}
+                    .row.voffset3
+                        div.col-lg-12.project-label
+                            | Participants:
+                        div.col-lg-3(ng-repeat='participant in project.participants')
+                            img.img-responsive(ng-src='{{participant.avatar.urlAva}}')
+                    .row.voffset3
+                        div.col-lg-12.project-label
+                            | Screenshots:
+                        div.col-lg-4(ng-repeat='screenshot in project.screenshots')
+                            img.img-responsive(ng-src='{{screenshot.img}}')

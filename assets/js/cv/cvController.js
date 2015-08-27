@@ -129,15 +129,27 @@ app.controller('CVController', function($scope, cvFactory) {
         cvFactory.createProject(project, $scope.userCV, function(newProject) {
             newProject.startDate = startDate;
 
-            cvFactory.addProjectToCV(newProject, $scope.userCV, function(res) {
+            cvFactory.addProjectToCV(newProject, $scope.userCV, $scope.users_projects, function(res) {
                 res.startDate = newProject.startDate;
                 res.technologies = newProject.technologies;
 
+                var technologies = [];
+                angular.forEach(newProject.technologies, function(projectTechnology) {
+                    angular.forEach($scope.allTechnologies, function(technology) {
+                        if (projectTechnology == technology.id) {
+                            technologies.push(technology);
+                        }
+
+                    });
+                });
+
+                res.technologies = technologies;
                 $scope.userProjects.push(res);
             });
         });
 
         $scope.project = {};
+        $scope.project.technologies = [];
         $scope.startDate = "";
     };
 

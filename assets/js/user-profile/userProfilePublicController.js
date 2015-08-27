@@ -8,8 +8,7 @@ function userCtrl(service, $rootScope, $location) {
     ctrl.today = new Date();
 
 
-    var userId = $location.path().split("/")[2]
-    console.log(userId);
+    var userId = $location.path().split("/")[2];
     service.get(userId, function (user) {
         ctrl.user = user;
         ctrl.userOriginal = angular.extend({}, user);
