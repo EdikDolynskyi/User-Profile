@@ -34,7 +34,7 @@
     	function getPDP(callback){
     		var userPDP = {};
     		var Pdps = $resource('/getpdp/:id', {id: '@id'})
-    		var pdp = Pdps.get({id: '55c3906d7533125308baafa2'}, function(resPDP){
+    		var pdp = Pdps.get({id: '55c390937533125308baafa3'}, function(resPDP){
     			userPDP = resPDP;    			
     			callback(userPDP);
     		}, function(err){

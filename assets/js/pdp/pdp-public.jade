@@ -1,4 +1,4 @@
-div.pdp(ng-controller='PdpPublicController as pdp')
+div.pdp(ng-controller='PdpController as pdp')
     h4 Position
     span.prettyBadge {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
     accordion
@@ -33,20 +33,16 @@ div.pdp(ng-controller='PdpPublicController as pdp')
             h4 Technologies
             div.checkbox(ng-repeat='technology in pdp.userPDP.technologies')
                 label
-                    input(type='checkbox' ng-model='technology.completed' ng-change='pdp.updateTechnologies(technology)')
-                    span(ng-class="{completed: technology.completed}") {{technology.name}}
+                    span {{technology.name}}
             h4 Certifications
             div.checkbox(ng-repeat='certification in pdp.userPDP.certifications')
                 label
-                    input(type='checkbox' ng-model='certification.completed' ng-change='pdp.updateCertifications(certification)')
                     span(ng-class="{completed: certification.completed}") {{certification.name}}
             h4 Tasks
             div.checkbox(ng-repeat='task in pdp.userPDP.tasks')
                 label
-                    input(type='checkbox' ng-model='task.completed' ng-change='pdp.updateTasks(task)')
-                    span(ng-class="{completed: task.completed}") {{task.name}}
+                    span {{task.name}}
             h4 Tests
             div.checkbox(ng-repeat='test in pdp.userPDP.tests')
                 label
-                    input(type='checkbox' ng-model='test.completed' ng-change='pdp.updateTests(test)')
-                    span(ng-class="{completed: test.completed}") {{test.name}}
+                    span {{test.name}}
