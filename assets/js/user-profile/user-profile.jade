@@ -52,22 +52,39 @@ div.container-fluid(ng-controller="UserProfileController as ctrl")
             input(ng-model="ctrl.user.email", ng-change="ctrl.change('email', ctrl.user.email)", type="email", class="form-control", placeholder="Email")
 
         .form-group
-            label Password
-            input(ng-model="ctrl.user.password", ng-change="ctrl.change('password', ctrl.user.password)", type="password", class="form-control", placeholder="Password")
+            label Start work in Binary Studio
+            .input-group
+                input.form-control(
+                ng-model='ctrl.user.workDate',
+                ng-change="ctrl.change('workDate', ctrl.user.workDate)",
+                is-open='showDatePicker',
+                min-date="'1900-01-01'",
+                max-date="ctrl.today",
+                datepicker-popup='dd-MM-yyyy',
+                datepicker-append-to-body="true",
+                close-text='Close')
+                span.input-group-btn
+                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
+                        i.glyphicon.glyphicon-calendar
 
 
 
     .col-md-6.col-sm-6.col-xs-12.personal-info
-        img.avatar.img-responisve(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
-        br
-        a(href='javascript: void(0)', ng-click="ctrl.showUrlInput=!ctrl.showUrlInput") Add a photo from a website
-        .form-group
-            input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
-        .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
-        //input.text-center.well.well-sm(type='file')
-    .form-group(ng-controller='PdpController as pdp')
-        h4 Position
-            span {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
+        .panel.panel-default
+            .panel-body
+                img.avatar.img-responisve(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+                br
+                span.glyphicon.glyphicon-upload
+                a(href='javascript: void(0)', ng-click="ctrl.showUrlInput=!ctrl.showUrlInput") Add a photo from a website
+                .form-group
+                    input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
+                .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
+
+
+        .form-group(ng-controller='PdpController as pdp')
+            .panel-body
+                .up-title Position
+                .up-data {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
 
     .col-md-12.form-group
         input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)

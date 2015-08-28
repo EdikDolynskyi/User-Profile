@@ -37,3 +37,14 @@ div.container-fluid(ng-controller="UserProfilePublicController as ctrl")
 
     .col-md-6.col-sm-6.col-xs-12.personal-info
         img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+
+        .panel.panel-default(ng-controller='PdpController as pdp')
+            .panel-heading
+                h3.panel-title Position
+            .panel-body
+                .up-title Position in company
+                .up-data {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
+
+                .up-title Work since
+                .up-data May 12 2015
+                //.up-data {{ctrl.user.workDate}}

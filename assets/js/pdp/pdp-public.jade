@@ -30,19 +30,27 @@ div.pdp(ng-controller='PdpPublicController as pdp')
             accordion-heading
                 | Steps needed to reach the next position
                 i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isStepsOpen, 'glyphicon-chevron-right': !pdp.status.isStepsOpen}")
-            h4 Technologies
-            div.checkbox(ng-repeat='technology in pdp.userPDP.technologies')
-                label
-                    span {{technology.name}}
-            h4 Certifications
-            div.checkbox(ng-repeat='certification in pdp.userPDP.certifications')
-                label
-                    span(ng-class="{completed: certification.completed}") {{certification.name}}
-            h4 Tasks
-            div.checkbox(ng-repeat='task in pdp.userPDP.tasks')
-                label
-                    span {{task.name}}
-            h4 Tests
-            div.checkbox(ng-repeat='test in pdp.userPDP.tests')
-                label
-                    span {{test.name}}
+
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title Technologies
+                .panel-body(ng-repeat='technology in pdp.userPDP.technologies')
+                    .up-data {{technology.name}}
+
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title Certifications
+                .panel-body(ng-repeat='certification in pdp.userPDP.certifications')
+                    .up-data {{certification.name}}
+
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title Tasks
+                .panel-body(ng-repeat='task in pdp.userPDP.tasks')
+                    .up-data {{task.name}}
+
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title Tests
+                .panel-body(ng-repeat='test in pdp.userPDP.tests')
+                    .up-data {{test.name}}

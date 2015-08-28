@@ -14,11 +14,6 @@ module.exports = {
             required: true,
             unique: true
         },
-        password: {
-            type: 'string',
-            minLength: 6,
-            required: true
-        },
         name: {
             type: 'string',
             required: true
@@ -46,6 +41,10 @@ module.exports = {
         },
         avatar: {
             type: 'json'
+        },
+        workDate: {
+            type: 'date',
+            required: true
         },
         userCV: {
             model : 'Cvs',
