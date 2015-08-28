@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.factory('cvFactory', function($resource) {
+app.factory('cvFactory', function($resource, $rootScope) {
 
-    var userId = '55c38b5a956240ba4c6a5f24';
+    var userId = $rootScope.ownerId;
     var cv = $resource('api/cvs/' + userId);
     var Technologies = $resource('api/technologies');
     var Projects = $resource('api/projects');

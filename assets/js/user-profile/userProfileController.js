@@ -15,7 +15,7 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
 
     UserProfileService.getByServerUserId($rootScope.serverUserId, function (user) {
 
-        $rootScope.ownerId = $rootScope.userId = user.id;
+        $rootScope.ownerId  = user.id;
 
         delete user.$promise;
         delete user.$resolved;
