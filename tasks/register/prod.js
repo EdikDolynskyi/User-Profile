@@ -1,7 +1,6 @@
 module.exports = function (grunt) {
-	grunt.registerTask('prod', [
+	grunt.registerTask('default', [
 		'compileAssets',
-		'sails-linker:prodJsRelativeJade',
-		'sails-linker:prodStylesRelativeJade'
+		'linkAssets'
 	]);
 };
