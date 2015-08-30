@@ -8,7 +8,8 @@ function mainCtrl($scope, service, $rootScope, $location, $cookies) {
     ctrl.usersList = [];
     ctrl.searchParams = {};
 
-
+    $rootScope.userId = '';
+    $rootScope.ownerId = '';
     $rootScope.serverUserId = $cookies.get('serverUID');
 
     //set when admin login
