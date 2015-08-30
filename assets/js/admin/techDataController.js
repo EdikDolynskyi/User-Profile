@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('TechDataController', function($resource , $timeout){
+app.controller('TechDataController', function($resource , $timeout, $modal){
 	var vm = this;
     vm.positions = [];
     vm.position = {};
@@ -99,13 +99,18 @@ app.controller('TechDataController', function($resource , $timeout){
     };
 
     vm.removePositionFromCollection = function(obj){
-        var index = vm.positions.indexOf(obj);
-        vm.positions.splice(index, 1);
-        var Positions = $resource('/api/positions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
-        var pos = Positions.delete({id: obj.id}, function(res){
-                console.log("Deleted successfully!")
-            }, function(err){
-                console.log(err);
+        var tmp = false;
+        modalConfirm(function(tmp){
+            if(tmp){
+                var index = vm.positions.indexOf(obj);
+                vm.positions.splice(index, 1);
+                var Positions = $resource('/api/positions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var pos = Positions.delete({id: obj.id}, function(res){
+                        console.log("Deleted successfully!")
+                    }, function(err){
+                        console.log(err);
+                });
+            }
         });
     };
 
@@ -133,13 +138,18 @@ app.controller('TechDataController', function($resource , $timeout){
     };
 
     vm.removeDirectionFromCollection = function(obj){
-        var index = vm.directions.indexOf(obj);
-        vm.directions.splice(index, 1);
-        var Directions = $resource('/api/directions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
-        var dir = Directions.delete({id: obj.id}, function(res){
-                console.log("Deleted successfully!")
-            }, function(err){
-                console.log(err);
+        var tmp = false;
+        modalConfirm(function(tmp){
+            if(tmp){
+                var index = vm.directions.indexOf(obj);
+                vm.directions.splice(index, 1);
+                var Directions = $resource('/api/directions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var dir = Directions.delete({id: obj.id}, function(res){
+                        console.log("Deleted successfully!")
+                    }, function(err){
+                        console.log(err);
+                });
+            }
         });
     };
 
@@ -167,13 +177,18 @@ app.controller('TechDataController', function($resource , $timeout){
     };
 
     vm.removeTechCategoryFromCollection = function(obj){
-        var index = vm.techCategories.indexOf(obj);
-        vm.techCategories.splice(index, 1);
-        var Categories = $resource('/api/categories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
-        var cat = Categories.delete({id: obj.id}, function(res){
-                console.log("Deleted successfully!")
-            }, function(err){
-                console.log(err);
+        var tmp = false;
+        modalConfirm(function(tmp){
+            if(tmp){
+                var index = vm.techCategories.indexOf(obj);
+                vm.techCategories.splice(index, 1);
+                var Categories = $resource('/api/categories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var cat = Categories.delete({id: obj.id}, function(res){
+                        console.log("Deleted successfully!")
+                    }, function(err){
+                        console.log(err);
+                });
+            }
         });
     };
 
@@ -201,13 +216,18 @@ app.controller('TechDataController', function($resource , $timeout){
     };
 
     vm.removeAchCategoryFromCollection = function(obj){
-        var index = vm.achCategories.indexOf(obj);
-        vm.achCategories.splice(index, 1);
-        var Categories = $resource('/api/achievementcategories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
-        var cat = Categories.delete({id: obj.id}, function(res){
-                console.log("Deleted successfully!")
-            }, function(err){
-                console.log(err);
+        var tmp = false;
+        modalConfirm(function(tmp){
+            if(tmp){
+                var index = vm.achCategories.indexOf(obj);
+                vm.achCategories.splice(index, 1);
+                var Categories = $resource('/api/achievementcategories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var cat = Categories.delete({id: obj.id}, function(res){
+                        console.log("Deleted successfully!")
+                    }, function(err){
+                        console.log(err);
+                });
+            }
         });
     };
 
@@ -247,14 +267,31 @@ app.controller('TechDataController', function($resource , $timeout){
     };
 
     vm.removeTechnologyFromCollection = function(obj){
-        var index = vm.technologies.indexOf(obj);
-        vm.technologies.splice(index, 1);
-        var Technologies = $resource('/api/technologies/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
-        var tech = Technologies.delete({id: obj.id}, function(res){
-                console.log("Deleted successfully!")
-            }, function(err){
-                console.log(err);
+        var tmp = false;
+        modalConfirm(function(tmp){
+            if(tmp){
+                var index = vm.technologies.indexOf(obj);
+                vm.technologies.splice(index, 1);
+                var Technologies = $resource('/api/technologies/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var tech = Technologies.delete({id: obj.id}, function(res){
+                        console.log("Deleted successfully!")
+                    }, function(err){
+                        console.log(err);
+                });
+            }
         });
+    };
+
+    function modalConfirm(callback){
+        
+        var modalInstance = $modal.open({
+          templateUrl: 'modalConfirmDelete.html',
+          controller: 'ModalConfirmController',
+          controllerAs: 'modalconf'
+        });
+
+        modalInstance.result.then(callback);
+        
     };
     
 });
