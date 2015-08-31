@@ -21,11 +21,8 @@ module.exports = {
   //   connection: 'someMysqlServer'
   // },
 
-  /***************************************************************************
-   * Set the port in the production environment to 80                        *
-   ***************************************************************************/
-
-  port: 8080
+  authServerURL: 'http://team.binary-studio.com/auth',
+  refererURL: 'http://team.binary-studio.com/profile'
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *

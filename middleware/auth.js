@@ -17,7 +17,7 @@ module.exports = function(req, res, next){
         });
     } else {
 
-        cookies.set('referer',  "http://localhost:1337/");
-        res.redirect('http://localhost:2020/');
+        cookies.set('referer',  sails.config.refererURL);
+        res.redirect(sails.config.authServerURL);
     }
 };
