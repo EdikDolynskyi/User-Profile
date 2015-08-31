@@ -4,7 +4,7 @@ app.config(function ($routeProvider) {
 
 	$routeProvider.
 		when('/', {
-			templateUrl: 'profile/js/user-profile/user-profile.html',
+			templateUrl: 'profile/js/up/up.html',
 			controller: 'UserProfileController'
 		}).
 		when('/search', {
@@ -12,11 +12,11 @@ app.config(function ($routeProvider) {
 			controller: 'MainController'
 		}).
 		when('/userdata/:userId', {
-			templateUrl: 'profile/js/user-profile/user-profile-data.html',
+			templateUrl: 'profile/js/up/up-data.html',
 			controller: 'userProfileDataController'
 		}).
 		when('/adminup', {
-			templateUrl: 'profile/js/admin/user-profile-admin.html',
+			templateUrl: 'profile/js/admin/up-admin.html',
 			controller: 'UserProfileAdminController'
 		}).
 		when('/cv', {templateUrl: 'profile/js/cv/cv.html'}).
