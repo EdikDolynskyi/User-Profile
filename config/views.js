@@ -13,7 +13,7 @@
 
 module.exports.views = {
 
-  _hookTimeout : 50000,
+
   /****************************************************************************
   *                                                                           *
   * View engine (aka template language) to use for your app's *server-side*   *
