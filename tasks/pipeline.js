@@ -32,19 +32,12 @@ var jsFilesToInject = [
     // 'js/cv/**/*.js'
 ];
 
+var path = require('path');
 
-module.exports.jsFiles = jsLibsToInject.concat(jsFilesToInject).map(function(path) {
-    return '.tmp/public/' + path;
+module.exports.jsFiles = jsLibsToInject.concat(jsFilesToInject).map(function(filePath) {
+    return path.join('.tmp/public/', filePath);
 });
 
-module.exports.cssFiles = cssLibsToInject.concat(cssFilesToInject).map(function(path) {
-    return '.tmp/public/' + path;
-});
-
-module.exports.jsFilesProdPath = jsLibsToInject.concat(jsFilesToInject).map(function(path) {
-    return '.tmp/public/profile' + path;
-});
-
-module.exports.cssFilesProdPath = cssLibsToInject.concat(cssFilesToInject).map(function(path) {
-    return '.tmp/public/profile' + path;
+module.exports.cssFiles = cssLibsToInject.concat(cssFilesToInject).map(function(filePath) {
+    return path.join('.tmp/public/', filePath);
 });

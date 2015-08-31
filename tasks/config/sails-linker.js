@@ -46,12 +46,12 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '// STYLES',
 				endTag: '// STYLES END',
-				fileTmpl: 'link(rel="stylesheet", href="%s")',
+				fileTmpl: 'link(rel="stylesheet", href="/profile/%s")',
 				appRoot: '.tmp/public',
 				relative: true
 			},
 			files: {
-				'views/*.jade': require('../pipeline').cssFilesProdPath
+				'views/*.jade': require('../pipeline').cssFiles
 			}
 		},
 
@@ -59,12 +59,12 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '// SCRIPTS',
 				endTag: '// SCRIPTS END',
-				fileTmpl: 'script(src="%s")',
+				fileTmpl: 'script(src="/profile/%s")',
 				appRoot: '.tmp/public',
 				relative: true
 			},
 			files: {
-				'views/*.jade': require('../pipeline').jsFilesProdPath
+				'views/*.jade': require('../pipeline').jsFiles
 			}
 		}
 	});
