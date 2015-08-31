@@ -7,7 +7,7 @@ app.factory('cvFactory', function($resource) {
     var Technologies = $resource('api/technologies');
     var Projects = $resource('api/projects');
     var Categories = $resource('api/categories');
-    var User_projects = $resource('/api/users_projects');
+    var Users_projects = $resource('api/users_projects');
     var F = {};
 
     F.getUserData = function(callback) {
@@ -34,10 +34,11 @@ app.factory('cvFactory', function($resource) {
         });
     };
 
-    F.getUsersProjects = function(callback) {
-        User_projects.query(function(res) {
-            callback(res);
-        });
+    F.getUserProjects = function(callback) {
+        $resource('/users_projects/:user_id', {user_id: '@id'})
+            .query({user_id: userId}, function(res) {
+                callback(res);
+            });
     };
 
     F.createTechnology = function(tech, userCV, callback){
@@ -68,34 +69,53 @@ app.factory('cvFactory', function($resource) {
         CVs.update({cv_id: userCV.id, id: tech.id}, tech);
     };
 
-    F.createProject = function(project, userCV, callback) {
+    F.getProject = function(id, callback) {
+        var Users_projects = $resource('api/users_projects/:id', {id: '@id'});
+        Users_projects.get({id: id}, function(res) {
+            callback(res);
+        })
+    };
+
+    F.createProject = function(project, userRole, startDate, endDate, callback) {
         var newProject = {};
         newProject.name = project.name;
         newProject.description = project.description;
         newProject.technologies = [];
+        newProject.start = project.start;
+        newProject.end = project.end || "";
 
         for(var i=0; i< project.technologies.length; i++){
             newProject.technologies.push(project.technologies[i].id);
         }
 
-        Projects.save(newProject, function(res){
-            callback(res);
+        Projects.save(newProject, function(project){
+            var newUsers_ProjectsObj = {};
+            newUsers_ProjectsObj.user = userId;
+            newUsers_ProjectsObj.project = project.id;
+            newUsers_ProjectsObj.userRole = userRole;
+            newUsers_ProjectsObj.start = startDate;
+            newUsers_ProjectsObj.end = endDate;
+
+            Users_projects.save(newUsers_ProjectsObj, function(res){
+                callback(res.id);
+            })
+
         });
+
+
     };
 
-    F.addProjectToCV = function(project, userCV, users_projects, callback) {
-        project.participants = [];
+    F.selectProject = function(project, userRole, startDate, endDate, callback) {
+        var newUsers_ProjectsObj = {};
+        newUsers_ProjectsObj.user = userId;
+        newUsers_ProjectsObj.project = project.id;
+        newUsers_ProjectsObj.userRole = userRole;
+        newUsers_ProjectsObj.start = startDate;
+        newUsers_ProjectsObj.end = endDate;
 
-        for(var i=0; i<users_projects.length; i++) {
-            if(users_projects[i].projectId == project.id) {
-                project.participants.push(users_projects[i].userId);
-            }
-        }
-
-        var CVs = $resource('/cv/:cv_id/project/:id', {cv_id: '@id', id: '@id'});
-        CVs.save({cv_id: userCV.id, id: project.id}, project);
-
-        callback(project);
+        Users_projects.save(newUsers_ProjectsObj, function(res){
+            callback(res.id);
+        });
     };
 
     return F;

@@ -68,54 +68,85 @@ script(type='text/ng-template', id='dropDownList.html').
                         a(ng-href='', ng-click='showProjectForm1=true; showProjectForm2=false; $event.preventDefault()') Select from existing projects
                         a(ng-href='', ng-click='showProjectForm2=true; showProjectForm1=false; $event.preventDefault()') Create project
         div.col-lg-6.col-lg-offset-3(ng-show='showProjectForm1')
-            form(ng-submit='addProjectToCV(proj, startDate); showProjectForm1=!showProjectForm1')
+            form(ng-submit='selectProject(selProject, userRole, startDate, endDate); showProjectForm1=!showProjectForm1')
                 .form-group
                     label(for='sel-project') Project
-                    select#sel-project.form-control(ng-model='proj', required)
+                    select#sel-project.form-control(ng-model='selProject', required)
                         option(value='') ---Please select---
-                        option(ng-repeat='proj in allProjects | orderBy : "name"' value='{{proj}}')
-                            | {{proj.name}}
+                        option(ng-repeat='selProject in allProjects | orderBy : "name"' value='{{selProject}}')
+                            | {{selProject.name}}
                 .form-group
-                    label(for='startDate') Start date
-                    input#start-date.form-control(type='date', datepicker-popup='', ng-model='startDate',
+                    label(for='user-role1') Your role
+                    input#user-role1.form-control(type='text', ng-model='userRole', required)
+                .form-group
+                    label(for='start-date1') Date of joining the project
+                    input#start-date1.form-control(type='date', datepicker-popup='', ng-model='startDate',
                     is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
                     date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
+                .form-group
+                    label(for='end-date1') Date of finishing working on the project
+                    input#end-date1.form-control(type='date', datepicker-popup='', ng-model='endDate',
+                    is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
+                    date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
                 button.btn.btn-primary(type='submit') Add project
                 button.btn.btn-danger(type='reset' ng-click='showProjectForm1=false') Cancel
         div.col-lg-6.col-lg-offset-3(ng-show='showProjectForm2')
-            form(ng-submit='createProject(project, startDate); showProjectForm2 = false')
+            form(ng-submit='createProject(project, userRole, startDate, endDate); showProjectForm2 = false')
                 .form-group
                     label(for='project-name') Project name
                     input#project-name.form-control(type='text', ng-model='project.name', required)
                 .form-group
-                    label(for='startDate') Start date
-                    input#start-date.form-control(type='date', datepicker-popup='', ng-model='startDate',
+                    label(for='start') Start date
+                    input#start.form-control(type='date', datepicker-popup='', ng-model='project.start',
                         is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
                         date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
                 .form-group
+                    label(for='end') End date
+                    input#end.form-control(type='date', datepicker-popup='', ng-model='project.end',
+                    is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
+                    date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+                .form-group
                     label(for='technologies') Technologies
-                    input#technologies.form-control(type='text', ng-model='projectTech',
-                        ng-keydown ='enterTechnologyName($event, projectTech)',
+                    input#technologies.form-control(type='text', ng-model='projectTechnology',
+                        ng-keydown ='enterTechnologyName($event, projectTechnology)',
                         typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
                         typeahead-template-url='dropDownList.html')
                     button.stars-4.voffset2(ng-repeat='Tech in project.technologies') {{Tech.name}}
                 .form-group
                     label(for='description') Description
                     textarea.form-control(rows='3', id='description', ng-model='project.description', required)
+                .form-group
+                    label(for='user-role') Your role
+                    input#user-role.form-control(type='text', ng-model='userRole', required)
+                .form-group
+                    label(for='start-date') Date of joining the project
+                    input#start-date.form-control(type='date', datepicker-popup='', ng-model='startDate',
+                    is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
+                    date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
+                .form-group
+                    label(for='end-date') Date of finishing working on the project
+                    input#end-date.form-control(type='date', datepicker-popup='', ng-model='endDate',
+                    is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
+                    date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
                 button.btn.btn-primary(type='submit') Create project
                 button.btn.btn-danger(type='reset' ng-click='showProjectForm2 = false') Cancel
         div.col-lg-12.voffset3
             .panel.panel-default(ng-repeat='project in userProjects')
                 .panel-heading(ng-click='isCollapsed = !isCollapsed')
                     b {{project.name}}
-                    button.btn.btn-default.btn-xs.pull-right(type='button', ng-click="removeProject(project)")
+                    button.btn.btn-default.btn-xs.pull-right.btn-rmv-project(type='button', ng-click="removeProject(project)")
                         span.glyphicon.glyphicon-remove
                 .panel-body(collapse='isCollapsed')
                     .row
                         div.col-lg-3.project-label
                              | Start date:
                         div.col-lg-9
-                            | {{project.startDate | date:'dd/MM/yyyy'}}
+                            | {{project.start | date:'dd/MM/yyyy'}}
+                    .row.voffset3
+                        div.col-lg-3.project-label
+                            | End date:
+                        div.col-lg-9
+                            | {{project.end | date:'dd/MM/yyyy'}}
                     .row.voffset3
                         div.col-lg-3.project-label
                             | Technologies:
@@ -126,6 +157,16 @@ script(type='text/ng-template', id='dropDownList.html').
                             | Description:
                         div.col-lg-9
                             | {{project.description}}
+                    .row.voffset3
+                        div.col-lg-3.project-label
+                            | Your role:
+                        div.col-lg-9
+                            | {{project.userRole}}
+                    .row.voffset3
+                        div.col-lg-3.project-label
+                            | Work period:
+                        div.col-lg-9
+                            | {{project.startDate | date:'dd/MM/yyyy'}} - {{project.endDate | date:'dd/MM/yyyy'}}
                     .row.voffset3
                         div.col-lg-12.project-label
                             | Participants:

@@ -6,5 +6,23 @@
  */
 
 module.exports = {
+    getUserProjects : function(req, res){
+        usersProjectsService.getUsers_Projects(req.param('user_id'),function(err, data){
+            if(err){
+                res.send(err);
+            }else{
+                res.send(data);
+            }
+        });
+    },
 
+    getProject : function(req, res){
+        usersProjectsService.getObjUsers_Projects(req.param('id'),function(err, data){
+            if(err){
+                res.send(err);
+            }else{
+                res.send(data);
+            }
+        });
+    }
 };

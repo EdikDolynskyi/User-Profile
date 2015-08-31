@@ -1,6 +1,7 @@
 var app = require('../angular-app');
 
 app.controller('CVController', function($scope, cvFactory) {
+    $scope.userId = "";
     $scope.userTechnologies = [];
     $scope.userProjects = [];
     $scope.allTechnologies = [];
@@ -21,9 +22,8 @@ app.controller('CVController', function($scope, cvFactory) {
 
 
 
-
     cvFactory.getUserData(function(user) {
-        $scope.userProjects = user.userCV.projects;
+        $scope.userId = user.id;
         $scope.userTechnologies = user.userCV.technologies;
         $scope.userCV = user.userCV;
     });
@@ -40,22 +40,17 @@ app.controller('CVController', function($scope, cvFactory) {
         $scope.allProjects = projects;
     });
 
-    cvFactory.getUsersProjects(function(res) {
-        $scope.users_projects = res;
+    cvFactory.getUserProjects(function(projects) {
+        $scope.userProjects = projects;
     });
 
-    $scope.enterProjectName = function($event, project) {
-        if ($event.keyCode == 13) {
-            $event.preventDefault();
-            $scope.findProject(project);
-        }
-    };
+
 
     $scope.addTechnologiesToProject = function(technology) {
         if (technology !== '') {
             $scope.project.technologies.push(technology);
 
-            $scope.projectTech = '';
+            $scope.projectTechnology = '';
         }
     };
 
@@ -99,55 +94,25 @@ app.controller('CVController', function($scope, cvFactory) {
         cvFactory.updateCVTechnologies(tech, $scope.userCV);
     };
 
-    $scope.addProjectToCV = function(project, startDate) {
-        var selectedProject = JSON.parse(project);
-        selectedProject.startDate = startDate;
-
-        cvFactory.addProjectToCV(selectedProject, $scope.userCV, $scope.users_projects, function(project) {
-
-            var technologies = [];
-            angular.forEach(project.technologies, function(projectTechnology) {
-                angular.forEach($scope.allTechnologies, function(technology) {
-                    if (projectTechnology == technology.id) {
-                        technologies.push(technology);
-                    }
-
-                });
+    $scope.createProject = function(project, userRole, startDate, endDate) {
+        cvFactory.createProject(project, userRole, startDate, endDate, function(id) {
+            cvFactory.getProject(id, function(project) {
+                $scope.userProjects.push(project);
             });
-
-            project.technologies = technologies;
-            $scope.userProjects.push(project);
-
-            $scope.selectedProject = "";
-            $scope.startDate = "";
         });
     };
 
-    $scope.createProject = function(project, startDate) {
-        console.log(project, startDate);
-
-        cvFactory.createProject(project, $scope.userCV, function(newProject) {
-            newProject.startDate = startDate;
-
-            cvFactory.addProjectToCV(newProject, $scope.userCV, function(res) {
-                res.startDate = newProject.startDate;
-                res.technologies = newProject.technologies;
-
-                $scope.userProjects.push(res);
+    $scope.selectProject = function(project, userRole, startDate, endDate) {
+        project = JSON.parse(project);
+        cvFactory.selectProject(project, userRole, startDate, endDate, function(id) {
+            cvFactory.getProject(id, function(project) {
+                $scope.userProjects.push(project);
             });
         });
+    }
 
-        $scope.project = {};
-        $scope.startDate = "";
-    };
-
-    /*$scope.removeProject = function(project) {
-        var index = $scope.userProjects.indexOf(project);
-        cvFactory.removeProject(project, $scope.userCV, function() {
-            ///some code
-        });
-    }*/
 });
+
 /****************************************************************************
  *                                                                           *
  *                              CUSTOM FILTERS                               *

@@ -37,15 +37,5 @@ module.exports = {
 				return res.send(data);
 			}
 		});
-	},
-
-	addProjectToCV: function(req, res) {
-		cvService.addProjectToCV(req.param('cv_id'), req.param('id'), req.body, function(err,data){
-			if (err) {
-				res.send(err);
-			} else {
-				return res.send(data);
-			}
-		});
 	}
 };

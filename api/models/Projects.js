@@ -25,6 +25,8 @@ module.exports = {
             required: true,
         },
         screenshots: 'array',
+        start: 'date',
+        end: 'date',
         isDeleted: {
             type: 'boolean',
             defaultsTo: false

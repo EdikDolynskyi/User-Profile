@@ -16,7 +16,7 @@ app.config(function ($routeProvider, $locationProvider) {
 app.controller('TabsCtrl', function ($scope, $window, $location) {
 	$scope.tabs = [
 		{ title:'My profile', href:'/' },
-		{ title:'my experience', href:'/cv' },
+		{ title:'My experience', href:'/cv' },
 		{ title:'PDP flow', href:'/pdp' }
 	];
 	$scope.changeHash = function(data) {
