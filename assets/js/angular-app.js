@@ -4,27 +4,27 @@ app.config(function ($routeProvider) {
 
 	$routeProvider.
 		when('/', {
-			templateUrl: 'js/user-profile/user-profile.html',
+			templateUrl: 'profile/js/user-profile/user-profile.html',
 			controller: 'UserProfileController'
 		}).
 		when('/search', {
-			templateUrl: 'js/main-page/user-search.html',
+			templateUrl: 'profile/js/main-page/user-search.html',
 			controller: 'MainController'
 		}).
 		when('/userdata/:userId', {
-			templateUrl: 'js/user-profile/user-profile-data.html',
+			templateUrl: 'profile/js/user-profile/user-profile-data.html',
 			controller: 'userProfileDataController'
 		}).
 		when('/adminup', {
-			templateUrl: 'js/admin/user-profile-admin.html',
+			templateUrl: 'profile/js/admin/user-profile-admin.html',
 			controller: 'UserProfileAdminController'
 		}).
-		when('/cv', {templateUrl: 'js/cv/cv.html'}).
-		when('/pdp', {templateUrl: 'js/pdp/pdp.html'}).
-		when('/adminach', {templateUrl: 'js/admin/achievements.html'}).
-		when('/admincert', {templateUrl: 'js/admin/certifications.html'}).
-		when('/adminpdp', {templateUrl: 'js/admin/adminpdp.html'}).
-		when('/admintechdata', {templateUrl: 'js/admin/admintechdata.html'}).
+		when('/cv', {templateUrl: 'profile/js/cv/cv.html'}).
+		when('/pdp', {templateUrl: 'profile/js/pdp/pdp.html'}).
+		when('/adminach', {templateUrl: 'profile/js/admin/achievements.html'}).
+		when('/admincert', {templateUrl: 'profile/js/admin/certifications.html'}).
+		when('/adminpdp', {templateUrl: 'profile/js/admin/adminpdp.html'}).
+		when('/admintechdata', {templateUrl: 'profile/js/admin/admintechdata.html'}).
 		otherwise({ redirectTo: '/' });
 });
 
