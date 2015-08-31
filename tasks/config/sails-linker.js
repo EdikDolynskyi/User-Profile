@@ -40,8 +40,33 @@ module.exports = function(grunt) {
 			files: {
 				'views/*.jade': require('../pipeline').jsFiles
 			}
-		}
+		},
 
+		prodStylesRelativeJade: {
+			options: {
+				startTag: '// STYLES',
+				endTag: '// STYLES END',
+				fileTmpl: 'link(rel="stylesheet", href="%s")',
+				appRoot: '.tmp/public',
+				relative: true
+			},
+			files: {
+				'views/*.jade': require('../pipeline').cssFilesProdPath
+			}
+		},
+
+		prodJsRelativeJade: {
+			options: {
+				startTag: '// SCRIPTS',
+				endTag: '// SCRIPTS END',
+				fileTmpl: 'script(src="%s")',
+				appRoot: '.tmp/public',
+				relative: true
+			},
+			files: {
+				'views/*.jade': require('../pipeline').jsFilesProdPath
+			}
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-sails-linker');

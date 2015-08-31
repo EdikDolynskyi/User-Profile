@@ -40,3 +40,11 @@ module.exports.jsFiles = jsLibsToInject.concat(jsFilesToInject).map(function(pat
 module.exports.cssFiles = cssLibsToInject.concat(cssFilesToInject).map(function(path) {
     return '.tmp/public/' + path;
 });
+
+module.exports.jsFilesProdPath = jsLibsToInject.concat(jsFilesToInject).map(function(path) {
+    return '.tmp/public/profile' + path;
+});
+
+module.exports.cssFilesProdPath = cssLibsToInject.concat(cssFilesToInject).map(function(path) {
+    return '.tmp/public/profile' + path;
+});
