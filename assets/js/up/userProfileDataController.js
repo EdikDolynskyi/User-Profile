@@ -5,7 +5,7 @@ app.controller('userProfileDataController', ['$scope', 'UserProfileService', 'Up
 function userCtrl() {
     var vm = this;
     vm.tabs = [
-        { title:'User Profile', content:'js/user-profile/user-profile-public.html' },
+        { title:'User Profile', content:'js/up/up-public.html' },
         { title:'User Experience', content:'js/cv/cv-public.html' },
         { title:'User PDP Flow', content:'js/pdp/pdp-public.html' }
     ];

@@ -1,30 +1,31 @@
 var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngFileUpload', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
+	var prefix = window.location.pathname;
 
 	$routeProvider.
 		when('/', {
-			templateUrl: 'profile/js/up/up.html',
+			templateUrl: prefix + 'js/up/up.html',
 			controller: 'UserProfileController'
 		}).
 		when('/search', {
-			templateUrl: 'profile/js/main-page/user-search.html',
+			templateUrl: prefix + 'js/main-page/user-search.html',
 			controller: 'MainController'
 		}).
 		when('/userdata/:userId', {
-			templateUrl: 'profile/js/up/up-data.html',
+			templateUrl:  prefix + 'js/up/up-data.html',
 			controller: 'userProfileDataController'
 		}).
 		when('/adminup', {
-			templateUrl: 'profile/js/admin/up-admin.html',
+			templateUrl: prefix + 'js/admin/up-admin.html',
 			controller: 'UserProfileAdminController'
 		}).
-		when('/cv', {templateUrl: 'profile/js/cv/cv.html'}).
-		when('/pdp', {templateUrl: 'profile/js/pdp/pdp.html'}).
-		when('/adminach', {templateUrl: 'profile/js/admin/achievements.html'}).
-		when('/admincert', {templateUrl: 'profile/js/admin/certifications.html'}).
-		when('/adminpdp', {templateUrl: 'profile/js/admin/adminpdp.html'}).
-		when('/admintechdata', {templateUrl: 'profile/js/admin/admintechdata.html'}).
+		when('/cv', {templateUrl: prefix + 'js/cv/cv.html'}).
+		when('/pdp', {templateUrl: prefix + 'js/pdp/pdp.html'}).
+		when('/adminach', {templateUrl: prefix + 'js/admin/achievements.html'}).
+		when('/admincert', {templateUrl: prefix + 'js/admin/certifications.html'}).
+		when('/adminpdp', {templateUrl: prefix + 'js/admin/adminpdp.html'}).
+		when('/admintechdata', {templateUrl: prefix + 'js/admin/admintechdata.html'}).
 		otherwise({ redirectTo: '/' });
 });
 

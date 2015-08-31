@@ -27,7 +27,7 @@ var jsLibsToInject = [
 
 var jsFilesToInject = [
      'js/main.js'
-    // 'js/user-profile/**/*.js',
+    // 'js/up/**/*.js',
     // 'js/pdp/**/*.js',
     // 'js/cv/**/*.js'
 ];
