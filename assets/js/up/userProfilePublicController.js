@@ -6,8 +6,7 @@ function userCtrl(service, $rootScope, $location) {
     var ctrl = this;
     //Init
     ctrl.today = new Date();
-
-
+    
     var userId = $location.path().split("/")[2];
     $rootScope.userId = userId;
     service.get(userId, function (user) {
