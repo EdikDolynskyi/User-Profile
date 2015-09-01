@@ -4,7 +4,6 @@ app.factory('cvPublicFactory', function($resource, $location) {
     var prefix = window.location.pathname;
 
     var userId = $location.path().split("/")[2];
-    console.log('cv ' + userId);
     var cv = $resource(prefix + 'api/cvs/' + userId);
     var Technologies = $resource(prefix + 'api/technologies');
     var Projects = $resource(prefix + 'api/projects');

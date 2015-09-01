@@ -2,6 +2,7 @@ var app = require('../angular-app');
 
 app.controller('ModalCertController', function ($modalInstance, $resource, certification, certifications, categories, uploadService) {
 	var vm = this;
+    var prefix = window.location.pathname;
     vm.certifications = certifications;
     vm.certification = certification;
     vm.categories = categories;
@@ -32,7 +33,7 @@ app.controller('ModalCertController', function ($modalInstance, $resource, certi
 
     vm.delete = function (){
         var index = vm.certifications.indexOf(certification);
-        var Certifications = $resource('/api/certifications/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+        var Certifications = $resource(prefix + 'api/certifications/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
         var cert = Certifications.delete({id: vm.certification.id}, function(res){
                 console.log("Deleted successfully!")
             }, function(err){

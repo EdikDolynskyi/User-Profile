@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('userProfileDataController', ['$scope', 'UserProfileService', 'Upload', '$rootScope', userCtrl]);
+app.controller('userProfileDataController', userCtrl);
 
 function userCtrl() {
     var vm = this;

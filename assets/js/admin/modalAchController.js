@@ -2,6 +2,7 @@ var app = require('../angular-app');
 
 app.controller('ModalAchController', function ($modalInstance, $resource, achievement, achievements, categories, uploadService) {
 	var vm = this;
+    var prefix = window.location.pathname;
     vm.achievements = achievements;
     vm.achievement = achievement;
     vm.categories = categories;
@@ -32,7 +33,7 @@ app.controller('ModalAchController', function ($modalInstance, $resource, achiev
 
     vm.delete = function (){
         var index = vm.achievements.indexOf(achievement);
-        var Achievements = $resource('/api/achievements/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+        var Achievements = $resource(prefix + 'api/achievements/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
         var ach = Achievements.delete({id: vm.achievement.id}, function(res){
                 console.log("Deleted successfully!")
             }, function(err){

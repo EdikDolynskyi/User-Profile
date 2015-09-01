@@ -16,6 +16,7 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
     UserProfileService.getByServerUserId($rootScope.serverUserId, function (user) {
 
         $rootScope.ownerId = $rootScope.userId = user.id;
+        var prefix = window.location.pathname;
 
         delete user.$promise;
         delete user.$resolved;
@@ -52,7 +53,7 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
             obj.fileName = './upload/' + fileName;
 
             downloadService.downloadFile(obj, function () {
-                vm.user.avatar.urlAva = '/api/files/get/' + fileName;
+                vm.user.avatar.urlAva = prefix + 'api/files/get/' + fileName;
                 vm.dataInFields.avatar = angular.copy(vm.user.avatar);
 
                 vm.getChangesFields(vm.userOriginal, vm.user);

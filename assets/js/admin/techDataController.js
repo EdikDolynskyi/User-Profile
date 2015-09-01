@@ -2,6 +2,7 @@ var app = require('../angular-app');
 
 app.controller('TechDataController', function($resource , $timeout, $modal){
 	var vm = this;
+    var prefix = window.location.pathname;
     vm.positions = [];
     vm.position = {};
     vm.isPositionCollapsed = true;
@@ -30,7 +31,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     getTechnologies()
 
     function getPositions(){
-        var Positions = $resource('/api/positions');
+        var Positions = $resource(prefix + 'api/positions');
         var pos = Positions.query(function(res){
                 vm.positions = res;               
             }, function(err){
@@ -39,7 +40,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     function getDirections(){
-        var Directions = $resource('/api/directions');
+        var Directions = $resource(prefix + 'api/directions');
         var dir = Directions.query(function(res){
                 vm.directions = res;               
             }, function(err){
@@ -48,7 +49,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     function getTechCategories(){
-        var Categories = $resource('/api/categories');
+        var Categories = $resource(prefix + 'api/categories');
         var cat = Categories.query(function(res){
                 vm.techCategories = res;
                 vm.technology.category = vm.techCategories[0];               
@@ -58,7 +59,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     function getAchCategories(){
-        var Categories = $resource('/api/achievementcategories');
+        var Categories = $resource(prefix + 'api/achievementcategories');
         var cat = Categories.query(function(res){
                 vm.achCategories = res;               
             }, function(err){
@@ -67,7 +68,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     function getTechnologies(){
-        var Technologies = $resource('/api/technologies');
+        var Technologies = $resource(prefix + 'api/technologies');
         var tech = Technologies.query(function(res){
                 vm.technologies = res;               
             }, function(err){
@@ -76,7 +77,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     vm.createPositionInCollection = function(){  
-        var Positions = $resource('/api/positions', null, {'post': { method:'POST' }});
+        var Positions = $resource(prefix + 'api/positions', null, {'post': { method:'POST' }});
         var pos = Positions.post(vm.position, function(newPos){
                 vm.positions.push(newPos);
             }, function(err){
@@ -89,7 +90,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     vm.updatePositionInCollection = function(position){
-        var Positions = $resource('/api/positions/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        var Positions = $resource(prefix + 'api/positions/:id', {id: '@id'}, {'update': { method:'PUT' }});
         var pos = Positions.update({id: position.id}, position);
     };
 
@@ -104,7 +105,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
             if(tmp){
                 var index = vm.positions.indexOf(obj);
                 vm.positions.splice(index, 1);
-                var Positions = $resource('/api/positions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var Positions = $resource(prefix + 'api/positions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var pos = Positions.delete({id: obj.id}, function(res){
                         console.log("Deleted successfully!")
                     }, function(err){
@@ -115,7 +116,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     vm.createDirectionInCollection = function(){  
-        var Directions = $resource('/api/directions', null, {'post': { method:'POST' }});
+        var Directions = $resource(prefix + 'api/directions', null, {'post': { method:'POST' }});
         var dir = Directions.post(vm.direction, function(newDir){
                 vm.directions.push(newDir);
             }, function(err){
@@ -128,7 +129,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     vm.updateDirectionInCollection = function(direction){
-        var Directions = $resource('/api/directions/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        var Directions = $resource(prefix + 'api/directions/:id', {id: '@id'}, {'update': { method:'PUT' }});
         var dir = Directions.update({id: direction.id}, direction);
     };
 
@@ -143,7 +144,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
             if(tmp){
                 var index = vm.directions.indexOf(obj);
                 vm.directions.splice(index, 1);
-                var Directions = $resource('/api/directions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var Directions = $resource(prefix + 'api/directions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var dir = Directions.delete({id: obj.id}, function(res){
                         console.log("Deleted successfully!")
                     }, function(err){
@@ -154,7 +155,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     vm.createTechCategoryInCollection = function(){  
-        var Categories = $resource('/api/categories', null, {'post': { method:'POST' }});
+        var Categories = $resource(prefix + 'api/categories', null, {'post': { method:'POST' }});
         var cat = Categories.post(vm.techCategory, function(newCat){
                 vm.techCategories.push(newCat);
             }, function(err){
@@ -167,7 +168,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     vm.updateTechCategoryInCollection = function(category){
-        var Categories = $resource('/api/categories/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        var Categories = $resource(prefix + 'api/categories/:id', {id: '@id'}, {'update': { method:'PUT' }});
         var cat = Categories.update({id: category.id}, category);
     };
 
@@ -182,7 +183,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
             if(tmp){
                 var index = vm.techCategories.indexOf(obj);
                 vm.techCategories.splice(index, 1);
-                var Categories = $resource('/api/categories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var Categories = $resource(prefix + 'api/categories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var cat = Categories.delete({id: obj.id}, function(res){
                         console.log("Deleted successfully!")
                     }, function(err){
@@ -193,7 +194,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     vm.createAchCategoryInCollection = function(){  
-        var Categories = $resource('/api/achievementcategories', null, {'post': { method:'POST' }});
+        var Categories = $resource(prefix + 'api/achievementcategories', null, {'post': { method:'POST' }});
         var cat = Categories.post(vm.achCategory, function(newCat){
                 vm.achCategories.push(newCat);
             }, function(err){
@@ -206,7 +207,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     };
 
     vm.updateAchCategoryInCollection = function(category){
-        var Categories = $resource('/api/achievementcategories/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        var Categories = $resource(prefix + 'api/achievementcategories/:id', {id: '@id'}, {'update': { method:'PUT' }});
         var cat = Categories.update({id: category.id}, category);
     };
 
@@ -221,7 +222,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
             if(tmp){
                 var index = vm.achCategories.indexOf(obj);
                 vm.achCategories.splice(index, 1);
-                var Categories = $resource('/api/achievementcategories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var Categories = $resource(prefix + 'api/achievementcategories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var cat = Categories.delete({id: obj.id}, function(res){
                         console.log("Deleted successfully!")
                     }, function(err){
@@ -234,7 +235,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
     vm.createTechnologyInCollection = function(){  
         var tmp = vm.technology.category;
         vm.technology.category = vm.technology.category.id;
-        var Technologies = $resource('/api/technologies', null, {'post': { method:'POST' }});
+        var Technologies = $resource(prefix + 'api/technologies', null, {'post': { method:'POST' }});
         var tech = Technologies.post(vm.technology, function(newTech){
                 newTech.category = tmp;
                 vm.technologies.push(newTech);
@@ -256,7 +257,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
         var obj = {};
         obj.name = technology.name;
         obj.category = technology.category.id;
-        var Technologies = $resource('/api/technologies/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        var Technologies = $resource(prefix + 'api/technologies/:id', {id: '@id'}, {'update': { method:'PUT' }});
         var tech = Technologies.update({id: technology.id}, obj);
     };
 
@@ -272,7 +273,7 @@ app.controller('TechDataController', function($resource , $timeout, $modal){
             if(tmp){
                 var index = vm.technologies.indexOf(obj);
                 vm.technologies.splice(index, 1);
-                var Technologies = $resource('/api/technologies/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
+                var Technologies = $resource(prefix + 'api/technologies/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var tech = Technologies.delete({id: obj.id}, function(res){
                         console.log("Deleted successfully!")
                     }, function(err){

@@ -6,7 +6,8 @@ app.factory('downloadService', function($resource){
     };
 
     function downloadFile(obj, callback) {
-        var newFile = $resource('/downloadimg', null, {'post': { method:'POST' }});
+        var prefix = window.location.pathname;
+        var newFile = $resource(prefix + 'downloadimg', null, {'post': { method:'POST' }});
         newFile.post(obj, function(res) {
             console.log(res);
             callback();
