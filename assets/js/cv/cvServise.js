@@ -2,12 +2,14 @@ var app = require('../angular-app');
 
 app.factory('cvFactory', function($resource, $rootScope) {
 
+    var prefix = window.location.pathname;
+
     var userId = $rootScope.ownerId;
-    var cv = $resource('api/cvs/' + userId);
-    var Technologies = $resource('api/technologies');
-    var Projects = $resource('api/projects');
-    var Categories = $resource('api/categories');
-    var User_projects = $resource('/api/users_projects');
+    var cv = $resource(prefix + 'api/cvs/' + userId);
+    var Technologies = $resource(prefix + 'api/technologies');
+    var Projects = $resource(prefix + 'api/projects');
+    var Categories = $resource(prefix + 'api/categories');
+    var User_projects = $resource(prefix + '/api/users_projects');
     var F = {};
 
     F.getUserData = function(callback) {
@@ -52,10 +54,10 @@ app.factory('cvFactory', function($resource, $rootScope) {
     };
 
     F.addTechnologyToCV = function(tech, userCV, callback) {
-        var CVs = $resource('/cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'});
+        var CVs = $resource(prefix + 'cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'});
         CVs.save({cv_id: userCV.id, id: tech.id}, tech);
 
-        var Categories = $resource('api/categories', {id: '@id'});
+        var Categories = $resource(prefix + 'api/categories', {id: '@id'});
         Categories.get({id: tech.category}, function(res) {
             tech.category = res;
 
@@ -64,7 +66,7 @@ app.factory('cvFactory', function($resource, $rootScope) {
     };
 
     F.updateCVTechnologies = function(tech, userCV){
-        var CVs = $resource('/cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'}, {'update': { method:'PUT' }});
+        var CVs = $resource(prefix + 'cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'}, {'update': { method:'PUT' }});
         CVs.update({cv_id: userCV.id, id: tech.id}, tech);
     };
 
@@ -92,7 +94,7 @@ app.factory('cvFactory', function($resource, $rootScope) {
             }
         }
 
-        var CVs = $resource('/cv/:cv_id/project/:id', {cv_id: '@id', id: '@id'});
+        var CVs = $resource(prefix + 'cv/:cv_id/project/:id', {cv_id: '@id', id: '@id'});
         CVs.save({cv_id: userCV.id, id: project.id}, project);
 
         callback(project);

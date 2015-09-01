@@ -1,18 +1,21 @@
 (function () {
     var app = angular.module('myApp');
 
-    app.factory('PdpPublicService', function ($resource) {
+    app.factory('PdpPublicService', function($resource){
+
+        var prefix = window.location.pathname;
+
         var service = {
-            getPDP: getPDP,
-            updateTechnologies: updateTechnologies,
-            updateCertifications: updateCertifications,
+            getPDP:getPDP,
+            updateTechnologies:updateTechnologies,
+            updateCertifications:updateCertifications,
             updateTasks: updateTasks,
             updateTests: updateTests,
-            getPositions: getPositions,
+            getPositions:getPositions,
             getDirections: getDirections,
-            getTechnologies: getTechnologies,
-            getCertifications: getCertifications,
-            getTests: getTests,
+            getTechnologies:getTechnologies,
+            getCertifications:getCertifications,
+            getTests:getTests,
             addTechnology: addTechnology,
             removeTechnology: removeTechnology,
             addCertification: addCertification,
@@ -21,8 +24,8 @@
             removeTest: removeTest,
             updatePosition: updatePosition,
             updateDirection: updateDirection,
-            addTask: addTask,
-            removeTask: removeTask,
+            addTask:addTask,
+            removeTask:removeTask,
             addAchievement: addAchievement,
             removeAchievement: removeAchievement,
             getAchievements: getAchievements,
@@ -33,10 +36,12 @@
 
         function getPDP(userId, callback) {
 
-            $resource('/api/users/:id', {id: userId}).get(function (user) {
+
+
+            $resource(prefix + 'api/users/:id', {id: userId}).get(function (user) {
                 console.log(user.userPDP.id);
                 var userPDP = {};
-                $resource('/getpdp/:id', {id: user.userPDP.id}).get(function (resPDP) {
+                $resource(prefix + 'getpdp/:id', {id: user.userPDP.id}).get(function (resPDP) {
                     userPDP = resPDP;
                     console.log(resPDP);
                     callback(userPDP);
@@ -47,147 +52,147 @@
             });
         }
 
-        function getAchievements(callback) {
-            var Achievements = $resource('/api/achievements');
-            var achs = Achievements.query(function (res) {
+        function getAchievements(callback){
+            var Achievements = $resource(prefix + 'api/achievements');
+            var achs = Achievements.query(function(res){
                 callback(res);
-            }, function (err) {
+            }, function(err){
                 console.log(err);
             });
         };
 
-        function getPositions(callback) {
-            var Positions = $resource('/api/positions');
-            var positions = Positions.query(function (res) {
+        function getPositions(callback){
+            var Positions = $resource(prefix + 'api/positions');
+            var positions = Positions.query(function(res){
                 callback(res);
-            }, function (err) {
+            }, function(err){
                 console.log(err);
             });
         }
 
-        function getDirections(callback) {
-            var Directions = $resource('/api/directions');
-            var directions = Directions.query(function (res) {
+        function getDirections(callback){
+            var Directions = $resource(prefix + 'api/directions');
+            var directions = Directions.query(function(res){
                 callback(res);
-            }, function (err) {
+            }, function(err){
                 console.log(err);
             });
         }
 
-        function getTechnologies(callback) {
-            var Technologies = $resource('/api/technologies');
-            var technologies = Technologies.query(function (res) {
+        function getTechnologies(callback){
+            var Technologies = $resource(prefix + 'api/technologies');
+            var technologies = Technologies.query(function(res){
                 callback(res);
-            }, function (err) {
+            }, function(err){
                 console.log(err);
             });
         }
 
-        function getCertifications(callback) {
-            var Certifications = $resource('/api/certifications');
-            var certifications = Certifications.query(function (res) {
+        function getCertifications(callback){
+            var Certifications = $resource(prefix + 'api/certifications');
+            var certifications = Certifications.query(function(res){
                 callback(res);
-            }, function (err) {
+            }, function(err){
                 console.log(err);
             });
         }
 
-        function getTests(callback) {
-            var Tests = $resource('/api/tests');
-            var tests = Tests.query(function (res) {
+        function getTests(callback){
+            var Tests = $resource(prefix + 'api/tests');
+            var tests = Tests.query(function(res){
                 callback(res);
-            }, function (err) {
+            }, function(err){
                 console.log(err);
             });
         }
 
-        function addCompletedCertification(obj) {
-            var Pdps = $resource('/addcompcert/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function addCompletedCertification(obj){
+            var Pdps = $resource(prefix + 'addcompcert/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
         }
 
-        function removeCompletedCertification(obj) {
-            var Pdps = $resource('/removecompcert/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function removeCompletedCertification(obj){
+            var Pdps = $resource(prefix + 'removecompcert/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
         }
 
-        function addAchievement(obj) {
-            var Pdps = $resource('/addach/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function addAchievement(obj){
+            var Pdps = $resource(prefix + 'addach/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
         }
 
-        function removeAchievement(obj) {
-            var Pdps = $resource('/removeach/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function removeAchievement(obj){
+            var Pdps = $resource(prefix + 'removeach/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
         }
 
-        function addTask(obj) {
-            var Pdps = $resource('/addtask/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function addTask(obj){
+            var Pdps = $resource(prefix + 'addtask/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function removeTask(obj) {
-            var Pdps = $resource('/removetask/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function removeTask(obj){
+            var Pdps = $resource(prefix + 'removetask/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
         }
 
-        function addTechnology(obj) {
-            var Pdps = $resource('/addtech/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function addTechnology(obj){
+            var Pdps = $resource(prefix + 'addtech/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function removeTechnology(obj) {
-            var Pdps = $resource('/removetech/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function removeTechnology(obj){
+            var Pdps = $resource(prefix + 'removetech/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
         }
 
-        function addCertification(obj) {
-            var Pdps = $resource('/addcert/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function addCertification(obj){
+            var Pdps = $resource(prefix + 'addcert/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function removeCertification(obj) {
-            var Pdps = $resource('/removecert/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function removeCertification(obj){
+            var Pdps = $resource(prefix + 'removecert/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
         }
 
-        function addTest(obj) {
-            var Pdps = $resource('/addtest/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function addTest(obj){
+            var Pdps = $resource(prefix + 'addtest/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function removeTest(obj) {
-            var Pdps = $resource('/removetest/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function removeTest(obj){
+            var Pdps = $resource(prefix + 'removetest/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj)
         }
 
-        function updatePosition(obj) {
-            var Pdps = $resource('/updatepos/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function updatePosition(obj){
+            var Pdps = $resource(prefix + 'updatepos/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function updateDirection(obj) {
-            var Pdps = $resource('/updatedir/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function updateDirection(obj){
+            var Pdps = $resource(prefix + 'updatedir/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function updateTechnologies(obj) {
-            var Pdps = $resource('/updatetech/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function updateTechnologies(obj){
+            var Pdps = $resource(prefix + 'updatetech/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function updateCertifications(obj) {
-            var Pdps = $resource('/updatecert/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function updateCertifications(obj){
+            var Pdps = $resource(prefix + 'updatecert/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function updateTasks(obj) {
-            var Pdps = $resource('/updatetask/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function updateTasks(obj){
+            var Pdps = $resource(prefix + 'updatetask/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
 
-        function updateTests(obj) {
-            var Pdps = $resource('/updatetest/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+        function updateTests(obj){
+            var Pdps = $resource(prefix + 'updatetest/:id', {id: '@id'}, {'update': { method:'PUT' }});
             var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
         }
     });
