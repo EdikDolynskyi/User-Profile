@@ -55,8 +55,12 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 		return $rootScope.ownerId == $rootScope.userId;
 	};
 	vm.changeHash = function(data) {
-		$rootScope.userId = $rootScope.ownerId;
-		$location.path(data);
+		if (vm.initialized){
+			$rootScope.userId = $rootScope.ownerId;
+			$location.path(data);
+		} else {
+			vm.initialized = true;
+		}
 	};
 	vm.deactivateUserProfileTab = function() {
 		vm.tabs[0].active = false;
