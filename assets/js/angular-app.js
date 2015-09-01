@@ -60,6 +60,10 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 			$location.path(data);
 		} else {
 			vm.initialized = true;
+			for(var i = 0; i < vm.tabs.length; i++){
+				if(vm.tabs[i].href == $location.path())
+					vm.tabs[i].active = true;
+			}
 		}
 	};
 	vm.deactivateUserProfileTab = function() {
