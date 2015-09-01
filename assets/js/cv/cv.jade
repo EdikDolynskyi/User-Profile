@@ -131,10 +131,10 @@ script(type='text/ng-template', id='dropDownList.html').
                 button.btn.btn-primary(type='submit') Create project
                 button.btn.btn-danger(type='reset' ng-click='showProjectForm2 = false') Cancel
         div.col-lg-12.voffset3
-            .panel.panel-default(ng-repeat='project in userProjects')
-                .panel-heading(ng-click='isCollapsed = !isCollapsed')
+            .panel.panel-default(ng-repeat='project in userProjects' ng-attr-id='{{$index}}')
+                .panel-heading.project-header(ng-click='isCollapsed = !isCollapsed;')
                     b {{project.name}}
-                    button.btn.btn-default.btn-xs.pull-right.btn-rmv-project(type='button', ng-click="removeProject(project)")
+                    button.btn.btn-default.btn-xs.pull-right.btn-rmv-project(type='button', ng-click='removeProject($event, project)')
                         span.glyphicon.glyphicon-remove
                 .panel-body(collapse='isCollapsed')
                     .row

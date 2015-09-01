@@ -3,7 +3,7 @@ var async = require('async');
 module.exports = {
     getUsers_Projects: function (user_id, callback) {
         Users_projects
-            .find({where: {user: user_id}})
+            .find({where: {user: user_id, isDeleted: false}})
             .exec(function (err, users_projects) {
                 getUserProjects(users_projects,callback);
             });
@@ -30,6 +30,7 @@ function getUserProjects(users_projects, asyncCallback){
                     getProjectParticipants(objUserProject.project, function(err, projectParticipants) {
                         async.parallel([getProjectTechnologies.bind(null,item)],
                             function(err, project) {
+                                item._id = objUserProject.id;
                                 item.userRole = objUserProject.userRole;
                                 item.startDate = objUserProject.start;
                                 item.endDate = objUserProject.end;

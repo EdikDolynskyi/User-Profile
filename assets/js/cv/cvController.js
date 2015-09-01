@@ -9,7 +9,9 @@ app.controller('CVController', function($scope, cvFactory) {
     $scope.allCategories = [];
     $scope.users_projects = [];
     $scope.knowledgeRating = 0;
+    $scope.userRole = '';
     $scope.startDate = '';
+    $scope.endDate = '';
     $scope.isCollapsed = true;
     $scope.showRating = false;
     $scope.showTechForm1 = false;
@@ -109,6 +111,15 @@ app.controller('CVController', function($scope, cvFactory) {
                 $scope.userProjects.push(project);
             });
         });
+    };
+
+    $scope.removeProject = function($event, project){
+        $event.stopPropagation();
+
+        cvFactory.removeProject(project, function(){
+            var index=$scope.userProjects.indexOf(project);
+            $scope.userProjects.splice(index,1);
+        })
     }
 
 });

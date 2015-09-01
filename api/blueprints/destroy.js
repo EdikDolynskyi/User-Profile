@@ -32,7 +32,7 @@ module.exports = function destroyOneRecord (req, res) {
       Model.update({ id: pk}, { isDeleted: true })
           .exec(function (err, updated) {
             if (err) return res.json(err, 400);  
-          return res.ok(updated); 
+          return res.ok(updated[0]);
       });
   });
      

@@ -118,6 +118,13 @@ app.factory('cvFactory', function($resource) {
         });
     };
 
+    F.removeProject = function(project, callback) {
+        var Users_projects = $resource('api/users_projects/:id', {id: '@id'});
+        Users_projects.delete({id: project._id}, function(){
+            callback(null);
+        })
+    };
+
     return F;
 
 });
