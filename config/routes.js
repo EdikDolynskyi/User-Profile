@@ -37,9 +37,9 @@ module.exports.routes = {
   },
 
 
-  'put /cv/:cv_id/technology/:id': 'CvsController.updateCVTechnologies',
-  'post /cv/:cv_id/technology/:id': 'CvsController.addTechnologyToCV',
-  //'post /cv/:cv_id/project/:id': 'CvsController.addProjectToCV'
+  'put /cv/:cv_id/technology/:id': 'CvsController.updateCVTechnology',
+  'put /cv/:cv_id/technology': 'CvsController.removeTechnologyFromCV',
+  'post /cv/:cv_id/technology': 'CvsController.addTechnologyToCV',
   'get /users_projects/:user_id': 'Users_projectsController.getUserProjects',
   'get /api/users_projects/:id': 'Users_projectsController.getProject'
 

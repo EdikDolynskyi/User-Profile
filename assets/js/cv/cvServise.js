@@ -41,32 +41,44 @@ app.factory('cvFactory', function($resource) {
             });
     };
 
-    F.createTechnology = function(tech, userCV, callback){
+    F.createTechnology = function(tech, cvId, callback){
         var newTechnology = {};
         newTechnology.name = tech.name;
-        newTechnology.category = tech.category.id;
+        newTechnology.category = tech.category;
 
         Technologies.save(newTechnology, function(res){
-            callback(res);
+            console.log(res.id);
+            var cvTech = {};
+            cvTech.id = res.id;
+            cvTech.stars = tech.stars || 1;
+
+            var CVs = $resource('/cv/:cv_id/technology', {cv_id: '@id'});
+            CVs.save({cv_id: cvId}, cvTech, function(res){
+                callback(res.id);
+            });
         });
 
     };
 
-    F.addTechnologyToCV = function(tech, userCV, callback) {
-        var CVs = $resource('/cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'});
-        CVs.save({cv_id: userCV.id, id: tech.id}, tech);
+    F.selectTechnology = function(tech, cvId, callback) {
+        tech.stars = tech.stars || 1;
 
-        var Categories = $resource('api/categories', {id: '@id'});
-        Categories.get({id: tech.category}, function(res) {
-            tech.category = res;
+        var CVs = $resource('/cv/:cv_id/technology', {cv_id: '@id', id: '@id'});
+        CVs.save({cv_id: cvId}, tech, function(res){
+            callback(res.id);
+        });
+    };
 
-            callback(tech);
+    F.getTechnology = function(tech_id, callback) {
+        var Technologies = $resource('api/technologies/:id', {id: '@id'});
+        Technologies.get({id: tech_id}, function(res) {
+            callback(res);
         })
     };
 
-    F.updateCVTechnologies = function(tech, userCV){
+    F.updateCVTechnology = function(tech, cvId){
         var CVs = $resource('/cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'}, {'update': { method:'PUT' }});
-        CVs.update({cv_id: userCV.id, id: tech.id}, tech);
+        CVs.update({cv_id: cvId, id: tech.id}, tech);
     };
 
     F.getProject = function(id, callback) {
@@ -76,25 +88,25 @@ app.factory('cvFactory', function($resource) {
         })
     };
 
-    F.createProject = function(project, userRole, startDate, endDate, callback) {
+    F.createProject = function(project, callback) {
         var newProject = {};
         newProject.name = project.name;
         newProject.description = project.description;
         newProject.technologies = [];
         newProject.start = project.start;
-        newProject.end = project.end || "";
+        newProject.end = project.end;
 
         for(var i=0; i< project.technologies.length; i++){
             newProject.technologies.push(project.technologies[i].id);
         }
 
-        Projects.save(newProject, function(project){
+        Projects.save(newProject, function(res){
             var newUsers_ProjectsObj = {};
             newUsers_ProjectsObj.user = userId;
-            newUsers_ProjectsObj.project = project.id;
-            newUsers_ProjectsObj.userRole = userRole;
-            newUsers_ProjectsObj.start = startDate;
-            newUsers_ProjectsObj.end = endDate;
+            newUsers_ProjectsObj.project = res.id;
+            newUsers_ProjectsObj.userRole = project.userRole;
+            newUsers_ProjectsObj.start = project.startDate;
+            newUsers_ProjectsObj.end = project.endDate;
 
             Users_projects.save(newUsers_ProjectsObj, function(res){
                 callback(res.id);
@@ -105,13 +117,13 @@ app.factory('cvFactory', function($resource) {
 
     };
 
-    F.selectProject = function(project, userRole, startDate, endDate, callback) {
+    F.selectProject = function(project, callback) {
         var newUsers_ProjectsObj = {};
         newUsers_ProjectsObj.user = userId;
         newUsers_ProjectsObj.project = project.id;
-        newUsers_ProjectsObj.userRole = userRole;
-        newUsers_ProjectsObj.start = startDate;
-        newUsers_ProjectsObj.end = endDate;
+        newUsers_ProjectsObj.userRole = project.userRole;
+        newUsers_ProjectsObj.start = project.startDate;
+        newUsers_ProjectsObj.end = project.endDate;
 
         Users_projects.save(newUsers_ProjectsObj, function(res){
             callback(res.id);
@@ -123,6 +135,13 @@ app.factory('cvFactory', function($resource) {
         Users_projects.delete({id: project._id}, function(){
             callback(null);
         })
+    };
+
+    F.removeTechnology = function(tech, cvId, callback) {
+        var CVs = $resource('/cv/:cv_id/technology', {cv_id: '@id'}, {'update': { method:'PUT' }});
+        CVs.update({cv_id: cvId}, tech, function(){
+            callback(null);
+        });
     };
 
     return F;

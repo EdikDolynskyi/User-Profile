@@ -35,6 +35,7 @@ function getUserProjects(users_projects, asyncCallback){
                                 item.startDate = objUserProject.start;
                                 item.endDate = objUserProject.end;
                                 item.participants = projectParticipants;
+                                item.current = false;
 
                                 callback(err, item);
                             }
@@ -117,6 +118,7 @@ function getProject(objUserProject,callback) {
             getProjectParticipants(objUserProject.project, function(err, projectParticipants) {
                 async.parallel([getProjectTechnologies.bind(null,item)],
                     function(err, project) {
+                        item._id = objUserProject.id;
                         item.userRole = objUserProject.userRole;
                         item.startDate = objUserProject.start;
                         item.endDate = objUserProject.end;

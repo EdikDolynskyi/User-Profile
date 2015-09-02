@@ -12,7 +12,7 @@ module.exports = {
         });
     },
 
-    updateCVTechnologies: function(cv_id, id, body, callback){
+    updateCVTechnology: function(cv_id, id, body, callback){
         Cvs.findOne({id: cv_id})
             .exec(function(err, cv) {
                 if (err) {
@@ -32,7 +32,7 @@ module.exports = {
             });
     },
 
-    addTechnologyToCV: function(cv_id, id, body, callback){
+    addTechnologyToCV: function(cv_id, body, callback){
         Cvs.findOne({id: cv_id})
             .exec(function(err, cv) {
                 if (err) {
@@ -47,6 +47,16 @@ module.exports = {
                 }
                 callback(null);
             });
+    },
+
+    removeTechnologyFromCV: function(cv_id, body, callback){
+        Cvs.native(function(err, collection) {
+            collection.update({_id: Cvs.mongo.objectId(cv_id)}, {$pull: {technologies: {userTech: body.id}}}, function(err){
+                if (err) return callback (err);
+
+                callback (null);
+            });
+        });
     }
 
 }; //module.exports
@@ -89,5 +99,7 @@ function getTechnologyCategory(technology, callback){
             callback(null, item);
         });
 }
+
+
 
 
