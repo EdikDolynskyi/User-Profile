@@ -41,6 +41,7 @@ module.exports.routes = {
 
 
   '/user/filter' : 'UsersController.filter',
+  '/user/getByCentralId/:id' : 'UsersController.getByCentralId',
   'get /getpdp/:id': 'PdpsController.getPDP',
   'put /updatetech/:id': 'PdpsController.updateTechnologies',
   'put /updatecert/:id': 'PdpsController.updateCertifications',

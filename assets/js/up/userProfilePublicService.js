@@ -9,4 +9,9 @@ function UserProfilePublicService($resource) {
             cb(user);
         });
     };
+    this.getByServerUserId = function(suid, cb) {
+        $resource(prefix + 'api/users/?serverUserId=:id', {id: suid}).query(function (users) {
+            cb(users.length ? users[0] : null);
+        })
+    };
 }

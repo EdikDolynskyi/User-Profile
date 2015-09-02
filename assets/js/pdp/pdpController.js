@@ -1,7 +1,8 @@
 var app = require('../angular-app');
 
 app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService) {
-    var vm = this;    
+    var vm = this;
+    var userPdpId = '';
     vm.userPDP = {};
     vm.positions = [];
     vm.directions = [];
@@ -15,8 +16,10 @@ app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService
     function activate(){
         var userId = $rootScope.ownerId;
 
+
         PdpService.getPDP(userId, function(obj){
             vm.userPDP = obj;
+            userPdpId = obj.id;
             console.log(obj);
         });
         PdpService.getPositions(function(array){
@@ -124,7 +127,7 @@ app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService
         PdpService.updateTasks(obj);
     };
     vm.updateTechnologies = function(obj){
-        PdpService.updateTechnologies(obj);
+        PdpService.updateTechnologies(obj, userPdpId);
     };
     vm.updateTests = function(obj){
         PdpService.updateTests(obj);

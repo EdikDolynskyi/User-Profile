@@ -83,6 +83,11 @@ module.exports = {
                 });
             });
         });
+    },
+    getByCentralId: function(req,res){
+        Users.findOne({"serverUserId": req.param.id}).exec(function(err, user){
+            res.send(user);
+        })
     }
 };
 

@@ -176,9 +176,9 @@
 	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
 	    }
 
-	    function updateTechnologies(obj){
+	    function updateTechnologies(obj, pdpId){
 	    	var Pdps = $resource(prefix + 'updatetech/:id', {id: '@id'}, {'update': { method:'PUT' }});
-	    	var pdp = Pdps.update({id: '55c3906d7533125308baafa2'}, obj);
+	    	var pdp = Pdps.update({id: pdpId}, obj);
 	    }
 
 	    function updateCertifications(obj){
