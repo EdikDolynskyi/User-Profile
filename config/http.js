@@ -36,6 +36,7 @@ module.exports.http = {
             'cors',
             'startRequestTimer',
             'auth',
+            'newInfo',
             'cookieParser',
             'session',
             'myRequestLogger',

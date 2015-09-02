@@ -35,6 +35,9 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+  '/newuser': {
+    view: 'creating-user'
+  },
 
 
   // 'Get /findCv/:id' : 'CvsController.findCv',

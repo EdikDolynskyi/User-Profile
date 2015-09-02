@@ -11,8 +11,7 @@ module.exports = {
     attributes: {
         email: {
             type: 'email',
-            required: true,
-            unique: true
+            required: true
         },
         name: {
             type: 'string',
@@ -20,41 +19,41 @@ module.exports = {
         },
         surname: {
             type: 'string',
-            required: true
+            required: false
         },
         country: {
             type: 'string',
-            required: true
+            required: false
         },
         city: {
             type: 'string',
-            required: true
+            required: false
         },
         gender: {
             type: 'string',
-            required: true,
+            required: false,
             enum: ['male', 'female']
         },
         birthday: {
             type: 'date',
-            required: true
+            required: false
         },
         avatar: {
             type: 'json'
         },
         workDate: {
             type: 'date',
-            required: true
+            required: false
         },
         userCV: {
             model : 'Cvs',
             type: 'string',
-            unique: true
+            unique: false
         },
         userPDP: {
             model : 'Pdps',
             type: 'string',
-            unique: true
+            unique: false
         },
         isDeleted: {
             type: 'boolean',
@@ -66,24 +65,6 @@ module.exports = {
         },
         preModeration: {
             type: 'json'
-        },
-        toJSON: function () {
-            var obj = this.toObject();
-            delete obj.password;
-            return obj;
         }
-    },
-    beforeCreate: function (user, cb) {
-        bcrypt.genSalt(10, function (err, salt) {
-            bcrypt.hash(user.password, salt, function (err, hash) {
-                if (err) {
-                    console.log(err);
-                    cb(err);
-                } else {
-                    user.password = hash;
-                    cb();
-                }
-            });
-        });
     }
 };
