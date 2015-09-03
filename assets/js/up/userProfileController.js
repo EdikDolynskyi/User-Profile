@@ -29,6 +29,7 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
         }
         else {
             vm.userOriginal = angular.extend({}, user);
+            vm.user.avatar.urlAva = prefix +  user.avatar.urlAva;
             vm.user = angular.copy(vm.userOriginal);
         }
     });
@@ -107,7 +108,7 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
 
     vm.upload = function (file) {
         uploadService.upload(file, function (fileSrc) {
-            vm.user.avatar.urlAva = fileSrc;
+            vm.user.avatar.urlAva = prefix + fileSrc;
             vm.dataInFields.avatar = angular.copy(vm.user.avatar);
         });
     };
