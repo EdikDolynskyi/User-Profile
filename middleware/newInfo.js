@@ -18,7 +18,8 @@ module.exports = function(req, res, next){
         });
     } else {
 
-        cookies.set('referer',  sails.config.refererURL);
-        res.redirect(sails.config.authServerURL);
+        // cookies.set('referer',  sails.config.refererURL);
+        // res.redirect(sails.config.authServerURL);
+        next();
     }
-};
+};  
