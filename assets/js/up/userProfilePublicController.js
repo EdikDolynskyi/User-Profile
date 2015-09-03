@@ -14,7 +14,6 @@ function userCtrl(service, $rootScope, $route) {
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     };
 
-
     var serverId = $route.current.params.serverId;
     if (serverId) {
         service.getByServerUserId(serverId, function (user) {
