@@ -4,12 +4,12 @@ html(ng-app='myApp')
         base(href="/")
         meta(charset='UTF-8')
         title User Profile
+        link(href="http://team.binary-studio.com/app/styles/css/style.css", rel="stylesheet")
         // STYLES
         // STYLES END
     body
-        header.container-fluid
-            .col-lg-1
-                img.logo(src="http://academy.binary-studio.com/resources/logo.png")
+        header#header
+
             div(ng-controller="MainController as ctrl", class="container-fluid")
                 .col-lg-2
                 .col-lg-10
@@ -42,9 +42,7 @@ html(ng-app='myApp')
                                 disable='tab.disabled',
                                 select="ctrl.changeHash(tab.href)")
                 .col-lg-6.article(ng-view)
-        //- footer
-        //-     .container-fluid
-        //-         .row
 
+        script(src="http://team.binary-studio.com/app/javascripts/header.js")
         // SCRIPTS
         // SCRIPTS END
