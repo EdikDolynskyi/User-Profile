@@ -13,13 +13,13 @@ function mainCtrl($scope, service, $rootScope, $location, $cookies) {
     $rootScope.serverUserId = $cookies.get('serverUID');
     var role = $cookies.get('userRole');
 
-    if(role == 'ADMIN'){
-        $rootScope.isAdmin = true;
-    }
-    else {
-        $rootScope.isAdmin = false;
-    }
-
+    //if(role == 'ADMIN'){
+    //    $rootScope.isAdmin = true;
+    //}
+    //else {
+    //    $rootScope.isAdmin = false;
+    //}
+    $rootScope.isAdmin = false;
 
     service.getByServerUserId($rootScope.serverUserId, function (user) {
         $rootScope.ownerId = $rootScope.userId = user.id;

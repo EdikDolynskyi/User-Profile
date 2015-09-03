@@ -9,7 +9,7 @@ app.factory('cvFactory', function($resource, $rootScope) {
     var Technologies = $resource(prefix + 'api/technologies');
     var Projects = $resource(prefix + 'api/projects');
     var Categories = $resource(prefix + 'api/categories');
-    var User_projects = $resource(prefix + '/api/users_projects');
+    var Users_projects = $resource(prefix + 'api/users_projects');
 
     var F = {};
 
