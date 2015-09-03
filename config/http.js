@@ -31,6 +31,7 @@ module.exports.http = {
          ***************************************************************************/
         auth: require('../middleware/auth.js'),
         cors: require('../middleware/cors.js'),
+        newInfo: require('../middleware/newInfo.js'),
 
         order: [
             'cors',

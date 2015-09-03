@@ -12,6 +12,7 @@ module.exports = function(req, res, next){
             } else {
                 req.decoded = decoded;
                 cookies.set('newUserId', decoded.id, { httpOnly: false });
+                cookies.set('newUserEmail', decoded.email, { httpOnly: false });
                 next();
             }
         });
