@@ -19,8 +19,8 @@ module.exports = {
 		});
 	},
 
-	updateCVTechnologies: function(req, res) {
-		cvService.updateCVTechnologies(req.param('cv_id'), req.param('id'), req.body, function(err,data){
+	updateCVTechnology: function(req, res) {
+		cvService.updateCVTechnology(req.param('cv_id'), req.param('id'), req.body, function(err,data){
 			if (err) {
 				res.send(err);
 			} else {
@@ -30,7 +30,7 @@ module.exports = {
 	},
 
 	addTechnologyToCV: function(req, res) {
-		cvService.addTechnologyToCV(req.param('cv_id'), req.param('id'), req.body, function(err,data){
+		cvService.addTechnologyToCV(req.param('cv_id'), req.body, function(err,data){
 			if (err) {
 				res.send(err);
 			} else {
@@ -39,12 +39,12 @@ module.exports = {
 		});
 	},
 
-	addProjectToCV: function(req, res) {
-		cvService.addProjectToCV(req.param('cv_id'), req.param('id'), req.body, function(err,data){
+	removeTechnologyFromCV: function(req, res) {
+		cvService.removeTechnologyFromCV(req.param('cv_id'), req.body, function(err){
 			if (err) {
 				res.send(err);
 			} else {
-				return res.send(data);
+				return res.send(200);
 			}
 		});
 	}

@@ -6,15 +6,13 @@ module.exports = {
             .findOne({id: id })
             .populate('userCV')
             .exec(function (err, user) {
-                async.parallel([
-                    getUserProjects.bind(null,user),
-                    getUserTechnologies.bind(null,user)],
+                async.parallel([getUserTechnologies.bind(null,user)],
                     callback.bind(null,null, user)
                 );
         });
     },
 
-    updateCVTechnologies: function(cv_id, id, body, callback){
+    updateCVTechnology: function(cv_id, id, body, callback){
         Cvs.findOne({id: cv_id})
             .exec(function(err, cv) {
                 if (err) {
@@ -34,7 +32,7 @@ module.exports = {
             });
     },
 
-    addTechnologyToCV: function(cv_id, id, body, callback){
+    addTechnologyToCV: function(cv_id, body, callback){
         Cvs.findOne({id: cv_id})
             .exec(function(err, cv) {
                 if (err) {
@@ -51,92 +49,18 @@ module.exports = {
             });
     },
 
-    addProjectToCV: function(cv_id, id, body, callback){
-        Cvs.findOne({id: cv_id})
-            .exec(function(err, cv) {
-                if (err) {
-                    res.send(err);
-                } else {
-                    var newProject = {};
-                    newProject.projectId = body.id;
-                    newProject.startDate = body.startDate;
-                    newProject.participants = body.participants;
-                    cv.projects.push(newProject);
-                    cv.save();
-                }
-                callback(null);
-            });
-    },
+    removeTechnologyFromCV: function(cv_id, body, callback){
+        Cvs.native(function(err, collection) {
+            collection.update({_id: Cvs.mongo.objectId(cv_id)}, {$pull: {technologies: {userTech: body.id}}}, function(err){
+                if (err) return callback (err);
 
-    /*removeProjectFromCV: function(cv_id, id, body, callback){
-        Cvs.findOne({id: cv_id})
-            .exec(function(err, cv) {
-                if (err) {
-                    res.send(err);
-                } else {
-                    for(var i=0; i<cv.projects.length; i++){
-                        if(cv.projects[i].projectId == id){
-                            var projectIndex = i;
-                            cv.projects.splice(projectIndex,1);
-                            cv.save();
-
-                            break;
-                        }
-                    }
-                }
-                callback(null);
+                callback (null);
             });
-    }*/
+        });
+    }
+
 }; //module.exports
- 
-function getUserProjects(user, asyncCallback){
-    async.map(user.userCV.projects,
-        function (objUserProject, callback){
-            Projects
-                .findOne(objUserProject.projectId)
-                .exec(function (err, item){
-                    item.startDate = objUserProject.startDate;
-                    item.participants = objUserProject.participants;
-                    if(err){
-                        return callback(err);
-                    }
-                    async.parallel([getProjectTechnologies.bind(null,item)],
-                        callback.bind(null,null, item)
-                    ); //async.parallel
-                });
-        },
-        function (errFromIterator, results){
-            if(errFromIterator){
-                res.serverError();
-            } else {
-                user.userCV.projects = results;
-            }
-            asyncCallback(null);
-        });
-}
 
-function getProjectTechnologies(project, asyncCallback) {
-    async.map(project.technologies,
-        function (id, callback){
-            Technologies
-                .findOne(id)
-                .exec(function (err, item){
-                    if(err){
-                        return callback(err);
-                    }
-                    callback(null, item);
-                });
-        },
-        function (errFromIterator, results){
-            if(errFromIterator){
-                res.serverError();
-            } else {
-                project.technologies = results;
-            }
-            asyncCallback(null);
-        });
-}
-    
 function getUserTechnologies(user, asyncCallback) {
     async.map(user.userCV.technologies,
         function (objUserTechn, callback){
@@ -155,7 +79,7 @@ function getUserTechnologies(user, asyncCallback) {
         },
         function (errFromIterator, results){
             if(errFromIterator){
-                res.serverError();
+                asyncCallback(errFromIterator);
             } else {
                user.userCV.technologies= results;
             }
@@ -175,5 +99,7 @@ function getTechnologyCategory(technology, callback){
             callback(null, item);
         });
 }
+
+
 
 
