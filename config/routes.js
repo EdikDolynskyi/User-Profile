@@ -35,6 +35,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+
   'Get /findCv/:id' : 'CvsController.findCv',
 
   '/user/filter' : 'UsersController.filter',
@@ -56,8 +57,15 @@ module.exports.routes = {
   'put /addach/:id': 'PdpsController.addAchievement',
   'put /removeach/:id': 'PdpsController.removeAchievement',
   'put /addcompcert/:id': 'PdpsController.addCompletedCertification',
-  'put /removecompcert/:id': 'PdpsController.removeCompletedCertification'
+  'put /removecompcert/:id': 'PdpsController.removeCompletedCertification',
 
+
+
+  'put /cv/:cv_id/technology/:id': 'CvsController.updateCVTechnology',
+  'put /cv/:cv_id/technology': 'CvsController.removeTechnologyFromCV',
+  'post /cv/:cv_id/technology': 'CvsController.addTechnologyToCV',
+  'get /users_projects/:user_id': 'Users_projectsController.getUserProjects',
+  'get /api/users_projects/:id': 'Users_projectsController.getProject'
 
   /***************************************************************************
   *                                                                          *

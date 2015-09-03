@@ -1,9 +1,10 @@
 var async = require('async');
 
 module.exports = {
-    getAllTechnologies: function(asyncCallback) {
+    /*getAllTechnologies: function(asyncCallback) {
         Technologies
             .find()
+            .where({ isDeleted : false })
             .exec(function(err, technologies) {
                 async.map(technologies, function(technology, callback) {
 
@@ -33,8 +34,12 @@ module.exports = {
 
                     });
             });
-    }
+    },*/
+
 };
+
+
+
 
 
 

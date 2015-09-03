@@ -8,11 +8,25 @@
 module.exports = {
     connection: 'mongo',
     attributes: {
-        name: 'string',
-        owner: 'string',
-        description: 'string',
-        technologies: 'array',
+        name: {
+            type: 'string',
+            required: true
+        },
+        owner: {
+            type: 'string'
+            
+        },
+        description: {
+            type: 'string',
+            required: true,
+        },
+        technologies: {
+            type: 'array',
+            required: true,
+        },
         screenshots: 'array',
+        start: 'date',
+        end: 'date',
         isDeleted: {
             type: 'boolean',
             defaultsTo: false

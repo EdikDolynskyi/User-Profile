@@ -1,202 +1,169 @@
-angular.module('myApp').controller('technologiesCtrl', function($scope, technologies, cvFactory) {
-    // $scope.listOfAllTechnologies = technologies.listOfAllTechnologies;
-    // $scope.listOfAllCategories = technologies.listOfAllCategories;
-    // $scope.technologies = technologies;
-    /****************************************************************************
-     *                                                                           *
-     *                               SCOPE VARIABLE                              *
-     *                                                                           *
-     ****************************************************************************/
+var app = require('../angular-app');
 
-    $scope.userProjects = [];
-    $scope.allProjects = [];
+app.controller('CVController', function($scope, cvFactory) {
+    $scope.userId = '';
+    $scope.currentProject = '';
     $scope.userTechnologies = [];
+    $scope.userProjects = [];
+    $scope.allTechnologies = [];
+    $scope.allProjects = [];
     $scope.allCategories = [];
-    $scope.max = 5;
-    $scope.filtrRate = 0;
-    $scope.projectName = '';
-    $scope.technologiesInNewProject = [];
-    // $scope.technologyTypeShow = false;
-    // console.log($scope.technologyTypeShow);
+    $scope.users_projects = [];
+    $scope.knowledgeRating = 0;
+    $scope.isCollapsed = true;
+    $scope.showRating = false;
+    $scope.showTechForm1 = false;
+    $scope.showTechForm2 = false;
+    $scope.showProjectForm1 = false;
+    $scope.showProjectForm2 = false;
+    $scope.technology = {};
+    $scope.project = {};
+    $scope.project.technologies = [];
+    $scope.selProject = {};
+    $scope.selTech = {};
 
-    /****************************************************************************
-     *                                                                           *
-     *                               cvServise                                   *
-     *                                                                           *
-     ****************************************************************************/
+
 
     cvFactory.getUserData(function(user) {
-
-        $scope.userProjects = user.userCV.projects; //array PROJECTS
-        $scope.userTechnologies = user.userCV.technologies; //array USER TECHNOLOGIES
-
+        $scope.userId = user.id;
+        $scope.currentProject = user.currentProject;
+        $scope.userTechnologies = user.userCV.technologies;
         $scope.userCV = user.userCV;
-
     });
 
     cvFactory.getAllCategories(function(categories) {
-
         $scope.allCategories = categories;
-
     });
 
     cvFactory.getAllTechnologies(function(technologies) {
-
         $scope.allTechnologies = technologies;
-
-
     });
+
     cvFactory.getAllProjects(function(projects) {
-
         $scope.allProjects = projects;
-
-
     });
 
-    /****************************************************************************
-     *                                                                           *
-     *                                Trashnyack                                 *
-     *                                                                           *
-     ****************************************************************************/
+    cvFactory.getUserProjects(function(projects) {
+        $scope.userProjects = projects;
 
-    $scope.submit = function(msg) {
+        for (var i=0; i<$scope.userProjects.length; i++) {
+            if($scope.userProjects[i].id == $scope.currentProject ) {
+                $scope.userProjects[i].current = true;
 
-        cvFactory.serSubmit(msg, $scope.userTechnologies, $scope.userCV);
-        $scope.technologyTypeShow = cvFactory.technologyTypeShow;
-        if (!cvFactory.technologyTypeShow) {
-            $scope.technologiesEnterText = '';
+                break;
+            }
+        }
+    });
+
+
+
+    $scope.addTechnologiesToProject = function(technology) {
+        if (technology !== '') {
+            $scope.project.technologies.push(technology);
+
+            $scope.projectTechnology = '';
         }
     };
-    $scope.submitOne = function(msg) {
-        cvFactory.serSubmitOne(msg, $scope.userTechnologies, $scope.userCV, $scope.allTechnologies);
-        $scope.technologyTypeEnterText = '';
-        $scope.technologiesEnterText = '';
-        // cvFactory.technologyTypeShow = false;
-        $scope.technologyTypeShow = cvFactory.technologyTypeShow;
 
-    };
-    $scope.enterProjectName = function($event, project) {
-        // console.log(project,'1111111111111111111111111');
-
-        console.log($scope.projectName);
-        if ($event.keyCode == 13) {
-            $scope.findProject(project);
-        }
-    };
-    $scope.findProject = function(project) {
-        console.log(project, '222222222222222222222');
-        $scope.showFieldNewProjects = cvFactory.showFieldNewProjects;
-        cvFactory.findProject(project, $scope.allProjects, $scope.userProjects, $scope.userCV);
-        $scope.projectName = '';
-    };
     $scope.enterTechnologyName = function($event, technology) {
-        // console.log(technology,'1111111111111111111111111');
-        var count = true;
         if ($event.keyCode == 13) {
-
-             console.log($scope.projectName);
-            $scope.addtechnologiesInProject(technology);
-
-        }
-
-    };
-    $scope.addtechnologiesInProject = function(technol) {
-        if (technol !== '') {
-            $scope.technologiesInNewProject.push(technol);
-            $scope.technologiesInProject = '';
-            console.log($scope.technologiesInNewProject);
+            $event.preventDefault();
+            $scope.addTechnologiesToProject(technology);
         }
     };
-    $scope.submitNewProject = function(productowner, description, projectNewName) {
 
-        cvFactory.submitNewProject(productowner, description, projectNewName, $scope.technologiesInNewProject);
+    $scope.selectTechnology= function(tech) {
+        cvFactory.selectTechnology(tech, $scope.userCV.id, function(id) {
+            cvFactory.getTechnology(id, function(res) {
+                res.stars = tech.stars || 1;
+                res.stars.toString();
+                $scope.userTechnologies.push(res);
+            });
+        });
 
-        $scope.projectName = '';
-        $scope.productowner = '';
-        $scope.description = '';
-        $scope.technologiesInNewProject = [];
-        
-    };
-    // $scope.addStars=function(stars){
-    //     
-    //     if(stars==6){
-    //         stars=1;
-    //     }else{
-    //         stars++;
-    //     }
-    //     console.log(stars,'2222');
-    //     return stars;
-
-    // };
-
-    console.log($scope.projectName);
-
-    $scope.getColor = function(stars) {
-
-        var color = 1;
-        switch (stars) {
-            case "1":
-                color = "tehButton1Stars";
-                break;
-            case "2":
-                color = "tehButton2Stars";
-                break;
-            case "3":
-                color = "tehButton3Stars";
-                break;
-            case "4":
-                color = "tehButton4Stars";
-                break;
-            case "5":
-                color = "tehButton5Stars";
-                break;
-        }
-        return color;
+        $scope.selTech= {};
     };
 
+    $scope.createTechnology = function(tech) {
+        cvFactory.createTechnology(tech, $scope.userCV.id, function(id) {
+            cvFactory.getTechnology(id, function(res) {
+                res.stars = tech.stars || 1;
+                res.stars.toString();
+                $scope.userTechnologies.push(res);
+            });
+        });
 
+        $scope.technology = {};
+    };
+
+    $scope.updateCVTechnology = function(tech){
+        cvFactory.updateCVTechnology(tech, $scope.userCV.id);
+    };
+
+    $scope.createProject = function(project) {
+        cvFactory.createProject(project, function(id) {
+            cvFactory.getProject(id, function(res) {
+                $scope.userProjects.push(res);
+            });
+        });
+
+        $scope.project = {};
+    };
+
+    $scope.selectProject = function(project) {
+        cvFactory.selectProject(project, function(id) {
+            cvFactory.getProject(id, function(res) {
+                $scope.userProjects.push(res);
+            });
+        });
+
+        $scope.selProject = {};
+    };
+
+    $scope.removeProject = function($event, project){
+        $event.stopPropagation();
+
+        cvFactory.removeProject(project, function(){
+            var index = $scope.userProjects.indexOf(project);
+            $scope.userProjects.splice(index,1);
+        })
+    };
+
+    $scope.removeTechnology = function($event, technology) {
+        $event.stopPropagation();
+
+        cvFactory.removeTechnology(technology, $scope.userCV.id, function(){
+            var index = $scope.userTechnologies.indexOf(technology);
+            $scope.userTechnologies.splice(index,1);
+        })
+    }
 
 });
+
 /****************************************************************************
  *                                                                           *
  *                              CUSTOM FILTERS                               *
  *                                                                           *
  ****************************************************************************/
-angular.module('myApp').filter('uniqueTechnology', function() {
+app.filter('uniqueTechnology', function() {
     return function(collection) {
-        var output = [],
-            isFind = false;
+        var output = [];
+        var isFound = false;
 
         angular.forEach(collection, function(item) {
-            isFind = false;
+            isFound = false;
 
             angular.forEach(output, function(outputItem) {
                 if (item.category.id == outputItem.category.id) {
-                    isFind = true;
+                    isFound = true;
                 }
             });
 
-            if (!isFind) {
+            if (!isFound) {
                 output.push(item);
             }
         });
 
-        return output;
-    };
-});
-
-
-angular.module('myApp').filter('ratingFilter', function() {
-    return function(array, filtrRate) {
-
-        var output = [];
-        angular.forEach(array, function(item) {
-
-            if ((item.stars >= filtrRate) || (filtrRate == 0)) {
-                output.push(item);
-            }
-
-        });
         return output;
     };
 });

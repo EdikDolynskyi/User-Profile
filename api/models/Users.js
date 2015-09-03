@@ -57,6 +57,9 @@ module.exports = {
             type: 'string',
             unique: true
         },
+        currentProject: {
+            type: 'string'
+        },
         isDeleted: {
             type: 'boolean',
             defaultsTo: false
