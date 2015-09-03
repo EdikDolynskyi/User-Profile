@@ -4,6 +4,7 @@ app.controller('UserProfilePublicController', ['UserProfilePublicService', '$roo
 
 function userCtrl(service, $rootScope, $route) {
     var ctrl = this;
+    var prefix = window.location.pathname;
     //Init
     ctrl.today = new Date();
 
@@ -20,6 +21,7 @@ function userCtrl(service, $rootScope, $route) {
             $rootScope.userId = user.id;
             ctrl.user = user;
             ctrl.user.age = ctrl.calculateAge(ctrl.user.birthday);
+            ctrl.user.avatar.urlAva = prefix +  user.avatar.urlAva;
         });
     } else {
         var userId = $route.current.params.userId;
@@ -27,7 +29,7 @@ function userCtrl(service, $rootScope, $route) {
         service.get(userId, function (user) {
             ctrl.user = user;
             ctrl.user.age = ctrl.calculateAge(ctrl.user.birthday);
-            console.log(ctrl.calculateAge(ctrl.user.birthday));
+            ctrl.user.avatar.urlAva = prefix +  user.avatar.urlAva;
         });
     }
 }
