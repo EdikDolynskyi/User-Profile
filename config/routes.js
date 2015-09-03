@@ -35,13 +35,12 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+
   '/newuser': {
     view: 'creating-user'
   },
 
-
-  // 'Get /findCv/:id' : 'CvsController.findCv',
-
+  //'Get /findCv/:id' : 'CvsController.findCv',
 
   '/user/filter' : 'UsersController.filter',
   '/user/getByCentralId/:id' : 'UsersController.getByCentralId',
@@ -64,11 +63,16 @@ module.exports.routes = {
   'put /removeach/:id': 'PdpsController.removeAchievement',
   'put /addcompcert/:id': 'PdpsController.addCompletedCertification',
   'put /removecompcert/:id': 'PdpsController.removeCompletedCertification',
+
   'post /downloadimg': 'FilesController.downloadFile',
 
-  'put /cv/:cv_id/technology/:id': 'CvsController.updateCVTechnologies',
-  'post /cv/:cv_id/technology/:id': 'CvsController.addTechnologyToCV',
-  'post /cv/:cv_id/project/:id': 'CvsController.addProjectToCV'
+  'put /cv/:cv_id/technology/:id': 'CvsController.updateCVTechnology',
+  'put /cv/:cv_id/technology': 'CvsController.removeTechnologyFromCV',
+  'post /cv/:cv_id/technology': 'CvsController.addTechnologyToCV',
+  'get /users_projects/:user_id': 'Users_projectsController.getUserProjects',
+  'get /api/users_projects/:id': 'Users_projectsController.getProject'
+
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

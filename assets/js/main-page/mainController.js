@@ -20,6 +20,7 @@ function mainCtrl($scope, service, $rootScope, $location, $cookies) {
     //    $rootScope.isAdmin = false;
     //}
 
+
     $rootScope.isAdmin = false;
 
 

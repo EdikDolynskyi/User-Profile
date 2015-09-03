@@ -9,7 +9,8 @@ app.factory('cvFactory', function($resource, $rootScope) {
     var Technologies = $resource(prefix + 'api/technologies');
     var Projects = $resource(prefix + 'api/projects');
     var Categories = $resource(prefix + 'api/categories');
-    var User_projects = $resource(prefix + '/api/users_projects');
+    var Users_projects = $resource(prefix + 'api/users_projects');
+
     var F = {};
 
     F.getUserData = function(callback) {
@@ -36,68 +37,116 @@ app.factory('cvFactory', function($resource, $rootScope) {
         });
     };
 
-    F.getUsersProjects = function(callback) {
-        User_projects.query(function(res) {
-            callback(res);
-        });
+    F.getUserProjects = function(callback) {
+        $resource('/users_projects/:user_id', {user_id: '@id'})
+            .query({user_id: userId}, function(res) {
+                callback(res);
+            });
     };
 
-    F.createTechnology = function(tech, userCV, callback){
+    F.createTechnology = function(tech, cvId, callback){
         var newTechnology = {};
         newTechnology.name = tech.name;
-        newTechnology.category = tech.category.id;
+        newTechnology.category = tech.category;
 
         Technologies.save(newTechnology, function(res){
-            callback(res);
+            console.log(res.id);
+            var cvTech = {};
+            cvTech.id = res.id;
+            cvTech.stars = tech.stars || 1;
+
+            var CVs = $resource('/cv/:cv_id/technology', {cv_id: '@id'});
+            CVs.save({cv_id: cvId}, cvTech, function(res){
+                callback(res.id);
+            });
         });
 
     };
 
-    F.addTechnologyToCV = function(tech, userCV, callback) {
-        var CVs = $resource(prefix + 'cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'});
-        CVs.save({cv_id: userCV.id, id: tech.id}, tech);
 
-        var Categories = $resource(prefix + 'api/categories', {id: '@id'});
-        Categories.get({id: tech.category}, function(res) {
-            tech.category = res;
+    F.selectTechnology = function(tech, cvId, callback) {
+        tech.stars = tech.stars || 1;
 
-            callback(tech);
+        var CVs = $resource(prefix + 'cv/:cv_id/technology', {cv_id: '@id', id: '@id'});
+        CVs.save({cv_id: cvId}, tech, function(res){
+            callback(res.id);
+        });
+    };
+
+    F.getTechnology = function(tech_id, callback) {
+        var Technologies = $resource(prefix + 'api/technologies/:id', {id: '@id'});
+        Technologies.get({id: tech_id}, function(res) {
+            callback(res);
         })
     };
 
-    F.updateCVTechnologies = function(tech, userCV){
+    F.updateCVTechnology = function(tech, cvId){
         var CVs = $resource(prefix + 'cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'}, {'update': { method:'PUT' }});
-        CVs.update({cv_id: userCV.id, id: tech.id}, tech);
+        CVs.update({cv_id: cvId, id: tech.id}, tech);
     };
 
-    F.createProject = function(project, userCV, callback) {
+    F.getProject = function(id, callback) {
+        var Users_projects = $resource(prefix + 'api/users_projects/:id', {id: '@id'});
+        Users_projects.get({id: id}, function(res) {
+            callback(res);
+        })
+    };
+
+    F.createProject = function(project, callback) {
         var newProject = {};
         newProject.name = project.name;
         newProject.description = project.description;
         newProject.technologies = [];
+        newProject.start = project.start;
+        newProject.end = project.end;
 
         for(var i=0; i< project.technologies.length; i++){
             newProject.technologies.push(project.technologies[i].id);
         }
 
         Projects.save(newProject, function(res){
-            callback(res);
+            var newUsers_ProjectsObj = {};
+            newUsers_ProjectsObj.user = userId;
+            newUsers_ProjectsObj.project = res.id;
+            newUsers_ProjectsObj.userRole = project.userRole;
+            newUsers_ProjectsObj.start = project.startDate;
+            newUsers_ProjectsObj.end = project.endDate;
+
+            Users_projects.save(newUsers_ProjectsObj, function(res){
+                callback(res.id);
+            })
+
+        });
+
+
+    };
+
+    F.selectProject = function(project, callback) {
+        var newUsers_ProjectsObj = {};
+        newUsers_ProjectsObj.user = userId;
+        newUsers_ProjectsObj.project = project.id;
+        newUsers_ProjectsObj.userRole = project.userRole;
+        newUsers_ProjectsObj.start = project.startDate;
+        newUsers_ProjectsObj.end = project.endDate;
+
+        Users_projects.save(newUsers_ProjectsObj, function(res){
+            callback(res.id);
         });
     };
 
-    F.addProjectToCV = function(project, userCV, users_projects, callback) {
-        project.participants = [];
 
-        for(var i=0; i<users_projects.length; i++) {
-            if(users_projects[i].projectId == project.id) {
-                project.participants.push(users_projects[i].userId);
-            }
-        }
+    F.removeProject = function(project, callback) {
+        var Users_projects = $resource(prefix + 'api/users_projects/:id', {id: '@id'});
+        Users_projects.delete({id: project._id}, function(){
+            callback(null);
+        })
+    };
 
-        var CVs = $resource(prefix + 'cv/:cv_id/project/:id', {cv_id: '@id', id: '@id'});
-        CVs.save({cv_id: userCV.id, id: project.id}, project);
-
-        callback(project);
+    F.removeTechnology = function(tech, cvId, callback) {
+        var CVs = $resource(prefix + 'cv/:cv_id/technology', {cv_id: '@id'}, {'update': { method:'PUT' }});
+        CVs.update({cv_id: cvId}, tech, function(){
+            callback(null);
+        });
     };
 
     return F;
