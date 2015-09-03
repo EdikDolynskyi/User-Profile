@@ -4,7 +4,6 @@ app.factory('cvPublicFactory', function($resource, $location) {
     var prefix = window.location.pathname;
 
     var userId = $location.path().split("/")[2];
-    var cv = $resource(prefix + 'api/cvs/' + userId);
     var Technologies = $resource(prefix + 'api/technologies');
     var Projects = $resource(prefix + 'api/projects');
     var Categories = $resource(prefix + 'api/categories');
@@ -12,8 +11,8 @@ app.factory('cvPublicFactory', function($resource, $location) {
     var F = {};
 
     F.getUserData = function(callback) {
-        cv.get(function(res) {
-            console.log("res " + res.userCV.id);
+        var Cvs = $resource(prefix + 'api/cvs/:id', {id: '@id'});
+        Cvs.get({id: userId}, function(res) {
             callback(res);
         });
     };

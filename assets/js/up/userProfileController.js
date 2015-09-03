@@ -29,9 +29,9 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
         }
         else {
             vm.userOriginal = angular.extend({}, user);
-            vm.user.avatar.urlAva = prefix +  user.avatar.urlAva;
             vm.user = angular.copy(vm.userOriginal);
         }
+        vm.user.avatar.urlAva = prefix +  vm.user.avatar.urlAva;
     });
 
 

@@ -20,8 +20,6 @@ app.controller('CVController', function($scope, cvFactory) {
     $scope.project.technologies = [];
 
 
-
-
     cvFactory.getUserData(function(user) {
         $scope.userProjects = user.userCV.projects;
         $scope.userTechnologies = user.userCV.technologies;
