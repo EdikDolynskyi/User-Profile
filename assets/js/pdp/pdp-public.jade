@@ -1,6 +1,9 @@
 div.pdp(ng-controller='PdpPublicController as pdp')
-    h4 Position
-    span {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
+    .panel.panel-default
+        .panel-heading
+            .panel-title Position
+        .panel-body
+            h4 {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
     accordion
         accordion-group.voffset4(is-open='pdp.status.isCertificationsOpen')
             accordion-heading
