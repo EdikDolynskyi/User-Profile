@@ -21,7 +21,7 @@ html(ng-app='myApp')
                                 span.input-group-btn
                                     //- button.btn.btn-primary(type='button', ng-click='ctrl.search()') Go!
                                     button.btn.btn-default(type='button', ng-click='ctrl.go("/search")') filters
-                            .list-group(ng-model="ctrl.usersList")
+                            .list-group(ng-model="ctrl.usersList", ng-cloak)
                                 button#usersListInSearch.list-group-item(ng-repeat="user in ctrl.usersList",type='button', ng-click='ctrl.showUserPage(user.id)')
                                     .col-md-4
                                         img.img-responsive.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')

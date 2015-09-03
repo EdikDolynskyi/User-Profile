@@ -15,14 +15,14 @@ div.container-fluid(ng-controller="createUserController as ctrl")
             .input-group
                 input.form-control(
                     ng-model='ctrl.user.birthday',
-                    is-open='showDatePicker',
+                    is-open='showBirthdayDatePicker',
                     min-date="'1900-01-01'",
                     max-date="ctrl.today",
                     datepicker-popup='dd-MM-yyyy',
                     datepicker-append-to-body="true",
                     close-text='Close')
                 span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
+                    button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
                         i.glyphicon.glyphicon-calendar
         .form-group
             label Gender
@@ -47,22 +47,18 @@ div.container-fluid(ng-controller="createUserController as ctrl")
             input(ng-model="ctrl.user.city", class="form-control", placeholder="City")
 
         .form-group
-            label Email address
-            input(ng-model="ctrl.user.email", type="email", class="form-control", placeholder="Email")
-
-        .form-group
             label Start work in Binary Studio
             .input-group
                 input.form-control(
                 ng-model='ctrl.user.workDate',
-                is-open='showDatePicker',
+                is-open='showWorkDatePicker',
                 min-date="'1900-01-01'",
                 max-date="ctrl.today",
                 datepicker-popup='dd-MM-yyyy',
                 datepicker-append-to-body="true",
                 close-text='Close')
                 span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
+                    button.btn.btn-default(type='button', ng-click='showWorkDatePicker = !showWorkDatePicker')
                         i.glyphicon.glyphicon-calendar
 
 

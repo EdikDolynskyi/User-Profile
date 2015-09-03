@@ -1,7 +1,7 @@
-div.container-fluid(ng-controller="UserProfileController as ctrl")
+div.container-fluid(ng-controller="UserProfileController as ctrl", ng-cloak)
     .page-header
         h2 Personal info
-            .alert.alert-warning.status(ng-class="{hidden: ctrl.user.changeAccept}") {{ctrl.changeMessage}}
+            .alert.alert-warning.status(ng-class="{hidden: ctrl.user.changeAccept}", ng-cloak) {{ctrl.changeMessage}}
     .col-md-6.col-sm-6.col-xs-12
         .form-group
             label Name
@@ -16,14 +16,14 @@ div.container-fluid(ng-controller="UserProfileController as ctrl")
                 input.form-control(
                     ng-model='ctrl.user.birthday',
                     ng-change="ctrl.change('birthday', ctrl.user.birthday)",
-                    is-open='showDatePicker',
+                    is-open='showBirthdayDatePicker',
                     min-date="'1900-01-01'",
                     max-date="ctrl.today",
                     datepicker-popup='dd-MM-yyyy',
                     datepicker-append-to-body="true",
                     close-text='Close')
                 span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
+                    button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
                         i.glyphicon.glyphicon-calendar
         .form-group
             label Gender
@@ -47,9 +47,6 @@ div.container-fluid(ng-controller="UserProfileController as ctrl")
             label City
             input(ng-model="ctrl.user.city", ng-change="ctrl.change('city', ctrl.user.city)", class="form-control", placeholder="City")
 
-        .form-group
-            label Email address
-            input(ng-model="ctrl.user.email", ng-change="ctrl.change('email', ctrl.user.email)", type="email", class="form-control", placeholder="Email")
 
         .form-group
             label Start work in Binary Studio
@@ -57,14 +54,14 @@ div.container-fluid(ng-controller="UserProfileController as ctrl")
                 input.form-control(
                 ng-model='ctrl.user.workDate',
                 ng-change="ctrl.change('workDate', ctrl.user.workDate)",
-                is-open='showDatePicker',
+                is-open='showWorkDatePicker',
                 min-date="'1900-01-01'",
                 max-date="ctrl.today",
                 datepicker-popup='dd-MM-yyyy',
                 datepicker-append-to-body="true",
                 close-text='Close')
                 span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
+                    button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
                         i.glyphicon.glyphicon-calendar
 
 
@@ -79,12 +76,6 @@ div.container-fluid(ng-controller="UserProfileController as ctrl")
                 .form-group
                     input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
                 .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
-
-
-        .form-group(ng-controller='PdpController as pdp')
-            .panel-body
-                .up-title Position
-                .up-data {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
 
     .col-md-12.form-group
         input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)

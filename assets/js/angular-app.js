@@ -73,5 +73,6 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 	};
 
 });
+
 module.exports = app;
 

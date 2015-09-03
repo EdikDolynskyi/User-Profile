@@ -19,9 +19,6 @@ app.controller('CVPublicController', function($scope, cvPublicFactory) {
     $scope.project = {};
     $scope.project.technologies = [];
 
-
-
-
     cvPublicFactory.getUserData(function(user) {
         $scope.userProjects = user.userCV.projects;
         $scope.userTechnologies = user.userCV.technologies;
@@ -51,114 +48,12 @@ app.controller('CVPublicController', function($scope, cvPublicFactory) {
         }
     };
 
-    $scope.addTechnologiesToProject = function(technology) {
-        if (technology !== '') {
-            $scope.project.technologies.push(technology);
-
-            $scope.projectTech = '';
-        }
-    };
-
     $scope.enterTechnologyName = function($event, technology) {
         if ($event.keyCode == 13) {
             $event.preventDefault();
             $scope.addTechnologiesToProject(technology);
         }
     };
-
-    $scope.selectTechCategory = function(category) {
-        $scope.technology.category = JSON.parse(category);
-    };
-
-    $scope.addTechnologyToCV = function(tech, stars) {
-        var selectedTech = JSON.parse(tech);
-        selectedTech.stars = stars || 1;
-
-        cvPublicFactory.addTechnologyToCV(selectedTech, $scope.userCV, function(res) {
-            $scope.userTechnologies.push(res);
-        });
-
-        $scope.tech = "";
-        $scope.stars = "";
-    };
-
-    $scope.createTechnology = function(tech) {
-        cvPublicFactory.createTechnology(tech, $scope.userCV, function(newTech) {
-            newTech.stars = tech.stars || 1;
-
-            cvPublicFactory.addTechnologyToCV(newTech, $scope.userCV, function(res) {
-                $scope.userTechnologies.push(res);
-            });
-        });
-
-        $scope.technology = {};
-        $scope.techcategory = "";
-    };
-
-    $scope.updateCVTechnologies = function(tech){
-        cvPublicFactory.updateCVTechnologies(tech, $scope.userCV);
-    };
-
-    $scope.addProjectToCV = function(project, startDate) {
-        var selectedProject = JSON.parse(project);
-        selectedProject.startDate = startDate;
-
-        cvPublicFactory.addProjectToCV(selectedProject, $scope.userCV, $scope.users_projects, function(project) {
-
-            var technologies = [];
-            angular.forEach(project.technologies, function(projectTechnology) {
-                angular.forEach($scope.allTechnologies, function(technology) {
-                    if (projectTechnology == technology.id) {
-                        technologies.push(technology);
-                    }
-
-                });
-            });
-
-            project.technologies = technologies;
-            $scope.userProjects.push(project);
-
-            $scope.selectedProject = "";
-            $scope.startDate = "";
-        });
-    };
-
-    $scope.createProject = function(project, startDate) {
-        console.log(project, startDate);
-
-        cvPublicFactory.createProject(project, $scope.userCV, function(newProject) {
-            newProject.startDate = startDate;
-
-            cvPublicFactory.addProjectToCV(newProject, $scope.userCV, $scope.users_projects, function(res) {
-                res.startDate = newProject.startDate;
-                res.technologies = newProject.technologies;
-
-                var technologies = [];
-                angular.forEach(newProject.technologies, function(projectTechnology) {
-                    angular.forEach($scope.allTechnologies, function(technology) {
-                        if (projectTechnology == technology.id) {
-                            technologies.push(technology);
-                        }
-
-                    });
-                });
-
-                res.technologies = technologies;
-                $scope.userProjects.push(res);
-            });
-        });
-
-        $scope.project = {};
-        $scope.project.technologies = [];
-        $scope.startDate = "";
-    };
-
-    /*$scope.removeProject = function(project) {
-     var index = $scope.userProjects.indexOf(project);
-     cvFactory.removeProject(project, $scope.userCV, function() {
-     ///some code
-     });
-     }*/
 });
 /****************************************************************************
  *                                                                           *
@@ -183,7 +78,6 @@ angular.module('myApp').filter('uniqueTechnology', function() {
                 output.push(item);
             }
         });
-
         return output;
     };
 });

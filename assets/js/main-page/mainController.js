@@ -15,6 +15,10 @@ function mainCtrl($scope, service, $rootScope, $location, $cookies) {
     //set when admin login
     $rootScope.isAdmin = false;
 
+    service.getByServerUserId($rootScope.serverUserId, function (user) {
+        $rootScope.ownerId = $rootScope.userId = user.id;
+    });
+
 
     this.search = function () {
         var surname = ctrl.searchText;

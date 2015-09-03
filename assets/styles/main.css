@@ -131,3 +131,19 @@ input {font:small-caption;font-size:18px;}
 .admin-user-image{
     padding:10px;
 }
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.knovlevel{
+    font-family: inherit;
+}
+
+.list-group {
+    padding-left: 0;
+     margin-bottom: 0;
+}
+.list-group-item{
+    font-size: 15px;
+}

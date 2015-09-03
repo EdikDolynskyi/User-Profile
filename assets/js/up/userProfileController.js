@@ -12,11 +12,10 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
 
     vm.changeMessage = 'User Profile Data is waiting for moderation';
 
+    var prefix = window.location.pathname;
 
-    UserProfileService.getByServerUserId($rootScope.serverUserId, function (user) {
 
-        $rootScope.ownerId = $rootScope.userId = user.id;
-        var prefix = window.location.pathname;
+    UserProfileService.get($rootScope.ownerId, function (user) {
 
         delete user.$promise;
         delete user.$resolved;

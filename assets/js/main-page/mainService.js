@@ -32,6 +32,12 @@ function MainService($resource) {
         });
     };
 
+    this.getByServerUserId = function(suid, cb) {
+        $resource(prefix + 'api/users/?serverUserId=:id', {id: suid}).query(function (users) {
+            cb(users.length ? users[0] : null);
+        })
+    };
+
     this.allUsers = function (cb) {
         $resource(prefix + 'api/users/filter', {}).query(function (users) {
             cb(users);
