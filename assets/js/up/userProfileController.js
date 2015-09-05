@@ -31,7 +31,6 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
             vm.userOriginal = angular.extend({}, user);
             vm.user = angular.copy(vm.userOriginal);
         }
-        vm.user.avatar.urlAva = prefix +  vm.user.avatar.urlAva;
     });
 
 
@@ -53,7 +52,7 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
             obj.fileName = './upload/' + fileName;
 
             downloadService.downloadFile(obj, function () {
-                vm.user.avatar.urlAva = prefix + 'api/files/get/' + fileName;
+                vm.user.avatar.urlAva = 'api/files/get/' + fileName;
                 vm.dataInFields.avatar = angular.copy(vm.user.avatar);
 
                 vm.getChangesFields(vm.userOriginal, vm.user);

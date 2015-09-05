@@ -9,10 +9,10 @@ app.factory('uploadService', function(Upload){
 	function upload(file, callback){
 		if (file) {
             Upload.upload({
-                url: prefix + 'api/files/upload',
+                url: 'api/files/upload',
                 file: file
             }).success(function (data) {
-                var fileSrc = prefix + 'api/files/get/' + data.file;
+                var fileSrc = 'api/files/get/' + data.file;
                 callback(fileSrc);
             }).error(function (data, status) {
                 console.log('error status: ' + status);

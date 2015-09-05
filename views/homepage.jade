@@ -8,8 +8,9 @@ html(ng-app='myApp')
         // STYLES
         // STYLES END
     body
-        header#header
-
+        header.container-fluid
+            .col-lg-1
+                img.logo(src="http://academy.binary-studio.com/resources/logo.png")
             div(ng-controller="MainController as ctrl", class="container-fluid")
                 .col-lg-2
                 .col-lg-10
