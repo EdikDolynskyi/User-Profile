@@ -4,6 +4,7 @@ app.controller('createUserController', ['$scope', 'createUserService', '$cookies
 
 function userCtrl(createUserService, $cookies) {
     var vm = this;
+    var prefix = window.location.pathname;
     vm.newUserId = $cookies.get('newUserId');
     vm.newUserEmail = $cookies.get('newUserEmail');
 
@@ -19,7 +20,7 @@ function userCtrl(createUserService, $cookies) {
         "gender": "male",
         "birthday": vm.today,
         "avatar": {
-            "urlAva": "api/files/get/Unknown.png",
+            "urlAva": prefix + "api/files/get/Unknown.png",
             "thumbnailUrlAva": ""
         },
         "workDate": vm.today,

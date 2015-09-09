@@ -6,7 +6,6 @@ function createUserService($resource) {
 
     var prefix = window.location.pathname;
     prefix = prefix.substr(prefix.length,8);
-    console.log('prefix' + prefix);
 
     this.get = function(suid, cb){
         $resource(prefix + '/api/users/?serverUserId=:id', {id: suid}).query(function (users) {
