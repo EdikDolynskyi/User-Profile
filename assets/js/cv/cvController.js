@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('CVController', function($scope, cvPublicFactory) {
+app.controller('CVController', function($scope, cvFactory) {
     $scope.userId = '';
     $scope.currentProject = '';
     $scope.userTechnologies = [];
@@ -22,26 +22,26 @@ app.controller('CVController', function($scope, cvPublicFactory) {
     $scope.selProject = {};
     $scope.selTech = {};
 
-    cvPublicFactory.getUserData(function(user) {
+    cvFactory.getUserData(function(user) {
         $scope.userId = user.id;
         $scope.currentProject = user.currentProject;
         $scope.userTechnologies = user.userCV.technologies;
         $scope.userCV = user.userCV;
     });
 
-    cvPublicFactory.getAllCategories(function(categories) {
+    cvFactory.getAllCategories(function(categories) {
         $scope.allCategories = categories;
     });
 
-    cvPublicFactory.getAllTechnologies(function(technologies) {
+    cvFactory.getAllTechnologies(function(technologies) {
         $scope.allTechnologies = technologies;
     });
 
-    cvPublicFactory.getAllProjects(function(projects) {
+    cvFactory.getAllProjects(function(projects) {
         $scope.allProjects = projects;
     });
 
-    cvPublicFactory.getUserProjects(function(projects) {
+    cvFactory.getUserProjects(function(projects) {
         $scope.userProjects = projects;
 
         for (var i=0; i<$scope.userProjects.length; i++) {
@@ -70,8 +70,8 @@ app.controller('CVController', function($scope, cvPublicFactory) {
     };
 
     $scope.selectTechnology= function(tech) {
-        cvPublicFactory.selectTechnology(tech, $scope.userCV.id, function(id) {
-            cvPublicFactory.getTechnology(id, function(res) {
+        cvFactory.selectTechnology(tech, $scope.userCV.id, function(id) {
+            cvFactory.getTechnology(id, function(res) {
                 res.stars = tech.stars || 1;
                 res.stars.toString();
                 $scope.userTechnologies.push(res);
@@ -82,8 +82,8 @@ app.controller('CVController', function($scope, cvPublicFactory) {
     };
 
     $scope.createTechnology = function(tech) {
-        cvPublicFactory.createTechnology(tech, $scope.userCV.id, function(id) {
-            cvPublicFactory.getTechnology(id, function(res) {
+        cvFactory.createTechnology(tech, $scope.userCV.id, function(id) {
+            cvFactory.getTechnology(id, function(res) {
                 res.stars = tech.stars || 1;
                 res.stars.toString();
                 $scope.userTechnologies.push(res);
@@ -94,12 +94,12 @@ app.controller('CVController', function($scope, cvPublicFactory) {
     };
 
     $scope.updateCVTechnology = function(tech){
-        cvPublicFactory.updateCVTechnology(tech, $scope.userCV.id);
+        cvFactory.updateCVTechnology(tech, $scope.userCV.id);
     };
 
     $scope.createProject = function(project) {
-        cvPublicFactory.createProject(project, function(id) {
-            cvPublicFactory.getProject(id, function(res) {
+        cvFactory.createProject(project, function(id) {
+            cvFactory.getProject(id, function(res) {
                 $scope.userProjects.push(res);
             });
         });
@@ -109,8 +109,8 @@ app.controller('CVController', function($scope, cvPublicFactory) {
     };
 
     $scope.selectProject = function(project) {
-        cvPublicFactory.selectProject(project, function(id) {
-            cvPublicFactory.getProject(id, function(res) {
+        cvFactory.selectProject(project, function(id) {
+            cvFactory.getProject(id, function(res) {
                 $scope.userProjects.push(res);
             });
         });
@@ -121,7 +121,7 @@ app.controller('CVController', function($scope, cvPublicFactory) {
     $scope.removeProject = function($event, project){
         $event.stopPropagation();
 
-        cvPublicFactory.removeProject(project, function(){
+        cvFactory.removeProject(project, function(){
             var index = $scope.userProjects.indexOf(project);
             $scope.userProjects.splice(index,1);
         })
@@ -130,7 +130,7 @@ app.controller('CVController', function($scope, cvPublicFactory) {
     $scope.removeTechnology = function($event, technology) {
         $event.stopPropagation();
 
-        cvPublicFactory.removeTechnology(technology, $scope.userCV.id, function(){
+        cvFactory.removeTechnology(technology, $scope.userCV.id, function(){
             var index = $scope.userTechnologies.indexOf(technology);
             $scope.userTechnologies.splice(index,1);
         })

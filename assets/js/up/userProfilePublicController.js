@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('UserProfilePublicController', ['UserProfilePublicService', '$rootScope', '$route', userCtrl]);
+app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', userCtrl]);
 
 function userCtrl(service, $rootScope, $route) {
     var ctrl = this;

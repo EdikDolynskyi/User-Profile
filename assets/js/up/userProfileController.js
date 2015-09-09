@@ -115,7 +115,6 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
 
     vm.addUserChangeLog = function (data) {
         UserProfileService.addLog(vm.userOriginal.id, data, function (data) {
-            //alert('user data added to logs!');
         });
     };
 

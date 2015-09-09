@@ -4,6 +4,7 @@ app.controller('MainController', ['$scope', 'MainService', '$rootScope', '$locat
 
 function mainCtrl($scope, service, $rootScope, $location, $cookies) {
     var ctrl = this;
+    this.prefix = window.location.pathname;
 
     ctrl.usersList = [];
     ctrl.searchParams = {};

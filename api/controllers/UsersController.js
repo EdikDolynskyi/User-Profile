@@ -103,7 +103,7 @@ function prepareSearchUserDTOs(users, cb) {
                 id: user.id,
                 name: user.name + ' ' + user.surname,
                 department: temp[user.userPDP],
-                avatar: "profile" + user.avatar.urlAva
+                avatar: user.avatar.urlAva
             }
         });
         cb(result);

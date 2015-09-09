@@ -22,7 +22,8 @@ module.exports = {
   // },
 
   authServerURL: 'http://team.binary-studio.com/auth',
-  refererURL: 'http://team.binary-studio.com/profile'
+  refererURL: 'http://team.binary-studio.com/profile',
+  createUserURL: 'http://team.binary-studio.com/profile/newuser'
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *

@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('PdpPublicController', function ($scope, $modal, $location, $rootScope, $route, PdpPublicService) {
+app.controller('PdpPublicController', function ($scope, $modal, $location, $rootScope, $route, PdpService) {
     var vm = this;
     var userPdpId = '';
     vm.userPDP = {};
@@ -19,31 +19,31 @@ app.controller('PdpPublicController', function ($scope, $modal, $location, $root
 
         var serverId = $route.current.params.serverId;
         if (serverId) {
-            PdpPublicService.getByServerUserId(serverId, function (user) {
+            PdpService.getByServerUserId(serverId, function (user) {
                 $rootScope.userId = user.id;
                 userId = $rootScope.userId;
 
-                PdpPublicService.getPDP(userId,function(obj){
+                PdpService.getPDP(userId,function(obj){
                     vm.userPDP = obj;
                     userPdpId = obj.id;
                     console.log(obj);
                 });
-                PdpPublicService.getPositions(function(array){
+                PdpService.getPositions(function(array){
                     vm.positions = array;
                 });
-                PdpPublicService.getDirections(function(array){
+                PdpService.getDirections(function(array){
                     vm.directions = array;
                 });
-                PdpPublicService.getTechnologies(function(array){
+                PdpService.getTechnologies(function(array){
                     vm.technologies = array;
                 });
-                PdpPublicService.getCertifications(function(array){
+                PdpService.getCertifications(function(array){
                     vm.certifications = array;
                 });
-                PdpPublicService.getTests(function(array){
+                PdpService.getTests(function(array){
                     vm.tests = array;
                 });
-                PdpPublicService.getAchievements(function(array){
+                PdpService.getAchievements(function(array){
                     vm.achievements = array;
                 });
             });
@@ -52,27 +52,27 @@ app.controller('PdpPublicController', function ($scope, $modal, $location, $root
             userId = $route.current.params.userId;
             $rootScope.userId = userId;
 
-            PdpPublicService.getPDP(userId,function(obj){
+            PdpService.getPDP(userId,function(obj){
                 vm.userPDP = obj;
                 userPdpId = obj.id;
                 console.log(obj);
             });
-            PdpPublicService.getPositions(function(array){
+            PdpService.getPositions(function(array){
                 vm.positions = array;
             });
-            PdpPublicService.getDirections(function(array){
+            PdpService.getDirections(function(array){
                 vm.directions = array;
             });
-            PdpPublicService.getTechnologies(function(array){
+            PdpService.getTechnologies(function(array){
                 vm.technologies = array;
             });
-            PdpPublicService.getCertifications(function(array){
+            PdpService.getCertifications(function(array){
                 vm.certifications = array;
             });
-            PdpPublicService.getTests(function(array){
+            PdpService.getTests(function(array){
                 vm.tests = array;
             });
-            PdpPublicService.getAchievements(function(array){
+            PdpService.getAchievements(function(array){
                 vm.achievements = array;
             });
         }
