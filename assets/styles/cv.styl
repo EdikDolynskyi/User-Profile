@@ -1,23 +1,5 @@
-.voffset
-  margin-top 2px
-.voffset1
-  margin-top 5px
-.voffset2
-  margin-top 10px
-.voffset3
-  margin-top 15px
-.voffset4
-  margin-top 30px
-.voffset5
-  margin-top 40px
-.voffset6
-  margin-top 60px
-.voffset7
-  margin-top 80px
-.voffset8
-  margin-top 100px
-.voffset9
-  margin-top 150px
+.dropdown-menu li a, .glyphicon-star
+  cursor pointer
 
 .category-name, .project-label
   color #8D8D8D
@@ -27,7 +9,6 @@
   padding-left 0 !important
   li
     margin-bottom 10px
-
 
 .stars-1
   border-radius 20px
@@ -129,18 +110,36 @@
       color #8D8D8D
       font-weight bold
       text-decoration none !important
+      &:hover
+        color #333
 
-.btn-rmv-tech,.btn-rmv-project
-  display none !important
+.btn-rmv-tech, .btn-rmv-project, .btn-edit-project
+  background none !important
+  border 0 !important
+  cursor pointer
+  outline none
+
+.btn-rmv-project, .btn-edit-project
+  margin-left 5 px
+
+.btn-rmv-project
+  &:hover
+    color #E60E0E
+
+.btn-edit-project
+  &:hover
+    color #337ab7;
 
 .technology
   &:hover
     .btn-rmv-tech
       display inline-block !important
 
+.project
+  position relative
+
 .project-header
-  &:hover
-    .btn-rmv-project
-      display inline-block !important
+  cursor pointer
+
 
 

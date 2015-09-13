@@ -56,6 +56,7 @@ function getProjectTechnologies(project, asyncCallback) {
         function (id, callback){
             Technologies
                 .findOne(id)
+                .populate('category')
                 .exec(function (err, item){
                     if(err){
                         return callback(err);

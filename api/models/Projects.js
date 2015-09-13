@@ -12,21 +12,23 @@ module.exports = {
             type: 'string',
             required: true
         },
-        owner: {
-            type: 'string'
-            
-        },
         description: {
             type: 'string',
-            required: true,
+            required: false
         },
         technologies: {
             type: 'array',
-            required: true,
+            required: true
         },
         screenshots: 'array',
-        start: 'date',
-        end: 'date',
+        start: {
+            type: 'date',
+            required: true
+        },
+        end: {
+            type: 'date',
+            required: false
+        },
         isDeleted: {
             type: 'boolean',
             defaultsTo: false
