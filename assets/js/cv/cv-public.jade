@@ -46,8 +46,8 @@ script(type='text/ng-template', id='dropDownList.html').
                             | Participants:
                         div.col-lg-3(ng-repeat='participant in project.participants')
                             img.img-responsive(ng-src='{{participant.avatar.urlAva}}')
-                    //.row.voffset3
-                    //    div.col-lg-12.project-label
-                    //        | Screenshots:
-                    //    div.col-lg-4(ng-repeat='screenshot in project.screenshots')
-                    //        img.img-responsive(ng-src='{{screenshot.img}}')
+                    .row.voffset3
+                        div.col-lg-12.project-label
+                            | Screenshots:
+                        div.col-lg-4(ng-repeat='screenshot in project.screenshots')
+                            img.img-responsive(ng-src='{{screenshot.img}}')

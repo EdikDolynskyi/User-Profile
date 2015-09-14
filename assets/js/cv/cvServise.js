@@ -102,6 +102,7 @@ app.factory('cvFactory', function($resource, $rootScope) {
         project.name = obj.name;
         project.description = obj.description;
         project.technologies = [];
+        project.screenshots = obj.screenshots;
         project.start = obj.start;
         project.end = obj.end;
 
@@ -120,6 +121,7 @@ app.factory('cvFactory', function($resource, $rootScope) {
             userProject.start = obj.startDate;
             userProject.end = obj.endDate;
 
+            var Users_projects = $resource(prefix + 'api/users_projects');
             Users_projects.save(userProject, function(res){
                 callback(res.id);
             })

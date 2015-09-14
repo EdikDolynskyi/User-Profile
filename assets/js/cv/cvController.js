@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('CVController', function($scope, cvFactory) {
+app.controller('CVController', function($scope, cvFactory, uploadService) {
     $scope.userId = '';
     $scope.userCV = '';
     $scope.currentProject = '';
@@ -20,6 +20,7 @@ app.controller('CVController', function($scope, cvFactory) {
     $scope.originalProject = {};
     $scope.project = {};
     $scope.project.technologies = [];
+    $scope.project.screenshots = [];
     $scope.selProject = {};
     $scope.selTech = {};
     $scope.editMode= false;
@@ -49,6 +50,8 @@ app.controller('CVController', function($scope, cvFactory) {
         for (var i=0; i<$scope.userProjects.length; i++) {
             if($scope.userProjects[i].id == $scope.currentProject ) {
                 $scope.userProjects[i].current = true;
+
+                break;
             }
         }
     });
@@ -96,16 +99,13 @@ app.controller('CVController', function($scope, cvFactory) {
         cvFactory.updateCVTechnology(tech, $scope.userCV.id);
     };
 
-    $scope.createProject = function(project) {
-        cvFactory.createProject(project, function(id) {
-            cvFactory.getProject(id, function(res) {
-                $scope.userProjects.push(res);
-            });
-        });
+    $scope.removeTechnology = function($event, technology) {
+        $event.stopPropagation();
 
-
-        $scope.project = {};
-        $scope.project.technologies = [];
+        cvFactory.removeTechnology(technology, $scope.userCV.id, function(){
+            var index = $scope.userTechnologies.indexOf(technology);
+            $scope.userTechnologies.splice(index,1);
+        })
     };
 
     $scope.selectProject = function(project) {
@@ -118,22 +118,17 @@ app.controller('CVController', function($scope, cvFactory) {
         $scope.selProject = {};
     };
 
-    $scope.removeProject = function($event, project){
-        $event.stopPropagation();
+    $scope.createProject = function(project) {
+        cvFactory.createProject(project, function(id) {
+            cvFactory.getProject(id, function(res) {
+                $scope.userProjects.push(res);
+            });
+        });
 
-        cvFactory.removeProject(project, function(){
-            var index = $scope.userProjects.indexOf(project);
-            $scope.userProjects.splice(index,1);
-        })
-    };
 
-    $scope.removeTechnology = function($event, technology) {
-        $event.stopPropagation();
-
-        cvFactory.removeTechnology(technology, $scope.userCV.id, function(){
-            var index = $scope.userTechnologies.indexOf(technology);
-            $scope.userTechnologies.splice(index,1);
-        })
+        $scope.project = {};
+        $scope.project.technologies = [];
+        $scope.project.screenshots = [];
     };
 
     $scope.updateProject = function(project) {
@@ -152,7 +147,22 @@ app.controller('CVController', function($scope, cvFactory) {
         $scope.originalProject = angular.copy(project);
     };
 
-    $scope.cancel = function(projectID) {
+    $scope.removeProject = function($event, project){
+        $event.stopPropagation();
+
+        cvFactory.removeProject(project, function(){
+            var index = $scope.userProjects.indexOf(project);
+            $scope.userProjects.splice(index,1);
+        })
+    };
+
+    $scope.cancelCreating = function() {
+        $scope.showProjectForm2 = false;
+        $scope.project.technologies = [];
+        $scope.project.screenshots = [];
+    };
+
+    $scope.cancelEditing = function(projectID) {
         $scope.editMode = false;
 
         for(var i = 0; i < $scope.userProjects.length; i++) {
@@ -161,6 +171,13 @@ app.controller('CVController', function($scope, cvFactory) {
                 break;
             }
         }
-    }
+    };
+
+    $scope.upload = function (file) {
+        uploadService.upload(file, function (fileSrc) {
+            var prefix = window.location.pathname;
+            $scope.project.screenshots.push({img: prefix + fileSrc});
+        });
+    };
 
 });

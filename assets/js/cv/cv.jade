@@ -135,8 +135,13 @@ script(type='text/ng-template', id='dropDownList.html').
                     input#end-date.form-control(type='date', datepicker-popup='', ng-model='project.endDate',
                         is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
                         date-disabled='disabled(date, mode)', close-text='Close')
+                .form-group
+                    label(for='inputFile') Screenshots
+                    input#inputFile(type='file', ngf-select, ngf-change="upload($file)")
+                    div(ng-if='project.screenshots', ng-repeat='screenshot in project.screenshots')
+                        img.img-responsive.voffset2(ng-src='{{screenshot.img}}')
                 button.btn.btn-primary(type='submit') Create project
-                button.btn.btn-danger(type='reset' ng-click='showProjectForm2 = false; project.technologies = []') Cancel
+                button.btn.btn-danger(type='reset', ng-click='cancelCreating()') Cancel
         div.col-lg-12.voffset3
             .panel.panel-default.project(ng-repeat='project in userProjects', ng-attr-id='{{$index}}')
                 .panel-heading.project-header(ng-click='isCollapsed = !isCollapsed')
@@ -202,15 +207,15 @@ script(type='text/ng-template', id='dropDownList.html').
                                 | Participants:
                             div.col-lg-3(ng-repeat='participant in project.participants')
                                 img.img-responsive(ng-src='{{participant.avatar.urlAva}}')
-                        //.row.voffset3
-                        //    div.col-lg-12.project-label
-                        //        | Screenshots:
-                        //    div.col-lg-4(ng-repeat='screenshot in project.screenshots')
-                        //        img.img-responsive(ng-src='{{screenshot.img}}')
+                        .row.voffset3
+                            div.col-lg-12.project-label
+                                | Screenshots:
+                            div.col-lg-4(ng-repeat='screenshot in project.screenshots')
+                                img.img-responsive(ng-src='{{screenshot.img}}')
                         .row.voffset3(ng-if='editMode')
                             div.col-lg-12
                                 button.btn.btn-primary(type='submit') Save
-                                button.btn.btn-danger(ng-click='cancel(project._id)') Cancel
+                                button.btn.btn-danger(ng-click='cancelEditing(project._id)') Cancel
 
 
 
