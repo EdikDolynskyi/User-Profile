@@ -137,9 +137,12 @@ script(type='text/ng-template', id='dropDownList.html').
                         date-disabled='disabled(date, mode)', close-text='Close')
                 .form-group
                     label(for='inputFile') Screenshots
-                    input#inputFile(type='file', ngf-select, ngf-change="upload($file)")
-                    div(ng-if='project.screenshots', ng-repeat='screenshot in project.screenshots')
-                        img.img-responsive.voffset2(ng-src='{{screenshot.img}}')
+                    input#inputFile(type='file', ngf-select="selectFile($file)", accept="image/*")
+                    div(ng-if='project.screenshots', ng-repeat='screenshot in project.screenshots', ng-attr-id='{{$index}}')
+                        div.screenshot-wrap
+                            img.img-responsive.voffset2(ngf-src='screenshot')
+                            div.thumb-x-btn(tooltip='Remove screenshot', tooltip-trigger='mouseenter', ng-click='removeScreenshot(screenshot)')
+                                span.glyphicon.glyphicon-remove.thumb-x
                 button.btn.btn-primary(type='submit') Create project
                 button.btn.btn-danger(type='reset', ng-click='cancelCreating()') Cancel
         div.col-lg-12.voffset3
@@ -147,9 +150,9 @@ script(type='text/ng-template', id='dropDownList.html').
                 .panel-heading.project-header(ng-click='isCollapsed = !isCollapsed')
                     b {{project.name}}
                     div.pull-right
-                        button.btn-edit-project(tooltip='Edit this project' tooltip-trigger='mouseenter' ng-click='editProject($event, project)')
+                        div.btn-edit-project(tooltip='Edit this project' tooltip-trigger='mouseenter' ng-click='editProject($event, project)')
                             span.glyphicon.glyphicon-pencil
-                        button.btn-rmv-project(tooltip='Remove this project' tooltip-trigger="mouseenter" ng-click='removeProject($event, project)')
+                        div.btn-rmv-project(tooltip='Remove this project' tooltip-trigger="mouseenter" ng-click='removeProject($event, project)')
                             span.glyphicon.glyphicon-trash
                 .panel-body(collapse='project.current ? !isCollapsed : isCollapsed')
                     form(ng-submit='updateProject(project)')

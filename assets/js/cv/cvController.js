@@ -118,17 +118,31 @@ app.controller('CVController', function($scope, cvFactory, uploadService) {
         $scope.selProject = {};
     };
 
+    $scope.selectFile = function(file){
+        if(file) $scope.project.screenshots.push(file);
+
+    };
+
     $scope.createProject = function(project) {
-        cvFactory.createProject(project, function(id) {
-            cvFactory.getProject(id, function(res) {
-                $scope.userProjects.push(res);
+        uploadService.uploadMultipleFiles(project.screenshots, function(res){
+            if(res) {
+                var prefix = window.location.pathname;
+
+                for(var i = 0; i < project.screenshots.length; i++) {
+                    project.screenshots[i] = {img: prefix + res[i]}
+                }
+            }
+
+            cvFactory.createProject(project, function(id) {
+                cvFactory.getProject(id, function(res) {
+                    $scope.userProjects.push(res);
+                });
             });
+
+            $scope.project = {};
+            $scope.project.technologies = [];
+            $scope.project.screenshots = [];
         });
-
-
-        $scope.project = {};
-        $scope.project.technologies = [];
-        $scope.project.screenshots = [];
     };
 
     $scope.updateProject = function(project) {
@@ -173,11 +187,11 @@ app.controller('CVController', function($scope, cvFactory, uploadService) {
         }
     };
 
-    $scope.upload = function (file) {
-        uploadService.upload(file, function (fileSrc) {
-            var prefix = window.location.pathname;
-            $scope.project.screenshots.push({img: prefix + fileSrc});
-        });
+    $scope.removeScreenshot = function(screenshot) {
+        var index = $scope.project.screenshots.indexOf(screenshot);
+        $scope.project.screenshots.splice(index, 1);
     };
 
 });
+
+
