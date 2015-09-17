@@ -6,7 +6,7 @@ app.controller('createUserController', ['createUserService', '$cookies', userCtr
 function userCtrl(createUserService, $cookies) {
     var vm = this;
     var prefix = window.location.pathname;
-    prefix = prefix.substr(8, prefix.length);
+    prefix = prefix.substr(0, 9);
     vm.newUserEmail = $cookies.get('newUserEmail');
     vm.newUserId = $cookies.get('newUserId');
     vm.user = {
