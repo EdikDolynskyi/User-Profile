@@ -1,12 +1,20 @@
 var app = require('../angular-app');
+var mongoose = require('mongoose');
 
-app.controller('createUserController', ['$scope', 'createUserService', '$cookies', userCtrl]);
+app.controller('createUserController', ['createUserService', '$cookies', userCtrl]);
 
 function userCtrl(createUserService, $cookies) {
     var vm = this;
     var prefix = window.location.pathname;
-    vm.newUserId = $cookies.get('newUserId');
+    prefix = prefix.substr(8, prefix.length);
     vm.newUserEmail = $cookies.get('newUserEmail');
+    vm.newUserId = $cookies.get('newUserId');
+    vm.user = {
+        position: null,
+        direction: null,
+        allPositions: [],
+        allDirections: []
+    };
 
     vm.today = new Date();
     var defaultUser = {
@@ -50,21 +58,30 @@ function userCtrl(createUserService, $cookies) {
     };
 
     vm.user = angular.copy(defaultUser);
+    vm.userPdp = angular.copy(defaultPDP);
+
+
+    createUserService.getPositions(function (array) {
+        vm.user.allPositions = array;
+    });
+    createUserService.getDirections(function (array) {
+        vm.user.allDirections = array;
+    });
 
     vm.createUser = function () {
-        if(vm.user.name) {
-            createUserService.create(vm.user, defaultCV, defaultPDP, function (user) {
-                console.log(user.id);
+        if (vm.user.name && vm.user.position && vm.user.direction) {
+            vm.userPdp.position = mongoose.Types.ObjectId(vm.user.position);
+            vm.userPdp.direction = mongoose.Types.ObjectId(vm.user.direction);
+            createUserService.createUser(vm.user, defaultCV, vm.userPdp, function (user) {
                 $cookies.remove('newUserId');
                 $cookies.remove('newUserEmail');
                 alert("User added");
-            })
+            });
         }
         else {
-            alert('Please, enter the name of user')
+            alert('Please, enter the name of user or select position')
         }
     };
     vm.cancel = function () {
     }
-
 }

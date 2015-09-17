@@ -85,7 +85,7 @@ module.exports = {
         });
     },
     getByCentralId: function(req,res){
-        Users.findOne({"serverUserId": req.param.id}).exec(function(err, user){
+        Users.find({serverUserId: req.params.id}).exec(function(err, user){
             res.send(user);
         })
     }

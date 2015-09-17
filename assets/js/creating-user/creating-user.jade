@@ -1,7 +1,6 @@
 div.container-fluid(ng-controller="createUserController as ctrl")
     .page-header
         h2 Personal info
-            .alert.alert-warning.status(ng-class="{hidden: ctrl.user.changeAccept}") {{ctrl.changeMessage}}
     .col-md-6.col-sm-6.col-xs-12
         .form-group
             label Name
@@ -14,13 +13,13 @@ div.container-fluid(ng-controller="createUserController as ctrl")
             label Birthday
             .input-group
                 input.form-control(
-                    ng-model='ctrl.user.birthday',
-                    is-open='showBirthdayDatePicker',
-                    min-date="'1900-01-01'",
-                    max-date="ctrl.today",
-                    datepicker-popup='dd-MM-yyyy',
-                    datepicker-append-to-body="true",
-                    close-text='Close')
+                ng-model='ctrl.user.birthday',
+                is-open='showBirthdayDatePicker',
+                min-date="'1900-01-01'",
+                max-date="ctrl.today",
+                datepicker-popup='dd-MM-yyyy',
+                datepicker-append-to-body="true",
+                close-text='Close')
                 span.input-group-btn
                     button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
                         i.glyphicon.glyphicon-calendar
@@ -70,6 +69,16 @@ div.container-fluid(ng-controller="createUserController as ctrl")
                 br
                 span.glyphicon.glyphicon-upload
 
+    .col-md-12.form-group
+        .form-group
+            label Position
+            .row
+                .col-lg-3
+                    select.form-control(ng-model="ctrl.user.position")
+                        option(ng-repeat="position in ctrl.user.allPositions | orderBy : 'name'", value='{{position.id}}') {{position.name}}
+                .col-lg-5
+                    select.form-control(ng-model="ctrl.user.direction")
+                        option(ng-repeat="direction in ctrl.user.allDirections | orderBy : 'name'", value='{{direction.id}}') {{direction.name}}
 
     .col-md-12.form-group
         input.btn.btn-primary(value='Create User', ng-click='ctrl.createUser()', readonly)
