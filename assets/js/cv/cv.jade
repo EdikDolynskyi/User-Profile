@@ -4,41 +4,49 @@ script(type='text/ng-template', id='dropDownList.html').
     </a>
 
 .container-fluid(ng-controller='CVController')
+    script(type='text/ng-template', id='modalImage.html').
+        <div class="modal-header">
+            <span class="modal-title">Screenshot {{image.index + 1}} of {{number}}</span>
+            <a href="#" class="pull-right" ng-click="cancel($event)">Close</a>
+        </div>
+        <div class="modal-body">
+        <img ng-src="{{images[image.index].img}}" class="img-responsive screenshot" dynamic-src>
+        </div>
     .row
         div.col-lg-12.v-center
             h4 Technologies
-            span(dropdown='')
-                a#simple-dropdown(href='', dropdown-toggle='')
+            span(dropdown="")
+                a#simple-dropdown(href="", dropdown-toggle="")
                     | add technologies
-                ul.dropdown-menu.pull-right(aria-labelledby='simple-dropdown')
+                ul.dropdown-menu.pull-right(aria-labelledby="simple-dropdown")
                     li
-                        a(ng-href='', ng-click='showTechForm1=true; showTechForm2=false; $event.preventDefault()') Select from existing technologies
-                        a(ng-href='', ng-click='showTechForm2=true; showTechForm1=false; $event.preventDefault()') Create technology
-        div.col-lg-6.col-lg-offset-3(ng-show='showTechForm1')
-            form(ng-submit='selectTechnology(selTech); showTechForm1=!showTechForm1')
+                        a(ng-href="", ng-click="showTechForm1=true; showTechForm2=false; $event.preventDefault()") Select from existing technologies
+                        a(ng-href="", ng-click="showTechForm2=true; showTechForm1=false; $event.preventDefault()") Create technology
+        div.col-lg-6.col-lg-offset-3(ng-show="showTechForm1")
+            form(ng-submit="selectTechnology(selTech); showTechForm1=!showTechForm1")
                 .form-group
-                    label(for='sel-technology') Technology
-                    select#sel-technology.form-control(ng-model='selTech.id', required)
-                        option(value='') ---Please select---
-                        option(ng-repeat='tech in allTechnologies | orderBy : "name"' value='{{tech.id}}')
+                    label(for="sel-technology") Technology
+                    select#sel-technology.form-control(ng-model="selTech.id", required)
+                        option(value="") ---Please select---
+                        option(ng-repeat="tech in allTechnologies | orderBy : 'name'" value="{{tech.id}}")
                             | {{tech.name}}
                 .form-group
-                    label(for='knowledgelevel') Knowledge level
-                    rating#knowledgelevel(max='5', readonly='false',on-hover='hoveringOver(value)',
-                    on-leave='overStar = null', ng-model='selTech.stars', required)
-                button.btn.btn-primary(type='submit') Add technology
-                button.btn.btn-danger(type='reset', ng-click='showTechForm1=false') Cancel
+                    label(for="knowledgelevel") Knowledge level
+                    rating#knowledgelevel(max="5", readonly="false",on-hover="hoveringOver(value)",
+                    on-leave="overStar=null", ng-model="selTech.stars", required)
+                button.btn.btn-primary(type="submit") Add technology
+                button.btn.btn-danger(type="reset", ng-click="showTechForm1=false") Cancel
 
-        div.col-lg-6.col-lg-offset-3(ng-show='showTechForm2')
-            form(ng-submit='createTechnology(technology); showTechForm2=!showTechForm2')
+        div.col-lg-6.col-lg-offset-3(ng-show="showTechForm2")
+            form(ng-submit="createTechnology(technology); showTechForm2=!showTechForm2")
                 .form-group
-                    label(for='tech-name') Technology name
-                    input#tech-name.form-control(type='text', ng-model='technology.name', required)
+                    label(for="tech-name") Technology name
+                    input#tech-name.form-control(type="text", ng-model="technology.name", required)
                 .form-group
-                    label(for='sel-category') Technology Category
-                    select#sel-category.form-control(ng-model='technology.category', required)
-                        option(value='') ---Please select---
-                        option(ng-repeat='category in allCategories | orderBy : "name"' value='{{category.id}}')
+                    label(for="sel-category") Technology Category
+                    select#sel-category.form-control(ng-model="technology.category", required)
+                        option(value="") ---Please select---
+                        option(ng-repeat="category in allCategories | orderBy : 'name'", value="{{category.id}}")
                             | {{category.name}}
                 .form-group
                     label(for='knowledgelevel') Knowledge level
@@ -48,137 +56,138 @@ script(type='text/ng-template', id='dropDownList.html').
                 button.btn.btn-danger(type='reset', ng-click='showTechForm2=!showTechForm2') Cancel
         div.col-lg-12.voffset3
             | Sort by knowledge level:
-            rating(ng-model='knowledge' max='5', readonly='isReadonly', on-hover='hoveringOver(value)', on-leave='overStar = null')
+            rating(ng-model="knowledge", max="5", readonly="isReadonly", on-hover="hoveringOver(value)", on-leave="overStar=null")
             ul.technologies-list.voffset3
-                li(ng-repeat='tech in userTechnologies | unique | orderBy: "category.name"')
+                li(ng-repeat="tech in userTechnologies | unique | orderBy: 'category.name' ")
                     span.category-name
                         | {{tech.category.name}}:
-                    button(ng-repeat='tech in userTechnologies | filter: {category: {id: tech.category.id}} | rating: knowledge',
-                            class = 'technology stars-{{tech.stars}}', ng-click='showRating = !showRating', ng-attr-id='{{$index}}')
+                    button(ng-repeat="tech in userTechnologies | filter: {category: {id: tech.category.id}} | rating: knowledge",
+                            class="technology stars-{{tech.stars}}", ng-click="showRating = !showRating", ng-attr-id="{{$index}}")
                         | {{tech.name}}
-                        rating(ng-model='tech.stars', max='5', readonly='false', on-hover='hoveringOver(value)', on-leave='overStar = null',
-                                ng-show='showRating', ng-click='updateCVTechnology(tech)')
-                        span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click='removeTechnology($event, tech)')
+                        rating(ng-model="tech.stars", max="5", readonly="false", on-hover="hoveringOver(value)", on-leave="overStar = null",
+                                ng-show="showRating", ng-click="updateCVTechnology(tech)")
+                        span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click="removeTechnology($event, tech)")
 
     .row
         div.col-lg-12.v-center
             h4 Projects
-            span(dropdown='')
-                a#simple-dropdown2(href='', dropdown-toggle='')
+            span(dropdown="")
+                a#simple-dropdown2(href="", dropdown-toggle="")
                     | add projects
                 ul.dropdown-menu.pull-right(aria-labelledby='simple-dropdown2')
                     li
-                        a(ng-href='', ng-click='showProjectForm1=true; showProjectForm2=false; $event.preventDefault()') Select from existing projects
-                        a(ng-href='', ng-click='showProjectForm2=true; showProjectForm1=false; $event.preventDefault()') Create project
-        div.col-lg-6.col-lg-offset-3(ng-show='showProjectForm1')
-            form(ng-submit='selectProject(selProject); showProjectForm1=!showProjectForm1')
+                        a(ng-href="", ng-click="showProjectForm1=true; showProjectForm2=false; $event.preventDefault()") Select from existing projects
+                        a(ng-href="", ng-click="showProjectForm2=true; showProjectForm1=false; $event.preventDefault()") Create project
+        div.col-lg-6.col-lg-offset-3(ng-show="showProjectForm1")
+            form(ng-submit="selectProject(selProject); showProjectForm1=!showProjectForm1")
                 .form-group
-                    label(for='sel-project') Project
-                    select#sel-project.form-control(ng-model='selProject.id', required)
-                        option(value='') ---Please select---
-                        option(ng-repeat='project in allProjects | orderBy : "name"' value='{{project.id}}')
+                    label(for="sel-project") Project
+                    select#sel-project.form-control(ng-model="selProject.id", required)
+                        option(value="") ---Please select---
+                        option(ng-repeat="project in allProjects | orderBy : 'name'", value="{{project.id}}")
                             | {{project.name}}
                 .form-group
-                    label(for='user-role1') Your role
-                    input#user-role1.form-control(type='text', ng-model='selProject.userRole', required)
+                    label(for="user-role1") Your role
+                    input#user-role1.form-control(type="text", ng-model="selProject.userRole", required)
                 .form-group
-                    label(for='start-date1') Date of joining the project
-                    input#start-date1.form-control(type='date', datepicker-popup='', ng-model='selProject.startDate',
-                        is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-                        date-disabled='disabled(date, mode)', close-text='Close', required)
+                    label(for="start-date1") Date of joining the project
+                    input#start-date1.form-control(type="date", datepicker-popup="", ng-model="selProject.startDate",
+                        is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
+                        date-disabled="disabled(date, mode)", close-text="Close", required)
                 .form-group
-                    label(for='end-date1') Date of finishing working on the project
-                    input#end-date1.form-control(type='date', datepicker-popup='', ng-model='selProject.endDate',
-                    is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-                    date-disabled='disabled(date, mode)', close-text='Close')
+                    label(for="end-date1") Date of finishing working on the project
+                    input#end-date1.form-control(type="date", datepicker-popup="", ng-model="selProject.endDate",
+                    is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
+                    date-disabled="disabled(date, mode)", close-text="Close")
                 //.checkbox
                     label
                         input(type='checkbox' ng-model='current')
                         | Current
-                button.btn.btn-primary(type='submit') Add project
-                button.btn.btn-danger(type='reset' ng-click='showProjectForm1=false') Cancel
+                button.btn.btn-primary(type="submit") Add project
+                button.btn.btn-danger(type="reset" ng-click="showProjectForm1=false") Cancel
         div.col-lg-6.col-lg-offset-3(ng-show='showProjectForm2')
-            form(ng-submit='createProject(project); showProjectForm2 = false')
+            form(ng-submit="createProject(project); showProjectForm2 = false")
                 .form-group
-                    label(for='project-name') Project name
-                    input#project-name.form-control(type='text', ng-model='project.name', required)
+                    label(for="project-name") Project name
+                    input#project-name.form-control(type="text", ng-model="project.name", required)
                 .form-group
-                    label(for='start') Start date
-                    input#start.form-control(type='date', datepicker-popup='', ng-model='project.start',
-                        is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-                        date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
+                    label(for="start") Start date
+                    input#start.form-control(type="date", datepicker-popup="", ng-model="project.start",
+                        is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
+                        date-disabled="disabled(date, mode)", ng-required="true", close-text="Close", required)
                 .form-group
-                    label(for='end') End date
-                    input#end.form-control(type='date', datepicker-popup='', ng-model='project.end',
-                    is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-                    date-disabled='disabled(date, mode)', close-text='Close')
+                    label(for="end") End date
+                    input#end.form-control(type="date", datepicker-popup="", ng-model="project.end",
+                    is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
+                    date-disabled="disabled(date, mode)", close-text="Close")
                 .form-group
-                    label(for='technologies') Technologies
-                    input#technologies.form-control(type='text', ng-model='projectTechnology',
+                    label(for="technologies") Technologies
+                    input#technologies.form-control(type="text", ng-model="projectTechnology",
                         ng-keydown ='enterTechnologyName($event, projectTechnology)',
-                        typeahead='tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}',
-                        typeahead-template-url='dropDownList.html')
-                    button.stars-4.voffset2(ng-repeat='tech in project.technologies') {{tech.name}}
+                        typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
+                        typeahead-template-url="dropDownList.html")
+                    button.stars-4.voffset2(ng-repeat="tech in project.technologies") {{tech.name}}
                 .form-group
-                    label(for='description') Description
-                    textarea#description.form-control(rows='3', ng-model='project.description', required)
+                    label(for="description") Description
+                    textarea#description.form-control(rows="3", ng-model="project.description", required)
                 .form-group
-                    label(for='user-role') Your role
-                    input#user-role.form-control(type='text', ng-model='project.userRole', required)
+                    label(for="user-role") Your role
+                    input#user-role.form-control(type="text", ng-model="project.userRole", required)
                 .form-group
-                    label(for='start-date') Date of joining the project
-                    input#start-date.form-control(type='date', datepicker-popup='', ng-model='project.startDate',
-                        is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-                        date-disabled='disabled(date, mode)', close-text='Close', required)
+                    label(for="start-date") Date of joining the project
+                    input#start-date.form-control(type="date", datepicker-popup="", ng-model="project.startDate",
+                        is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
+                        date-disabled="disabled(date, mode)", close-text="Close", required)
                 .form-group
-                    label(for='end-date') Date of finishing working on the project
-                    input#end-date.form-control(type='date', datepicker-popup='', ng-model='project.endDate',
-                        is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-                        date-disabled='disabled(date, mode)', close-text='Close')
+                    label(for="end-date") Date of finishing working on the project
+                    input#end-date.form-control(type="date", datepicker-popup="", ng-model="project.endDate",
+                        is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
+                        date-disabled="disabled(date, mode)", close-text="Close")
                 .form-group
-                    label(for='inputFile') Screenshots
-                    input#inputFile(type='file', ngf-select="selectFile($file)", accept="image/*")
-                    div(ng-if='project.screenshots', ng-repeat='screenshot in project.screenshots', ng-attr-id='{{$index}}')
+                    label(for="inputFile") Screenshots
+                    input#inputFile(type="file", ngf-select="selectFile($file)", accept="image/*")
+                    div(ng-if="project.screenshots", ng-repeat="screenshot in project.screenshots", ng-attr-id="{{$index}}")
                         div.screenshot-wrap
-                            img.img-responsive.voffset2(ngf-src='screenshot')
-                            div.thumb-x-btn(tooltip='Remove screenshot', tooltip-trigger='mouseenter', ng-click='removeScreenshot(screenshot)')
+                            img.img-responsive.voffset2(ngf-src="screenshot")
+                            div.thumb-x-btn(tooltip="Remove screenshot", tooltip-trigger="mouseenter", ng-click="removeScreenshot(screenshot)")
                                 span.glyphicon.glyphicon-remove.thumb-x
-                button.btn.btn-primary(type='submit') Create project
-                button.btn.btn-danger(type='reset', ng-click='cancelCreating()') Cancel
+                button.btn.btn-primary(type="submit") Create project
+                button.btn.btn-danger(type="reset", ng-click="cancelCreating()") Cancel
         div.col-lg-12.voffset3
-            .panel.panel-default.project(ng-repeat='project in userProjects', ng-attr-id='{{$index}}')
-                .panel-heading.project-header(ng-click='isCollapsed = !isCollapsed')
+            .panel.panel-default.project(ng-repeat="project in userProjects", ng-attr-id="{{$index}}")
+                .panel-heading.project-header(ng-click="isCollapsed = !isCollapsed")
                     b {{project.name}}
                     div.pull-right
-                        div.btn-edit-project(tooltip='Edit this project' tooltip-trigger='mouseenter' ng-click='editProject($event, project)')
+                        div.btn-edit-project(tooltip="Edit this project", tooltip-trigger="mouseenter", ng-click="editProject($event, project)")
                             span.glyphicon.glyphicon-pencil
-                        div.btn-rmv-project(tooltip='Remove this project' tooltip-trigger="mouseenter" ng-click='removeProject($event, project)')
+                        div.btn-rmv-project(tooltip="Remove this project", tooltip-trigger="mouseenter", ng-click="removeProject($event, project)")
                             span.glyphicon.glyphicon-trash
-                .panel-body(collapse='project.current ? !isCollapsed : isCollapsed')
-                    form(ng-submit='updateProject(project)')
+                .panel-body(collapse="project.current ? !isCollapsed : isCollapsed")
+                    form(ng-submit="updateProject(project)")
                         .row
                             div.col-lg-3.project-label
                                  | Start date:
                             div.col-lg-9
-                                span {{project.start | date:'dd/MM/yyyy'}}
+                                span {{project.start | date:"dd/MM/yyyy"}}
                                 //span(ng-if='!editMode') {{project.start | date:'dd/MM/yyyy'}}
                                 //input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.start',
                                     is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
                                     date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
-                        .row.voffset3(ng-if='!project.end')
+                        .row.voffset3(ng-if="!project.end")
                             div.col-lg-3.project-label
                                 | End date:
                             div.col-lg-9
-                                span {{project.end | date:'dd/MM/yyyy'}}
+                                span {{project.end | date:"dd/MM/yyyy"}}
                                 //span(ng-if='!editMode') {{project.end | date:'dd/MM/yyyy'}}
                                 //input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.end',
                                     is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
                                     date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
-                        .row.voffset3(ng-repeat='tech in project.technologies | unique')
+                        .row.voffset3(ng-repeat="tech in project.technologies | unique")
                             div.col-lg-3.project-label
                                 | {{tech.category.name}}:
                             div.col-lg-9
-                                button.stars-4(ng-repeat = 'tech in project.technologies | filter: {category: {id: tech.category.id}}') {{tech.name}}
+                                button.stars-4(ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
+                                    | {{tech.name}}
                         .row.voffset3
                             div.col-lg-3.project-label
                                 | Description:
@@ -190,35 +199,35 @@ script(type='text/ng-template', id='dropDownList.html').
                             div.col-lg-3.project-label
                                 | Your role:
                             div.col-lg-9
-                                span(ng-if='!editMode') {{project.userRole}}
-                                input.form-control(ng-if='editMode', type='text', ng-model='project.userRole')
+                                span(ng-if="!editMode") {{project.userRole}}
+                                input.form-control(ng-if="editMode", type="text", ng-model="project.userRole")
                         .row.voffset3
                             div.col-lg-3.project-label
                                 | Work period:
                             div.col-lg-9
-                                span(ng-if='!editMode') {{project.startDate | date:'dd/MM/yyyy'}} - {{project.endDate | date:'dd/MM/yyyy'}}
+                                span(ng-if="!editMode") {{project.startDate | date:"dd/MM/yyyy"}} - {{project.endDate | date:"dd/MM/yyyy"}}
                                 span(ng-if='!editMode && !project.endDate') present
-                                input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.startDate',
-                                    is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-                                    date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
-                                span(ng-if='editMode') -
-                                input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.endDate',
-                                    is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-                                    date-disabled='disabled(date, mode)', close-text='Close')
+                                input.form-control(ng-if="editMode" type="date", datepicker-popup="", ng-model="project.startDate",
+                                    is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
+                                    date-disabled="disabled(date, mode)", ng-required="true", close-text="Close", required)
+                                span(ng-if="editMode") -
+                                input.form-control(ng-if="editMode", type="date", datepicker-popup="", ng-model="project.endDate",
+                                    is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
+                                    date-disabled="disabled(date, mode)", close-text="Close")
                         .row.voffset3
                             div.col-lg-12.project-label
                                 | Participants:
-                            div.col-lg-3(ng-repeat='participant in project.participants')
-                                img.img-responsive(ng-src='{{participant.avatar.urlAva}}')
+                            div.col-lg-3(ng-repeat="participant in project.participants")
+                                img.img-responsive(ng-src="{{participant.avatar.urlAva}}")
                         .row.voffset3
                             div.col-lg-12.project-label
                                 | Screenshots:
-                            div.col-lg-4(ng-repeat='screenshot in project.screenshots')
-                                img.img-responsive(ng-src='{{screenshot.img}}')
-                        .row.voffset3(ng-if='editMode')
+                            div.col-lg-4(ng-repeat="screenshot in project.screenshots")
+                                img.img-responsive.screenshot(ng-src="{{screenshot.img}}", ng-click="open(screenshot, project.screenshots)")
+                        .row.voffset3(ng-if="editMode")
                             div.col-lg-12
-                                button.btn.btn-primary(type='submit') Save
-                                button.btn.btn-danger(ng-click='cancelEditing(project._id)') Cancel
+                                button.btn.btn-primary(type="submit") Save
+                                button.btn.btn-danger(ng-click="cancelEditing(project._id)") Cancel
 
 
 

@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('CVController', function($scope, cvFactory, uploadService) {
+app.controller('CVController', function($scope, $modal, cvFactory, uploadService) {
     $scope.userId = '';
     $scope.userCV = '';
     $scope.currentProject = '';
@@ -120,7 +120,6 @@ app.controller('CVController', function($scope, cvFactory, uploadService) {
 
     $scope.selectFile = function(file){
         if(file) $scope.project.screenshots.push(file);
-
     };
 
     $scope.createProject = function(project) {
@@ -190,6 +189,24 @@ app.controller('CVController', function($scope, cvFactory, uploadService) {
     $scope.removeScreenshot = function(screenshot) {
         var index = $scope.project.screenshots.indexOf(screenshot);
         $scope.project.screenshots.splice(index, 1);
+    };
+
+    $scope.open = function(selectedScreenshot, screenshots) {
+        var modalInstance = $modal.open({
+            //animation: $scope.animationsEnabled,
+            templateUrl: 'modalImage.html',
+            controller: 'ModalImageCtrl',
+            //size: size,
+            resolve: {
+                selected: function() {
+                    return selectedScreenshot;
+                },
+                images: function () {
+                    return screenshots;
+                }
+            }
+        });
+
     };
 
 });
