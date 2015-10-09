@@ -1,8 +1,36 @@
 .dropdown-menu li a,
 .glyphicon-star,
 .project-header,
-.screenshot
+.screenshot,
+.participant-photo
   cursor pointer
+
+.btn-add-tech, .btn-add-project
+  display none
+  left 130px
+  opacity 0.4
+  position absolute !important
+  top 10px
+  a
+    color #333 !important
+  &:hover
+    opacity 1
+
+.btn-add-project
+  left 90px !important
+
+.user-technologies
+  &:hover
+    .btn-add-tech
+      display block
+
+.user-projects
+  &:hover
+    .btn-add-project
+      display block
+
+#project-description
+  resize vertical !important
 
 .category-name, .project-label
   color #8D8D8D
@@ -103,33 +131,24 @@
   text-shadow 0 1px 1px rgba(255, 255, 255, 0.33)
   -webkit-font-smoothing antialiased
 
-.v-center
-  display table;
-  span
-    display table-cell
-    text-align right
-    vertical-align middle
-    a
-      color #8D8D8D
-      font-weight bold
-      text-decoration none !important
-      &:hover
-        color #333
-
-.screenshot-wrap
+.uploaded-img-wrap
   position relative
 
 .btn-rmv-project, .btn-edit-project
   display inline-block
   margin-left 10 px
+  opacity 0.4
 
 .btn-rmv-project
   &:hover
-    color #E60E0E
+    opacity 1
 
 .btn-edit-project
   &:hover
-    color #337ab7;
+    opacity 1
+
+#inputFile
+  font-size 14px !important
 
 .thumb-x
   color #fff !important
@@ -144,7 +163,7 @@
   -moz-border-radius 3px
   -webkit-border-radius 3px
   line-height normal !important
-  padding 3px
+  padding 2px 4px
   position absolute
   right 0
   top 0
@@ -155,7 +174,28 @@
 .project
   position relative
 
-#inputFile
-  font-size 14px !important
+.participant-photo
+  float left
+  padding-right 10px
 
+.participant-photo-wrap
+  height 60px
+  overflow hidden
+  width  60px
 
+.participant-role
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+  width 170px
+
+.screenshot-wrap
+  height 100px
+  overflow hidden
+  width 140px
+
+.logo-wpap
+  background-color #000
+  padding 5px 10px
+  position absolute
+  right 15px

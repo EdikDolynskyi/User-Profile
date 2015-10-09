@@ -91,41 +91,17 @@ app.factory('cvFactory', function($resource, $rootScope) {
     };
 
     F.getProject = function(id, callback) {
-        var Users_projects = $resource(prefix + 'api/users_projects/:id', {id: '@id'});
+        var Users_projects = $resource(prefix + 'users_projects/:id', {id: '@id'});
         var project = Users_projects.get({id: id}, function(res) {
             callback(res);
         })
     };
 
-    F.createProject = function(obj, callback) {
-        var project = {};
-        project.name = obj.name;
-        project.description = obj.description;
-        project.technologies = [];
-        project.screenshots = obj.screenshots;
-        project.start = obj.start;
-        project.end = obj.end;
 
-        if(obj.technologies.length > 0) {
-            for (var i = 0; i < obj.technologies.length; i++) {
-                project.technologies.push(obj.technologies[i].id);
-            }
-        }
-
-        var Projects = $resource(prefix + 'api/projects');
-        Projects.save(project, function(res){
-            var userProject = {};
-            userProject.user = userId;
-            userProject.project = res.id;
-            userProject.userRole = obj.userRole;
-            userProject.start = obj.startDate;
-            userProject.end = obj.endDate;
-
-            var Users_projects = $resource(prefix + 'api/users_projects');
-            Users_projects.save(userProject, function(res){
-                callback(res.id);
-            })
-
+    F.createProject = function(project, callback) {
+        var Projects = $resource(prefix + 'projects', {}, {'post': { method:'POST' }});
+        Projects.post({}, {project: project, userId: userId}, function(res){
+            callback(res.id);
         });
     };
 
@@ -141,41 +117,37 @@ app.factory('cvFactory', function($resource, $rootScope) {
         Users_projects.save(userProject, function(res){
             callback(res.id);
         });
+
+        if(obj.current) {
+            var project = {id: obj.id};
+            var Users = $resource(prefix + 'users/:id/currentproject', {id: '@id'}, {'update': {method: 'PUT'}});
+            Users.update({id: userId}, project)
+        }
     };
 
 
     F.removeProject = function(project, callback) {
         var Users_projects = $resource(prefix + 'api/users_projects/:id', {id: '@id'});
-        Users_projects.delete({id: project._id}, function(){
-            callback(null);
-        })
+        Users_projects.delete({id: project._id}, callback)
     };
 
     F.removeTechnology = function(technology, cvId, callback) {
         var CVs = $resource(prefix + 'cv/:cv_id/technology', {cv_id: '@id'}, {'update': { method:'PUT' }});
-        CVs.update({cv_id: cvId}, technology, function(){
-            callback(null);
-        });
+        CVs.update({cv_id: cvId}, technology, callback);
     };
 
-    F.updateProject = function(obj){
-        var userProject = {};
-        userProject._id = obj._id;
-        userProject.user = userId;
-        userProject.project = obj.id;
-        userProject.userRole = obj.userRole;
-        userProject.start = obj.startDate.toString();
+    F.updateProject = function(project){
+        var users_projects = {};
+        users_projects.user = userId;
+        users_projects.project = project.id;
+        users_projects.userRole = project.userRole;
+        users_projects.start = project.startDate;
+        users_projects.end = project.endDate;
+        users_projects.current = project.current;
 
-        if(obj.endDate !== null) {
-            userProject.end = obj.endDate.toString();
-        } else {
-            userProject.end = null;
-        }
+        var Users_projects = $resource(prefix + 'users_projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        Users_projects.update({id: project._id}, users_projects);
 
-        var Users_projects = $resource(prefix + 'api/users_projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
-        Users_projects.update({id: userProject._id}, userProject, function(res){
-            console.log(res);
-        });
     };
 
     return F;

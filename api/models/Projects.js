@@ -13,21 +13,25 @@ module.exports = {
             required: true
         },
         description: {
-            type: 'string',
-            required: false
+            type: 'string'
         },
         technologies: {
             type: 'array',
             required: true
         },
-        screenshots: 'array',
+        screenshots: {
+            type: 'array'
+        },
         start: {
             type: 'date',
             required: true
         },
         end: {
-            type: 'date',
-            required: false
+            type: 'date'
+        },
+        binary: {
+            type: 'boolean',
+            defaultsTo: true
         },
         isDeleted: {
             type: 'boolean',

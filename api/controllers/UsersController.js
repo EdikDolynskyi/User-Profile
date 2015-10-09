@@ -88,7 +88,18 @@ module.exports = {
         Users.findOne({"serverUserId": req.param.id}).exec(function(err, user){
             res.send(user);
         })
-    }
+    },
+
+    updateCurrentProject: function(req,res) {
+        Users.native(function(err,collection) {
+            collection.update({_id: Users.mongo.objectId(req.param('id'))}, {$set: {currentProject: req.body.id || null}})}, function(err, data){
+                if (err) {
+                    res.send(err)
+                } else {
+                    res.send(data);
+                }
+            });
+        }
 };
 
 function prepareSearchUserDTOs(users, cb) {
