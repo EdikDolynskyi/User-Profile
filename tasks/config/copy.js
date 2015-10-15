@@ -37,6 +37,10 @@ module.exports = function(grunt) {
 					dest: '.tmp/public/js/dependencies/angular.cookies.min.js'
 				},
 				{
+					src: ['./bower_components/angular-messages/angular-messages.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.messages.min.js'
+				},
+				{
 					src: ['./bower_components/ng-file-upload/ng-file-upload.min.js'],
 					dest: '.tmp/public/js/dependencies/ng-file-upload.min.js'
 				},

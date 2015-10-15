@@ -158,7 +158,7 @@ function getProject(objUserProject,callback) {
                 return callback(err);
             }
             getProjectParticipants(objUserProject.project, function(err, projectParticipants) {
-                async.parallel([getProjectTechnologies.bind(null,item)],
+                async.parallel([getProjectTechnologies.bind(null, item)],
                     function(err, project) {
                         item._id = objUserProject.id;
                         item.userRole = objUserProject.userRole;
