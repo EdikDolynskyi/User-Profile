@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('PdpPublicController', function ($scope, $modal, $location, $rootScope, $route, PdpService) {
+app.controller('PdpPublicController', function ($scope, $modal, $location, $rootScope, $route, PdpService, UserProfileService) {
     var vm = this;
     var userPdpId = '';
     vm.userPDP = {};
@@ -19,7 +19,7 @@ app.controller('PdpPublicController', function ($scope, $modal, $location, $root
 
         var serverId = $route.current.params.serverId;
         if (serverId) {
-            PdpService.getByServerUserId(serverId, function (user) {
+            UserProfileService.getByServerUserId(serverId, function (user) {
                 $rootScope.userId = user.id;
                 userId = $rootScope.userId;
 
