@@ -24,6 +24,12 @@ function UserProfileService($resource) {
         return prefix + 'api/files/get/' + filename;
     };
 
+    this.getByServerUserId = function(suid, cb) {
+        $resource(prefix + 'api/users/?serverUserId=:id', {id: suid}).query(function (users) {
+            cb(users.length ? users[0] : null);
+        })
+    };
+
     this.addLog = function (userId, data, cb) {
         $resource(prefix + 'api/logs/?userId=:userId', {userId: userId}).query(function (log) {
 
