@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngFileUpload', 'ui.bootstrap']);
+var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngMessages', 'ngFileUpload', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
 	var prefix = window.location.pathname;

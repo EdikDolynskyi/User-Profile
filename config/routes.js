@@ -66,11 +66,15 @@ module.exports.routes = {
 
   'post /downloadimg': 'FilesController.downloadFile',
 
-  'put /cv/:cv_id/technology/:id': 'CvsController.updateCVTechnology',
+  'get /cv/:cv_id/technology/:id': 'CvsController.getTechnology',
+  'put /cv/:cv_id/technology/:id': 'CvsController.updateTechnology',
   'put /cv/:cv_id/technology': 'CvsController.removeTechnologyFromCV',
   'post /cv/:cv_id/technology': 'CvsController.addTechnologyToCV',
   'get /users_projects/:user_id': 'Users_projectsController.getUserProjects',
-  'get /api/users_projects/:id': 'Users_projectsController.getProject'
+  'get /projects/:id': 'Users_projectsController.getProject',
+  'post /projects': 'Users_projectsController.createProject',
+  'put /users/:id/currentproject': 'UsersController.updateCurrentProject',
+  'put /users_projects/:id': 'Users_projectsController.updateProject'
 
 
   /***************************************************************************
