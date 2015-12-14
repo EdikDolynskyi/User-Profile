@@ -70,7 +70,8 @@ module.exports.routes = {
   'put /cv/:cv_id/technology': 'CvsController.removeTechnologyFromCV',
   'post /cv/:cv_id/technology': 'CvsController.addTechnologyToCV',
   'get /users_projects/:user_id': 'Users_projectsController.getUserProjects',
-  'get /api/users_projects/:id': 'Users_projectsController.getProject'
+  'get /api/users_projects/:id': 'Users_projectsController.getProject',
+  'get /api/projects/:id': 'ProjectController.getProject'
 
 
   /***************************************************************************

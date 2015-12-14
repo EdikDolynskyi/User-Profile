@@ -12,6 +12,9 @@ app.config(function ($routeProvider) {
 			templateUrl: prefix + 'js/main-page/user-search.html',
 			controller: 'MainController'
 		}).
+		when('/projects/:projectId', {
+			templateUrl:  prefix + 'js/projects/projects.html'
+		}).
 		when('/userdata/:userId', {
 			templateUrl:  prefix + 'js/up/up-data.html'
 		}).

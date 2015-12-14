@@ -15,6 +15,10 @@ module.exports = {
             .exec(function (err, objUserProject) {
                 getProject(objUserProject,callback);
             });
+    },
+
+    getProject: function(objUserProject, callback){
+        getProjectById(objUserProject, callback);
     }
 };
 
@@ -49,6 +53,30 @@ function getUserProjects(users_projects, asyncCallback){
             }
             asyncCallback(null, results);
         });
+}
+
+function getProjectById(objUserProject, callback){
+            Projects
+                .findOne(objUserProject.project)
+                .exec(function (err, item){
+                    if(err){
+                        return callback(err);
+                    }
+                    getProjectParticipants(objUserProject.project, function(err, projectParticipants) {
+                        async.parallel([getProjectTechnologies.bind(null,item)],
+                            function(err, project) {
+                                item._id = objUserProject.id;
+                                item.userRole = objUserProject.userRole;
+                                item.startDate = objUserProject.start;
+                                item.endDate = objUserProject.end;
+                                item.participants = projectParticipants;
+                                item.current = false;
+
+                                callback(err, item);
+                            }
+                        );
+                    });
+                });
 }
 
 function getProjectTechnologies(project, asyncCallback) {
