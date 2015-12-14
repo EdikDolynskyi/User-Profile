@@ -12,7 +12,10 @@ module.exports = {
             type: 'string',
             unique: true
         },
-        category: 'string',
+        category: {
+            model : 'Categories',
+            type: 'string'
+        },
         isDeleted: {
             type: 'boolean',
             defaultsTo: false

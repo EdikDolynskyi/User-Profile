@@ -8,7 +8,7 @@
 module.exports = {
     connection: 'mongo',
     attributes: {
-        name: 'string',
+        technologies: 'array',
         isDeleted: {
             type: 'boolean',
             defaultsTo: false

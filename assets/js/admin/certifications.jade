@@ -1,0 +1,75 @@
+div.test(ng-controller="CertificationsController as cert")
+	script(type='text/ng-template', id='modalCertifications.html').
+		<div class="modal-header">
+			<h3 class="modal-title">Edit certificate</h3>
+		</div>
+		<div class="modal-body row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<img class="img-responsive" ng-src="{{modalcert.tmpSrc}}" height="300px" width="300px">
+				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalcert.upload($file)">
+					<span class="glyphicon glyphicon-upload"></span>
+				</button>	
+				<form class="voffset3">
+					<div class="form-group">
+						<input type="text" ng-model="modalcert.tmpName" class="form-control">
+					</div>
+				</form>
+				<div class="btn-group full-width" dropdown='' keyboard-nav=''>
+					<button class="btn btn-default col-md-10">
+						{{modalcert.tmpCategory.name}}
+					</button>
+					<button id="simple-btn-keyboard-nav" class="btn btn-default col-md-2" dropdown-toggle=''>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu scrollable-menu" role='menu' aria-labelledby='simple-btn-keyboard-nav'>
+						<li role='menuitem' ng-repeat="category in modalcert.categories | orderBy : 'name'">
+							<a ng-click="modalcert.selectCategory(category)"> {{category.name}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-danger pull-left" ng-click="modalcert.delete()">Delete</button>
+		<button class="btn btn-primary" type="button" ng-click="modalcert.save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="modalcert.cancel()">Cancel</button>
+		</div>
+	.row
+		.col-md-6
+			input.form-control.input-lg(type="text" placeholder="Search" ng-model="searchText") 
+		.col-md-3
+			button.btn.btn-primary.btn-lg(type='button', ng-click='cert.isCollapsed = false') Create new certificate
+		.col-md-12
+			.alert.alert-success.voffset4(role="alert", ng-show="cert.showAlert") Certificate has been created successfully!
+	.row.voffset5(collapse="cert.isCollapsed")
+		.col-md-6.col-md-offset-3
+			img.img-responsive(src= "{{cert.certification.src}}")
+			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="cert.upload($file)")
+				span.glyphicon.glyphicon-upload
+			a(href='javascript: void(0)', ng-click="cert.showUrlInput=!cert.showUrlInput") Add a photo from a website
+			form.voffset3(name="certificationsForm", role="form", ng-submit="cert.createCertification()")
+				.form-group(ng-class="{ 'has-error': certificationsForm.name.$touched && certificationsForm.name.$invalid || certificationsForm.url.$touched && certificationsForm.url.$invalid}")
+					input.form-control.input-lg(type="url", name="url", ng-model="cert.url", ng-show = "cert.showUrlInput" placeholder="http://" ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
+					input.form-control.input-lg.voffset3(type="text", name="name", ng-model="cert.certification.name", placeholder="Certificate name",required)
+				.btn-group.full-width(dropdown='', keyboard-nav='')
+					button.btn.btn-default.btn-lg.col-md-10(type='button')
+						| {{cert.certification.category.name}}
+					button#simple-btn-keyboard-nav.btn.btn-default.btn-lg.col-md-2(type='button', dropdown-toggle='')
+						span.caret
+					ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
+						li(role='menuitem' ng-repeat="category in cert.categories | orderBy : 'name'")
+							a(ng-click="cert.selectCategory(category)") {{category.name}}
+				.btn-group.full-width.voffset3
+					button.btn.btn-primary.btn-lg.col-md-6(type='submit') Create
+					button.btn.btn-warning.btn-lg.col-md-6(ng-click='cert.isCollapsed = true') Cancel			
+	.row.voffset5
+		.col-md-4.col-height(ng-repeat='certification in cert.certifications | filter:searchText track by $index')
+			div.thumbnail
+				.clearfix
+					img.img-responsive(ng-src='{{certification.src}}')
+				div.cert-name
+					b {{certification.name}}
+				div.cert-category Category: {{certification.category.name}}
+				.btn.btn-default.btn-lg.edit-btn(ng-click="cert.open(certification)")
+					span.glyphicon.glyphicon-pencil
+

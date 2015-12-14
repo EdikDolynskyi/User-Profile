@@ -1,0 +1,59 @@
+div.container-fluid(ng-controller="UserProfilePublicController as ctrl")
+    .page-header
+        h2 Personal info
+    .col-md-6.col-sm-6.col-xs-12
+        .panel.panel-default
+            .panel-heading
+                h3.panel-title User Profile
+            .panel-body
+                .up-title
+                .up-data {{ctrl.user.name + " " + ctrl.user.surname}}
+
+                .up-title Age
+                .up-data {{ctrl.user.age}}
+
+                .up-title Birthday
+                .up-data(ng-bind="ctrl.user.birthday | date:'dd-MMMM-yyyy'")
+
+                .up-title Gender
+                .up-data {{ctrl.user.gender}}
+
+        .panel.panel-default
+            .panel-heading
+                h3.panel-title Address
+            .panel-body
+                .up-title Country
+                .up-data {{ctrl.user.country}}
+
+                .up-title City
+                .up-data {{ctrl.user.city}}
+
+        .panel.panel-default
+            .panel-heading
+                h3.panel-title Contacts
+            .panel-body
+                .up-title Email address
+                .up-data {{ctrl.user.email}}
+
+        .panel.panel-default(ng-controller='PdpController as pdp')
+            .panel-heading
+                h3.panel-title Position
+            .panel-body
+                .up-title Position in company
+                //.up-data {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
+                .up-data {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
+
+                .up-title Work since
+                .up-data(ng-bind="ctrl.user.workDate | date:'dd-MMMM-yyyy'")
+
+    .col-md-6.col-sm-6.col-xs-12
+        img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+
+        .panel.panel-default
+            .panel-heading
+                h3.panel-title Project
+            .panel-body
+                .up-title project
+                //.up-data {{ctrl.user.project}}
+
+

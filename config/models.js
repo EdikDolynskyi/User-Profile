@@ -17,14 +17,16 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
+
   connection: 'mongo',
-  attributes: {
-    isDeleted: { 
-        type: 'boolean',
-        columnName: 'isDeleted',
-        defaultsTo: false
-    }
-  },
+  //attributes: {
+  //  isDeleted: {
+  //      type: 'boolean',
+  //      columnName: 'isDeleted',
+  //      defaultsTo: false
+  //  }
+  //},
+
   /***************************************************************************
   *                                                                          *
   * How and whether Sails will attempt to automatically rebuild the          *
@@ -33,6 +35,8 @@ module.exports.models = {
   * See http://sailsjs.org/#/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
+
   migrate: 'alter'
 
 };
+

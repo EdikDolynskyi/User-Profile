@@ -26,20 +26,38 @@ module.exports = function(grunt) {
 				},
 				{
 					src: ['./bower_components/angular/angular.min.js'],
-					dest: '.tmp/public/js/dependencies/angular.min.js'
+					dest: '.tmp/public/js/dependencies/angular.amin.js'
 				},
 				{
-
 					src: ['./bower_components/angular-route/angular-route.min.js'],
 					dest: '.tmp/public/js/dependencies/angular.route.min.js'
 				},
 				{
-					src: ['./bower_components/bootstrap/dist/css/bootstrap.css'],
-					dest: '.tmp/public/js/dependencies/bootstrap.css'
+					src: ['./bower_components/angular-cookies/angular-cookies.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.cookies.min.js'
+				},
+				{
+					src: ['./bower_components/ng-file-upload/ng-file-upload.min.js'],
+					dest: '.tmp/public/js/dependencies/ng-file-upload.min.js'
+				},
+				{
+
+					src: ['./bower_components/angular-resource/angular-resource.min.js'],
+					dest: '.tmp/public/js/dependencies/angular.resource.min.js'
 				},
 				{
 					src: ['./bower_components/angular-bootstrap/ui-bootstrap-tpls.js'],
 					dest: '.tmp/public/js/dependencies/ui-bootstrap-tpls.js'
+				},
+				{
+					src: ['./bower_components/bootstrap/dist/css/bootstrap.css'],
+					dest: '.tmp/public/styles/dependencies/bootstrap.css'
+				},
+				{
+					expand: true,
+					cwd: './bower_components/bootstrap/fonts/',
+					src: ['*.*'],
+					dest: '.tmp/public/styles/fonts'
 
 				}
 			]

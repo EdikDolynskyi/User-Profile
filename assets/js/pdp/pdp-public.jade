@@ -1,0 +1,59 @@
+div.pdp(ng-controller='PdpPublicController as pdp')
+    .panel.panel-default
+        .panel-heading
+            .panel-title Position
+        .panel-body
+            h4 {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
+    accordion
+        accordion-group.voffset4(is-open='pdp.status.isCertificationsOpen')
+            accordion-heading
+                | Certifications
+                i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isCertificationsOpen, 'glyphicon-chevron-right': !pdp.status.isCertificationsOpen}")
+            .col-md-4.col-height(ng-repeat='certification in pdp.userPDP.completedCertifications')
+                div.thumbnail(popover="{{certification.description}}" popover-trigger="mouseenter")
+                    .clearfix
+                        img.img-responsive(ng-src='{{certification.src}}')
+                    div.cert-name
+                        b {{certification.name}}
+                    div.cert-category Category: {{certification.category.name}}
+    accordion
+        accordion-group.voffset4(is-open='pdp.status.isAchievementsOpen')
+            accordion-heading
+                | Achievements
+                i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isAchievementsOpen, 'glyphicon-chevron-right': !pdp.status.isAchievementsOpen}")
+            .col-md-4.col-height(ng-repeat='achievement in pdp.userPDP.achievements')
+                div.thumbnail(popover="{{achievement.description}}" popover-trigger="mouseenter")
+                    .clearfix
+                        img.img-responsive(ng-src='{{achievement.src}}')
+                    div.achieve-name
+                        b {{achievement.name}}
+                    div.achieve-category Category: {{achievement.category.name}}
+    accordion
+        accordion-group.voffset4(is-open='pdp.status.isStepsOpen')
+            accordion-heading
+                | Steps needed to reach the next position
+                i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': pdp.status.isStepsOpen, 'glyphicon-chevron-right': !pdp.status.isStepsOpen}")
+
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title Technologies
+                .list-group(ng-repeat='technology in pdp.userPDP.technologies')
+                    .list-group-item {{technology.name}}
+
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title Certifications
+                .list-group(ng-repeat='certification in pdp.userPDP.certifications')
+                    .list-group-item {{certification.name}}
+
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title Tasks
+                .list-group(ng-repeat='task in pdp.userPDP.tasks')
+                    .list-group-item {{task.name}}
+
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title Tests
+                .list-group(ng-repeat='test in pdp.userPDP.tests')
+                    .list-group-item {{test.name}}

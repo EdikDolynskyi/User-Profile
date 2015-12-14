@@ -19,6 +19,11 @@ module.exports = {
 
   // models: {
   //   connection: 'someMongodbServer'
-  // }
+  // },
+
+  authServerURL: 'http://localhost:2020',
+  refererURL: 'http://localhost:1337',
+  createUserURL: 'http://localhost:1337/newuser'
+
 
 };

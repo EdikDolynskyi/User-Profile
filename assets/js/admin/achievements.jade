@@ -1,0 +1,75 @@
+div.test(ng-controller="AchievementsController as achiev")
+	script(type='text/ng-template', id='modalAchievements.html').
+		<div class="modal-header">
+			<h3 class="modal-title">Edit achievement</h3>
+		</div>
+		<div class="modal-body row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<img class="img-responsive" ng-src="{{modalach.tmpSrc}}" height="300px" width="300px">
+				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalach.upload($file)">
+					<span class="glyphicon glyphicon-upload"></span>
+				</button>	
+				<form class="voffset3">
+					<div class="form-group">
+						<input type="text" ng-model="modalach.tmpName" class="form-control">
+					</div>
+				</form>
+				<div class="btn-group full-width" dropdown='' keyboard-nav=''>
+					<button class="btn btn-default col-md-10">
+						{{modalach.tmpCategory.name}}
+					</button>
+					<button id="simple-btn-keyboard-nav" class="btn btn-default col-md-2" dropdown-toggle=''>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu scrollable-menu" role='menu' aria-labelledby='simple-btn-keyboard-nav'>
+						<li role='menuitem' ng-repeat="category in modalach.categories | orderBy : 'name'">
+							<a ng-click="modalach.selectCategory(category)"> {{category.name}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-danger pull-left" ng-click="modalach.delete()">Delete</button>
+		<button class="btn btn-primary" type="button" ng-click="modalach.save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="modalach.cancel()">Cancel</button>
+		</div>
+	.row
+		.col-md-6
+			input.form-control.input-lg(type="text" placeholder="Search" ng-model="searchText") 
+		.col-md-3
+			button.btn.btn-primary.btn-lg(type='button', ng-click='achiev.isCollapsed = false') Create new achievement
+		.col-md-12
+			.alert.alert-success.voffset4(role="alert", ng-show="achiev.showAlert") Achievement has been created successfully!
+	.row.voffset5(collapse="achiev.isCollapsed")
+		.col-md-6.col-md-offset-3
+			img.img-responsive(src= "{{achiev.achievement.src}}")
+			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="achiev.upload($file)")
+				span.glyphicon.glyphicon-upload
+			a(href='javascript: void(0)', ng-click="achiev.showUrlInput=!achiev.showUrlInput") Add a photo from a website
+			form.voffset3(name="achievementsForm", role="form", ng-submit="achiev.createAchievement()")
+				.form-group(ng-class="{ 'has-error': achievementsForm.name.$touched && achievementsForm.name.$invalid }")
+					input.form-control.input-lg(type="url", name="url", ng-model="achiev.url", ng-show="achiev.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
+					input.form-control.input-lg.voffset3(type="text", name="name", ng-model="achiev.achievement.name", placeholder="Achievement name",required)
+				.btn-group.full-width(dropdown='', keyboard-nav='')
+					button.btn.btn-default.btn-lg.col-md-10(type='button')
+						| {{achiev.achievement.category.name}}
+					button#simple-btn-keyboard-nav.btn.btn-default.btn-lg.col-md-2(type='button', dropdown-toggle='')
+						span.caret
+					ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
+						li(role='menuitem' ng-repeat="category in achiev.categories | orderBy : 'name'")
+							a(ng-click="achiev.selectCategory(category)") {{category.name}}
+				.btn-group.full-width.voffset3
+					button.btn.btn-primary.btn-lg.col-md-6(type='submit') Create
+					button.btn.btn-warning.btn-lg.col-md-6(ng-click='achiev.isCollapsed = true') Cancel			
+	.row.voffset5
+		.col-md-4.col-height(ng-repeat='achievement in achiev.achievements | filter:searchText track by $index')
+			div.thumbnail
+				.clearfix
+					img.img-responsive(ng-src='{{achievement.src}}')
+				div.achieve-name
+					b {{achievement.name}}
+				div.achieve-category Category: {{achievement.category.name}}
+				.btn.btn-default.btn-lg.edit-btn(ng-click="achiev.open(achievement)")
+					span.glyphicon.glyphicon-pencil
+

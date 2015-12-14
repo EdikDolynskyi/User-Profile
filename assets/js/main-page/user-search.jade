@@ -1,0 +1,66 @@
+div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ctrl.allUsers();ctrl.allPositions();ctrl.allTechnologies();ctrl.allDirections();ctrl.allPositions();ctrl.allCertificates();')
+    h3(class="col-md-12",style="margin-bottom: 0") Search with filters
+        p
+        hr
+    .col-md-8.col-sm-8.col-xs-12
+        .list-group(ng-model="allUsersList", ng-repeat="user in ctrl.allUsersList | orderBy:'department'")
+            button.list-group-item( type='button', ng-click='ctrl.showUserPageFromFilter(user.id)')
+                .col-md-3
+                    img.img-responsive.img-thumbnail#thumbnailsInFilter(ng-src= "{{ctrl.prefix + user.avatar}}", width='40', height='60', alt='avatar')
+
+                .col-md-9
+                    | {{user.name}} <br>
+                    | {{user.department}}
+
+
+    .col-md-4.col-sm-4.col-xs-12.personal-info
+        .form-group
+            label Technology
+            hr
+            select.form-control(
+                ng-model="ctrl.searchParams.technology",
+                ng-options='tech.name as tech.name for tech in ctrl.allTechList',
+                ng-change="ctrl.GlobalSearch()")
+                option(value='' selected) none
+
+        .form-group
+            label Knowledge level
+            hr
+            select.form-control.glyphicon(ng-model="ctrl.searchParams.knowlevel", ng-change="ctrl.GlobalSearch()")
+                optgroup(style='font-family:arial')
+                    option(value='') none
+                option(value='1') &#xe006;
+                option(value='2') &#xe006;&#xe006;
+                option(value='3') &#xe006;&#xe006;&#xe006;
+                option(value='4') &#xe006;&#xe006;&#xe006;&#xe006;
+                option(value='5') &#xe006;&#xe006;&#xe006;&#xe006;&#xe006;
+
+        .form-group
+            label Department
+            hr
+            select.form-control(
+                ng-model="ctrl.searchParams.direction",
+                ng-options='department.name as department.name for department in ctrl.allDirectionList',
+                ng-change="ctrl.GlobalSearch()")
+                option(value='' selected) none
+
+        .form-group
+            label Level
+            hr
+            select.form-control(
+                ng-model="ctrl.searchParams.position",
+                ng-options='position.name as position.name for position in ctrl.allPositionsList',
+                ng-change="ctrl.GlobalSearch()")
+                option(value='' selected) none
+
+
+        .form-group
+            label Certificates
+            hr
+            select.form-control(
+                ng-model="ctrl.searchParams.certificate",
+                ng-options='certificate.name as certificate.name for certificate in ctrl.allCertificatesList',
+                ng-change="ctrl.GlobalSearch()")
+                option(value='' selected) none
+
+        input.btn.btn-default(value='Exit', ng-click='ctrl.go("/")', readonly)

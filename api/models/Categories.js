@@ -8,6 +8,10 @@
 module.exports = {
     connection: 'mongo',
     attributes: {
+        certifications: {
+            collection: "certifications",
+            via: "category"
+        },
         name: {
             type: 'string',
             unique: true

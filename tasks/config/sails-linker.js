@@ -29,19 +29,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		prodStylesRelativeJade: {
-			options: {
-				startTag: '// STYLES',
-				endTag: '// STYLES END',
-				fileTmpl: 'link(rel="stylesheet", href="%s")',
-				appRoot: '.tmp/public',
-				relative: true
-			},
-			files: {
-				'views/*.jade': grunt.config.get('concat').css.dest
-			}
-		},
-
 		devJsRelativeJade: {
 			options: {
 				startTag: '// SCRIPTS',
@@ -55,19 +42,31 @@ module.exports = function(grunt) {
 			}
 		},
 
-		prodJsRelativeJade: {
+		prodStylesRelativeJade: {
 			options: {
-				startTag: '// SCRIPTS',
-				endTag: '// SCRIPTS END',
-				fileTmpl: 'script(src="%s")',
+				startTag: '// STYLES',
+				endTag: '// STYLES END',
+				fileTmpl: 'link(rel="stylesheet", href="/profile/%s")',
 				appRoot: '.tmp/public',
 				relative: true
 			},
 			files: {
-				'views/*.jade': grunt.config.get('concat').js.dest
+				'views/*.jade': require('../pipeline').cssFiles
+			}
+		},
+
+		prodJsRelativeJade: {
+			options: {
+				startTag: '// SCRIPTS',
+				endTag: '// SCRIPTS END',
+				fileTmpl: 'script(src="/profile/%s")',
+				appRoot: '.tmp/public',
+				relative: true
+			},
+			files: {
+				'views/*.jade': require('../pipeline').jsFiles
 			}
 		}
-
 	});
 
 	grunt.loadNpmTasks('grunt-sails-linker');

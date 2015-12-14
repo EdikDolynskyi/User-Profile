@@ -4,19 +4,11 @@
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
-var bcrypt = require('bcrypt-nodejs');
-
 module.exports = {
     connection: 'mongo',
     attributes: {
         email: {
             type: 'email',
-            required: true,
-            unique: true
-        },
-        password: {
-            type: 'string',
-            minLength: 6,
             required: true
         },
         name: {
@@ -25,58 +17,55 @@ module.exports = {
         },
         surname: {
             type: 'string',
-            required: true
+            required: false
         },
         country: {
             type: 'string',
-            required: true
+            required: false
         },
         city: {
             type: 'string',
-            required: true
+            required: false
         },
         gender: {
             type: 'string',
-            required: true,
+            required: false,
             enum: ['male', 'female']
         },
         birthday: {
             type: 'date',
-            required: true
+            required: false
         },
         avatar: {
-            urlAva: 'string',
-            thumbnailUrlAva: 'string'
+            type: 'json'
+        },
+        workDate: {
+            type: 'date',
+            required: false
         },
         userCV: {
+            model : 'Cvs',
             type: 'string',
-            unique: true
+            unique: false
         },
         userPDP: {
+            model : 'Pdps',
             type: 'string',
-            unique: true
+            unique: false
+        },
+        currentProject: {
+            type: 'string'
         },
         isDeleted: {
             type: 'boolean',
             defaultsTo: false
         },
-        toJSON: function () {
-            var obj = this.toObject();
-            delete obj.password;
-            return obj;
+        changeAccept: {
+            type: 'boolean',
+            defaultsTo: true
+        },
+        preModeration: {
+            type: 'json'
         }
-    },
-    beforeCreate: function (user, cb) {
-        bcrypt.genSalt(10, function (err, salt) {
-            bcrypt.hash(user.password, salt, function (err, hash) {
-                if (err) {
-                    console.log(err);
-                    cb(err);
-                } else {
-                    user.password = hash;
-                    cb();
-                }
-            });
-        });
     }
 };

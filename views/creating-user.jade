@@ -1,0 +1,36 @@
+doctype html
+html(ng-app='myApp')
+    head(lang='eng')
+        base(href="/")
+        meta(charset='UTF-8')
+        title User Profile
+        // STYLES
+        link(rel="stylesheet", href="styles/achievements.css")
+        link(rel="stylesheet", href="styles/cv.css")
+        link(rel="stylesheet", href="styles/dependencies/bootstrap.css")
+        link(rel="stylesheet", href="styles/homepage.css")
+        link(rel="stylesheet", href="styles/main.css")
+        link(rel="stylesheet", href="styles/pdp.css")
+        link(rel="stylesheet", href="styles/profile.css")
+        link(rel="stylesheet", href="styles/techdata.css")
+        link(rel="stylesheet", href="styles/user-page.css")
+        // STYLES END
+    body
+        header.container-fluid
+            .col-lg-1
+                img.logo(src="http://academy.binary-studio.com/resources/logo.png")
+
+        .col-md-6.col-md-offset-3.article(ng-include="'profile/js/creating-user/creating-user.html'")
+        //.col-md-6.col-md-offset-3.article(ng-include="'js/creating-user/creating-user.html'")
+
+        // SCRIPTS
+        script(src="js/dependencies/angular.amin.js")
+        script(src="js/dependencies/angular.cookies.min.js")
+        script(src="js/dependencies/angular.resource.min.js")
+        script(src="js/dependencies/angular.route.min.js")
+        script(src="js/dependencies/ng-file-upload.min.js")
+        script(src="js/dependencies/sails.io.js")
+        script(src="js/dependencies/ui-bootstrap-tpls.js")
+        script(src="js/main.js")
+        // SCRIPTS END
+                                 
