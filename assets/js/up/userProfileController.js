@@ -31,13 +31,10 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
             vm.userOriginal = angular.extend({}, user);
             vm.user = angular.copy(vm.userOriginal);
         }
-<<<<<<< HEAD
         vm.user.avatar.urlAva = prefix +  vm.user.avatar.urlAva;
         PdpService.getPDPByID(vm.user.userPDP.id, function(pdp){
             vm.user.userPDP = pdp;
         });
-=======
->>>>>>> DEMO_3
     });
 
     $scope.$watch(angular.bind(vm, function () {
