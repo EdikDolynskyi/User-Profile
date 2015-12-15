@@ -1,81 +1,103 @@
-div.container-fluid(ng-controller="UserProfileController as ctrl", ng-cloak)
-    .page-header
-        h2 Personal info
-    .col-md-6.col-sm-6.col-xs-12
-        .form-group
-            label Name
-            input(ng-model="ctrl.user.name", ng-change="ctrl.change('name', ctrl.user.name)", class="form-control", placeholder="Name")
+form.container-fluid(ng-controller="UserProfileController as ctrl", name='MainProfile')
+	.page-header
+		h2 Personal info
+	.col-md-6.col-sm-6.col-xs-12
+		.form-group
+			label Name
+			input(name="userName" ng-model="ctrl.user.name", ng-change="ctrl.change('name', ctrl.user.name)",
+			class="form-control", ng-required="true", ng-maxlength=100, ng-pattern="/^[a-zA-ZА-Яа-яЁёіІїЇєЄґҐ\s]+$/",
+			ng-class= "{errorborder: MainProfile.userName.$invalid && MainProfile.userName.$dirty && MainProfile.userName.$touched}" placeholder="Name")
+			.error-block(ng-show='MainProfile.userName.$invalid && MainProfile.userName.$dirty && MainProfile.userName.$touched')
+				p(ng-show="MainProfile.userName.$error.required") Name is required
+				p(ng-show="MainProfile.userName.$error.maxlength") Name should contain les then 100 letters
+				p(ng-show="MainProfile.userName.$error.pattern") Name should contain only letters
 
-        .form-group
-            label Surname
-            input(ng-model="ctrl.user.surname", ng-change="ctrl.change('surname', ctrl.user.surname)", class="form-control", placeholder="Surname")
-        .form-group
-            label Birthday
-            .input-group
-                input.form-control(
-                    ng-model='ctrl.user.birthday',
-                    ng-change="ctrl.change('birthday', ctrl.user.birthday)",
-                    is-open='showBirthdayDatePicker',
-                    min-date="'1900-01-01'",
-                    max-date="ctrl.today",
-                    datepicker-popup='dd-MM-yyyy',
-                    datepicker-append-to-body="true",
-                    close-text='Close')
-                span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
-                        i.glyphicon.glyphicon-calendar
-        .form-group
-            label Gender
-                p
-                .radio.radio-info.radio-inline
-                input#inlineRadio1(ng-model="ctrl.user.gender", ng-change="ctrl.change('gender', ctrl.user.gender)", type='radio', value='male', name='radioInline')
-                label(for='inlineRadio1')
-                    span.glyphicon.glyphicon-user(aria-hidden='true')
-                    |  Male
-                .radio.radio-inline
-                input#inlineRadio2(ng-model="ctrl.user.gender", ng-change="ctrl.change('gender', ctrl.user.gender)", type='radio', value='female', name='radioInline')
-                label(for='inlineRadio2')
-                    span.glyphicon.glyphicon-heart(aria-hidden='true')
-                    |  Female
+		.form-group
+			label Surname
+			input(name="userSurname", ng-model="ctrl.user.surname", ng-change="ctrl.change('surname', ctrl.user.surname)",
+			class="form-control", ng-required="true", ng-maxlength=100, ng-pattern="/^[a-zA-ZА-Яа-яЁёіІїЇєЄґҐ\s]+$/",
+			ng-class= "{errorborder: MainProfile.userSurname.$invalid && MainProfile.userSurname.$dirty && MainProfile.userSurname.$touched}" placeholder="Surname")
+			.error-block(ng-show='MainProfile.userSurname.$invalid && MainProfile.userSurname.$dirty && MainProfile.userSurname.$touched')
+				p(ng-show="MainProfile.userSurname.$error.required") Surname is required
+				p(ng-show="MainProfile.userSurname.$error.maxlength") Surname should contain les then 100 letters
+				p(ng-show="MainProfile.userSurname.$error.pattern") Surname should contain only letters
+		.form-group
+			label Birthday
+			.input-group
+				input.form-control(
+					name="userBirthday",
+					ng-model='ctrl.user.birthday',
+					ng-change="ctrl.change('birthday', ctrl.user.birthday)",
+					is-open='showBirthdayDatePicker',
+					min-date="'1900-01-01'",
+					ng-required="true",
+					max-date="ctrl.today",
+					readonly="true",
+					datepicker-popup='dd-MM-yyyy',
+					datepicker-append-to-body="true",
+					close-text='Close',
+					ng-class= "{errorborder: MainProfile.userBirthday.$invalid && MainProfile.userBirthday.$dirty && MainProfile.userBirthday.$touched}")
+				span.input-group-btn
+					button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
+						i.glyphicon.glyphicon-calendar
+			.error-block(ng-show=' MainProfile.userBirthday.$invalid && MainProfile.userBirthday.$dirty && MainProfile.userBirthday.$touched')
+				p(ng-show=" MainProfile.userBirthday.$invalid") Birthday is required
+		.form-group
+			label Gender
+				p
+				.radio.radio-info.radio-inline
+				input#inlineRadio1(ng-model="ctrl.user.gender", ng-change="ctrl.change('gender', ctrl.user.gender)", type='radio', value='male', name='radioInline')
+				label(for='inlineRadio1')
+					|  Male
+				.radio.radio-inline
+				input#inlineRadio2(ng-model="ctrl.user.gender", ng-change="ctrl.change('gender', ctrl.user.gender)", type='radio', value='female', name='radioInline')
+				label(for='inlineRadio2')
+					|  Female
 
-        .form-group
-            label Country
-            input(ng-model="ctrl.user.country", ng-change="ctrl.change('country', ctrl.user.country)", class="form-control", placeholder="Country")
+		.form-group
+			label Country
+			input(ng-model="ctrl.user.country", ng-change="ctrl.change('country', ctrl.user.country)", class="form-control", placeholder="Country")
 
-        .form-group
-            label City
-            input(ng-model="ctrl.user.city", ng-change="ctrl.change('city', ctrl.user.city)", class="form-control", placeholder="City")
-
-
-        .form-group
-            label Start work in Binary Studio
-            .input-group
-                input.form-control(
-                ng-model='ctrl.user.workDate',
-                ng-change="ctrl.change('workDate', ctrl.user.workDate)",
-                is-open='showWorkDatePicker',
-                min-date="'1900-01-01'",
-                max-date="ctrl.today",
-                datepicker-popup='dd-MM-yyyy',
-                datepicker-append-to-body="true",
-                close-text='Close')
-                span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
-                        i.glyphicon.glyphicon-calendar
-
+		.form-group
+			label City
+			input(ng-model="ctrl.user.city", ng-change="ctrl.change('city', ctrl.user.city)", class="form-control", placeholder="City")
 
 
-    .col-md-6.col-sm-6.col-xs-12.personal-info
-        .panel.panel-default
-            .panel-body
-                img.avatar.img-responisve(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
-                br
-                span.glyphicon.glyphicon-upload
-                a(href='javascript: void(0)', ng-click="ctrl.showUrlInput=!ctrl.showUrlInput") Add a photo from a website
-                .form-group
-                    input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
-                .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
+		.form-group
+			label Start work in Binary Studio
+			.input-group
+				input.form-control(
+				name="startWork",
+				ng-model='ctrl.user.workDate',
+				ng-change="ctrl.change('workDate', ctrl.user.workDate)",
+				is-open='showWorkDatePicker',
+				min-date="'2005-12-25'",
+				ng-required="true",
+				readonly="true",
+				max-date="ctrl.today",
+				datepicker-popup='dd-MM-yyyy',
+				datepicker-append-to-body="true",
+				close-text='Close',
+				ng-class= "{errorborder: MainProfile.startWork.$invalid && MainProfile.startWork.$dirty && MainProfile.startWork.$touched}")
+				span.input-group-btn
+					button.btn.btn-default(type='button', ng-click='showWorkDatePicker = !showWorkDatePicker')
+						i.glyphicon.glyphicon-calendar
+			.error-block(ng-show=' MainProfile.startWork.$invalid && MainProfile.startWork.$dirty && MainProfile.startWork.$touched')
+				p(ng-show=" MainProfile.startWork.$invalid") Start work in company is required
 
-    .col-md-12.form-group
-        input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)
-        input.btn.btn-default(value='Cancel', ng-click='ctrl.cancelUpdate()', readonly)
+
+
+	.col-md-6.col-sm-6.col-xs-12.personal-info
+		.panel.panel-default
+			.panel-body
+				img.avatar.img-responisve(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+				br
+				span.glyphicon.glyphicon-upload
+				a(href='javascript: void(0)', ng-click="ctrl.showUrlInput=!ctrl.showUrlInput") Add a photo from a website
+				.form-group
+					input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
+				.btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
+
+	.col-md-12.form-group
+		input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)
+		input.btn.btn-default(value='Cancel', ng-click='ctrl.cancelUpdate()', readonly)
