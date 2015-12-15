@@ -30,25 +30,29 @@
     		removeAchievement: removeAchievement,
     		getAchievements: getAchievements,
     		addCompletedCertification: addCompletedCertification,
-    		removeCompletedCertification: removeCompletedCertification
+    		removeCompletedCertification: removeCompletedCertification,
+    		getPDPByID: getPDPByID
     	};
     	return service;
 
 		function getPDP(userId, callback) {
-
-
-
+			var self = this;
 			$resource(prefix + 'api/users/:id', {id: userId}).get(function (user) {
 				var userPDP = {};
-				$resource(prefix + 'getpdp/:id', {id: user.userPDP.id}).get(function (resPDP) {
-					userPDP = resPDP;
-					console.log(resPDP);
-					callback(userPDP);
-
-				}, function (err) {
-					console.log(err);
-				});
+				self.getPDPByID(user.userPDP.id, function(pdp){
+					callback(pdp);
+				})
 			});
+		}
+
+		function getPDPByID(id, callback){
+			$resource(prefix + 'getpdp/:id', {id: id}).get(function (resPDP) {
+				userPDP = resPDP;
+				console.log(resPDP);
+				callback(userPDP);
+			}, function (err) {
+				console.log(err);
+			});			
 		}
 
 	    function getAchievements(callback){

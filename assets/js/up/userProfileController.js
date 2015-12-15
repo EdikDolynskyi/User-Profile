@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('UserProfileController', ['$scope', 'UserProfileService', 'uploadService', 'downloadService', '$rootScope', userCtrl]);
+app.controller('UserProfileController', ['$scope', 'UserProfileService', 'uploadService', 'downloadService', '$rootScope', 'PdpService', userProfileCtrl]);
 
-function userCtrl($scope, UserProfileService, uploadService, downloadService, $rootScope) {
+function userProfileCtrl($scope, UserProfileService, uploadService, downloadService, $rootScope, PdpService) {
     var vm = this;
     //Init
     vm.today = new Date();
@@ -15,7 +15,7 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
     var prefix = window.location.pathname;
 
 
-    UserProfileService.get($rootScope.ownerId, function (user) {
+    var userPromise = UserProfileService.get($rootScope.ownerId, function (user) {
 
         delete user.$promise;
         delete user.$resolved;
@@ -32,8 +32,10 @@ function userCtrl($scope, UserProfileService, uploadService, downloadService, $r
             vm.user = angular.copy(vm.userOriginal);
         }
         vm.user.avatar.urlAva = prefix +  vm.user.avatar.urlAva;
+        PdpService.getPDPByID(vm.user.userPDP.id, function(pdp){
+            vm.user.userPDP = pdp;
+        });
     });
-
 
     $scope.$watch(angular.bind(vm, function () {
         return vm.url;

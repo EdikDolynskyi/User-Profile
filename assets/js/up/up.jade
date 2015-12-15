@@ -1,4 +1,4 @@
-div.container-fluid(ng-controller="UserProfileController as ctrl", ng-cloak)
+div.container-fluid(ng-cloak)
     .page-header
         h2 Personal info
             .alert.alert-warning.status(ng-class="{hidden: ctrl.user.changeAccept}", ng-cloak) {{ctrl.changeMessage}}
@@ -63,10 +63,11 @@ div.container-fluid(ng-controller="UserProfileController as ctrl", ng-cloak)
                 span.input-group-btn
                     button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
                         i.glyphicon.glyphicon-calendar
-
-
-
-    .col-md-6.col-sm-6.col-xs-12.personal-info
+        .form-group
+            label Position in company
+            p {{ctrl.user.userPDP.position.name}} {{ctrl.user.userPDP.direction.name}}
+    .col-md-1.col-sm-1.col-xs-2
+    .col-md-4.col-sm-4.col-xs-8.personal-info
         .panel.panel-default
             .panel-body
                 img.avatar.img-responisve(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
@@ -77,6 +78,6 @@ div.container-fluid(ng-controller="UserProfileController as ctrl", ng-cloak)
                     input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
                 .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
 
-    .col-md-12.form-group
+    .col-md-12.col-sm-12.col-xs-12.form-group
         input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)
         input.btn.btn-default(value='Cancel', ng-click='ctrl.cancelUpdate()', readonly)

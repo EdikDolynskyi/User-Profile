@@ -41,7 +41,7 @@ html(ng-app='myApp')
                                         
         main.container-fluid
             .row(ng-controller='TabsCtrl as ctrl')
-                #nav.col-lg-2.col-lg-offset-2
+                #nav.col-lg-2.col-lg-offset-1
                     div
                         tabset(vertical="true")
                             tab(ng-repeat='tab in ctrl.tabs',
@@ -50,7 +50,7 @@ html(ng-app='myApp')
                                 active='tab.active',
                                 disable='tab.disabled',
                                 select="ctrl.changeHash(tab.href)")
-                .col-lg-6.article(ng-view)
+                .col-lg-8.article(ng-view)
 
         // SCRIPTS
         script(src="js/dependencies/angular.amin.js")

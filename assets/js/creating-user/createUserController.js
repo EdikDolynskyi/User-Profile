@@ -1,9 +1,9 @@
 var app = require('../angular-app');
 var mongoose = require('mongoose');
 
-app.controller('createUserController', ['createUserService', '$cookies', userCtrl]);
+app.controller('createUserController', ['createUserService', '$cookies', createUserCtrl]);
 
-function userCtrl(createUserService, $cookies) {
+function createUserCtrl(createUserService, $cookies) {
     var vm = this;
     var prefix = window.location.pathname;
     prefix = prefix.substr(0, 9);

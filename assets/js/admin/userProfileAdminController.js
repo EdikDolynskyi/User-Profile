@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('UserProfileAdminController', ['$scope', 'UserProfileAdminService', 'Upload', '$rootScope', userCtrl]);
+app.controller('UserProfileAdminController', ['$scope', 'UserProfileAdminService', 'Upload', '$rootScope', userProfileAdminCtrl]);
 
-function userCtrl($scope, service, upload, $rootScope) {
+function userProfileAdminCtrl($scope, service, upload, $rootScope) {
     var ctrl = this;
     //Init
     ctrl.today = new Date();

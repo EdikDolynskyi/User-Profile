@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', userCtrl]);
+app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', UserProfilePublicCtrl]);
 
-function userCtrl(service, $rootScope, $route) {
+function UserProfilePublicCtrl(service, $rootScope, $route) {
     var ctrl = this;
     var prefix = window.location.pathname;
     //Init
