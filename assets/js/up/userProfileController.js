@@ -3,130 +3,116 @@ var app = require('../angular-app');
 app.controller('UserProfileController', ['$scope', 'UserProfileService', 'uploadService', 'downloadService', '$rootScope', userCtrl]);
 
 function userCtrl($scope, UserProfileService, uploadService, downloadService, $rootScope) {
-    var vm = this;
-    //Init
-    vm.today = new Date();
-    vm.oldUserData = {};
-    vm.newUserData = {};
-    vm.dataInFields = {}; //here fields, wich changed
+	var vm = this;
+	//Init
+	vm.today = new Date();
+	vm.oldUserData = {};
+	vm.newUserData = {};
+	vm.dataInFields = {}; //here fields, wich changed
 
-    vm.changeMessage = 'User Profile Data is waiting for moderation';
-
-    var prefix = window.location.pathname;
+	var prefix = window.location.pathname;
 
 
-    UserProfileService.get($rootScope.ownerId, function (user) {
+	UserProfileService.get($rootScope.ownerId, function (user) {
 
-        delete user.$promise;
-        delete user.$resolved;
+		delete user.$promise;
+		delete user.$resolved;
 
-        if (!user.changeAccept) {
+		vm.userOriginal = angular.extend({}, user);
+		vm.user = angular.copy(vm.userOriginal);
+	});
 
-            vm.user = angular.copy(user);
-            for (var key in user.preModeration) {
-                vm.user[key] = angular.copy(user.preModeration[key]);
-            }
-        }
-        else {
-            vm.userOriginal = angular.extend({}, user);
-            vm.user = angular.copy(vm.userOriginal);
-        }
-    });
+	$scope.$watch(angular.bind(vm, function () {
+		return vm.url;
+	}), function (url) {
+		if (url) {
+			vm.user.avatar.urlAva = url;
+		}
+	});
 
+	vm.doUpdate = function () {
+		var changeFields;
+		if (vm.url) {
+			var obj = {};
+			obj.url = vm.url;
+			var pathArray = obj.url.split('/');
+			var fileName = pathArray[pathArray.length - 1];
+			obj.fileName = './upload/' + fileName;
 
-    $scope.$watch(angular.bind(vm, function () {
-        return vm.url;
-    }), function (url) {
-        if (url) {
-            vm.user.avatar.urlAva = url;
-        }
-    });
+			downloadService.downloadFile(obj, function () {
+				vm.user.avatar.urlAva = 'api/files/get/' + fileName;
+				vm.dataInFields.avatar = angular.copy(vm.user.avatar);
 
-    vm.doUpdate = function () {
+				var data = {
+					"owner": {"name": vm.userOriginal.name},
+					"original": vm.oldUserData,
+					"changes": vm.newUserData,
+					"date": {"date": vm.today}
+				};
 
-        if (vm.url) {
-            var obj = {};
-            obj.url = vm.url;
-            var pathArray = obj.url.split('/');
-            var fileName = pathArray[pathArray.length - 1];
-            obj.fileName = './upload/' + fileName;
+				changeFields = vm.getChangesFields(vm.user.preModeration, vm.userOriginal, vm.user, vm.dataInFields);
 
-            downloadService.downloadFile(obj, function () {
-                vm.user.avatar.urlAva = 'api/files/get/' + fileName;
-                vm.dataInFields.avatar = angular.copy(vm.user.avatar);
+				if (changeFields.isChanged) {
+						vm.user.preModeration = changeFields.changes;
+						vm.user.changeAccept = false;
 
-                vm.getChangesFields(vm.userOriginal, vm.user);
-                vm.userOriginal.preModeration = vm.newUserData;
+					UserProfileService.update(vm.user, function (user) {
+						vm.addUserChangeLog(data);
+						console.log('The changes have been saved');
+						alert('The changes have been saved');
+					});
+				}
+				vm.showUrlInput = false;
+				vm.url = "";
+			});
+		}
 
-                var data = {
-                    "owner": {"name": vm.userOriginal.name},
-                    "original": vm.oldUserData,
-                    "changes": vm.newUserData,
-                    "date": {"date": vm.today}
-                };
+		else {
 
-                if (Object.keys(vm.newUserData).length !== 0) {
-                    vm.userOriginal.changeAccept = false;
-                    UserProfileService.update(vm.userOriginal, function (user) {
-                        alert('Your changes send to moderate. Changes will be made when the administrator becomes sober.');
-                        vm.addUserChangeLog(data);
-                        vm.user.changeAccept = false;
-                    });
-                }
-                vm.showUrlInput = false;
-                vm.url = "";
-            });
-        }
+			var data = {
+				"owner": {"name": vm.userOriginal.name},
+				"original": vm.oldUserData,
+				"changes": vm.newUserData,
+				"date": {"date": vm.today}
+			};
 
-        else {
-            vm.getChangesFields(vm.userOriginal, vm.user);
-            vm.userOriginal.preModeration = vm.newUserData;
+			changeFields = vm.getChangesFields(vm.user.preModeration, vm.userOriginal, vm.user, vm.dataInFields);
 
-            var data = {
-                "owner": {"name": vm.userOriginal.name},
-                "original": vm.oldUserData,
-                "changes": vm.newUserData,
-                "date": {"date": vm.today}
-            };
+			if (changeFields.isChanged) {
+					vm.user.preModeration = changeFields.changes;
+					vm.user.changeAccept = false;
 
-            if (Object.keys(vm.newUserData).length !== 0) {
-                vm.addUserChangeLog(data);
-                vm.userOriginal.changeAccept = false;
-                UserProfileService.update(vm.userOriginal, function (user) {
-                    alert('Your changes send to moderate. Changes will be made when the administrator becomes sober.');
-                    vm.user.changeAccept = false;
-                });
-            }
-        }
-    };
+				UserProfileService.update(vm.user, function (user) {
+					vm.addUserChangeLog(data);
+					console.log('The changes have been saved');
+					alert('The changes have been saved');
+				});
+			}
+		}
+	};
 
-    vm.cancelUpdate = function () {
-        angular.copy(vm.userOriginal, vm.user);
-    };
+	vm.cancelUpdate = function () {
+		angular.copy(vm.userOriginal, vm.user);
+	};
 
 
-    vm.upload = function (file) {
-        uploadService.upload(file, function (fileSrc) {
-            vm.user.avatar.urlAva = prefix + fileSrc;
-            vm.dataInFields.avatar = angular.copy(vm.user.avatar);
-        });
-    };
+	vm.upload = function (file) {
+		uploadService.upload(file, function (fileSrc) {
+			vm.user.avatar.urlAva = prefix + fileSrc;
+			vm.dataInFields.avatar = angular.copy(vm.user.avatar);
+		});
+	};
 
-    vm.addUserChangeLog = function (data) {
-        UserProfileService.addLog(vm.userOriginal.id, data, function (data) {
-        });
-    };
+	vm.addUserChangeLog = function (data) {
+		UserProfileService.addLog(vm.userOriginal.id, data, function (data) {
+		});
+	};
 
-    vm.getChangesFields = function (original, edited) {
-        for (var key in vm.dataInFields) {
-            if (original[key] !== edited[key]) {
-                vm.oldUserData[key] = angular.copy(original[key]);
-                vm.newUserData[key] = angular.copy(edited[key]);
-            }
-        }
-    };
+	vm.getChangesFields = function (preModeration, original, edited, dataInFields) {
+	   return UserProfileService.getChangesFields(preModeration, original, edited, dataInFields);
+	};
 
-    vm.change = function (prop, propValue) {
-        vm.dataInFields[prop] = propValue;
-    };
+	vm.change = function (prop, propValue) {
+		vm.dataInFields[prop] = propValue;
+	};
 }

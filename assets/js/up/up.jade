@@ -1,7 +1,6 @@
 div.container-fluid(ng-controller="UserProfileController as ctrl", ng-cloak)
     .page-header
         h2 Personal info
-            .alert.alert-warning.status(ng-class="{hidden: ctrl.user.changeAccept}", ng-cloak) {{ctrl.changeMessage}}
     .col-md-6.col-sm-6.col-xs-12
         .form-group
             label Name
