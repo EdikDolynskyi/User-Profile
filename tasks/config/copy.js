@@ -29,6 +29,10 @@ module.exports = function(grunt) {
 					dest: '.tmp/public/js/dependencies/angular.amin.js'
 				},
 				{
+					src: ['./bower_components/angular-messages/angular-messages.js'],
+					dest: '.tmp/public/js/dependencies/angular.messages.js'
+				},
+				{
 					src: ['./bower_components/angular-route/angular-route.min.js'],
 					dest: '.tmp/public/js/dependencies/angular.route.min.js'
 				},

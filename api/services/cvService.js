@@ -6,13 +6,13 @@ module.exports = {
             .findOne({id: id })
             .populate('userCV')
             .exec(function (err, user) {
-                async.parallel([getUserTechnologies.bind(null,user)],
-                    callback.bind(null,null, user)
+                async.parallel([getUserTechnologies.bind(null, user)],
+                    callback.bind(null, null, user)
                 );
         });
     },
 
-    updateCVTechnology: function(cv_id, id, body, callback){
+    updateTechnology: function(cv_id, id, body, callback){
         Cvs.findOne({id: cv_id})
             .exec(function(err, cv) {
                 if (err) {
@@ -44,46 +44,64 @@ module.exports = {
 
                     cv.technologies.push(newTechnology);
                     cv.save();
+
+                    callback(null);
                 }
-                callback(null);
             });
     },
 
     removeTechnologyFromCV: function(cv_id, body, callback){
         Cvs.native(function(err, collection) {
             collection.update({_id: Cvs.mongo.objectId(cv_id)}, {$pull: {technologies: {userTech: body.id}}}, function(err){
-                if (err) return callback (err);
-
-                callback (null);
+                if(err) {
+                    return callback (err);
+                } else {
+                    callback(null);
+                }
             });
         });
+    },
+
+    getTechnology: function(cv_id, technology_id, callback){
+        Cvs.findOne({id: cv_id})
+            .exec(function(err, cv) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    async.parallel([getTechnology.bind(null, cv, technology_id)], function(technology) {
+                            callback(technology);
+                        }
+                    );
+                }
+            })
     }
 
 }; //module.exports
 
-function getUserTechnologies(user, asyncCallback) {
+function getUserTechnologies(user, callback) {
     async.map(user.userCV.technologies,
         function (objUserTechn, callback){
             Technologies
                 .findOne(objUserTechn.userTech)
-                .exec(function (err, item){
+                .exec(function(err, item) {
                     item.stars = objUserTechn.stars;
-                    if(err){
+                    if(err) {
                         return callback(err);
                     }
-                    async.parallel([getTechnologyCategory.bind(null,item)],
-                        callback.bind(null,null, item)
+
+                    async.parallel([getTechnologyCategory.bind(null, item)],
+                        callback.bind(null, null, item)
                     ); //async.parallel
                 });
 
         },
-        function (errFromIterator, results){
-            if(errFromIterator){
-                asyncCallback(errFromIterator);
-            } else {
-               user.userCV.technologies= results;
+        function (err, results){
+            if(err) {
+                return callback(err);
             }
-            asyncCallback(null);
+
+            user.userCV.technologies = results;
+            callback(null);
         });
 }
 
@@ -91,7 +109,7 @@ function getTechnologyCategory(technology, callback){
     Categories
         .findOne(technology.category)
         .exec(function (err, item){
-            if(err){
+            if(err) {
                 return callback(err);
             }
 
@@ -100,6 +118,40 @@ function getTechnologyCategory(technology, callback){
         });
 }
 
+
+function getTechnology(cv, technology_id, callback) {
+    async.map(cv.technologies,
+        function(item, callback){
+            Technologies
+                .findOne(item.userTech)
+                .exec(function(err, technology) {
+                    technology.stars = item.stars;
+
+                    if(err) {
+                        return callback(err);
+                    }
+
+                    async.parallel([getTechnologyCategory.bind(null, technology)],
+                        callback.bind(null, null, technology)
+                    ); //async.parallel
+                });
+
+        },
+        function(err, results) {
+            if(err) {
+                return callback(err);
+            } else {
+                cv.technologies = results;
+
+                for(var i = 0; i < cv.technologies.length; i++) {
+                    if(cv.technologies[i].id == technology_id) {
+                        callback(cv.technologies[i]);
+                        break;
+                    }
+                }
+            }
+        });
+}
 
 
 

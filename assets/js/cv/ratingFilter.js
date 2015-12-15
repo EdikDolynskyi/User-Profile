@@ -1,15 +1,15 @@
 var app = require('../angular-app');
 
-app.filter('ratingFilter', function() {
-    return function(array, rating) {
-        var output = [];
+app.filter('rating', function() {
+    return function(items, rating) {
+        var filtered = [];
 
-        angular.forEach(array, function(item) {
+        angular.forEach(items, function(item) {
             if ((item.stars >= rating) || (rating == 0)) {
-                output.push(item);
+                filtered.push(item);
             }
         });
 
-        return output;
+        return filtered;
     };
 });
