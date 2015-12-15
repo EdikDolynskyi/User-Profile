@@ -54,6 +54,14 @@ module.exports = function(grunt) {
 					dest: '.tmp/public/js/dependencies/ui-bootstrap-tpls.js'
 				},
 				{
+					src: ['./bower_components/clipboard/dist/clipboard.min.js'],
+					dest: '.tmp/public/js/dependencies/clipboard.min.js'
+				},
+				{
+					src: ['./bower_components/ngclipboard/dist/ngclipboard.min.js'],
+					dest: '.tmp/public/js/dependencies/ngclipboard.min.js'
+				},
+				{
 					src: ['./bower_components/bootstrap/dist/css/bootstrap.css'],
 					dest: '.tmp/public/styles/dependencies/bootstrap.css'
 				},

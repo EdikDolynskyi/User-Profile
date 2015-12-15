@@ -11,7 +11,7 @@ app.controller('ProjectsController', function($scope, ProjectsFactory, $routePar
     vm.allCategories = [];
     vm.users_projects = [];
     vm.knowledgeRating = 0;
-    vm.isCollapsed = true;
+    vm.isCollapsed = false;
     vm.showRating = false;
     vm.showTechForm1 = false;
     vm.showTechForm2 = false;
