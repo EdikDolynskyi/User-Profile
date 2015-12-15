@@ -57,5 +57,23 @@ function UserProfileService($resource) {
             }
         });
     };
+
+    this.getChangesFields = function (preModeration, original, edited, dataInFields){
+        var result = angular.copy(preModeration);
+        var isChanged = false;
+        for (var key in dataInFields) {
+            if (original[key] !== edited[key]) {
+                
+                isChanged = true;
+                if(!preModeration.hasOwnProperty(key)){
+                    result[key] = angular.copy(original[key]);
+                }
+            }
+        }
+        return {
+            changes: result,
+            isChanged: isChanged
+        };
+    };
 }
 

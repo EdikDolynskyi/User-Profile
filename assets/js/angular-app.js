@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngMessages', 'ngFileUpload', 'ui.bootstrap']);
+var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngMessages', 'ngFileUpload', 'ui.bootstrap', 'ngclipboard']);
 
 app.config(function ($routeProvider) {
 	var prefix = window.location.pathname;
@@ -12,6 +12,9 @@ app.config(function ($routeProvider) {
 		when('/search', {
 			templateUrl: prefix + 'js/main-page/user-search.html',
 			controller: 'MainController'
+		}).
+		when('/projects/:projectId', {
+			templateUrl:  prefix + 'js/projects/projects.html'
 		}).
 		when('/userdata/:userId', {
 			templateUrl:  prefix + 'js/up/up-data.html'

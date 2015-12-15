@@ -62,13 +62,18 @@ script(type='text/ng-template', id='dropDownList.html').
         div.col-lg-6.col-lg-offset-3(ng-include="template4")
         div.col-lg-12.voffset3
             .panel.panel-default.project(ng-repeat="project in userCV.projects", ng-attr-id="{{$index}}")
-                .panel-heading.project-header(ng-click="isCollapsed = !isCollapsed")
-                    b {{project.name}}
+                .panel-heading.project-header
+                    b(ng-click="isCollapsed = !isCollapsed") {{project.name}}
                     div.pull-right
+                        div.btn-rmv-project(tooltip="Copy to clipboard", tooltip-trigger="mouseenter", ngclipboard='', data-clipboard-text="{{project.path}}")
+                            span.glyphicon.glyphicon-share
+                        div.btn-rmv-project(tooltip="Go to", tooltip-trigger="mouseenter", ng-click="goToProject($event,project.id)")
+                            span.glyphicon.glyphicon-new-window
                         div.btn-edit-project(tooltip="Edit this project", tooltip-trigger="mouseenter", ng-click="editProject($event, project)")
                             span.glyphicon.glyphicon-pencil
                         div.btn-rmv-project(tooltip="Remove this project", tooltip-trigger="mouseenter", ng-click="confirmDelete($event, 'sm', project)")
                             span.glyphicon.glyphicon-trash
+                       
                 .panel-body(collapse="project.current && !editMode ? !isCollapsed : isCollapsed")
                     div.logo-wpap(ng-if="project.binary")
                         img.logo(src="http://academy.binary-studio.com/resources/logo.png")

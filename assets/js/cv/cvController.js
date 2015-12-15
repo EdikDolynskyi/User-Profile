@@ -53,6 +53,8 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
         $scope.userCV.projects = projects;
 
         for (var i=0; i<$scope.userCV.projects.length; i++) {
+            $scope.userCV.projects[i].path =  $location.protocol() + "://" + $location.host() + 
+            ":" + $location.port() + "/#/projects/" + $scope.userCV.projects[i].id; 
             if($scope.userCV.projects[i].id == $scope.userCV.currentProject ) {
                 $scope.userCV.projects[i].current = true;
 
@@ -240,6 +242,11 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
     $scope.removeScreenshot = function(screenshot) {
         var index = $scope.project.screenshots.indexOf(screenshot);
         $scope.project.screenshots.splice(index, 1);
+    };
+
+    $scope.goToProject = function($event, projectId){
+        $event.preventDefault();
+        $location.path('/projects/' + projectId);
     };
 
     $scope.open = function(selected, screenshots) {
