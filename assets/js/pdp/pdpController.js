@@ -20,7 +20,6 @@ app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService
         PdpService.getPDP(userId, function(obj){
             vm.userPDP = obj;
             userPdpId = obj.id;
-            console.log(obj);
         });
         PdpService.getPositions(function(array){
             vm.positions = array;

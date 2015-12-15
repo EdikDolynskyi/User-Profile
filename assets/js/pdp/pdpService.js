@@ -48,7 +48,6 @@
 		function getPDPByID(id, callback){
 			$resource(prefix + 'getpdp/:id', {id: id}).get(function (resPDP) {
 				userPDP = resPDP;
-				console.log(resPDP);
 				callback(userPDP);
 			}, function (err) {
 				console.log(err);

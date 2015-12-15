@@ -26,7 +26,6 @@ app.controller('PdpPublicController', function ($scope, $modal, $location, $root
                 PdpService.getPDP(userId,function(obj){
                     vm.userPDP = obj;
                     userPdpId = obj.id;
-                    console.log(obj);
                 });
                 PdpService.getPositions(function(array){
                     vm.positions = array;
@@ -55,7 +54,6 @@ app.controller('PdpPublicController', function ($scope, $modal, $location, $root
             PdpService.getPDP(userId,function(obj){
                 vm.userPDP = obj;
                 userPdpId = obj.id;
-                console.log(obj);
             });
             PdpService.getPositions(function(array){
                 vm.positions = array;
