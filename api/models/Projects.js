@@ -12,21 +12,27 @@ module.exports = {
             type: 'string',
             required: true
         },
-        owner: {
-            type: 'string'
-            
-        },
         description: {
-            type: 'string',
-            required: true,
+            type: 'string'
         },
         technologies: {
             type: 'array',
-            required: true,
+            required: true
         },
-        screenshots: 'array',
-        start: 'date',
-        end: 'date',
+        screenshots: {
+            type: 'array'
+        },
+        start: {
+            type: 'date',
+            required: true
+        },
+        end: {
+            type: 'date'
+        },
+        binary: {
+            type: 'boolean',
+            defaultsTo: true
+        },
         isDeleted: {
             type: 'boolean',
             defaultsTo: false

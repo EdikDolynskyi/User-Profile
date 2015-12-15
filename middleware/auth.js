@@ -11,7 +11,7 @@ module.exports = function(req, res, next){
                 res.status(403).send({ success: false, message: "Failed to authenticate user"});
             } else {
                 req.decoded = decoded;
-                console.log(decoded);
+                //console.log(decoded);
                 cookies.set('serverUID', decoded.id, { httpOnly: false });
                 cookies.set('userRole', decoded.role, { httpOnly: false });
                 next();

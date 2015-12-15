@@ -1,0 +1,34 @@
+form(name="technologyForm2", ng-submit="createTechnology(technologyForm2, technology)", ng-show="showTechForm2", novalidate)
+   .form-group(ng-class="{ 'has-error': technologyForm2.technology.$invalid && technologyForm2.$submitted}")
+      label(for="tech-name") Technology name
+      input#tech-name.form-control(type="text",
+         name="technology",
+         ng-model="technology.name",
+         ng-maxlength="15",
+         required)
+      div.help-block(ng-messages="technologyForm2.technology.$error", ng-if="technologyForm2.$submitted")
+         p(ng-message="maxlength") Please use no more than 15 characters
+         p(ng-message="required") Please enter a technology
+   .form-group(ng-class="{ 'has-error': technologyForm2.category.$invalid && technologyForm2.$submitted}")
+      label(for="sel-category") Technology Category
+      select#sel-category.form-control(name="category",
+         ng-model="technology.category",
+         required)
+         option(value="") ---Please select---
+         option(ng-repeat="category in allCategories | orderBy : 'name'", value="{{category.id}}")
+            | {{category.name}}
+      div.help-block(ng-messages="technologyForm2.category.$error", ng-if="technologyForm2.$submitted")
+         p(ng-message="required") Please select a category
+   .form-group(ng-class="{ 'has-error': technologyForm2.knowledge.$invalid && technologyForm2.$submitted}")
+      label(for='knowledgelevel') Knowledge level
+      rating#knowledgelevel(name="knowledge",
+         max='5',
+         on-hover='hoveringOver(value)',
+         on-leave='overStar = null',
+         readonly='false',
+         ng-model='technology.stars',
+         required)
+      div.help-block(ng-messages="technologyForm2.knowledge.$error", ng-if="technologyForm2.$submitted")
+         p(ng-message="required") Please specify your knowledge level of the technology
+   button.btn.btn-primary(type='submit') Create technology
+   button.btn.btn-danger(type='reset', ng-click='cancelCreatingTechnology(technologyForm2)') Cancel

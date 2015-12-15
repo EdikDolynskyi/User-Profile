@@ -1,0 +1,114 @@
+form(name="projectForm2", ng-submit="createProject(projectForm2, project)", ng-show='showProjectForm2', novalidate)
+   .form-group(ng-class="{ 'has-error': projectForm2.name.$invalid && projectForm2.$submitted}")
+      label(for="project-name") Project name
+      input#project-name.form-control(type="text",
+         name="name",
+         ng-minlength="5",
+         ng-maxlength="20",
+         ng-model="project.name",
+         required)
+      div.help-block(ng-messages="projectForm2.name.$error", ng-if="projectForm2.$submitted")
+         p(ng-message="minlength") Please use at least 5 characters
+         p(ng-message="maxlength") Please use between 5 and 20 characters
+         p(ng-message="required") Please enter a name
+   .form-group(ng-class="{ 'has-error': projectForm2.start.$invalid && projectForm2.$submitted}")
+      label(for="start") Start date
+      input#start.form-control(type="date",
+         name="start",
+         datepicker-popup="",
+         is-open="status.opened",
+         min-date="minDate",
+         max-date="'2020-06-22'",
+         datepicker-options="dateOptions",
+         date-disabled="disabled(date, mode)",
+         close-text="Close",
+         ng-model="project.start",
+         required)
+      div.help-block(ng-messages="projectForm2.start.$error", ng-if="projectForm2.$submitted")
+         p(ng-message="required") Please select a date
+   .form-group
+      label(for="end") End date
+      input#end.form-control(type="date",
+         name="end",
+         datepicker-popup="",
+         is-open="status.opened",
+         min-date="minDate",
+         max-date="'2020-06-22'",
+         datepicker-options="dateOptions",
+         date-disabled="disabled(date, mode)",
+         close-text="Close",
+         ng-model="project.end")
+   .form-group(ng-class="{ 'has-error': projectForm2.technologies.$invalid && projectForm2.$submitted}")
+      label(for="technologies") Technologies
+      input#technologies.form-control(type="text",
+         name="technologies",
+         ng-keydown ='enterTechnologyName($event, projectTechnology)',
+         typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
+         typeahead-template-url="dropDownList.html",
+         ng-model="projectTechnology",
+         required)
+      div.help-block(ng-messages="projectForm2.technologies.$error", ng-if="projectForm2.$submitted")
+         p(ng-message="required") Please enter technologies
+      button.stars-4.voffset2(ng-repeat="tech in project.technologies") {{tech.name}}
+   .form-group
+      label(for="project-description") Description
+      textarea#project-description.form-control(rows="3", ng-model="project.description", required)
+   .form-group(ng-class="{ 'has-error': projectForm2.userrole.$invalid && projectForm2.$submitted}")
+      label(for="user-role") Your role
+      input#user-role.form-control(type="text",
+         name="userrole",
+         ng-minlength="5",
+         ng-maxlength="20",
+         ng-pattern="/^[a-zA-Z ]+$/",
+         ng-model="project.userRole",
+         required)
+      div.help-block(ng-messages="projectForm2.userrole.$error", ng-if="projectForm2.$submitted")
+         p(ng-message="pattern") You can use only letters
+         p(ng-message="minlength") Please use at least 5 characters
+         p(ng-message="maxlength") Please use between 5 and 20 characters
+         p(ng-message="required") Please enter your role
+   .checkbox
+      label
+         input(type='checkbox', ng-model='project.current')
+         b Set this project as the current project
+   .checkbox
+      label
+         input(type='checkbox', ng-model='project.binary')
+         b Set this project as a Binary Studio project
+   .form-group(ng-class="{ 'has-error': projectForm2.startdate.$invalid && projectForm2.$submitted}")
+      label(for="start-date") Date of joining the project
+      input#start-date.form-control(type="date",
+         name="startdate",
+         datepicker-popup="",
+         is-open="status.opened",
+         min-date="minDate",
+         max-date="'2020-06-22'",
+         datepicker-options="dateOptions",
+         date-disabled="disabled(date, mode)",
+         close-text="Close",
+         ng-model="project.startDate",
+         required)
+      div.help-block(ng-messages="projectForm2.startdate.$error", ng-if="projectForm2.$submitted")
+         p(ng-message="required") Please select a date
+   .form-group
+      label(for="end-date") Date of finishing working on the project
+      input#end-date.form-control(type="date",
+         name="enddate",
+         datepicker-popup="",
+         ng-model="project.endDate",
+         is-open="status.opened",
+         min-date="minDate",
+         max-date="'2020-06-22'",
+         datepicker-options="dateOptions",
+         date-disabled="disabled(date, mode)",
+         close-text="Close")
+   .form-group
+      label(for="inputFile") Screenshots
+      input#inputFile(type="file", ngf-select="selectFile($file)", accept="image/*")
+      div(ng-if="project.screenshots", ng-repeat="screenshot in project.screenshots", ng-attr-id="{{$index}}")
+         div.uploaded-img-wrap
+            img.img-responsive.voffset2(ngf-src="screenshot")
+            div.thumb-x-btn(tooltip="Remove screenshot", tooltip-trigger="mouseenter", ng-click="removeScreenshot(screenshot)")
+               span.glyphicon.glyphicon-remove.thumb-x
+   button.btn.btn-primary(type="submit") Create project
+   button.btn.btn-danger(type="reset", ng-click="cancelCreatingProject(projectForm2)") Cancel

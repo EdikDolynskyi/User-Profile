@@ -9,7 +9,8 @@ module.exports = {
     attributes: {
         email: {
             type: 'email',
-            required: true
+            required: true,
+            unique: 'true'
         },
         name: {
             type: 'string',
@@ -44,14 +45,10 @@ module.exports = {
             required: false
         },
         userCV: {
-            model : 'Cvs',
-            type: 'string',
-            unique: false
+            model: 'Cvs'
         },
         userPDP: {
-            model : 'Pdps',
-            type: 'string',
-            unique: false
+            model: 'Pdps'
         },
         currentProject: {
             type: 'string'

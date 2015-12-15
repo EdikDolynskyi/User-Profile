@@ -19,8 +19,18 @@ module.exports = {
 		});
 	},
 
-	updateCVTechnology: function(req, res) {
-		cvService.updateCVTechnology(req.param('cv_id'), req.param('id'), req.body, function(err,data){
+	getTechnology: function(req, res) {
+		cvService.getTechnology(req.param('cv_id'), req.param('id'), function(err,data){
+			if (err) {
+				res.send(err);
+			} else {
+				return res.send(data);
+			}
+		});
+	},
+
+	updateTechnology: function(req, res) {
+		cvService.updateTechnology(req.param('cv_id'), req.param('id'), req.body, function(err,data){
 			if (err) {
 				res.send(err);
 			} else {

@@ -1,0 +1,57 @@
+form(name="projectForm1", ng-submit="selectProject(projectForm1, selProject)", ng-show="showProjectForm1", novalidate=)
+   .form-group(ng-class="{ 'has-error': projectForm1.project.$invalid && projectForm1.$submitted}")
+      label(for="sel-project") Project
+      select#sel-project.form-control(name="project",
+         ng-model="selProject.id",
+         required)
+         option(value="") ---Please select---
+         option(ng-repeat="project in allProjects | orderBy : 'name'", value="{{project.id}}")
+            | {{project.name}}
+      div.help-block(ng-messages="projectForm1.project.$error", ng-if="projectForm1.$submitted")
+         p(ng-message="required") Please select a project
+   .form-group(ng-class="{ 'has-error': projectForm1.userrole.$invalid && projectForm1.$submitted}")
+      label(for="user-role1") Your role
+      input#user-role1.form-control(type="text",
+         name="userrole",
+         ng-model="selProject.userRole",
+         ng-minlength="5",
+         ng-maxlength="20",
+         ng-pattern="/^[a-zA-Z ]+$/",
+         required)
+      div.help-block(ng-messages="projectForm1.userrole.$error", ng-if="projectForm1.$submitted")
+         p(ng-message="pattern") You can use only letters
+         p(ng-message="minlength") Please use between 5 and 20 characters
+         p(ng-message="maxlength") Please use between 5 and 20 characters
+         p(ng-message="required") Please enter your role
+   .form-group(ng-class="{ 'has-error': projectForm1.startdate.$invalid && projectForm1.$submitted}")
+      label(for="start-date1") Date of joining the project
+      input#start-date1.form-control(type="date",
+         name="startdate",
+         datepicker-popup="",
+         date-disabled="disabled(date, mode)",
+         datepicker-options="dateOptions",
+         is-open="status.opened",
+         close-text="Close",
+         min-date="minDate",
+         max-date="'2020-06-22'",
+         ng-model="selProject.startDate",
+         required)
+      div.help-block(ng-messages="projectForm1.startdate.$error", ng-if="projectForm1.$submitted")
+         p(ng-message="required") Please select a date
+   .form-group
+      label(for="end-date1") Date of finishing working on the project
+      input#end-date1.form-control(type="date",
+         datepicker-popup="",
+         datepicker-options="dateOptions",
+         date-disabled="disabled(date, mode)",
+         is-open="status.opened",
+         close-text="Close"
+         min-date="minDate",
+         max-date="'2020-06-22'",
+         ng-model="selProject.endDate")
+   .checkbox
+      label
+         input(type='checkbox', ng-model='selProject.current')
+         b Set this project as the current project
+   button.btn.btn-primary(type="submit") Add project
+   button.btn.btn-danger(type="reset", ng-click="cancelSelectingProject(projectForm1)") Cancel

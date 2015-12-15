@@ -1,0 +1,24 @@
+form(name="technologyForm1", ng-submit="selectTechnology(technologyForm1, selTech)", ng-show="showTechForm1", novalidate)
+   .form-group(ng-class="{ 'has-error': technologyForm1.technology.$invalid && technologyForm1.$submitted}")
+      label(for="sel-technology") Technology
+      select#sel-technology.form-control(name="technology",
+         ng-model="selTech.id",
+         required)
+         option(value="") ---Please select---
+         option(ng-repeat="tech in allTechnologies | orderBy : 'name'" value="{{tech.id}}")
+            | {{tech.name}}
+      div.help-block(ng-messages="technologyForm1.technology.$error", ng-if="technologyForm1.$submitted")
+         p(ng-message="required") Please select a technology
+   .form-group(ng-class="{ 'has-error': technologyForm1.knowledge.$invalid && technologyForm1.$submitted }")
+      label(for="knowledgelevel") Knowledge level
+      rating#knowledgelevel(name="knowledge",
+         max="5",
+         readonly="false",
+         on-hover="hoveringOver(value)",
+         on-leave="overStar=null",
+         ng-model="selTech.stars",
+         required)
+      div.help-block(ng-messages="technologyForm1.knowledge.$error", ng-if="technologyForm1.$submitted")
+         p(ng-message="required") Please specify your knowledge level of the technology
+   button.btn.btn-primary(type="submit") Add technology
+   button.btn.btn-danger(type="reset", ng-click="cancelSelectingTechnology(technologyForm1)") Cancel
