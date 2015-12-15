@@ -49,7 +49,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
         $scope.allProjects = projects;
     });
 
-    cvFactory.getUserProjects(function(projects) {
+    cvFactory.getUserProjects($scope.userId, function(projects) {
         $scope.userCV.projects = projects;
 
         for (var i=0; i<$scope.userCV.projects.length; i++) {

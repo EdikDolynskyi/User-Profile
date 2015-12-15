@@ -6,6 +6,7 @@ function createUserService($resource) {
 
     var prefix = window.location.pathname;
     prefix = prefix.substr(0, 9);
+    prefix ='';
 
     this.createUser = function (user, cv, pdp, cb) {
         $resource(prefix + 'api/cvs').save(cv, function (cvRez) {

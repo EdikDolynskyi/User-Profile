@@ -1,5 +1,5 @@
 var app = require('../angular-app');
-
+var async = require('async');
 app.factory('cvFactory', function($resource, $rootScope) {
 
     var prefix = window.location.pathname;
@@ -34,9 +34,10 @@ app.factory('cvFactory', function($resource, $rootScope) {
         });
     };
 
-    F.getUserProjects = function(callback) {
-        var Users_projects = $resource('/users_projects/:user_id', {user_id: '@id'});
-        var users_projects = Users_projects.query({user_id: userId}, function(res) {
+    F.getUserProjects = function(id, callback) {
+        var id = id || userId;
+        var Users_projects = $resource(prefix + 'users_projects/:user_id', {user_id: '@id'});
+        var users_projects = Users_projects.query({user_id: id}, function(res) {
             for(var i =0; i < res.length; i++) {
                 res[i].start = new Date(res[i].start);
                 res[i].startDate = new Date(res[i].startDate);
@@ -46,6 +47,7 @@ app.factory('cvFactory', function($resource, $rootScope) {
                     res[i].endDate = new Date(res[i].endDate);
                 }
             }
+            
             callback(res);
         });
     };

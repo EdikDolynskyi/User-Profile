@@ -13,6 +13,7 @@ module.exports = {
         Users_projects
             .findOne({where: {id: id}})
             .exec(function (err, objUserProject) {
+                
                 getProject(objUserProject, callback);
             });
     },

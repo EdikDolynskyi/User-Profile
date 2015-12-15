@@ -148,7 +148,7 @@ app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService
         });
 
         modalInstance.result.then(function (addedCertification) {
-                PdpService.addCompletedCertification(addedCertification);
+                PdpService.addCompletedCertification(addedCertification, userPdpId);
                 vm.userPDP.completedCertifications.push(addedCertification);
           });
     };
