@@ -1,4 +1,5 @@
 var app = require('../angular-app');
+var _ = require('underscore');
 
 
 app.controller('CVController', function($scope, $modal, $location, cvFactory, uploadService) {
@@ -22,6 +23,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
     $scope.project.screenshots = [];
     $scope.selProject = {};
     $scope.selTech = {};
+    $scope.newScreenshots = [];
 
     $scope.template1 = window.location.pathname + 'js/cv/technologyForm1.html';
     $scope.template2 = window.location.pathname + 'js/cv/technologyForm2.html';
@@ -55,6 +57,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
         for (var i=0; i<$scope.userCV.projects.length; i++) {
             $scope.userCV.projects[i].path =  $location.protocol() + "://" + $location.host() + 
             ":" + $location.port() + "/#/projects/" + $scope.userCV.projects[i].id; 
+            
             if($scope.userCV.projects[i].id == $scope.userCV.currentProject ) {
                 $scope.userCV.projects[i].current = true;
 
@@ -64,10 +67,12 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
     });
 
     $scope.addTechnologiesToProject = function(technology) {
-        if (technology !== '') {
-            $scope.project.technologies.push(technology);
-
-            $scope.projectTechnology = '';
+        if (technology !== '' && typeof technology == "object") {
+            var correctTechnology = Boolean(_.where($scope.allTechnologies, {name: technology.name, id: technology.id}).length);
+            var technologyExist = Boolean(_.where($scope.project.technologies, {name: technology.name, id: technology.id}).length);
+            if(correctTechnology && !technologyExist){
+                $scope.project.technologies.push(technology);
+            }
         }
     };
 
@@ -75,6 +80,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
         if ($event.keyCode == 13) {
             $event.preventDefault();
             $scope.addTechnologiesToProject(technology);
+            $scope.projectTechnology = '';
         }
     };
 
@@ -205,8 +211,27 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
     };
 
     $scope.updateProject = function(project) {
-        cvFactory.updateProject(project);
-        this.editMode = false;
+        
+        uploadService.uploadMultipleFiles($scope.newScreenshots, function(res){
+            if(res) {
+                var prefix = window.location.pathname;
+
+                for(var i = 0; i < $scope.newScreenshots.length; i++) {
+                    $scope.newScreenshots[i] = {img: prefix + res[i]}
+                }
+
+                project.screenshots = project.screenshots.concat($scope.newScreenshots);
+                $scope.newScreenshots = [];
+            }
+
+            cvFactory.updateProject(project);
+            cvFactory.getObjectProject(project.id, function(originProject) {
+                        originProject.screenshots = project.screenshots;
+                         cvFactory.updateObjectProject(originProject);
+                    });
+           
+            this.editMode = false;
+        });
 
         if(project.current) {
             for (var i=0; i<$scope.userCV.projects.length; i++) {
@@ -289,6 +314,24 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
     $scope.findUser = function($event, id) {
         $event.preventDefault();
         $location.path('/userdata/' + id);
+    };
+
+    $scope.removeScreenshotAfterEdit = function(project, screenshot){
+        project.screenshots = _.reject(project.screenshots, function(item) {
+            return item.img === screenshot.img; 
+        });
+    };
+
+    $scope.removeNewScreenshot = function(newScreenshot){
+         $scope.newScreenshots = _.reject($scope.newScreenshots, function(item) {
+            return item.$$hashKey === newScreenshot.$$hashKey; 
+        });
+    };
+
+    $scope.addNewScreenshot = function(file, project){
+        if(file){
+            $scope.newScreenshots.push(file);
+        }
     };
 
 });
