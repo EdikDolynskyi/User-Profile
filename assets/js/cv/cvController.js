@@ -30,7 +30,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 
 
 
-    cvFactory.getUserData(function(user) {
+    cvFactory.getUserData(null, function(user) {
         $scope.userId = user.id;
         $scope.userCV = user.userCV;
         $scope.userCV.technologies = user.userCV.technologies;

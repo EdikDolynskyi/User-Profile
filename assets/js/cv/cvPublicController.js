@@ -8,11 +8,11 @@ app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $ro
     $scope.knowledgeRating = 0;
     $scope.isCollapsed = true;
     $scope.showRating = false;
-
-    cvFactory.getUserData(function (user) {
-        userId = $route.current.params.userId;
-        $rootScope.userId = userId;
-        $scope.userId = userId;
+    var userId = $route.current.params.userId;
+    $rootScope.userId = userId;
+    $scope.userId = userId;   
+    $scope.knowledge = 0;
+    cvFactory.getUserData(userId, function (user) {
         $scope.currentProject = user.currentProject;
         $scope.userTechnologies = user.userCV.technologies;
         cvFactory.getUserProjects($scope.userId, function (projects) {

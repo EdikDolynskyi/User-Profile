@@ -6,9 +6,10 @@ app.factory('cvFactory', function($resource, $rootScope) {
     var userId = $rootScope.ownerId;
     var F = {};
 
-    F.getUserData = function(callback) {
+    F.getUserData = function(id, callback) {
+        var id = id || userId;
         var CVs = $resource(prefix + 'api/cvs/:cv_id', {cv_id: '@id'});
-        var cv = CVs.get({cv_id: userId}, function(res) {
+        var cv = CVs.get({cv_id: id}, function(res) {
             callback(res);
         });
     };
