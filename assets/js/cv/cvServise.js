@@ -97,6 +97,13 @@ app.factory('cvFactory', function($resource, $rootScope) {
         })
     };
 
+     F.getObjectProject = function(id, callback) {
+        var Projects = $resource(prefix + 'api/projects/:id', {id: '@id'});
+        var project = Projects.get({id: id}, function(res) {
+            callback(res);
+        })
+    };
+
 
     F.createProject = function(project, callback) {
         var Projects = $resource(prefix + 'projects', {}, {'post': { method:'POST' }});
@@ -148,6 +155,11 @@ app.factory('cvFactory', function($resource, $rootScope) {
         var Users_projects = $resource(prefix + 'users_projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
         Users_projects.update({id: project._id}, users_projects);
 
+    };
+
+    F.updateObjectProject = function(project){
+        var projects = $resource(prefix + 'api/projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        projects.update({id: project.id}, project);
     };
 
     return F;

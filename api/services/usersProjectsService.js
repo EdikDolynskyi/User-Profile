@@ -52,6 +52,21 @@ module.exports = {
         })
     },
 
+    updateObjProjects: function(id, body, callback) {
+        Projects.native(function (err, collection) {
+            if(err) return callback(err);
+
+            collection.update({_id: Projects.mongo.objectId(id)}, {
+                    $set: {
+                        screenshots: body.screenshots
+                    }
+                },
+                function (err) {
+                    if (err) return callback(err);
+                });
+        });
+    },
+
     createObjUsers_Projects: function(body, callback) {
        createProject(body, function(err, projectId) {
            if(err) callback(err);
