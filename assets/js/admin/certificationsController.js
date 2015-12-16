@@ -6,7 +6,7 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
 	vm.certifications = [];
     vm.categories = [];
     vm.certification = {};
-    vm.certification.src = prefix + "api/files/get/default-image.png";
+    vm.certification.src = "api/files/get/certificate.png";
 	vm.isCollapsed = true;
 	vm.showAlert = false;
     vm.showUrlInput = false;
@@ -90,7 +90,7 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
         
     	vm.certification = {};
         vm.certification.category = vm.categories[0];
-        vm.certification.src = prefix + "api/files/get/default-image.png";
+        vm.certification.src = "api/files/get/certificate.png";
         vm.url = "";
     	vm.showAlert = true;
         vm.isCollapsed = true;

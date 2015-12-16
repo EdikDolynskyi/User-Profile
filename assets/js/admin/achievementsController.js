@@ -6,7 +6,7 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
 	vm.achievements = [];
     vm.achievement = {};
     vm.categories = [];
-    vm.achievement.src = prefix + "api/files/get/default-image.png";
+    vm.achievement.src = "api/files/get/achievement.png";
 	vm.isCollapsed = true;
 	vm.showAlert = false;
     vm.showUrlInput = false;
@@ -88,7 +88,7 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
         
     	vm.achievement = {};
         vm.achievement.category = vm.achievement[0];
-        vm.achievement.src = prefix + "api/files/get/default-image.png";
+        vm.achievement.src = "api/files/get/achievement.png";
         vm.url = "";
     	vm.showAlert = true;
         vm.isCollapsed = true;

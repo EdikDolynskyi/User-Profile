@@ -16,7 +16,6 @@ app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService
     function activate(){
         var userId = $rootScope.ownerId;
 
-
         PdpService.getPDP(userId, function(obj){
             vm.userPDP = obj;
             userPdpId = obj.id;
