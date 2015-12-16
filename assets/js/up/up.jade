@@ -97,6 +97,6 @@ form.container-fluid(name='MainProfile')
 					input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
 				.btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)") Change photo
 
-	.col-md-12.form-group
+	.col-sm-12.form-group
 		input.btn.btn-primary(value='Save Changes', ng-click='ctrl.doUpdate()', readonly)
 		input.btn.btn-default(value='Cancel', ng-click='ctrl.cancelUpdate()', readonly)
