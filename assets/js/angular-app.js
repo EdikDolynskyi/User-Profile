@@ -62,7 +62,7 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 	};
 	vm.changeHash = function(data) {
 		if (vm.initialized){
-			$rootScope.userId = $rootScope.ownerId;
+			// $rootScope.userId = $rootScope.ownerId;
 			$location.path(data);
 		} else {
 			vm.initialized = true;
