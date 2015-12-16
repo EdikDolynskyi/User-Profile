@@ -1,34 +1,34 @@
 .container-fluid(ng-controller='ProjectsController')
     .row.projects
-        div.col-lg-12.v-center
+        div.col-sm-12.v-center
             h4 Projects
-        div.col-lg-12.voffset3
+        div.col-sm-12.voffset3
             .panel.panel-default
                 .panel-heading.project-header(ng-click='isCollapsed = !isCollapsed')
                     b {{currentProject.name}}
                 .panel-body(collapse='isCollapsed')
                     .row
-                        div.col-lg-3.project-label
+                        div.col-sm-3.project-label
                             | Start date:
-                        div.col-lg-9
+                        div.col-sm-9
                             | {{currentProject.start | date:'dd/MM/yyyy'}}
                     .row.voffset3
-                        div.col-lg-3.project-label
+                        div.col-sm-3.project-label
                             | Technologies:
-                        div.col-lg-9
+                        div.col-sm-9
                             button.stars-4(ng-repeat = 'techn in currentProject.technologies') {{techn.name}}
                     .row.voffset3
-                        div.col-lg-3.project-label
+                        div.col-sm-3.project-label
                             | Description:
-                        div.col-lg-9
+                        div.col-sm-9
                             | {{currentProject.description}}
                     .row.voffset3
-                        div.col-lg-12.project-label
+                        div.col-sm-12.project-label
                             | Participants:
-                        div.col-lg-3(ng-repeat='participant in currentProject.participants')
+                        div.col-sm-3(ng-repeat='participant in currentProject.participants')
                             img.img-responsive(ng-src='{{participant.avatar.urlAva}}')
                     //.row.voffset3
-                    //    div.col-lg-12.project-label
+                    //    div.col-sm-12.project-label
                     //        | Screenshots:
-                    //    div.col-lg-4(ng-repeat='screenshot in currentProject.screenshots')
+                    //    div.col-sm-4(ng-repeat='screenshot in currentProject.screenshots')
                     //        img.img-responsive(ng-src='{{screenshot.img}}')

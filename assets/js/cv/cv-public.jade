@@ -5,9 +5,9 @@ script(type='text/ng-template', id='dropDownList.html').
 
 .container-fluid(ng-controller='CVPublicController')
     .row
-        div.col-lg-12.v-center
+        div.col-sm-12.v-center
             h4 Technologies
-        div.col-lg-12.voffset3
+        div.col-sm-12.voffset3
             | Sort by knowledge level:
             rating(ng-model='knowledge' max='5' readonly='isReadonly' on-hover='hoveringOver(value)' on-leave='overStar = null')
             ul.technologies-list.voffset3
@@ -19,35 +19,35 @@ script(type='text/ng-template', id='dropDownList.html').
                         | {{tech.name}}
                         rating(ng-model='tech.stars' max='5' readonly='true' on-hover='hoveringOver(value)' on-leave='overStar = null', ng-show='showRating')
     .row
-        div.col-lg-12.v-center
+        div.col-sm-12.v-center
             h4 Projects
-        div.col-lg-12.voffset3
+        div.col-sm-12.voffset3
             .panel.panel-default.project(ng-repeat='project in userProjects')
                 .panel-heading.project-header(ng-click='isCollapsed = !isCollapsed')
                     b {{project.name}}
                 .panel-body(collapse='project.current ? !isCollapsed : isCollapsed')
                     .row
-                        div.col-lg-3.project-label
+                        div.col-sm-3.project-label
                             | Start date:
-                        div.col-lg-9
+                        div.col-sm-9
                             | {{project.startDate | date:'dd/MM/yyyy'}}
                     .row.voffset3(ng-repeat='tech in project.technologies | unique')
-                        div.col-lg-3.project-label
+                        div.col-sm-3.project-label
                             | {{tech.category.name}}:
-                        div.col-lg-9
+                        div.col-sm-9
                             button.stars-4(ng-repeat = 'tech in project.technologies | filter: {category: {id: tech.category.id}}') {{tech.name}}
                     .row.voffset3
-                        div.col-lg-3.project-label
+                        div.col-sm-3.project-label
                             | Description:
-                        div.col-lg-9
+                        div.col-sm-9
                             | {{project.description}}
                     .row.voffset3
-                        div.col-lg-12.project-label
+                        div.col-sm-12.project-label
                             | Participants:
-                        div.col-lg-3(ng-repeat='participant in project.participants')
+                        div.col-sm-3(ng-repeat='participant in project.participants')
                             img.img-responsive(ng-src='{{participant.avatar.urlAva}}')
                     .row.voffset3
-                        div.col-lg-12.project-label
+                        div.col-sm-12.project-label
                             | Screenshots:
-                        div.col-lg-4(ng-repeat='screenshot in project.screenshots')
+                        div.col-sm-4(ng-repeat='screenshot in project.screenshots')
                             img.img-responsive(ng-src='{{screenshot.img}}')

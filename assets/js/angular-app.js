@@ -23,8 +23,7 @@ app.config(function ($routeProvider) {
 			templateUrl:  prefix + 'js/up/up-data.html'
 		}).
 		when('/adminup', {
-			templateUrl: prefix + 'js/admin/up-admin.html',
-			controller: 'UserProfileAdminController'
+			templateUrl: prefix + 'js/admin/up-admin.html'
 		}).
 		when('/cv', {templateUrl: prefix + 'js/cv/cv.html'}).
 		when('/pdp', {templateUrl: prefix + 'js/pdp/pdp.html'}).

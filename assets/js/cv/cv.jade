@@ -24,7 +24,7 @@ script(type='text/ng-template', id='dropDownList.html').
             <button type="button" class="btn btn-danger" ng-click="removeProject()">Delete</button>
         </div>
     .row.user-technologies
-        div.col-lg-12
+        div.col-sm-12
             h4 Technologies
             div.btn-add-tech(dropdown="")
                 a#simple-dropdown(href="", dropdown-toggle="")
@@ -33,9 +33,9 @@ script(type='text/ng-template', id='dropDownList.html').
                     li
                         a(href="", ng-click="showTechForm1=true; showTechForm2=false") Select from existing technologies
                         a(href="", ng-click="showTechForm2=true; showTechForm1=false") Create technology
-        div.col-lg-6.col-lg-offset-3(ng-include="template1")
-        div.col-lg-6.col-lg-offset-3(ng-include="template2")
-        div.col-lg-12.voffset3
+        div.col-sm-6.col-sm-offset-3(ng-include="template1")
+        div.col-sm-6.col-sm-offset-3(ng-include="template2")
+        div.col-sm-12.voffset3
             | Sort by knowledge level:
             rating(ng-model="knowledge", max="5", readonly="isReadonly", on-hover="hoveringOver(value)", on-leave="overStar=null")
             ul.technologies-list.voffset3
@@ -49,7 +49,7 @@ script(type='text/ng-template', id='dropDownList.html').
                                 ng-show="showRating", ng-click="updateTechnology(tech)")
                         span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click="removeTechnology($event, tech)")
     .row.user-projects
-        div.col-lg-12
+        div.col-sm-12
             h4 Projects
             div.btn-add-project(dropdown="")
                 a#simple-dropdown(href="", dropdown-toggle="")
@@ -58,9 +58,9 @@ script(type='text/ng-template', id='dropDownList.html').
                     li
                         a(href="", ng-click="showProjectForm1=true; showProjectForm2=false") Select from existing projects
                         a(href="", ng-click="showProjectForm2=true; showProjectForm1=false") Create project
-        div.col-lg-6.col-lg-offset-3(ng-include="template3")
-        div.col-lg-6.col-lg-offset-3(ng-include="template4")
-        div.col-lg-12.voffset3
+        div.col-sm-6.col-sm-offset-3(ng-include="template3")
+        div.col-sm-6.col-sm-offset-3(ng-include="template4")
+        div.col-sm-12.voffset3
             .panel.panel-default.project(ng-repeat="project in userCV.projects", ng-attr-id="{{$index}}")
                 .panel-heading.project-header
                     b(ng-click="isCollapsed = !isCollapsed") {{project.name}}
@@ -79,51 +79,51 @@ script(type='text/ng-template', id='dropDownList.html').
                         img.logo(src="http://academy.binary-studio.com/resources/logo.png")
                     form(ng-submit="updateProject(project)")
                         .row
-                            div.col-lg-3.project-label
+                            div.col-sm-3.project-label
                                  | Start date:
-                            div.col-lg-9
+                            div.col-sm-9
                                 span {{project.start | date:"dd/MM/yyyy"}}
                                 //span(ng-if='!editMode') {{project.start | date:'dd/MM/yyyy'}}
                                 //input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.start',
                                     is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
                                     date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
                         .row.voffset3(ng-if="!project.end")
-                            div.col-lg-3.project-label
+                            div.col-sm-3.project-label
                                 | End date:
-                            div.col-lg-9
+                            div.col-sm-9
                                 span {{project.end | date:"dd/MM/yyyy"}}
                                 //span(ng-if='!editMode') {{project.end | date:'dd/MM/yyyy'}}
                                 //input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.end',
                                     is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
                                     date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
                         .row.voffset3(ng-repeat="tech in project.technologies | unique")
-                            div.col-lg-3.project-label
+                            div.col-sm-3.project-label
                                 | {{tech.category.name}}:
-                            div.col-lg-9
+                            div.col-sm-9
                                 button.stars-4(ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
                                     | {{tech.name}}
                         .row.voffset3
-                            div.col-lg-3.project-label
+                            div.col-sm-3.project-label
                                 | Description:
-                            div.col-lg-9
+                            div.col-sm-9
                                 p {{project.description}}
                                 //p(ng-if='!editMode') {{project.description}}
                                 //textarea.form-control(ng-if='editMode' rows='8' ng-model='project.description', required)
                         .row.voffset3(ng-if="editMode")
-                            div.checkbox.col-lg-12
+                            div.checkbox.col-sm-12
                                 label
                                     input(type="checkbox" ng-model="project.current")
                                     | Set this project as the current project
                         .row.voffset3
-                            div.col-lg-3.project-label
+                            div.col-sm-3.project-label
                                 | Your role:
-                            div.col-lg-9
+                            div.col-sm-9
                                 span(ng-if="!editMode") {{project.userRole}}
                                 input.form-control(ng-if="editMode", type="text", ng-model="project.userRole")
                         .row.voffset3
-                            div.col-lg-3.project-label
+                            div.col-sm-3.project-label
                                 | Work period:
-                            div.col-lg-9
+                            div.col-sm-9
                                 span(ng-if="!editMode") {{project.startDate | date:"dd/MM/yyyy"}} - {{project.endDate | date:"dd/MM/yyyy"}}
                                 span(ng-if='!editMode && !project.endDate') present
                                 input.form-control(ng-if="editMode" type="date", datepicker-popup="", ng-model="project.startDate",
@@ -134,9 +134,9 @@ script(type='text/ng-template', id='dropDownList.html').
                                     is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
                                     date-disabled="disabled(date, mode)", close-text="Close")
                         .row.voffset3
-                            div.col-lg-12.project-label
+                            div.col-sm-12.project-label
                                 | Team members:
-                            div.col-md-6.col-lg-6.clearfix.voffset2(ng-repeat="participant in project.participants")
+                            div.col-md-6.col-sm-6.clearfix.voffset2(ng-repeat="participant in project.participants")
                                 a.participant-photo(href="#", ng-click="findUser($event, participant.id)")
                                     div.participant-photo-wrap
                                         img.img-responsive(ng-src="{{participant.avatar.urlAva}}")
@@ -145,13 +145,13 @@ script(type='text/ng-template', id='dropDownList.html').
                                         a(href="#", ng-click="findUser($event, participant.id)") {{participant.name}} {{participant.surname}}
                                 p.participant-role {{participant.role}}
                         .row.voffset3
-                            div.col-lg-12.project-label
+                            div.col-sm-12.project-label
                                 | Screenshots:
-                            div.col-md-4.col-lg-4.voffset2(ng-repeat="screenshot in project.screenshots")
+                            div.col-md-4.col-sm-4.voffset2(ng-repeat="screenshot in project.screenshots")
                                 div.screenshot-wrap
                                     img.img-responsive.screenshot(ng-src="{{screenshot.img}}", ng-click="open(screenshot, project.screenshots)")
                         .row.voffset4(ng-if="editMode")
-                            div.col-lg-12
+                            div.col-sm-12
                                 button.btn.btn-primary(type="submit") Save
                                 button.btn.btn-danger(ng-click="cancelEditing(project._id)") Cancel
 
