@@ -96,12 +96,14 @@ script(type='text/ng-template', id='dropDownList.html').
                                 //input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.end',
                                     is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
                                     date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+                        
                         .row.voffset3(ng-repeat="tech in project.technologies | unique")
                             div.col-lg-3.project-label
                                 | {{tech.category.name}}:
                             div.col-lg-9
                                 button.stars-4(ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
                                     | {{tech.name}}
+                        
                         .row.voffset3
                             div.col-lg-3.project-label
                                 | Description:
@@ -109,6 +111,7 @@ script(type='text/ng-template', id='dropDownList.html').
                                 p {{project.description}}
                                 //p(ng-if='!editMode') {{project.description}}
                                 //textarea.form-control(ng-if='editMode' rows='8' ng-model='project.description', required)
+                        
                         .row.voffset3(ng-if="editMode")
                             div.checkbox.col-lg-12
                                 label

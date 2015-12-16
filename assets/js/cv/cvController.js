@@ -1,4 +1,5 @@
 var app = require('../angular-app');
+var _ = require('underscore');
 
 
 app.controller('CVController', function($scope, $modal, $location, cvFactory, uploadService) {
@@ -64,10 +65,12 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
     });
 
     $scope.addTechnologiesToProject = function(technology) {
-        if (technology !== '') {
-            $scope.project.technologies.push(technology);
-
-            $scope.projectTechnology = '';
+        if (technology !== '' && typeof technology == "object") {
+            var correctTechnology = Boolean(_.where($scope.allTechnologies, {name: technology.name, id: technology.id}).length);
+            var technologyExist = Boolean(_.where($scope.project.technologies, {name: technology.name, id: technology.id}).length);
+            if(correctTechnology && !technologyExist){
+                $scope.project.technologies.push(technology);
+            }
         }
     };
 
@@ -75,6 +78,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
         if ($event.keyCode == 13) {
             $event.preventDefault();
             $scope.addTechnologiesToProject(technology);
+            $scope.projectTechnology = '';
         }
     };
 

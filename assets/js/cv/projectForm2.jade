@@ -42,7 +42,7 @@ form(name="projectForm2", ng-submit="createProject(projectForm2, project)", ng-s
       label(for="technologies") Technologies
       input#technologies.form-control(type="text",
          name="technologies",
-         ng-keydown ='enterTechnologyName($event, projectTechnology)',
+         ng-keyup ='enterTechnologyName($event, projectTechnology)',
          typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
          typeahead-template-url="dropDownList.html",
          ng-model="projectTechnology",
