@@ -222,7 +222,7 @@ function createProject(body, callback) {
         .create(project)
         .exec(function(err, created) {
             if(err) callback(err);
-
+            
             if(body.project.current) {
                 setCurrentProject(body.userId, created.id, function(err) {
                     if(err) callback(err);

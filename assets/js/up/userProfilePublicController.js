@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', UserProfilePublicCtrl]);
+app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', 'PdpService', UserProfilePublicCtrl]);
 
-function UserProfilePublicCtrl(service, $rootScope, $route) {
+function UserProfilePublicCtrl(service, $rootScope, $route, PdpService) {
     var ctrl = this;
     var prefix = window.location.pathname;
     //Init
@@ -20,6 +20,9 @@ function UserProfilePublicCtrl(service, $rootScope, $route) {
             $rootScope.userId = user.id;
             ctrl.user = user;
             ctrl.user.age = ctrl.calculateAge(ctrl.user.birthday);
+            PdpService.getPDP(user.id, function(pdp){
+                ctrl.pdp = pdp;
+            });
         });
     } else {
         var userId = $route.current.params.userId;
@@ -27,6 +30,10 @@ function UserProfilePublicCtrl(service, $rootScope, $route) {
         service.get(userId, function (user) {
             ctrl.user = user;
             ctrl.user.age = ctrl.calculateAge(ctrl.user.birthday);
+            PdpService.getPDP(user.id, function(pdp){
+                ctrl.pdp = pdp;
+            });
         });
     }
+
 }

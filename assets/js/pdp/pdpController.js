@@ -69,7 +69,7 @@ app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService
         var newObj = {};
         newObj.completed = false;
         newObj.name = vm.newTask;
-        PdpService.addTask(newObj);
+        PdpService.addTask(newObj, userPdpId);
         vm.userPDP.tasks.push(newObj);
         vm.newTask = '';
         vm.taskInput = true;

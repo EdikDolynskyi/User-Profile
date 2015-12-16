@@ -35,13 +35,12 @@ div.container-fluid(ng-controller="UserProfilePublicController as ctrl")
                 .up-title Email address
                 .up-data {{ctrl.user.email}}
 
-        .panel.panel-default(ng-controller='PdpController as pdp')
+        .panel.panel-default
             .panel-heading
                 h3.panel-title Position
             .panel-body
                 .up-title Position in company
-                //.up-data {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
-                .up-data {{pdp.userPDP.position.name}} {{pdp.userPDP.direction.name}}
+                .up-data {{ctrl.pdp.position.name}} {{ctrl.pdp.direction.name}}
 
                 .up-title Work since
                 .up-data(ng-bind="ctrl.user.workDate | date:'dd-MMMM-yyyy'")
