@@ -9,6 +9,7 @@ function UserProfileService($resource) {
         $resource(prefix + 'api/users/:id', {id: id}).get(function (user) {
 
             user.birthday = new Date(user.birthday);
+            user.workDate = new Date(user.workDate);
 
             cb(user);
         });
@@ -60,6 +61,7 @@ function UserProfileService($resource) {
 
     this.getChangesFields = function (preModeration, original, edited, dataInFields){
         var result = angular.copy(preModeration);
+        var oldUserData = {};
         var isChanged = false;
         for (var key in dataInFields) {
             if (original[key] !== edited[key]) {
@@ -67,13 +69,20 @@ function UserProfileService($resource) {
                 isChanged = true;
                 if(!preModeration.hasOwnProperty(key)){
                     result[key] = angular.copy(original[key]);
+                    oldUserData[key] = angular.copy(edited[key]);
                 }
             }
         }
         return {
             changes: result,
+            oldUserData: oldUserData,
             isChanged: isChanged
         };
     };
+
+    this.validateForm = function(form){
+        var validForm = form.userName.$valid && form.userSurname.$valid && form.userBirthday.$valid && form.startWork.$valid;
+        return validForm;
+    }
 }
 

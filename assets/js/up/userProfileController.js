@@ -6,9 +6,8 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
 	var vm = this;
 	//Init
 	vm.today = new Date();
-	vm.oldUserData = {};
-	vm.newUserData = {};
 	vm.dataInFields = {}; //here fields, wich changed
+	vm.formValid = true;
 
 	var prefix = window.location.pathname;
 
@@ -34,63 +33,48 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
 	});
 
 	vm.doUpdate = function () {
-		var changeFields;
-		if (vm.url) {
-			var obj = {};
-			obj.url = vm.url;
-			var pathArray = obj.url.split('/');
-			var fileName = pathArray[pathArray.length - 1];
-			obj.fileName = './upload/' + fileName;
+		vm.validForm = UserProfileService.validateForm($scope.MainProfile);
+		if (vm.validForm){
+			var changeFields;
+			if (vm.url) {
+				var obj = {};
+				obj.url = vm.url;
+				var pathArray = obj.url.split('/');
+				var fileName = pathArray[pathArray.length - 1];
+				obj.fileName = './upload/' + fileName;
 
-			downloadService.downloadFile(obj, function () {
-				vm.user.avatar.urlAva = 'api/files/get/' + fileName;
-				vm.dataInFields.avatar = angular.copy(vm.user.avatar);
-
-				var data = {
-					"owner": {"name": vm.userOriginal.name},
-					"original": vm.oldUserData,
-					"changes": vm.newUserData,
-					"date": {"date": vm.today}
-				};
-
-				changeFields = vm.getChangesFields(vm.user.preModeration, vm.userOriginal, vm.user, vm.dataInFields);
-
-				if (changeFields.isChanged) {
-						vm.user.preModeration = changeFields.changes;
-						vm.user.changeAccept = false;
-
-					UserProfileService.update(vm.user, function (user) {
-						vm.addUserChangeLog(data);
-						console.log('The changes have been saved');
-						alert('The changes have been saved');
-					});
-				}
-				vm.showUrlInput = false;
-				vm.url = "";
-			});
-		}
-
-		else {
-
-			var data = {
-				"owner": {"name": vm.userOriginal.name},
-				"original": vm.oldUserData,
-				"changes": vm.newUserData,
-				"date": {"date": vm.today}
-			};
-
-			changeFields = vm.getChangesFields(vm.user.preModeration, vm.userOriginal, vm.user, vm.dataInFields);
-
-			if (changeFields.isChanged) {
-					vm.user.preModeration = changeFields.changes;
-					vm.user.changeAccept = false;
-
-				UserProfileService.update(vm.user, function (user) {
-					vm.addUserChangeLog(data);
-					console.log('The changes have been saved');
-					alert('The changes have been saved');
+				downloadService.downloadFile(obj, function () {
+					vm.user.avatar.urlAva = 'api/files/get/' + fileName;
+					vm.dataInFields.avatar = angular.copy(vm.user.avatar);
+					vm.sendData();
+					vm.showUrlInput = false;
+					vm.url = "";
 				});
+			} else {
+				vm.sendData();
 			}
+		}
+	};
+
+	vm.sendData = function(){
+		changeFields = vm.getChangesFields(vm.user.preModeration, vm.userOriginal, vm.user, vm.dataInFields);
+		var data = {
+			"owner": {"name": vm.userOriginal.name},
+			"original": changeFields.oldUserData,
+			"changes": changeFields.changes,
+			"date": {"date": vm.today}
+		};
+
+		if (changeFields.isChanged) {
+				vm.user.preModeration = changeFields.changes;
+				vm.user.changeAccept = false;
+
+			UserProfileService.update(vm.user, function (user) {
+				vm.addUserChangeLog(data);
+				changeFields.isChanged = false;
+				vm.userOriginal = angular.copy(vm.user);
+				alert('The changes have been saved');
+			});
 		}
 	};
 
