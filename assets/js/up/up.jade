@@ -38,7 +38,8 @@ form.container-fluid(ng-controller="UserProfileController as ctrl", name='MainPr
 					close-text='Close',
 					ng-class= "{errorborder: MainProfile.userBirthday.$invalid && MainProfile.userBirthday.$dirty && MainProfile.userBirthday.$touched}")
 				span.input-group-btn
-					button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
+					button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker', 
+					ng-class= "{errorborder: MainProfile.userBirthday.$invalid && MainProfile.userBirthday.$dirty && MainProfile.userBirthday.$touched}")
 						i.glyphicon.glyphicon-calendar
 			.error-block(ng-show=' MainProfile.userBirthday.$invalid && MainProfile.userBirthday.$dirty && MainProfile.userBirthday.$touched')
 				p(ng-show=" MainProfile.userBirthday.$invalid") Birthday is required
@@ -80,10 +81,11 @@ form.container-fluid(ng-controller="UserProfileController as ctrl", name='MainPr
 				close-text='Close',
 				ng-class= "{errorborder: MainProfile.startWork.$invalid && MainProfile.startWork.$dirty && MainProfile.startWork.$touched}")
 				span.input-group-btn
-					button.btn.btn-default(type='button', ng-click='showWorkDatePicker = !showWorkDatePicker')
+					button.btn.btn-default(type='button', ng-click='showWorkDatePicker = !showWorkDatePicker',
+					ng-class= "{errorborder: MainProfile.startWork.$invalid && MainProfile.startWork.$dirty && MainProfile.startWork.$touched}")
 						i.glyphicon.glyphicon-calendar
 			.error-block(ng-show=' MainProfile.startWork.$invalid && MainProfile.startWork.$dirty && MainProfile.startWork.$touched')
-				p(ng-show=" MainProfile.startWork.$invalid") Start work in company is required
+				p(ng-show=" MainProfile.startWork.$invalid") Date of beginning of work is required
 
 
 
