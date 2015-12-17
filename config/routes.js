@@ -78,7 +78,8 @@ module.exports.routes = {
   'put /users_projects/:id': 'Users_projectsController.updateProject',
   // for getting projects only by id
   'get /api/projects/:id': 'ProjectController.getProject',
-  'put /api/projects/:id': 'ProjectController.updateProject'
+  'put /api/projects/:id': 'ProjectController.updateProject',
+  'delete /api/users/:id':  'UsersController.deleteUser'
 
 
   /***************************************************************************

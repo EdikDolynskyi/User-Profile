@@ -16,7 +16,7 @@ module.exports = {
         var certificate = req.query.certificate;
 
         if (!(technology || knowLevel || direction || position || certificate)) {
-            Users.find({}).exec(function (err, users) {
+            Users.find({ isDeleted : false }).exec(function (err, users) {
                 prepareSearchUserDTOs(users, function (data) {
                     res.send(data);
                 });
@@ -75,8 +75,8 @@ module.exports = {
                     upLookupParams.userCV = { $in: results.cvs};
                 if (results.pdps)
                     upLookupParams.userPDP = { $in: results.pdps};
-
-                Users.find(upLookupParams).exec(function (err, users) {
+                upLookupParams.isDeleted = false;
+                Users.find(upLookupParams).where({ isDeleted : false }).exec(function (err, users) {
                     prepareSearchUserDTOs(users, function (data) {
                         res.send(data);
                     });
@@ -92,14 +92,54 @@ module.exports = {
 
     updateCurrentProject: function(req,res) {
         Users.native(function(err,collection) {
-            collection.update({_id: Users.mongo.objectId(req.param('id'))}, {$set: {currentProject: req.body.id || null}})}, function(err, data){
+            collection.update({_id: Users.mongo.objectId(req.param('id'))}, {$set: {currentProject: req.body.id || null}})
+        }, function(err, data){
                 if (err) {
                     res.send(err)
                 } else {
                     res.send(data);
                 }
             });
-        }
+        },
+
+    deleteUser: function(req, res){
+        Users.findOne({_id: Users.mongo.objectId(req.params.id)}).exec(function(err, user){
+            if (!err){
+                user.isDeleted = true;
+                user.save();
+                var tasks = {};
+                tasks.removedPDP = function(cb){
+                    Pdps.findOne({id: user.userPDP}).exec(function(err, pdp) {    
+                        pdp.isDeleted = true;
+                        pdp.save();
+                        cb(err, pdp);
+                    });
+                };
+                tasks.removedCV = function(cb){
+                    Cvs.findOne({id: user.userCV}).exec(function(err, cv){
+                        cv.isDeleted = true;
+                        cv.save();
+                        cb(err, cv);
+                    });
+                };
+                tasks.removedUserProjects = function(cb){
+                    Users_projects.native(function(err, collection) {
+                        collection.update({user: req.params.id}, {$set: { isDeleted: true }}, {multi: true});
+                        cb(err, collection);
+                    });                
+                };
+                async.parallel(tasks, function(err, results){
+                    if (!err){
+                        res.send(200);
+                    } else {
+                        res.send(404);
+                    }
+                });
+            } else {
+                res.send(404);
+            }
+        });
+    }
 };
 
 function prepareSearchUserDTOs(users, cb) {

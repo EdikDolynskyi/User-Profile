@@ -159,7 +159,7 @@ function getProjectTechnologies(project, asyncCallback) {
 
 function getProjectParticipants(projectId, callback) {
     Users_projects
-        .find({project: projectId})
+        .find({project: projectId, isDeleted: false})
         .exec(function (err, projectParticipants) {
             getParticipantsData(projectParticipants,callback)
         });
