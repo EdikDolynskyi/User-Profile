@@ -1,0 +1,41 @@
+form(name="technologyForm", ng-submit="addTechnology(technologyForm, technology)", novalidate)
+	.panel.panel-default
+		.panel-body
+			.form-group(ng-class="{ 'has-error': technologyForm.technologies.$invalid && technologyForm.$submitted}")
+				label(for="tech-name") Technology name
+				input#technologies.form-control(type="text",
+					name="technologies",
+					ng-keyup ='enterTechnologyNameForTech($event, technology)',
+					typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
+					typeahead-template-url="dropDownList.html",
+					ng-click="enterTechnologyNameForTech($event, technology)",
+					ng-model="technology.name",
+					ng-blur="enterTechnologyNameForTech($event, technology)",
+					ng-focus="enterTechnologyNameForTech($event, technology)",
+					ng-maxlength="15", required)
+				div.help-block(ng-messages="technologyForm.technologies.$error", ng-if="technologyForm.$submitted")
+					p(ng-message="maxlength") Please use no more than 15 characters
+					p(ng-message="required") Please enter a technology
+				label(for="sel-category" ng-show="showSelectTechnology") Technology Category
+				select#sel-category.form-control(name="category", ng-show="showSelectTechnology"
+					ng-model="technology.category",
+					ng-required="showSelectTechnology")
+					option(value="") ---Please select---
+					option(ng-repeat="category in allCategories | orderBy : 'name'", value="{{category.id}}")
+						| {{category.name}}
+			.form-group(ng-class="{ 'has-error': technologyForm.category.$invalid && technologyForm.$submitted}")
+				div.help-block(ng-messages="technologyForm.category.$error", ng-if="technologyForm.$submitted && showSelectTechnology")
+					p(ng-message="required") Please select a category
+			.form-group(ng-class="{ 'has-error': technologyForm.knowledge.$invalid && technologyForm.$submitted}")
+				label(for='knowledgelevel') Knowledge level
+				rating#knowledgelevel(name="knowledge",
+					max='5',
+					on-hover='hoveringOver(value)',
+					on-leave='overStar = null',
+					readonly='false',
+					ng-model='technology.stars',
+					required)
+				div.help-block(ng-messages="technologyForm.knowledge.$error", ng-if="technologyForm.$submitted")
+					p(ng-message="required") Please specify your knowledge level of the technology
+			button.btn.btn-primary(type='submit') Add techology
+			button.btn.btn-danger(type='reset', ng-click='cancelCreatingTechnology(technologyForm)') Cancel

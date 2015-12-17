@@ -24,11 +24,13 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.selProject = {};
 	$scope.selTech = {};
 	$scope.newScreenshots = [];
+	$scope.showSelectTechnology = true;
 
 	$scope.template1 = window.location.pathname + 'js/cv/technologyForm1.html';
 	$scope.template2 = window.location.pathname + 'js/cv/technologyForm2.html';
 	$scope.template3 = window.location.pathname + 'js/cv/projectForm1.html';
 	$scope.template4 = window.location.pathname + 'js/cv/projectForm2.html';
+	$scope.template = window.location.pathname + 'js/cv/technologyForm.html';
 
 
 
@@ -84,56 +86,59 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		}
 	};
 
-	$scope.selectTechnology = function(form, technology) {
+	$scope.enterTechnologyNameForTech = function($event, technology) {
+		$scope.showSelectTechnology = !$scope.checkExistTechnology(technology);
+		if ($event.keyCode == 13) {
+			$event.preventDefault();
+			$scope.addTechnologiesToProject(technology);
+			$scope.projectTechnology = '';
+		}
+	};
+
+	$scope.checkExistTechnology = function(technology){
+		var technologyExist;
+		if(typeof technology.name == 'object'){
+			var techName = technology.name.name;
+			var technologyExist = Boolean(_.where($scope.allTechnologies, {name: techName}).length);
+		} else {
+			var technologyExist = Boolean(_.where($scope.allTechnologies, {name: technology.name}).length);
+		}
+		return technologyExist;
+	};
+
+	$scope.addTechnology = function(technologyForm, technology){
+		var cvId = $scope.userCV.id;
+
 		if(technology.stars == 0) {
 			form.knowledge.$setValidity("required", false);
 			return;
 		}
 
-		if(form.$valid) {
-			var cvId = $scope.userCV.id;
-
-			cvFactory.selectTechnology(technology, cvId, function(technologyId) {
-				cvFactory.getTechnology(cvId, technologyId, function(res) {
-					$scope.userCV.technologies.push(res);
+		if(technologyForm.$valid) {
+			if($scope.showSelectTechnology){
+				cvFactory.createTechnology(technology, cvId, function(technologyId) {
+					cvFactory.getTechnology(cvId, technologyId, function(res) {
+						$scope.userCV.technologies.push(res);
+					});
 				});
-			});
+			} else {
+				var selectedTech = {
+					id: technology.name.id,
+					stars: technology.stars
+				};
 
-			$scope.selTech= {};
-			form.$setPristine();
-			$scope.showTechForm1 = !$scope.showTechForm1;
-		}
-	};
-
-	$scope.cancelSelectingTechnology = function(form) {
-		$scope.showTechForm1 = !$scope.showTechForm1;
-		$scope.selTech = {};
-		form.$setPristine();
-	};
-
-	$scope.createTechnology = function(form, technology) {
-		if(technology.stars == 0) {
-			form.knowledge.$setValidity("required", false);
-			return;
-		}
-
-		if(form.$valid) {
-			var cvId = $scope.userCV.id;
-
-			cvFactory.createTechnology(technology, cvId, function(technologyId) {
-				cvFactory.getTechnology(cvId, technologyId, function(res) {
-					$scope.userCV.technologies.push(res);
+				cvFactory.selectTechnology(selectedTech, cvId, function(technologyId) {
+					cvFactory.getTechnology(cvId, technologyId, function(res) {
+						$scope.userCV.technologies.push(res);
+					});
 				});
-			});
-
-			$scope.technology = {};
-			form.$setPristine();
-			$scope.showTechForm2 = !$scope.showTechForm2;
+			}
+			$scope.showTechForm = !$scope.showTechForm;
 		}
 	};
 
 	$scope.cancelCreatingTechnology = function(form) {
-		$scope.showTechForm2 = !$scope.showTechForm2;
+		$scope.showTechForm = !$scope.showTechForm;
 		$scope.technology = {};
 		form.$setPristine();
 	};
