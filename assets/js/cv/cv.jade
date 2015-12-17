@@ -23,7 +23,7 @@ script(type='text/ng-template', id='dropDownList.html').
 			<button type="button" class="btn btn-default" ng-click="cancel($event)">Cancel</button>
 			<button type="button" class="btn btn-danger" ng-click="removeProject()">Delete</button>
 		</div>
-	.row.user-technologies
+	.row.user-technologies(ng-show="userCV.technologies.length")
 		div.col-sm-12
 			h4 Technologies
 			div.btn-add-tech(dropdown="")
@@ -49,7 +49,7 @@ script(type='text/ng-template', id='dropDownList.html').
 								ng-show="showRating", ng-click="updateTechnology(tech)")
 						span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click="removeTechnology($event, tech)")
 	.row.user-projects
-		div.col-sm-12
+		div.col-sm-12(ng-show="userCV.projects.length")
 			h4 Projects
 			div.btn-add-project(dropdown="")
 				a#simple-dropdown(href="", dropdown-toggle="")
@@ -76,7 +76,7 @@ script(type='text/ng-template', id='dropDownList.html').
 				.panel-body(collapse="project.current && !editMode ? !isCollapsed : isCollapsed")
 					div.logo-wpap(ng-if="project.binary")
 						img.logo(src="http://academy.binary-studio.com/resources/logo.png")
-					form(ng-submit="updateProject(project)")
+					form(ng-submit="updateProject(project)" novalidate)
 						.row
 							div.col-sm-3.project-label
 								| Start date:
@@ -136,7 +136,7 @@ script(type='text/ng-template', id='dropDownList.html').
 									is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
 									date-disabled="disabled(date, mode)", close-text="Close")
 						.row.voffset3
-							div.col-sm-12.project-label
+							div.col-sm-12.project-label(ng-show='project.participants.length')
 								| Team members:
 							div.col-md-6.col-sm-6.clearfix.voffset2(ng-repeat="participant in project.participants")
 								a.participant-photo(href="#", ng-click="findUser($event, participant.id)")
@@ -147,7 +147,7 @@ script(type='text/ng-template', id='dropDownList.html').
 										a(href="#", ng-click="findUser($event, participant.id)") {{participant.name}} {{participant.surname}}
 								p.participant-role {{participant.role}}
 						.row.voffset3
-							div.col-sm-12.project-label
+							div.col-sm-12.project-label(ng-show='project.screenshots.length')
 								span Screenshots:
 							div.col-md-4.col-sm-4.voffset2(ng-repeat="screenshot in project.screenshots")
 								div.screenshot-wrap
