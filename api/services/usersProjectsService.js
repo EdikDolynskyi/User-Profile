@@ -62,7 +62,8 @@ module.exports = {
                         description: body.description,
                         name: body.name,
                         start: body.start,
-                        end: body.end
+                        end: body.end,
+                        technologies: body.technologies
                     }
                 },
                 function (err) {

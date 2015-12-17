@@ -74,7 +74,7 @@ script(type='text/ng-template', id='dropDownList.html').
 				.panel-body(collapse="project.current && !editMode ? !isCollapsed : isCollapsed")
 					div.logo-wpap(ng-if="project.binary && !editMode")
 						img.logo(src="http://academy.binary-studio.com/resources/logo.png")
-					form(ng-submit="updateProject(project)")
+					form(novalidate="novalidate")
 						.row
 							div.col-sm-3.project-label
 								| Start date:
@@ -97,12 +97,24 @@ script(type='text/ng-template', id='dropDownList.html').
 									is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
 									date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
 						
+						.row.voffset3
+							div.col-sm-3.project-label Technologies
+								div.btn(ng-show='editMode', ng-click="showTechFormProject=true")
+									span.glyphicon.glyphicon-plus-sign
+							div.col-sm-9(ng-show="showTechFormProject && editMode", ng-include="template2")
+
 						.row.voffset3(ng-repeat="tech in project.technologies | unique")
 							div.col-sm-3.project-label
 								| {{tech.category.name}}:
-							div.col-sm-9
+
+							div.col-sm-9(ng-if='!editMode')
+								button.stars-4(disabled="disabled" ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
+									| {{tech.name}}
+
+							div.col-sm-9(ng-if='editMode')
 								button.stars-4(ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
 									| {{tech.name}}
+									span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click="removeTechnologyFromProject($event, tech, project)")
 						
 						.row.voffset3
 							div.col-sm-3.project-label
@@ -168,5 +180,5 @@ script(type='text/ng-template', id='dropDownList.html').
 
 						.row.voffset4(ng-if="editMode")
 							div.col-sm-12
-								button.btn.btn-primary(type="submit") Save
+								button.btn.btn-primary(ng-click="updateProject(project)") Save
 								button.btn.btn-danger(ng-click="cancelEditing(project._id)") Cancel

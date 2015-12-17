@@ -12,8 +12,6 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.isCollapsed = true;
 	$scope.editMode= false;
 	$scope.showRating = false;
-	$scope.showTechForm1 = false;
-	$scope.showTechForm2 = false;
 	$scope.showProjectForm1 = false;
 	$scope.showProjectForm2 = false;
 	$scope.technology = {};
@@ -25,14 +23,12 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.selTech = {};
 	$scope.newScreenshots = [];
 	$scope.showSelectTechnology = true;
+	$scope.showTechFormProject = false;
 
-	$scope.template1 = window.location.pathname + 'js/cv/technologyForm1.html';
-	$scope.template2 = window.location.pathname + 'js/cv/technologyForm2.html';
+	$scope.template = window.location.pathname + 'js/cv/technologyForm.html';
+	$scope.template2 = window.location.pathname + 'js/cv/technologyFormForProject.html';
 	$scope.template3 = window.location.pathname + 'js/cv/projectForm1.html';
 	$scope.template4 = window.location.pathname + 'js/cv/projectForm2.html';
-	$scope.template = window.location.pathname + 'js/cv/technologyForm.html';
-
-
 
 	cvFactory.getUserData(null, function(user) {
 		$scope.userId = user.id;
@@ -133,15 +129,26 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 					});
 				});
 			}
-			$scope.showTechForm = !$scope.showTechForm;
+			$scope.showTechFormForProject = !$scope.showTechFormForProject;
 		}
 	};
+
+	//editing mode
+	$scope.addTechnologyToProject = function(technology, project){
+		project.technologies.push(technology.name);
+	}
 
 	$scope.cancelCreatingTechnology = function(form) {
 		$scope.showTechForm = !$scope.showTechForm;
 		$scope.technology = {};
 		form.$setPristine();
 	};
+
+	$scope.cancelCreatingTechForProject =function(form){
+		$scope.showTechFormForProject = !$scope.showTechFormForProject;
+		form.$setPristine();
+	};
+
 	$scope.updateTechnology = function(tech){
 		cvFactory.updateCVTechnology(tech, $scope.userCV.id);
 	};
@@ -153,6 +160,13 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 			var index = $scope.userCV.technologies.indexOf(technology);
 			$scope.userCV.technologies.splice(index,1);
 		})
+	};
+
+	$scope.removeTechnologyFromProject = function($event, technology, project) {
+		$event.stopPropagation();
+		project.technologies = _.reject(project.technologies, function(item) {
+			return item.id === technology.id; 
+		});
 	};
 
 	$scope.selectProject = function(form, project) {
@@ -237,6 +251,10 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 				originProject.name = project.name;
 				originProject.start = project.start;
 				originProject.end = project.end;
+				originProject.technologies = _.map(project.technologies, function(item){
+					return item.id;
+				});
+				
 				cvFactory.updateObjectProject(originProject, function(res){
 					if(res[0] + res[1] == "OK"){
 						alert('Project successfully saved');

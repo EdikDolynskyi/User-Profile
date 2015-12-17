@@ -3,7 +3,7 @@ form(name="technologyForm", ng-submit="addTechnology(technologyForm, technology)
 		.panel-body
 			.form-group(ng-class="{ 'has-error': technologyForm.technologies.$invalid && technologyForm.$submitted}")
 				label(for="tech-name") Technology name
-				input#technologies.form-control(type="text",
+				input#technologies.form-control(type="text", autocomplete="off",
 					name="technologies",
 					ng-keyup ='enterTechnologyNameForTech($event, technology)',
 					typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
