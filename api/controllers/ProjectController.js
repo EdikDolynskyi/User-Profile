@@ -14,7 +14,7 @@ module.exports = {
 	},
 
 	updateProject: function(req, res){
-		usersProjectsService.updateObjProjects(req.param('id'), req.body, function(err){
+		usersProjectsService.updateObjProjects(req.param('id'), req.body, function(err, data){
 			if(err){
 				res.send(err);
 			} else{

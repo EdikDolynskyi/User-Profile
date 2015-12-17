@@ -61,9 +61,12 @@ script(type='text/ng-template', id='dropDownList.html').
 		div.col-sm-6.col-sm-offset-3(ng-include="template3")
 		div.col-sm-6.col-sm-offset-3(ng-include="template4")
 		div.col-sm-12.voffset3
-			.panel.panel-default.project(ng-repeat="project in userCV.projects", ng-attr-id="{{$index}}")
+			.panel.panel-default.project(ng-repeat="project in userCV.projects | orderBy: 'startDate'", ng-attr-id="{{$index}}")
 				.panel-heading.project-header
-					b(ng-click="isCollapsed = !isCollapsed") {{project.name}}
+					div.project-title(ng-click="isCollapsed = !isCollapsed")
+						b(ng-if="!editMode") {{project.name}}
+					.form-group.project-name-edit(ng-if='editMode')
+						input.form-control(ng-model="project.name")
 					div.pull-right
 						div.btn-rmv-project(tooltip="Copy to clipboard", tooltip-trigger="mouseenter", ngclipboard='', data-clipboard-text="{{project.path}}")
 							span.glyphicon.glyphicon-share
@@ -74,25 +77,28 @@ script(type='text/ng-template', id='dropDownList.html').
 						div.btn-rmv-project(tooltip="Remove this project", tooltip-trigger="mouseenter", ng-click="confirmDelete($event, 'sm', project)")
 							span.glyphicon.glyphicon-trash
 				.panel-body(collapse="project.current && !editMode ? !isCollapsed : isCollapsed")
-					div.logo-wpap(ng-if="project.binary")
+					div.logo-wpap(ng-if="project.binary && !editMode")
 						img.logo(src="http://academy.binary-studio.com/resources/logo.png")
 					form(ng-submit="updateProject(project)")
 						.row
 							div.col-sm-3.project-label
 								| Start date:
 							div.col-sm-9
-								span {{project.start | date:"dd/MM/yyyy"}}
-								//span(ng-if='!editMode') {{project.start | date:'dd/MM/yyyy'}}
-								//input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.start',
+								span(ng-if='!editMode') {{project.start | date:'dd/MM/yyyy'}}
+								input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.start',
 									is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
 									date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
-						.row.voffset3(ng-if="!project.end")
+						.row.voffset3(ng-if="project.end && !editMode")
 							div.col-sm-3.project-label
 								| End date:
 							div.col-sm-9
-								span {{project.end | date:"dd/MM/yyyy"}}
-								//span(ng-if='!editMode') {{project.end | date:'dd/MM/yyyy'}}
-								//input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.end',
+								span {{project.end | date:'dd/MM/yyyy'}}
+						
+						.row.voffset3(ng-if='editMode')
+							div.col-sm-3.project-label
+								| End date:
+							div.col-sm-9
+								input.form-control(type='date', datepicker-popup='', ng-model='project.end',
 									is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
 									date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
 						

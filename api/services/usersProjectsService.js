@@ -58,11 +58,15 @@ module.exports = {
 
             collection.update({_id: Projects.mongo.objectId(id)}, {
                     $set: {
-                        screenshots: body.screenshots
+                        screenshots: body.screenshots,
+                        description: body.description,
+                        name: body.name,
+                        start: body.start,
+                        end: body.end
                     }
                 },
                 function (err) {
-                    if (err) return callback(err);
+                    return callback(err);
                 });
         });
     },
@@ -96,7 +100,7 @@ function getUserProjects(users_projects, asyncCallback){
                                 item.participants = projectParticipants;
                                 item.current = false;
 
-                                callback(err, item);
+                                return callback(err, item);
                             }
                         );
                     });
