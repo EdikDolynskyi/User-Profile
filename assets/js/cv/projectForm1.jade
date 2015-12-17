@@ -1,4 +1,4 @@
-form(name="projectForm1", ng-submit="selectProject(projectForm1, selProject)", ng-show="showProjectForm1", novalidate=)
+form(name="projectForm1", ng-submit="selectProject(projectForm1, selProject)", ng-show="showProjectForm1", novalidate)
    .form-group(ng-class="{ 'has-error': projectForm1.project.$invalid && projectForm1.$submitted}")
       label(for="sel-project") Project
       select#sel-project.form-control(name="project",

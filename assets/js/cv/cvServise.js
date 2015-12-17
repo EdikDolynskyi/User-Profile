@@ -158,9 +158,9 @@ app.factory('cvFactory', function($resource, $rootScope) {
 
     };
 
-    F.updateObjectProject = function(project){
+    F.updateObjectProject = function(project, callback){
         var projects = $resource(prefix + 'api/projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
-        projects.update({id: project.id}, project);
+        projects.update({id: project.id}, project, callback);
     };
 
     return F;

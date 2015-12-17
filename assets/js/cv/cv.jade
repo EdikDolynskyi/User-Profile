@@ -26,15 +26,10 @@ script(type='text/ng-template', id='dropDownList.html').
 	.row.user-technologies(ng-show="userCV.technologies.length")
 		div.col-sm-12
 			h4 Technologies
-			div.btn-add-tech(dropdown="")
-				a#simple-dropdown(href="", dropdown-toggle="")
-					span.glyphicon.glyphicon-plus-sign
-				ul.dropdown-menu(aria-labelledby="simple-dropdown")
-					li
-						a(href="", ng-click="showTechForm1=true; showTechForm2=false") Select from existing technologies
-						a(href="", ng-click="showTechForm2=true; showTechForm1=false") Create technology
-		div.col-sm-6.col-sm-offset-3(ng-include="template1")
-		div.col-sm-6.col-sm-offset-3(ng-include="template2")
+			div.btn-add-tech(ng-click="showTechForm=true")
+				span.glyphicon.glyphicon-plus-sign
+			div(ng-show="showTechForm" ng-include="template")
+		
 		div.col-sm-12.voffset3
 			| Sort by knowledge level:
 			rating(ng-model="knowledge", max="5", readonly="isReadonly", on-hover="hoveringOver(value)", on-leave="overStar=null")
@@ -61,9 +56,12 @@ script(type='text/ng-template', id='dropDownList.html').
 		div.col-sm-6.col-sm-offset-3(ng-include="template3")
 		div.col-sm-6.col-sm-offset-3(ng-include="template4")
 		div.col-sm-12.voffset3
-			.panel.panel-default.project(ng-repeat="project in userCV.projects", ng-attr-id="{{$index}}")
+			.panel.panel-default.project(ng-repeat="project in userCV.projects | orderBy: 'startDate'", ng-attr-id="{{$index}}")
 				.panel-heading.project-header
-					b(ng-click="isCollapsed = !isCollapsed") {{project.name}}
+					div.project-title(ng-click="isCollapsed = !isCollapsed")
+						b(ng-if="!editMode") {{project.name}}
+					.form-group.project-name-edit(ng-if='editMode')
+						input.form-control(ng-model="project.name")
 					div.pull-right
 						div.btn-rmv-project(tooltip="Copy to clipboard", tooltip-trigger="mouseenter", ngclipboard='', data-clipboard-text="{{project.path}}")
 							span.glyphicon.glyphicon-share
@@ -74,34 +72,49 @@ script(type='text/ng-template', id='dropDownList.html').
 						div.btn-rmv-project(tooltip="Remove this project", tooltip-trigger="mouseenter", ng-click="confirmDelete($event, 'sm', project)")
 							span.glyphicon.glyphicon-trash
 				.panel-body(collapse="project.current && !editMode ? !isCollapsed : isCollapsed")
-					div.logo-wpap(ng-if="project.binary")
+					div.logo-wpap(ng-if="project.binary && !editMode")
 						img.logo(src="http://academy.binary-studio.com/resources/logo.png")
-					form(ng-submit="updateProject(project)" novalidate)
+					form(novalidate="novalidate")
 						.row
 							div.col-sm-3.project-label
 								| Start date:
 							div.col-sm-9
-								span {{project.start | date:"dd/MM/yyyy"}}
-								//span(ng-if='!editMode') {{project.start | date:'dd/MM/yyyy'}}
-								//input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.start',
+								span(ng-if='!editMode') {{project.start | date:'dd/MM/yyyy'}}
+								input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.start',
 									is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
 									date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
-						.row.voffset3(ng-if="!project.end")
+						.row.voffset3(ng-if="project.end && !editMode")
 							div.col-sm-3.project-label
 								| End date:
 							div.col-sm-9
-								span {{project.end | date:"dd/MM/yyyy"}}
-								//span(ng-if='!editMode') {{project.end | date:'dd/MM/yyyy'}}
-								//input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.end',
+								span {{project.end | date:'dd/MM/yyyy'}}
+						
+						.row.voffset3(ng-if='editMode')
+							div.col-sm-3.project-label
+								| End date:
+							div.col-sm-9
+								input.form-control(type='date', datepicker-popup='', ng-model='project.end',
 									is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
 									date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
 						
+						.row.voffset3
+							div.col-sm-3.project-label Technologies
+								div.btn(ng-show='editMode', ng-click="showTechFormProject=true")
+									span.glyphicon.glyphicon-plus-sign
+							div.col-sm-9(ng-show="showTechFormProject && editMode", ng-include="template2")
+
 						.row.voffset3(ng-repeat="tech in project.technologies | unique")
 							div.col-sm-3.project-label
 								| {{tech.category.name}}:
-							div.col-sm-9
+
+							div.col-sm-9(ng-if='!editMode')
+								button.stars-4(disabled="disabled" ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
+									| {{tech.name}}
+
+							div.col-sm-9(ng-if='editMode')
 								button.stars-4(ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
 									| {{tech.name}}
+									span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click="removeTechnologyFromProject($event, tech, project)")
 						
 						.row.voffset3
 							div.col-sm-3.project-label
@@ -167,5 +180,5 @@ script(type='text/ng-template', id='dropDownList.html').
 
 						.row.voffset4(ng-if="editMode")
 							div.col-sm-12
-								button.btn.btn-primary(type="submit") Save
+								button.btn.btn-primary(ng-click="updateProject(project)") Save
 								button.btn.btn-danger(ng-click="cancelEditing(project._id)") Cancel
