@@ -157,7 +157,7 @@ script(type='text/ng-template', id='dropDownList.html').
 
 							div.col-md-4.col-sm-4.voffset2(ng-if="newScreenshots", ng-repeat="newScreenshot in newScreenshots", ng-attr-id="{{$index}}")
 								div.screenshot-wrap
-									img.img-responsive.screenshot(ngf-src="newScreenshot", ng-click="open(newScreenshot, newScreenshots)")
+									img.img-responsive.screenshot(ngf-src="newScreenshot", ng-click="open(newScreenshot, newScreenshots)" accept="image/*")
 								.btn-rmv-project(ng-show='editMode' ng-click="removeNewScreenshot(newScreenshot)")
 									span.glyphicon.glyphicon-trash
 

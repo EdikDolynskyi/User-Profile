@@ -6,7 +6,7 @@ div.test(ng-controller="CertificationsController as cert")
 		<div class="modal-body row">
 			<div class="col-sm-6 col-sm-offset-3">
 				<img class="img-responsive" ng-src="{{modalcert.tmpSrc}}" height="300px" width="300px">
-				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalcert.upload($file)">
+				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalcert.upload($file)" accept="image/*">
 					<span class="glyphicon glyphicon-upload"></span>
 				</button>	
 				<form class="voffset3">
@@ -44,7 +44,7 @@ div.test(ng-controller="CertificationsController as cert")
 	.row.voffset5(collapse="cert.isCollapsed")
 		.col-md-6.col-md-offset-3
 			img.img-responsive(src= "{{cert.certification.src}}")
-			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="cert.upload($file)")
+			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="cert.upload($file)", accept="image/*")
 				span.glyphicon.glyphicon-upload
 			a(href='javascript: void(0)', ng-click="cert.showUrlInput=!cert.showUrlInput") Add a photo from a website
 			form.voffset3(name="certificationsForm", role="form", ng-submit="cert.createCertification()")

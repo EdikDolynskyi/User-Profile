@@ -6,7 +6,7 @@ div.test(ng-controller="AchievementsController as achiev")
 		<div class="modal-body row">
 			<div class="col-sm-6 col-sm-offset-3">
 				<img class="img-responsive" ng-src="{{modalach.tmpSrc}}" height="300px" width="300px">
-				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalach.upload($file)">
+				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalach.upload($file)" accept="image/*">
 					<span class="glyphicon glyphicon-upload"></span>
 				</button>	
 				<form class="voffset3">
@@ -44,7 +44,7 @@ div.test(ng-controller="AchievementsController as achiev")
 	.row.voffset5(collapse="achiev.isCollapsed")
 		.col-md-6.col-md-offset-3
 			img.img-responsive(src= "{{achiev.achievement.src}}")
-			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="achiev.upload($file)")
+			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="achiev.upload($file)", accept="image/*")
 				span.glyphicon.glyphicon-upload
 			a(href='javascript: void(0)', ng-click="achiev.showUrlInput=!achiev.showUrlInput") Add a photo from a website
 			form.voffset3(name="achievementsForm", role="form", ng-submit="achiev.createAchievement()")
