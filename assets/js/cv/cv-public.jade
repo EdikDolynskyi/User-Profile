@@ -5,7 +5,7 @@ script(type='text/ng-template', id='dropDownList.html').
 
 .container-fluid(ng-controller='CVPublicController')
     .row
-        div.col-sm-12.v-center(ng-show='userTechnologies.length')
+        div.col-sm-12.v-center
             h4 Technologies
         div.col-sm-12.voffset3
             | Sort by knowledge level:
@@ -19,7 +19,7 @@ script(type='text/ng-template', id='dropDownList.html').
                         | {{tech.name}}
                         rating(ng-model='tech.stars' max='5' readonly='true' on-hover='hoveringOver(value)' on-leave='overStar = null', ng-show='showRating')
     .row
-        div.col-sm-12.v-center(ng-show='userProjects.length')
+        div.col-sm-12.v-center
             h4 Projects
         div.col-sm-12.voffset3
             .panel.panel-default.project(ng-repeat='project in userProjects')

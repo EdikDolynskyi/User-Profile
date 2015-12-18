@@ -23,7 +23,7 @@ script(type='text/ng-template', id='dropDownList.html').
 			<button type="button" class="btn btn-default" ng-click="cancel($event)">Cancel</button>
 			<button type="button" class="btn btn-danger" ng-click="removeProject()">Delete</button>
 		</div>
-	.row.user-technologies(ng-show="userCV.technologies.length")
+	.row.user-technologies
 		div.col-sm-12
 			h4 Technologies
 			div.btn-add-tech(ng-click="showTechForm=true")
@@ -44,7 +44,7 @@ script(type='text/ng-template', id='dropDownList.html').
 								ng-show="showRating", ng-click="updateTechnology(tech)")
 						span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click="removeTechnology($event, tech)")
 	.row.user-projects
-		div.col-sm-12(ng-show="userCV.projects.length")
+		div.col-sm-12
 			h4 Projects
 			div.btn-add-project(dropdown="")
 				a#simple-dropdown(href="", dropdown-toggle="")
