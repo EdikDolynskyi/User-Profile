@@ -29,12 +29,12 @@ div.container-fluid(ng-controller="createUserController as ctrl")
                 .radio.radio-info.radio-inline
                 input#inlineRadio1(ng-model="ctrl.user.gender", type='radio', value='male', name='radioInline')
                 label(for='inlineRadio1')
-                    span.glyphicon.glyphicon-user(aria-hidden='true')
+                    span(aria-hidden='true')
                     |  Male
                 .radio.radio-inline
                 input#inlineRadio2(ng-model="ctrl.user.gender", type='radio', value='female', name='radioInline')
                 label(for='inlineRadio2')
-                    span.glyphicon.glyphicon-heart(aria-hidden='true')
+                    span(aria-hidden='true')
                     |  Female
 
         .form-group
