@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.service('createUserService', 'prefix', createUserService);
+app.service('createUserService', createUserService);
 
 function createUserService($resource, prefix) {
 
