@@ -29,8 +29,8 @@ module.exports = {
         end: {
             type: 'date'
         },
-        binary: {
-            type: 'boolean',
+        company: {
+            type: 'string',
             defaultsTo: true
         },
         isDeleted: {
@@ -38,5 +38,4 @@ module.exports = {
             defaultsTo: false
         }
     }
-
 };

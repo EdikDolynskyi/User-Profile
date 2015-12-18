@@ -72,7 +72,7 @@ script(type='text/ng-template', id='dropDownList.html').
 						div.btn-rmv-project(tooltip="Remove this project", tooltip-trigger="mouseenter", ng-click="confirmDelete($event, 'sm', project)")
 							span.glyphicon.glyphicon-trash
 				.panel-body(collapse="project.current && !editMode ? !isCollapsed : isCollapsed")
-					div.logo-wpap(ng-if="project.binary && !editMode")
+					div.logo-wpap(ng-if="project.company = 'binary' && !editMode")
 						img.logo(src="http://academy.binary-studio.com/resources/logo.png")
 					form(novalidate="novalidate")
 						.row
