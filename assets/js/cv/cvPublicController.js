@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $route) {
+app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $route, $location) {
     $scope.userId = '';
     $scope.currentProject = '';
     $scope.userTechnologies = [];
@@ -26,5 +26,9 @@ app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $ro
             }
         });
     });
+    $scope.findUser = function($event, id) {
+        $event.preventDefault();
+        $location.path('/userdata/' + id);
+    };
 });
 
