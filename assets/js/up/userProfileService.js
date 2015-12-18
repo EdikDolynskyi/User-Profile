@@ -5,7 +5,7 @@ app.service('UserProfileService', UserProfileService);
 function UserProfileService($resource, prefix) {
 
     this.get = function (id, cb) {
-        $resource(prefix + 'api/users/:id', {id: id}).get(function (user) {
+        $resource(prefix + '/api/users/:id', {id: id}).get(function (user) {
 
             user.birthday = new Date(user.birthday);
             user.workDate = new Date(user.workDate);
@@ -15,23 +15,23 @@ function UserProfileService($resource, prefix) {
     };
 
     this.update = function (user, cb) {
-        $resource(prefix + 'api/users/:id', null, {
+        $resource(prefix + '/api/users/:id', null, {
             'update': {method: 'PUT'}
         }).update({id: user.id}, user, cb);
     };
 
     this.getAvatarUrl = function (filename) {
-        return prefix + 'api/files/get/' + filename;
+        return prefix + '/api/files/get/' + filename;
     };
 
     this.getByServerUserId = function(suid, cb) {
-        $resource(prefix + 'api/users/?serverUserId=:id', {id: suid}).query(function (users) {
+        $resource(prefix + '/api/users/?serverUserId=:id', {id: suid}).query(function (users) {
             cb(users.length ? users[0] : null);
         })
     };
 
     this.addLog = function (userId, data, cb) {
-        $resource(prefix + 'api/logs/?userId=:userId', {userId: userId}).query(function (log) {
+        $resource(prefix + '/api/logs/?userId=:userId', {userId: userId}).query(function (log) {
 
             if (log.length == 0) {
                 data.original = [data.original];
@@ -40,7 +40,7 @@ function UserProfileService($resource, prefix) {
                 data.date = [data.date];
                 data.userId = userId;
 
-                $resource(prefix + 'api/logs/').save(data, function (response) {
+                $resource(prefix + '/api/logs/').save(data, function (response) {
                     cb(response);
                 });
             }
@@ -51,7 +51,7 @@ function UserProfileService($resource, prefix) {
                 userLog.owner.push(data.owner);
                 userLog.date.push(data.date);
 
-                $resource(prefix + 'api/logs/:id', null, {
+                $resource(prefix + '/api/logs/:id', null, {
                     'update': {method: 'PUT'}
                 }).update({id: userLog.id}, userLog, cb);
             }

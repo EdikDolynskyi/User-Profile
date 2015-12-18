@@ -6,7 +6,7 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
 	vm.achievements = [];
     vm.achievement = {};
     vm.categories = [];
-    vm.achievement.src = "api/files/get/achievement.png";
+    vm.achievement.src = "/api/files/get/achievement.png";
 	vm.isCollapsed = true;
 	vm.showAlert = false;
     vm.showUrlInput = false;
@@ -15,7 +15,7 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
     getCategories();
 
     function getAchievements(){
-        var Achievements = $resource(prefix + 'api/achievements');
+        var Achievements = $resource(prefix + '/api/achievements');
         var achs = Achievements.query(function(res){
                 vm.achievements = res;               
             }, function(err){
@@ -24,7 +24,7 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
     }
 
     function getCategories(){
-        var Categories = $resource(prefix + 'api/achievementcategories');
+        var Categories = $resource(prefix + '/api/achievementcategories');
         var cat = Categories.query(function(res){
                 vm.categories = res;
                 vm.achievement.category = vm.categories[0];               
@@ -52,7 +52,7 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
         });
 
         modalInstance.result.then(function (updatedAch) {
-              var Achievements = $resource(prefix + 'api/achievements/:id', {id: '@id'}, {'update': { method:'PUT' }});
+              var Achievements = $resource(prefix + '/api/achievements/:id', {id: '@id'}, {'update': { method:'PUT' }});
               var ach = Achievements.update({id: updatedAch.id}, updatedAch);
           });
     };
@@ -76,9 +76,9 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
             obj.fileName = './upload/' + fileName;
 
             downloadService.downloadFile(obj);
-            vm.achievement.src = 'api/files/get/' + fileName;
+            vm.achievement.src = '/api/files/get/' + fileName;
         }
-		var Achievements = $resource(prefix + 'api/achievements', null, {'post': { method:'POST' }});
+		var Achievements = $resource(prefix + '/api/achievements', null, {'post': { method:'POST' }});
     	var ach = Achievements.post(vm.achievement, function(newAch){
                 newAch.category = tmp;
                 vm.achievements.push(newAch);
@@ -88,7 +88,7 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
         
     	vm.achievement = {};
         vm.achievement.category = vm.achievement[0];
-        vm.achievement.src = "api/files/get/achievement.png";
+        vm.achievement.src = "/api/files/get/achievement.png";
         vm.url = "";
     	vm.showAlert = true;
         vm.isCollapsed = true;

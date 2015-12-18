@@ -1,35 +1,35 @@
 var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngMessages', 'ngFileUpload', 'ui.bootstrap', 'ngclipboard']);
-app.constant('prefix', window.location.pathname);
+app.constant('prefix', window.location.pathname.slice(0, -1));
 //app.constant('prefix', '/profile/');
 app.config(function ($routeProvider, prefix) {
 	$routeProvider.
 		when('/', {
-			templateUrl: prefix + 'js/up/up.html',
+			templateUrl: prefix + '/js/up/up.html',
 			controller: 'UserProfileController',
 			controllerAs: 'ctrl'
 		}).
 		when('/search', {
-			templateUrl: prefix + 'js/main-page/user-search.html',
+			templateUrl: prefix + '/js/main-page/user-search.html',
 			controller: 'MainController'
 		}).
 		when('/projects/:projectId', {
-			templateUrl:  prefix + 'js/projects/projects.html'
+			templateUrl:  prefix + '/js/projects/projects.html'
 		}).
 		when('/userdata/:userId', {
-			templateUrl:  prefix + 'js/up/up-data.html'
+			templateUrl:  prefix + '/js/up/up-data.html'
 		}).
 		when('/shared/userdata/:serverId', {
-			templateUrl:  prefix + 'js/up/up-data.html'
+			templateUrl:  prefix + '/js/up/up-data.html'
 		}).
 		when('/adminup', {
-			templateUrl: prefix + 'js/admin/up-admin.html'
+			templateUrl: prefix + '/js/admin/up-admin.html'
 		}).
-		when('/cv', {templateUrl: prefix + 'js/cv/cv.html'}).
-		when('/pdp', {templateUrl: prefix + 'js/pdp/pdp.html'}).
-		when('/adminach', {templateUrl: prefix + 'js/admin/achievements.html'}).
-		when('/admincert', {templateUrl: prefix + 'js/admin/certifications.html'}).
-		when('/adminpdp', {templateUrl: prefix + 'js/admin/adminpdp.html'}).
-		when('/admintechdata', {templateUrl: prefix + 'js/admin/admintechdata.html'}).
+		when('/cv', {templateUrl: prefix + '/js/cv/cv.html'}).
+		when('/pdp', {templateUrl: prefix + '/js/pdp/pdp.html'}).
+		when('/adminach', {templateUrl: prefix + '/js/admin/achievements.html'}).
+		when('/admincert', {templateUrl: prefix + '/js/admin/certifications.html'}).
+		when('/adminpdp', {templateUrl: prefix + '/js/admin/adminpdp.html'}).
+		when('/admintechdata', {templateUrl: prefix + '/js/admin/admintechdata.html'}).
 		otherwise({ redirectTo: '/' });
 });
 
