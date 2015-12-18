@@ -78,12 +78,12 @@ div.container-fluid(ng-controller="UserProfileAdminController as ctrl")
                 .col-xs-6.col-md-6.admin-user-image
                     h5 Original User avatar
                     .thumbnail
-                        img(src='{{ctrl.user.avatar.urlAva}}', alt='avatar')
+                        img(src='{{prefix + ctrl.user.avatar.urlAva}}', alt='avatar')
 
                 .col-xs-6.col-md-6.admin-user-image
                     h5 New User avatar
                     .thumbnail
-                        img(src='{{ctrl.user.preModeration.avatar.urlAva}}', alt='avatar')
+                        img(src='{{prefix + ctrl.user.preModeration.avatar.urlAva}}', alt='avatar')
         .panel-footer
             h6 Upload a different photo...
             .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)", accept="image/*") Upload on file change
@@ -93,13 +93,13 @@ div.container-fluid(ng-controller="UserProfileAdminController as ctrl")
 
 
     //.col-md-6.col-sm-6.col-xs-12.personal-info(ng-show="ctrl.showElement.avatar")
-    //    img.avatar.img-thumbnail(src= "{{ctrl.user.preModeration.avatar.urlAva}}", alt='avatar')
+    //    img.avatar.img-thumbnail(src= "{{prefix + ctrl.user.preModeration.avatar.urlAva}}", alt='avatar')
     //    h6 Upload a different photo...
     //    .btn.btn-default(ngf-select, ngf-change="ctrl.upload($file)" accept="image/*") Upload on file change
     //    //input.text-center.well.well-sm(type='file')
     //
     //.col-md-6.col-sm-6.col-xs-12.personal-info(ng-show="ctrl.showElement.avatar")
-    //    img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+    //    img.avatar.img-thumbnail(src= "{{prefix +ctrl.user.avatar.urlAva}}", alt='avatar')
 
 
 

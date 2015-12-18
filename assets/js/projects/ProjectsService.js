@@ -1,8 +1,6 @@
 var app = require('../angular-app');
 
-app.factory('ProjectsFactory', function($resource, $rootScope) {
-
-    var prefix = window.location.pathname;
+app.factory('ProjectsFactory', function($resource, $rootScope, prefix) {
 
     var Technologies = $resource(prefix + 'api/technologies');
     var Projects = $resource(prefix + 'api/projects');

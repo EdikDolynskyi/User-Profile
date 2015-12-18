@@ -1,6 +1,7 @@
 var app = require('../angular-app');
 
-app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService) {
+app.controller('PdpController', function ($scope, $modal, $rootScope, PdpService, prefix) {
+    $scope.prefix = prefix;
     var vm = this;
     var userPdpId = '';
     vm.userPDP = {};

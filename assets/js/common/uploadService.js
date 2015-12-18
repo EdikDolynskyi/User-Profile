@@ -1,7 +1,6 @@
 var app = require('../angular-app');
 
-app.factory('uploadService', function(Upload, $q){
-    var prefix = window.location.pathname;
+app.factory('uploadService', function(Upload, $q, prefix){
 	return {
 		upload: upload,
         uploadMultipleFiles: uploadMultipleFiles
@@ -10,7 +9,7 @@ app.factory('uploadService', function(Upload, $q){
 	function upload(file, callback){
 		if (file) {
             Upload.upload({
-                url: 'api/files/upload',
+                url: prefix + 'api/files/upload',
                 file: file
             }).success(function (data) {
                 var fileSrc = 'api/files/get/' + data.file;
@@ -27,7 +26,7 @@ app.factory('uploadService', function(Upload, $q){
         if (files) {
             angular.forEach(files, function(file){
                 var promise = Upload.upload({
-                    url: 'api/files/upload',
+                    url: prefix + 'api/files/upload',
                     file: file
                 });
 

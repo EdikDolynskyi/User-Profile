@@ -2,8 +2,7 @@ var app = require('../angular-app');
 
 app.service('UserProfileService', UserProfileService);
 
-function UserProfileService($resource) {
-    var prefix = window.location.pathname;
+function UserProfileService($resource, prefix) {
 
     this.get = function (id, cb) {
         $resource(prefix + 'api/users/:id', {id: id}).get(function (user) {

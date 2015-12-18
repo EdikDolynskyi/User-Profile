@@ -1,8 +1,7 @@
 var app = require('../angular-app');
 
 app.service('MainService', MainService);
-function MainService($resource) {
-    var prefix = window.location.pathname;
+function MainService($resource, prefix) {
 
     this.search = function(username, cb) {
         var selectedUsers = [];

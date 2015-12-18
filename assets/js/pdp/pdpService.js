@@ -1,9 +1,7 @@
 (function () {
     var app = angular.module('myApp');
 
-    app.factory('PdpService', function($resource){
-
-		var prefix = window.location.pathname;
+    app.factory('PdpService', function($resource, prefix){
 
     	var service = {
     		getPDP:getPDP,

@@ -1,10 +1,10 @@
 var app = require('../angular-app');
 
-app.controller('MainController', ['$scope', 'MainService', '$rootScope', '$location', '$cookies', mainCtrl]);
+app.controller('MainController', ['$scope', 'MainService', '$rootScope', '$location', '$cookies', 'prefix', mainCtrl]);
 
-function mainCtrl($scope, service, $rootScope, $location, $cookies) {
+function mainCtrl($scope, service, $rootScope, $location, $cookies, prefix) {
     var ctrl = this;
-    this.prefix = window.location.pathname;
+    $scope.prefix = prefix;
 
     ctrl.usersList = [];
     ctrl.searchParams = {};

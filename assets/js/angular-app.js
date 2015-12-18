@@ -1,8 +1,7 @@
 var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngMessages', 'ngFileUpload', 'ui.bootstrap', 'ngclipboard']);
-
-app.config(function ($routeProvider) {
-	var prefix = window.location.pathname;
-
+app.constant('prefix', window.location.pathname);
+//app.constant('prefix', '/profile/');
+app.config(function ($routeProvider, prefix) {
 	$routeProvider.
 		when('/', {
 			templateUrl: prefix + 'js/up/up.html',

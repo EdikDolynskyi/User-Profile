@@ -2,9 +2,7 @@ var app = require('../angular-app');
 
 app.service('UserProfileAdminService', UserProfileAdminService);
 
-function UserProfileAdminService($resource) {
-    var prefix = window.location.pathname;
-
+function UserProfileAdminService($resource, prefix) {
     this.get = function (id, cb) {
         $resource(prefix + 'api/users/:id', {id: id}).get(function (user) {
             user.birthday = new Date(user.birthday);
@@ -18,7 +16,7 @@ function UserProfileAdminService($resource) {
     };
 
     this.getAvatarUrl = function (filename) {
-        return prefix + 'api/files/get/' + filename;
+        return 'api/files/get/' + filename;
     };
 
     this.getUserLog = function (userId, cb) {

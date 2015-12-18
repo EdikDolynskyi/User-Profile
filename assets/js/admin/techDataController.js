@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('TechDataController', function($resource , $timeout, $modal){
+app.controller('TechDataController', function($resource , $timeout, $modal, prefix, $scope){
 	var vm = this;
-    var prefix = window.location.pathname;
+    $scope.prefix = prefix;
     vm.positions = [];
     vm.position = {};
     vm.isPositionCollapsed = true;

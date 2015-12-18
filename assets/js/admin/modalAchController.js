@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('ModalAchController', function ($modalInstance, $resource, achievement, achievements, categories, uploadService) {
+app.controller('ModalAchController', function ($modalInstance, $resource, achievement, achievements, categories, uploadService, prefix, $scope) {
 	var vm = this;
-    var prefix = window.location.pathname;
+    $scope.prefix = prefix;
     vm.achievements = achievements;
     vm.achievement = achievement;
     vm.categories = categories;

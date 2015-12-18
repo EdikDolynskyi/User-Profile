@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('CertificationsController', function($scope, $resource, $timeout, $modal, uploadService, downloadService){
+app.controller('CertificationsController', function($scope, $resource, $timeout, $modal, uploadService, downloadService, prefix){
 	var vm = this;
-    var prefix = window.location.pathname;
+    $scope.prefix = prefix;
 	vm.certifications = [];
     vm.categories = [];
     vm.certification = {};
@@ -77,7 +77,7 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
             obj.fileName = './upload/' + fileName;
 
             downloadService.downloadFile(obj);
-            vm.certification.src = prefix + 'api/files/get/' + fileName;
+            vm.certification.src = 'api/files/get/' + fileName;
         }
 
 		var Certifications = $resource(prefix + 'api/certifications', null, {'post': { method:'POST' }});

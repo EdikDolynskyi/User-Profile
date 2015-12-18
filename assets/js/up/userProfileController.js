@@ -1,16 +1,14 @@
 var app = require('../angular-app');
 
-app.controller('UserProfileController', ['$scope', 'UserProfileService', 'uploadService', 'downloadService', '$rootScope', 'PdpService', userProfileCtrl]);
+app.controller('UserProfileController', ['$scope', 'UserProfileService', 'uploadService', 'downloadService', '$rootScope', 'PdpService', 'prefix', userProfileCtrl]);
 
-function userProfileCtrl($scope, UserProfileService, uploadService, downloadService, $rootScope, PdpService) {
+function userProfileCtrl($scope, UserProfileService, uploadService, downloadService, $rootScope, PdpService, prefix) {
+	$scope.prefix = prefix;
 	var vm = this;
 	//Init
 	vm.today = new Date();
 	vm.dataInFields = {}; //here fields, wich changed
 	vm.formValid = true;
-
-	var prefix = window.location.pathname;
-
 
 	UserProfileService.get($rootScope.ownerId, function (user) {
 
@@ -85,7 +83,7 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
 
 	vm.upload = function (file) {
 		uploadService.upload(file, function (fileSrc) {
-			vm.user.avatar.urlAva = prefix + fileSrc;
+			vm.user.avatar.urlAva = fileSrc;
 			vm.dataInFields.avatar = angular.copy(vm.user.avatar);
 		});
 	};

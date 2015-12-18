@@ -47,7 +47,7 @@ script(type='text/ng-template', id='dropDownList.html').
                         div.col-md-6.col-sm-6.clearfix.voffset2(ng-repeat="participant in project.participants")
                             a.participant-photo(href="#", ng-click="findUser($event, participant.id)")
                                 div.participant-photo-wrap
-                                    img.img-responsive(ng-src="{{participant.avatar.urlAva}}")
+                                    img.img-responsive(ng-src="{{prefix + participant.avatar.urlAva}}")
                             span
                                 strong
                                     a(href="#", ng-click="findUser($event, participant.id)") {{participant.name}} {{participant.surname}}
@@ -56,4 +56,4 @@ script(type='text/ng-template', id='dropDownList.html').
                         div.col-sm-12.project-label(ng-show='project.screenshots.length')
                             | Screenshots:
                         div.col-sm-4(ng-repeat='screenshot in project.screenshots')
-                            img.img-responsive(ng-src='{{screenshot.img}}')
+                            img.img-responsive(ng-src='{{prefix + screenshot.img}}')

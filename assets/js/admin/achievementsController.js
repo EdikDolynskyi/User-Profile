@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('AchievementsController', function($scope, $resource, $timeout, $modal, uploadService, downloadService){
-	var vm = this;
-    var prefix = window.location.pathname;
+app.controller('AchievementsController', function($scope, $resource, $timeout, $modal, uploadService, downloadService, prefix){
+	$scope.prefix = prefix;
+    var vm = this;
 	vm.achievements = [];
     vm.achievement = {};
     vm.categories = [];
@@ -76,7 +76,7 @@ app.controller('AchievementsController', function($scope, $resource, $timeout, $
             obj.fileName = './upload/' + fileName;
 
             downloadService.downloadFile(obj);
-            vm.achievement.src = prefix + 'api/files/get/' + fileName;
+            vm.achievement.src = 'api/files/get/' + fileName;
         }
 		var Achievements = $resource(prefix + 'api/achievements', null, {'post': { method:'POST' }});
     	var ach = Achievements.post(vm.achievement, function(newAch){

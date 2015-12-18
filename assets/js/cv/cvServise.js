@@ -1,8 +1,7 @@
 var app = require('../angular-app');
 var async = require('async');
-app.factory('cvFactory', function($resource, $rootScope) {
+app.factory('cvFactory', function($resource, $rootScope, prefix) {
 
-    var prefix = window.location.pathname;
     var userId = $rootScope.ownerId;
     var F = {};
 

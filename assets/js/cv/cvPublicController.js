@@ -1,6 +1,7 @@
 var app = require('../angular-app');
 
-app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $route, $location) {
+app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $route, $location, prefix) {
+    $scope.prefix = prefix;
     $scope.userId = '';
     $scope.currentProject = '';
     $scope.userTechnologies = [];

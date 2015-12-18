@@ -1,10 +1,11 @@
 var app = require('../angular-app');
 
-app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', 'PdpService', UserProfilePublicCtrl]);
+app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', 'PdpService', 'prefix', '$scope', UserProfilePublicCtrl]);
 
-function UserProfilePublicCtrl(service, $rootScope, $route, PdpService) {
+function UserProfilePublicCtrl(service, $rootScope, $route, PdpService, prefix, $scope) {
+    console.log(prefix);
+    $scope.prefix = prefix;
     var ctrl = this;
-    var prefix = window.location.pathname;
     //Init
     ctrl.today = new Date();
 

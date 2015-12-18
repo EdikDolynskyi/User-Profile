@@ -1,12 +1,12 @@
 var app = require('../angular-app');
 var mongoose = require('mongoose');
 
-app.controller('createUserController', ['createUserService', '$cookies', createUserCtrl]);
+app.controller('createUserController', ['createUserService', '$cookies','prefix', '$scope', createUserCtrl]);
 
-function createUserCtrl(createUserService, $cookies) {
+function createUserCtrl(createUserService, $cookies, prefix, $scope) {
     var vm = this;
-    var prefix = window.location.pathname;
-    prefix = prefix.substr(0, 9);
+    $scope.prefix = prefix;
+    // prefix = prefix.substr(0, 9);
     vm.newUserEmail = $cookies.get('newUserEmail');
     vm.newUserId = $cookies.get('newUserId');
     vm.user = {

@@ -1,12 +1,11 @@
 var app = require('../angular-app');
 
-app.service('createUserService', createUserService);
+app.service('createUserService', 'prefix', createUserService);
 
-function createUserService($resource) {
+function createUserService($resource, prefix) {
 
-    var prefix = window.location.pathname;
-    prefix = prefix.substr(0, 9);
-    // prefix ='';
+    // var prefix = window.location.pathname;
+    // prefix = prefix.substr(0, 9);
 
     this.createUser = function (user, cv, pdp, cb) {
         $resource(prefix + 'api/cvs').save(cv, function (cvRez) {

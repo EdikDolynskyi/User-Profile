@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('ModalCertController', function ($modalInstance, $resource, certification, certifications, categories, uploadService) {
+app.controller('ModalCertController', function ($modalInstance, $resource, certification, certifications, categories, uploadService, prefix, $scope) {
 	var vm = this;
-    var prefix = window.location.pathname;
+    $scope.prefix = prefix;
     vm.certifications = certifications;
     vm.certification = certification;
     vm.categories = categories;

@@ -5,7 +5,7 @@ div.test(ng-controller="AchievementsController as achiev")
 		</div>
 		<div class="modal-body row">
 			<div class="col-sm-6 col-sm-offset-3">
-				<img class="img-responsive" ng-src="{{modalach.tmpSrc}}" height="300px" width="300px">
+				<img class="img-responsive" ng-src="{{prefix + modalach.tmpSrc}}" height="300px" width="300px">
 				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalach.upload($file)" accept="image/*">
 					<span class="glyphicon glyphicon-upload"></span>
 				</button>	
@@ -43,7 +43,7 @@ div.test(ng-controller="AchievementsController as achiev")
 			.alert.alert-success.voffset4(role="alert", ng-show="achiev.showAlert") Achievement has been created successfully!
 	.row.voffset5(collapse="achiev.isCollapsed")
 		.col-md-6.col-md-offset-3
-			img.img-responsive(src= "{{achiev.achievement.src}}")
+			img.img-responsive(src= "{{prefix + achiev.achievement.src}}")
 			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="achiev.upload($file)", accept="image/*")
 				span.glyphicon.glyphicon-upload
 			a(href='javascript: void(0)', ng-click="achiev.showUrlInput=!achiev.showUrlInput") Add a photo from a website
@@ -66,7 +66,7 @@ div.test(ng-controller="AchievementsController as achiev")
 		.col-md-4.col-height(ng-repeat='achievement in achiev.achievements | filter:searchText track by $index')
 			div.thumbnail
 				.clearfix
-					img.img-responsive(ng-src='{{achievement.src}}')
+					img.img-responsive(ng-src='{{prefix + achievement.src}}')
 				div.achieve-name
 					b {{achievement.name}}
 				div.achieve-category Category: {{achievement.category.name}}

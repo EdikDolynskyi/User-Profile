@@ -5,7 +5,7 @@ div.test(ng-controller="CertificationsController as cert")
 		</div>
 		<div class="modal-body row">
 			<div class="col-sm-6 col-sm-offset-3">
-				<img class="img-responsive" ng-src="{{modalcert.tmpSrc}}" height="300px" width="300px">
+				<img class="img-responsive" ng-src="{{prefix + modalcert.tmpSrc}}" height="300px" width="300px">
 				<button class="btn btn-default upload-btn" ngf-select ngf-change="modalcert.upload($file)" accept="image/*">
 					<span class="glyphicon glyphicon-upload"></span>
 				</button>	
@@ -43,7 +43,7 @@ div.test(ng-controller="CertificationsController as cert")
 			.alert.alert-success.voffset4(role="alert", ng-show="cert.showAlert") Certificate has been created successfully!
 	.row.voffset5(collapse="cert.isCollapsed")
 		.col-md-6.col-md-offset-3
-			img.img-responsive(src= "{{cert.certification.src}}")
+			img.img-responsive(src= "{{prefix + cert.certification.src}}")
 			button.btn.btn-default.btn-lg.upload-btn(ngf-select, ngf-change="cert.upload($file)", accept="image/*")
 				span.glyphicon.glyphicon-upload
 			a(href='javascript: void(0)', ng-click="cert.showUrlInput=!cert.showUrlInput") Add a photo from a website
@@ -66,7 +66,7 @@ div.test(ng-controller="CertificationsController as cert")
 		.col-md-4.col-height(ng-repeat='certification in cert.certifications | filter:searchText track by $index')
 			div.thumbnail
 				.clearfix
-					img.img-responsive(ng-src='{{certification.src}}')
+					img.img-responsive(ng-src='{{prefix + certification.src}}')
 				div.cert-name
 					b {{certification.name}}
 				div.cert-category Category: {{certification.category.name}}

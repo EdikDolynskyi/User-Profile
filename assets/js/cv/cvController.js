@@ -2,7 +2,8 @@ var app = require('../angular-app');
 var _ = require('underscore');
 
 
-app.controller('CVController', function($scope, $modal, $location, cvFactory, uploadService) {
+app.controller('CVController', function($scope, $modal, $location, cvFactory, uploadService, prefix) {
+	$scope.prefix = prefix;
 	$scope.userId = '';
 	$scope.userCV = '';
 	$scope.allTechnologies = [];
@@ -25,10 +26,10 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.showSelectTechnology = true;
 	$scope.showTechFormProject = false;
 
-	$scope.template = window.location.pathname + 'js/cv/technologyForm.html';
-	$scope.template2 = window.location.pathname + 'js/cv/technologyFormForProject.html';
-	$scope.template3 = window.location.pathname + 'js/cv/projectForm1.html';
-	$scope.template4 = window.location.pathname + 'js/cv/projectForm2.html';
+	$scope.template = prefix + 'js/cv/technologyForm.html';
+	$scope.template2 = prefix + 'js/cv/technologyFormForProject.html';
+	$scope.template3 = prefix + 'js/cv/projectForm1.html';
+	$scope.template4 = prefix + 'js/cv/projectForm2.html';
 
 	cvFactory.getUserData(null, function(user) {
 		$scope.userId = user.id;
@@ -199,10 +200,9 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		if(form.$valid) {
 			uploadService.uploadMultipleFiles(project.screenshots, function(res){
 				if(res) {
-					var prefix = window.location.pathname;
 
 					for(var i = 0; i < project.screenshots.length; i++) {
-						project.screenshots[i] = {img: prefix + res[i]}
+						project.screenshots[i] = {img: res[i]}
 					}
 				}
 
@@ -234,10 +234,9 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		var self = this;
 		uploadService.uploadMultipleFiles($scope.newScreenshots, function(res){
 			if(res) {
-				var prefix = window.location.pathname;
 
 				for(var i = 0; i < $scope.newScreenshots.length; i++) {
-					$scope.newScreenshots[i] = {img: prefix + res[i]}
+					$scope.newScreenshots[i] = {img: res[i]}
 				}
 
 				project.screenshots = project.screenshots.concat($scope.newScreenshots);

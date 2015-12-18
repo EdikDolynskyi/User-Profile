@@ -12,7 +12,7 @@ div.pdp(ng-controller='PdpController as pdp')
             .col-md-4.col-height(ng-repeat='certification in pdp.userPDP.completedCertifications')
                 div.thumbnail(popover="{{certification.description}}" popover-trigger="mouseenter")
                   .clearfix
-                    img.img-responsive(ng-src='{{certification.src}}')
+                    img.img-responsive(ng-src='{{prefix + certification.src}}')
                   div.cert-name 
                     b {{certification.name}}
                   div.cert-category Category: {{certification.category.name}}
@@ -24,7 +24,7 @@ div.pdp(ng-controller='PdpController as pdp')
             .col-md-4.col-height(ng-repeat='achievement in pdp.userPDP.achievements')
                 div.thumbnail(popover="{{achievement.description}}" popover-trigger="mouseenter")
                   .clearfix
-                    img.img-responsive(ng-src='{{achievement.src}}')
+                    img.img-responsive(ng-src='{{prefix + achievement.src}}')
                   div.achieve-name
                     b {{achievement.name}}
                   div.achieve-category Category: {{achievement.category.name}}

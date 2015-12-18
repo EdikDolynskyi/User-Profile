@@ -2,7 +2,8 @@ var app = require('../angular-app');
 
 app.controller('userProfileDataController', userProfileDataCtrl);
 
-function userProfileDataCtrl() {
+function userProfileDataCtrl(prefix, $scope) {
+    $scope.prefix = prefix;
     var vm = this;
     var prefix = window.location.pathname;
     vm.tabs = [
