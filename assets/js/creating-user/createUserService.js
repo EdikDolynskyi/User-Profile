@@ -8,11 +8,11 @@ function createUserService($resource, prefix) {
     // prefix = prefix.substr(0, 9);
 
     this.createUser = function (user, cv, pdp, cb) {
-        $resource(prefix + 'api/cvs').save(cv, function (cvRez) {
+        $resource(prefix + '/api/cvs').save(cv, function (cvRez) {
             user.userCV = cvRez.id;
-            $resource(prefix + 'api/pdps').save(pdp, function (pdpRez) {
+            $resource(prefix + '/api/pdps').save(pdp, function (pdpRez) {
                 user.userPDP = pdpRez.id;
-                $resource(prefix + 'api/users').save(user, function (userRez) {
+                $resource(prefix + '/api/users').save(user, function (userRez) {
                     console.log(userRez);
                     cb(userRez);
                 });
@@ -21,7 +21,7 @@ function createUserService($resource, prefix) {
     };
 
     this.getPositions = function (cb) {
-        var Positions = $resource(prefix + 'api/positions');
+        var Positions = $resource(prefix + '/api/positions');
         var positions = Positions.query(function (res) {
             cb(res);
         }, function (err) {
@@ -30,7 +30,7 @@ function createUserService($resource, prefix) {
     }
 
     this.getDirections = function (cb) {
-        var Directions = $resource(prefix + 'api/directions');
+        var Directions = $resource(prefix + '/api/directions');
         var directions = Directions.query(function (res) {
             cb(res);
         }, function (err) {
