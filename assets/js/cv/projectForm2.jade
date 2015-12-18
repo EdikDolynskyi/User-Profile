@@ -46,7 +46,7 @@ form(name="projectForm2", ng-submit="createProject(projectForm2, project)", ng-s
          typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
          typeahead-template-url="dropDownList.html",
          ng-model="projectTechnology",
-         required)
+         required autocomplete="off")
       div.help-block(ng-messages="projectForm2.technologies.$error", ng-if="projectForm2.$submitted")
          p(ng-message="required") Please enter technologies
       button.stars-4.voffset2(ng-repeat="tech in project.technologies") {{tech.name}}
