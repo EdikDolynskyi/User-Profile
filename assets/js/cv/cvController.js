@@ -26,10 +26,10 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.showSelectTechnology = true;
 	$scope.showTechFormProject = false;
 
-	$scope.template = prefix + 'js/cv/technologyForm.html';
-	$scope.template2 = prefix + 'js/cv/technologyFormForProject.html';
-	$scope.template3 = prefix + 'js/cv/projectForm1.html';
-	$scope.template4 = prefix + 'js/cv/projectForm2.html';
+	$scope.template = prefix + '/js/cv/technologyForm.html';
+	$scope.template2 = prefix + '/js/cv/technologyFormForProject.html';
+	$scope.template3 = prefix + '/js/cv/projectForm1.html';
+	$scope.template4 = prefix + '/js/cv/projectForm2.html';
 
 	cvFactory.getUserData(null, function(user) {
 		$scope.userId = user.id;

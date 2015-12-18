@@ -6,7 +6,7 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
 	vm.certifications = [];
     vm.categories = [];
     vm.certification = {};
-    vm.certification.src = "api/files/get/certificate.png";
+    vm.certification.src = "/api/files/get/certificate.png";
 	vm.isCollapsed = true;
 	vm.showAlert = false;
     vm.showUrlInput = false;
@@ -15,7 +15,7 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
     getCategories();
 
     function getCertifications(){
-        var Certifications = $resource(prefix + 'api/certifications');
+        var Certifications = $resource(prefix + '/api/certifications');
         var cert = Certifications.query(function(res){
                 vm.certifications = res;               
             }, function(err){
@@ -24,7 +24,7 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
     };
 
     function getCategories(){
-        var Categories = $resource(prefix + 'api/categories');
+        var Categories = $resource(prefix + '/api/categories');
         var cat = Categories.query(function(res){
                 vm.categories = res;
                 vm.certification.category = vm.categories[0];               
@@ -52,7 +52,7 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
         });
 
         modalInstance.result.then(function (updatedCert) {
-              var Certifications = $resource(prefix + 'api/certifications/:id', {id: '@id'}, {'update': { method:'PUT' }});
+              var Certifications = $resource(prefix + '/api/certifications/:id', {id: '@id'}, {'update': { method:'PUT' }});
               var cert = Certifications.update({id: updatedCert.id}, updatedCert);
           });
     };
@@ -77,10 +77,10 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
             obj.fileName = './upload/' + fileName;
 
             downloadService.downloadFile(obj);
-            vm.certification.src = 'api/files/get/' + fileName;
+            vm.certification.src = '/api/files/get/' + fileName;
         }
 
-		var Certifications = $resource(prefix + 'api/certifications', null, {'post': { method:'POST' }});
+		var Certifications = $resource(prefix + '/api/certifications', null, {'post': { method:'POST' }});
     	var cert = Certifications.post(vm.certification, function(newCert){
                 newCert.category = tmp;
                 vm.certifications.push(newCert);
@@ -90,7 +90,7 @@ app.controller('CertificationsController', function($scope, $resource, $timeout,
         
     	vm.certification = {};
         vm.certification.category = vm.categories[0];
-        vm.certification.src = "api/files/get/certificate.png";
+        vm.certification.src = "/api/files/get/certificate.png";
         vm.url = "";
     	vm.showAlert = true;
         vm.isCollapsed = true;

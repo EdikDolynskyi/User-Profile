@@ -72,7 +72,7 @@ script(type='text/ng-template', id='dropDownList.html').
 						div.btn-rmv-project(tooltip="Remove this project", tooltip-trigger="mouseenter", ng-click="confirmDelete($event, 'sm', project)")
 							span.glyphicon.glyphicon-trash
 				.panel-body(collapse="project.current && !editMode ? !isCollapsed : isCollapsed")
-					div.logo-wpap(ng-if="project.binary && !editMode")
+					div.logo-wpap(ng-if="project.company = 'binary' && !editMode")
 						img.logo(src="http://academy.binary-studio.com/resources/logo.png")
 					form(novalidate="novalidate")
 						.row
@@ -80,9 +80,25 @@ script(type='text/ng-template', id='dropDownList.html').
 								| Start date:
 							div.col-sm-9
 								span(ng-if='!editMode') {{project.start | date:'dd/MM/yyyy'}}
-								input.form-control(ng-if='editMode' type='date', datepicker-popup='', ng-model='project.start',
-									is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-									date-disabled='disabled(date, mode)', ng-required='true', close-text='Close', required)
+								.input-group(ng-if='editMode')
+									input.form-control(
+										name="start-date1",
+										ng-model='project.start',
+										is-open='showProjectCVStartDate',
+										min-date="'2000-01-01'",
+										ng-required="true",
+										readonly="true",
+										datepicker-popup='dd-MM-yyyy',
+										datepicker-append-to-body="true",
+										close-text='Close',
+										ng-class= "{errorborder: false}")
+									span.input-group-btn
+										button.btn.btn-default(type='button', ng-click='showProjectCVStartDate = !showProjectCVStartDate', 
+										ng-class= "{errorborder: false}")
+											i.glyphicon.glyphicon-calendar
+								.error-block(ng-show='false')
+									p(ng-show="false") Date is required
+
 						.row.voffset3(ng-if="project.end && !editMode")
 							div.col-sm-3.project-label
 								| End date:
@@ -93,9 +109,24 @@ script(type='text/ng-template', id='dropDownList.html').
 							div.col-sm-3.project-label
 								| End date:
 							div.col-sm-9
-								input.form-control(type='date', datepicker-popup='', ng-model='project.end',
-									is-open='status.opened', min-date='minDate', max-date='"2020-06-22"', datepicker-options='dateOptions',
-									date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+								.input-group(ng-if='editMode')
+									input.form-control(	
+										name="start-date1",
+										ng-model='project.end',
+										is-open='showProjectEndDate',
+										min-date="'2000-01-01'",
+										ng-required="true",
+										readonly="true",
+										datepicker-popup='dd-MM-yyyy',
+										datepicker-append-to-body="true",
+										close-text='Close',
+										ng-class= "{errorborder: false}")
+									span.input-group-btn
+										button.btn.btn-default(type='button', ng-click='showProjectEndDate = !showProjectEndDate', 
+										ng-class= "{errorborder: false}")
+											i.glyphicon.glyphicon-calendar
+								.error-block(ng-show='false')
+									p(ng-show="false") Date is required
 						
 						.row.voffset3
 							div.col-sm-3.project-label Technologies
@@ -129,25 +160,60 @@ script(type='text/ng-template', id='dropDownList.html').
 								label
 									input(type="checkbox" ng-model="project.current")
 									| Set this project as the current project
+						
+
 						.row.voffset3
 							div.col-sm-3.project-label
 								| Your role:
 							div.col-sm-9
 								span(ng-if="!editMode") {{project.userRole}}
 								input.form-control(ng-if="editMode", type="text", ng-model="project.userRole")
+						
+
 						.row.voffset3
 							div.col-sm-3.project-label
 								| Work period:
 							div.col-sm-9
 								span(ng-if="!editMode") {{project.startDate | date:"dd/MM/yyyy"}} - {{project.endDate | date:"dd/MM/yyyy"}}
 								span(ng-if='!editMode && !project.endDate') present
-								input.form-control(ng-if="editMode" type="date", datepicker-popup="", ng-model="project.startDate",
-									is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
-									date-disabled="disabled(date, mode)", ng-required="true", close-text="Close", required)
-								span(ng-if="editMode") -
-								input.form-control(ng-if="editMode", type="date", datepicker-popup="", ng-model="project.endDate",
-									is-open="status.opened", min-date="minDate", max-date="'2020-06-22'", datepicker-options="dateOptions",
-									date-disabled="disabled(date, mode)", close-text="Close")
+								.input-group(ng-if='editMode')
+									input.form-control(
+										ng-model="project.startDate",
+										is-open='showProjectWorkStartDate',
+										min-date="'2000-01-01'",
+										ng-required="true",
+										readonly="true",
+										datepicker-popup='dd-MM-yyyy',
+										datepicker-append-to-body="true",
+										close-text='Close',
+										ng-class= "{errorborder: false}")
+									span.input-group-btn
+										button.btn.btn-default(type='button', ng-click='showProjectWorkStartDate = !showProjectWorkStartDate', 
+										ng-class= "{errorborder: false}")
+											i.glyphicon.glyphicon-calendar
+								.error-block(ng-show='false')
+									p(ng-show="false") Date is required
+
+								br
+								span(ng-if="editMode")
+								.input-group(ng-if='editMode',)
+									input.form-control(	
+										ng-model="project.endDate",
+										is-open='showProjectWorkEndDate',
+										min-date="'2000-01-01'",
+										ng-required="true",
+										readonly="true",
+										datepicker-popup='dd-MM-yyyy',
+										datepicker-append-to-body="true",
+										close-text='Close',
+										ng-class= "{errorborder: false}")
+									span.input-group-btn
+										button.btn.btn-default(type='button', ng-click='showProjectWorkEndDate = !showProjectWorkEndDate', 
+										ng-class= "{errorborder: false}")
+											i.glyphicon.glyphicon-calendar
+								.error-block(ng-show='false')
+									p(ng-show="false") Date is required
+
 						.row.voffset3
 							div.col-sm-12.project-label(ng-show='project.participants.length')
 								| Team members:

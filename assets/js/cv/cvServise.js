@@ -7,28 +7,28 @@ app.factory('cvFactory', function($resource, $rootScope, prefix) {
 
     F.getUserData = function(id, callback) {
         var id = id || userId;
-        var CVs = $resource(prefix + 'api/cvs/:cv_id', {cv_id: '@id'});
+        var CVs = $resource(prefix + '/api/cvs/:cv_id', {cv_id: '@id'});
         var cv = CVs.get({cv_id: id}, function(res) {
             callback(res);
         });
     };
 
     F.getAllProjects = function(callback) {
-        var Projects = $resource(prefix + 'api/projects');
+        var Projects = $resource(prefix + '/api/projects');
         var projects = Projects.query(function(res) {
             callback(res);
         });
     };
 
     F.getAllCategories = function(callback) {
-        var Categories = $resource(prefix + 'api/categories');
+        var Categories = $resource(prefix + '/api/categories');
         var categories = Categories.query(function(res) {
             callback(res);
         });
     };
 
     F.getAllTechnologies = function(callback) {
-        var Technologies = $resource(prefix + 'api/technologies');
+        var Technologies = $resource(prefix + '/api/technologies');
         var technologies = Technologies.query(function(res) {
             callback(res);
         });
@@ -36,7 +36,7 @@ app.factory('cvFactory', function($resource, $rootScope, prefix) {
 
     F.getUserProjects = function(id, callback) {
         var id = id || userId;
-        var Users_projects = $resource(prefix + 'users_projects/:user_id', {user_id: '@id'});
+        var Users_projects = $resource(prefix + '/users_projects/:user_id', {user_id: '@id'});
         var users_projects = Users_projects.query({user_id: id}, function(res) {
             for(var i =0; i < res.length; i++) {
                 res[i].start = new Date(res[i].start);
@@ -57,13 +57,13 @@ app.factory('cvFactory', function($resource, $rootScope, prefix) {
         technology.name = obj.name;
         technology.category = obj.category;
 
-        var Technologies = $resource(prefix + 'api/technologies');
+        var Technologies = $resource(prefix + '/api/technologies');
         Technologies.save(technology, function(res){
             var cvTech = {};
             cvTech.id = res.id;
             cvTech.stars = obj.stars;
 
-            var CVs = $resource('/cv/:cv_id/technology', {cv_id: '@id'});
+            var CVs = $resource(prefix + '/cv/:cv_id/technology', {cv_id: '@id'});
             CVs.save({cv_id: cvId}, cvTech, function(res){
                 callback(res.id);
             });
@@ -72,33 +72,33 @@ app.factory('cvFactory', function($resource, $rootScope, prefix) {
     };
 
     F.selectTechnology = function(technology, cvId, callback) {
-        var CVs = $resource(prefix + 'cv/:cv_id/technology', {cv_id: '@id'});
+        var CVs = $resource(prefix + '/cv/:cv_id/technology', {cv_id: '@id'});
         CVs.save({cv_id: cvId}, technology, function(res){
             callback(res.id);
         });
     };
 
     F.getTechnology = function(cvId, techId, callback) {
-        var CVs = $resource(prefix + 'cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'});
+        var CVs = $resource(prefix + '/cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'});
         CVs.get({cv_id: cvId, id: techId}, function(res){
             callback(res);
         });
     };
 
     F.updateCVTechnology = function(technology, cvId){
-        var CVs = $resource(prefix + 'cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'}, {'update': { method:'PUT' }});
+        var CVs = $resource(prefix + '/cv/:cv_id/technology/:id', {cv_id: '@id', id: '@id'}, {'update': { method:'PUT' }});
         CVs.update({cv_id: cvId, id: technology.id}, technology);
     };
 
     F.getProject = function(id, callback) {
-        var Users_projects = $resource(prefix + 'projects/:id', {id: '@id'});
+        var Users_projects = $resource(prefix + '/projects/:id', {id: '@id'});
         var project = Users_projects.get({id: id}, function(res) {
             callback(res);
         })
     };
 
      F.getObjectProject = function(id, callback) {
-        var Projects = $resource(prefix + 'api/projects/:id', {id: '@id'});
+        var Projects = $resource(prefix + '/api/projects/:id', {id: '@id'});
         var project = Projects.get({id: id}, function(res) {
             callback(res);
         })
@@ -106,7 +106,7 @@ app.factory('cvFactory', function($resource, $rootScope, prefix) {
 
 
     F.createProject = function(project, callback) {
-        var Projects = $resource(prefix + 'projects', {}, {'post': { method:'POST' }});
+        var Projects = $resource(prefix + '/projects', {}, {'post': { method:'POST' }});
         Projects.post({}, {project: project, userId: userId}, function(res){
             callback(res.id);
         });
@@ -120,26 +120,26 @@ app.factory('cvFactory', function($resource, $rootScope, prefix) {
         userProject.start = obj.startDate;
         userProject.end = obj.endDate;
 
-        var Users_projects = $resource(prefix + 'api/users_projects');
+        var Users_projects = $resource(prefix + '/api/users_projects');
         Users_projects.save(userProject, function(res){
             callback(res.id);
         });
 
         if(obj.current) {
             var project = {id: obj.id};
-            var Users = $resource(prefix + 'users/:id/currentproject', {id: '@id'}, {'update': {method: 'PUT'}});
+            var Users = $resource(prefix + '/users/:id/currentproject', {id: '@id'}, {'update': {method: 'PUT'}});
             Users.update({id: userId}, project)
         }
     };
 
 
     F.removeProject = function(project, callback) {
-        var Users_projects = $resource(prefix + 'api/users_projects/:id', {id: '@id'});
+        var Users_projects = $resource(prefix + '/api/users_projects/:id', {id: '@id'});
         Users_projects.delete({id: project._id}, callback)
     };
 
     F.removeTechnology = function(technology, cvId, callback) {
-        var CVs = $resource(prefix + 'cv/:cv_id/technology', {cv_id: '@id'}, {'update': { method:'PUT' }});
+        var CVs = $resource(prefix + '/cv/:cv_id/technology', {cv_id: '@id'}, {'update': { method:'PUT' }});
         CVs.update({cv_id: cvId}, technology, callback);
     };
 
@@ -152,13 +152,13 @@ app.factory('cvFactory', function($resource, $rootScope, prefix) {
         users_projects.end = project.endDate;
         users_projects.current = project.current;
 
-        var Users_projects = $resource(prefix + 'users_projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        var Users_projects = $resource(prefix + '/users_projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
         Users_projects.update({id: project._id}, users_projects);
 
     };
 
     F.updateObjectProject = function(project, callback){
-        var projects = $resource(prefix + 'api/projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
+        var projects = $resource(prefix + '/api/projects/:id', {id: '@id'}, {'update': { method:'PUT' }});
         projects.update({id: project.id}, project, callback);
     };
 

@@ -1,4 +1,4 @@
-form(name="technologyForm", ng-submit="addTechnology(technologyForm, technology)", novalidate)
+form(name="technologyForm", novalidate)
 	.panel.panel-default
 		.panel-body
 			.form-group(ng-class="{ 'has-error': technologyForm.technologies.$invalid && technologyForm.$submitted}")
@@ -37,5 +37,5 @@ form(name="technologyForm", ng-submit="addTechnology(technologyForm, technology)
 					required)
 				div.help-block(ng-messages="technologyForm.knowledge.$error", ng-if="technologyForm.$submitted")
 					p(ng-message="required") Please specify your knowledge level of the technology
-			button.btn.btn-primary(type='submit') Add techology
+			button.btn.btn-primary(ng-click="addTechnology(technologyForm, technology)") Add techology
 			button.btn.btn-danger(type='reset', ng-click='cancelCreatingTechnology(technologyForm)') Cancel

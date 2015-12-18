@@ -9,10 +9,10 @@ app.factory('uploadService', function(Upload, $q, prefix){
 	function upload(file, callback){
 		if (file) {
             Upload.upload({
-                url: prefix + 'api/files/upload',
+                url: prefix + '/api/files/upload',
                 file: file
             }).success(function (data) {
-                var fileSrc = 'api/files/get/' + data.file;
+                var fileSrc = '/api/files/get/' + data.file;
                 callback(fileSrc);
             }).error(function (data, status) {
                 console.log('error status: ' + status);
@@ -26,7 +26,7 @@ app.factory('uploadService', function(Upload, $q, prefix){
         if (files) {
             angular.forEach(files, function(file){
                 var promise = Upload.upload({
-                    url: prefix + 'api/files/upload',
+                    url: prefix + '/api/files/upload',
                     file: file
                 });
 
@@ -37,7 +37,7 @@ app.factory('uploadService', function(Upload, $q, prefix){
                 var files = [];
 
                 for(var i = 0; i < res.length; i++) {
-                    var file = 'api/files/get/' + res[i].data.file;
+                    var file = '/api/files/get/' + res[i].data.file;
                     files.push(file);
                 }
 

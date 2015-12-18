@@ -37,14 +37,14 @@ app.factory('ProjectsFactory', function($resource, $rootScope, prefix) {
     F.selectTechnology = function(tech, cvId, callback) {
         tech.stars = tech.stars || 1;
 
-        var CVs = $resource(prefix + 'cv/:cv_id/technology', {cv_id: '@id', id: '@id'});
+        var CVs = $resource(prefix + '/cv/:cv_id/technology', {cv_id: '@id', id: '@id'});
         CVs.save({cv_id: cvId}, tech, function(res){
             callback(res.id);
         });
     };
 
     F.getTechnology = function(tech_id, callback) {
-        var Technologies = $resource(prefix + 'api/technologies/:id', {id: '@id'});
+        var Technologies = $resource(prefix + '/api/technologies/:id', {id: '@id'});
         Technologies.get({id: tech_id}, function(res) {
             callback(res);
         })
@@ -52,7 +52,7 @@ app.factory('ProjectsFactory', function($resource, $rootScope, prefix) {
 
 
     F.getProject = function(projectId, callback) {
-        var Users_projects = $resource(prefix + 'api/projects/:id', {id: '@id'});
+        var Users_projects = $resource(prefix + '/api/projects/:id', {id: '@id'});
         Users_projects.get({id: projectId}, function(res) {
             callback(res);
         })
@@ -74,7 +74,7 @@ app.factory('ProjectsFactory', function($resource, $rootScope, prefix) {
 
 
     F.removeProject = function(project, callback) {
-        var Users_projects = $resource(prefix + 'api/users_projects/:id', {id: '@id'});
+        var Users_projects = $resource(prefix + '/api/users_projects/:id', {id: '@id'});
         Users_projects.delete({id: project._id}, function(){
             callback(null);
         })

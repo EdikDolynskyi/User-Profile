@@ -29,8 +29,8 @@ module.exports = {
             collection.update({_id: Users_projects.mongo.objectId(id)}, {
                     $set: {
                         userRole: body.userRole,
-                        start: body.startDate,
-                        end: body.endDate || null
+                        start: body.start,
+                        end: body.end || null
                     }
                 },
                 function (err) {
