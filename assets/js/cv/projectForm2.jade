@@ -13,32 +13,47 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
          p(ng-message="required") Please enter a name
    .form-group(ng-class="{ 'has-error': projectForm2.start.$invalid && projectForm2.$submitted}")
       label(for="start") Start date
-      input#start.form-control(type="date",
-         name="start",
-         datepicker-popup="",
-         is-open="status.opened",
-         min-date="minDate",
-         max-date="'2020-06-22'",
-         datepicker-options="dateOptions",
-         date-disabled="disabled(date, mode)",
-         close-text="Close",
-         ng-model="project.start",
-         required)
-      div.help-block(ng-messages="projectForm2.start.$error", ng-if="projectForm2.$submitted")
-         p(ng-message="required") Please select a date
+      .input-group
+         input#start.form-control(
+            name="start",
+            ng-model="project.start",
+            is-open='showProjectForm2StartDate',
+            min-date="'2000-01-01'",
+            ng-required="true",
+            readonly="true",
+            datepicker-popup='dd-MM-yyyy',
+            datepicker-append-to-body="true",
+            close-text='Close',
+            ng-class= "{errorborder: false}")
+         span.input-group-btn
+            button.btn.btn-default(type='button', ng-click='showProjectForm2StartDate = !showProjectForm2StartDate', 
+            ng-class= "{errorborder: false}")
+               i.glyphicon.glyphicon-calendar
+      .error-block(ng-show='false')
+         p(ng-show="false") Date is required
+
    .form-group
       label(for="end") End date
-      input#end.form-control(type="date",
-         name="end",
-         datepicker-popup="",
-         is-open="status.opened",
-         min-date="minDate",
-         max-date="'2020-06-22'",
-         datepicker-options="dateOptions",
-         date-disabled="disabled(date, mode)",
-         close-text="Close",
-         ng-model="project.end")
-   .form-group(ng-class="{ 'has-error': projectForm2.technologies.$invalid && projectForm2.$submitted}")
+      .input-group
+         input#end.form-control(
+            name="end",
+            ng-model="project.end"
+            is-open='showProjectForm2EndDate',
+            min-date="'2000-01-01'",
+            ng-required="true",
+            readonly="true",
+            datepicker-popup='dd-MM-yyyy',
+            datepicker-append-to-body="true",
+            close-text='Close',
+            ng-class= "{errorborder: false}")
+         span.input-group-btn
+            button.btn.btn-default(type='button', ng-click='showProjectForm2EndDate = !showProjectForm2EndDate', 
+            ng-class= "{errorborder: false}")
+               i.glyphicon.glyphicon-calendar
+      .error-block(ng-show='false')
+         p(ng-show="false") Date is required
+
+      
       label(for="technologies") Technologies
       input#technologies.form-control(type="text",
          name="technologies",
