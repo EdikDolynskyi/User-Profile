@@ -1,4 +1,4 @@
-form(name="projectForm2", ng-submit="createProject(projectForm2, project)", ng-show='showProjectForm2', novalidate)
+form(name="projectForm2", ng-show='showProjectForm2', novalidate)
    .form-group(ng-class="{ 'has-error': projectForm2.name.$invalid && projectForm2.$submitted}")
       label(for="project-name") Project name
       input#project-name.form-control(type="text",
@@ -110,5 +110,5 @@ form(name="projectForm2", ng-submit="createProject(projectForm2, project)", ng-s
             img.img-responsive.voffset2(ngf-src="screenshot")
             div.thumb-x-btn(tooltip="Remove screenshot", tooltip-trigger="mouseenter", ng-click="removeScreenshot(screenshot)")
                span.glyphicon.glyphicon-remove.thumb-x
-   button.btn.btn-primary(type="submit") Create project
+   button.btn.btn-primary(ng-click="createProject(projectForm2, project)") Create project
    button.btn.btn-danger(type="reset", ng-click="cancelCreatingProject(projectForm2)") Cancel
