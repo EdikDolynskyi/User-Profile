@@ -1,5 +1,5 @@
 form(name="projectForm2", ng-show='showProjectForm2', novalidate)
-   .form-group(ng-class="{ 'has-error': projectForm2.name.$invalid && projectForm2.$submitted}")
+   .form-group(ng-class="{ 'has-error': projectForm2.name.$invalid}")
       label(for="project-name") Project name
       input#project-name.form-control(type="text",
          name="name",
@@ -7,11 +7,11 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
          ng-maxlength="20",
          ng-model="project.name",
          required)
-      div.help-block(ng-messages="projectForm2.name.$error", ng-if="projectForm2.$submitted")
+      div.help-block(ng-messages="projectForm2.name.$error")
          p(ng-message="minlength") Please use at least 5 characters
          p(ng-message="maxlength") Please use between 5 and 20 characters
          p(ng-message="required") Please enter a name
-   .form-group(ng-class="{ 'has-error': projectForm2.start.$invalid && projectForm2.$submitted}")
+   .form-group(ng-class="{ 'has-error': projectForm2.start.$invalid}")
       label(for="start") Start date
       .input-group
          input#start.form-control(
@@ -40,7 +40,6 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
             ng-model="project.end"
             is-open='showProjectForm2EndDate',
             min-date="'2000-01-01'",
-            ng-required="true",
             readonly="true",
             datepicker-popup='dd-MM-yyyy',
             datepicker-append-to-body="true",
@@ -61,14 +60,16 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
          typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
          typeahead-template-url="dropDownList.html",
          ng-model="projectTechnology",
-         required autocomplete="off")
-      div.help-block(ng-messages="projectForm2.technologies.$error", ng-if="projectForm2.$submitted")
+         autocomplete="off")
+      div.help-block(ng-messages="projectForm2.technologies.$error")
          p(ng-message="required") Please enter technologies
       button.stars-4.voffset2(ng-repeat="tech in project.technologies") {{tech.name}}
+
    .form-group
       label(for="project-description") Description
       textarea#project-description.form-control(rows="3", ng-model="project.description", required)
-   .form-group(ng-class="{ 'has-error': projectForm2.userrole.$invalid && projectForm2.$submitted}")
+   .form-group(ng-class="{ 'has-error': projectForm2.userrole.$invalid}")
+
       label(for="user-role") Your role
       input#user-role.form-control(type="text",
          name="userrole",
@@ -77,7 +78,7 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
          ng-pattern="/^[a-zA-Z ]+$/",
          ng-model="project.userRole",
          required)
-      div.help-block(ng-messages="projectForm2.userrole.$error", ng-if="projectForm2.$submitted")
+      div.help-block(ng-messages="projectForm2.userrole.$error")
          p(ng-message="pattern") You can use only letters
          p(ng-message="minlength") Please use at least 5 characters
          p(ng-message="maxlength") Please use between 5 and 20 characters
@@ -90,33 +91,48 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
       label
          input(type='checkbox', ng-model='project.company')
          b Set this project as a Binary Studio project
-   .form-group(ng-class="{ 'has-error': projectForm2.startdate.$invalid && projectForm2.$submitted}")
+
+   .form-group(ng-class="{ 'has-error': projectForm2.startdate.$invalid}")
       label(for="start-date") Date of joining the project
-      input#start-date.form-control(type="date",
-         name="startdate",
-         datepicker-popup="",
-         is-open="status.opened",
-         min-date="minDate",
-         max-date="'2020-06-22'",
-         datepicker-options="dateOptions",
-         date-disabled="disabled(date, mode)",
-         close-text="Close",
-         ng-model="project.startDate",
-         required)
-      div.help-block(ng-messages="projectForm2.startdate.$error", ng-if="projectForm2.$submitted")
-         p(ng-message="required") Please select a date
+      .input-group
+         input#end.form-control(
+            name="startdate",
+            ng-model="project.startDate",
+            is-open='showProjectForm2StartDateJoin',
+            min-date="'2000-01-01'",
+            ng-required="true",
+            readonly="true",
+            datepicker-popup='dd-MM-yyyy',
+            datepicker-append-to-body="true",
+            close-text='Close',
+            ng-class= "{errorborder: false}")
+         span.input-group-btn
+            button.btn.btn-default(type='button', ng-click='showProjectForm2StartDateJoin = !showProjectForm2StartDateJoin', 
+            ng-class= "{errorborder: false}")
+               i.glyphicon.glyphicon-calendar
+      .error-block(ng-show='false')
+         p(ng-show="false") Date is required
+
    .form-group
       label(for="end-date") Date of finishing working on the project
-      input#end-date.form-control(type="date",
-         name="enddate",
-         datepicker-popup="",
-         ng-model="project.endDate",
-         is-open="status.opened",
-         min-date="minDate",
-         max-date="'2020-06-22'",
-         datepicker-options="dateOptions",
-         date-disabled="disabled(date, mode)",
-         close-text="Close")
+      .input-group
+         input#end.form-control(
+            name="enddate",
+            ng-model="project.endDate",
+            is-open='showProjectForm2EndDateJoin',
+            min-date="'2000-01-01'",
+            readonly="true",
+            datepicker-popup='dd-MM-yyyy',
+            datepicker-append-to-body="true",
+            close-text='Close',
+            ng-class= "{errorborder: false}")
+         span.input-group-btn
+            button.btn.btn-default(type='button', ng-click='showProjectForm2EndDateJoin = !showProjectForm2EndDateJoin', 
+            ng-class= "{errorborder: false}")
+               i.glyphicon.glyphicon-calendar
+      .error-block(ng-show='false')
+         p(ng-show="false") Date is required
+
    .form-group
       label(for="inputFile") Screenshots
       input#inputFile(type="file", ngf-select="selectFile($file)", accept="image/*")
