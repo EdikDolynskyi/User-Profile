@@ -56,7 +56,7 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
       label(for="technologies") Technologies
       input#technologies.form-control(type="text",
          name="technologies",
-         ng-keyup ='enterTechnologyName($event, projectTechnology)',
+         ng-keyup ='enterTechnologyName($event, projectTechnology, project)',
          typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
          typeahead-template-url="dropDownList.html",
          ng-model="projectTechnology",
@@ -67,7 +67,7 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
 
    .form-group
       label(for="project-description") Description
-      textarea#project-description.form-control(rows="3", ng-model="project.description", required)
+      textarea#project-description.form-control(rows="3", ng-model="project.description")
    .form-group(ng-class="{ 'has-error': projectForm2.userrole.$invalid}")
 
       label(for="user-role") Your role
@@ -135,11 +135,11 @@ form(name="projectForm2", ng-show='showProjectForm2', novalidate)
 
    .form-group
       label(for="inputFile") Screenshots
-      input#inputFile(type="file", ngf-select="selectFile($file)", accept="image/*")
+      input#inputFile(type="file", ngf-select="selectFile($file, project)", accept="image/*")
       div(ng-if="project.screenshots", ng-repeat="screenshot in project.screenshots", ng-attr-id="{{$index}}")
          div.uploaded-img-wrap
             img.img-responsive.voffset2(ngf-src="screenshot")
-            div.thumb-x-btn(tooltip="Remove screenshot", tooltip-trigger="mouseenter", ng-click="removeScreenshot(screenshot)")
+            div.thumb-x-btn(tooltip="Remove screenshot", tooltip-trigger="mouseenter", ng-click="removeScreenshot(project, screenshot)")
                span.glyphicon.glyphicon-remove.thumb-x
    button.btn.btn-primary(ng-click="createProject(projectForm2, project)") Create project
    button.btn.btn-danger(type="reset", ng-click="cancelCreatingProject(projectForm2)") Cancel

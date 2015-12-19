@@ -55,12 +55,15 @@ script(type='text/ng-template', id='dropDownList.html').
 						a(href="", ng-click="showProjectForm2=true; showProjectForm1=false") Create project
 		div.col-sm-6.col-sm-offset-3(ng-include="template3")
 		div.col-sm-6.col-sm-offset-3(ng-include="template4")
+
+
+		//--Show/Edit projects	
 		div.col-sm-12.voffset3
 			.panel.panel-default.project(ng-repeat="project in userCV.projects | orderBy: 'startDate'", ng-attr-id="{{$index}}")
 				.panel-heading.project-header
-					div.project-title(ng-click="isCollapsed = !isCollapsed")
-						b(ng-if="!editMode") {{project.name}}
-					.form-group.project-name-edit(ng-if='editMode')
+					div.project-title(ng-click="project.isCollapsed = !project.isCollapsed")
+						b(ng-if="!project.editMode") {{project.name}}
+					.form-group.project-name-edit(ng-if='project.editMode')
 						input.form-control(ng-model="project.name")
 					div.pull-right
 						div.btn-rmv-project(tooltip="Copy to clipboard", tooltip-trigger="mouseenter", ngclipboard='', data-clipboard-text="{{project.path}}")
@@ -71,16 +74,18 @@ script(type='text/ng-template', id='dropDownList.html').
 							span.glyphicon.glyphicon-pencil
 						div.btn-rmv-project(tooltip="Remove this project", tooltip-trigger="mouseenter", ng-click="confirmDelete($event, 'sm', project)")
 							span.glyphicon.glyphicon-trash
-				.panel-body(collapse="project.current && !editMode ? !isCollapsed : isCollapsed")
-					div.logo-wpap(ng-if="project.company = 'binary' && !editMode")
+
+
+				.panel-body(collapse="!project.current && project.isCollapsed")
+					div.logo-wpap(ng-if="project.company = 'binary' && !project.editMode")
 						img.logo(src="http://academy.binary-studio.com/resources/logo.png")
 					form(novalidate="novalidate")
 						.row
 							div.col-sm-3.project-label
 								| Start date:
 							div.col-sm-9
-								span(ng-if='!editMode') {{project.start | date:'dd/MM/yyyy'}}
-								.input-group(ng-if='editMode')
+								span(ng-if='!project.editMode') {{project.start | date:'dd/MM/yyyy'}}
+								.input-group(ng-if='project.editMode')
 									input.form-control(
 										name="start-date1",
 										ng-model='project.start',
@@ -99,17 +104,17 @@ script(type='text/ng-template', id='dropDownList.html').
 								.error-block(ng-show='false')
 									p(ng-show="false") Date is required
 
-						.row.voffset3(ng-if="project.end && !editMode")
+						.row.voffset3(ng-if="project.end && !project.editMode")
 							div.col-sm-3.project-label
 								| End date:
 							div.col-sm-9
 								span {{project.end | date:'dd/MM/yyyy'}}
 						
-						.row.voffset3(ng-if='editMode')
+						.row.voffset3(ng-if='project.editMode')
 							div.col-sm-3.project-label
 								| End date:
 							div.col-sm-9
-								.input-group(ng-if='editMode')
+								.input-group(ng-if='project.editMode')
 									input.form-control(	
 										name="start-date1",
 										ng-model='project.end',
@@ -130,19 +135,19 @@ script(type='text/ng-template', id='dropDownList.html').
 						
 						.row.voffset3
 							div.col-sm-3.project-label Technologies
-								div.btn(ng-show='editMode', ng-click="showTechFormProject=true")
+								div.btn(ng-show='project.editMode', ng-click="showTechFormProject=true")
 									span.glyphicon.glyphicon-plus-sign
-							div.col-sm-9(ng-show="showTechFormProject && editMode", ng-include="template2")
+							div.col-sm-9(ng-show="showTechFormProject && project.editMode", ng-include="template2")
 
 						.row.voffset3(ng-repeat="tech in project.technologies | unique")
 							div.col-sm-3.project-label
 								| {{tech.category.name}}:
 
-							div.col-sm-9(ng-if='!editMode')
+							div.col-sm-9(ng-if='!project.editMode')
 								button.stars-4(disabled="disabled" ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
 									| {{tech.name}}
 
-							div.col-sm-9(ng-if='editMode')
+							div.col-sm-9(ng-if='project.editMode')
 								button.stars-4(ng-repeat = "tech in project.technologies | filter: {category: {id: tech.category.id}}")
 									| {{tech.name}}
 									span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click="removeTechnologyFromProject($event, tech, project)")
@@ -151,11 +156,11 @@ script(type='text/ng-template', id='dropDownList.html').
 							div.col-sm-3.project-label
 								| Description:
 							div.col-sm-9
-								p(ng-show='!editMode') {{project.description}}
-								textarea.form-control(ng-show='editMode' rows='8' ng-model='project.description',
+								p(ng-show='!project.editMode') {{project.description}}
+								textarea.form-control(ng-show='project.editMode' rows='8' ng-model='project.description',
 								required)
 						
-						.row.voffset3(ng-if="editMode")
+						.row.voffset3(ng-if="project.editMode")
 							div.checkbox.col-sm-12
 								label
 									input(type="checkbox" ng-model="project.current")
@@ -166,17 +171,17 @@ script(type='text/ng-template', id='dropDownList.html').
 							div.col-sm-3.project-label
 								| Your role:
 							div.col-sm-9
-								span(ng-if="!editMode") {{project.userRole}}
-								input.form-control(ng-if="editMode", type="text", ng-model="project.userRole")
+								span(ng-if="!project.editMode") {{project.userRole}}
+								input.form-control(ng-if="project.editMode", type="text", ng-model="project.userRole")
 						
 
 						.row.voffset3
 							div.col-sm-3.project-label
 								| Work period:
 							div.col-sm-9
-								span(ng-if="!editMode") {{project.startDate | date:"dd/MM/yyyy"}} - {{project.endDate | date:"dd/MM/yyyy"}}
-								span(ng-if='!editMode && !project.endDate') present
-								.input-group(ng-if='editMode')
+								span(ng-if="!project.editMode") {{project.startDate | date:"dd/MM/yyyy"}} - {{project.endDate | date:"dd/MM/yyyy"}}
+								span(ng-if='!project.editMode && !project.endDate') present
+								.input-group(ng-if='project.editMode')
 									input.form-control(
 										ng-model="project.startDate",
 										is-open='showProjectWorkStartDate',
@@ -195,8 +200,8 @@ script(type='text/ng-template', id='dropDownList.html').
 									p(ng-show="false") Date is required
 
 								br
-								span(ng-if="editMode")
-								.input-group(ng-if='editMode',)
+								span(ng-if="project.editMode")
+								.input-group(ng-if='project.editMode',)
 									input.form-control(	
 										ng-model="project.endDate",
 										is-open='showProjectWorkEndDate',
@@ -231,20 +236,20 @@ script(type='text/ng-template', id='dropDownList.html').
 							div.col-md-4.col-sm-4.voffset2(ng-repeat="screenshot in project.screenshots")
 								div.screenshot-wrap
 									img.img-responsive.screenshot(ng-src="{{prefix + screenshot.img}}", ng-click="open(screenshot, project.screenshots)")
-								.btn-rmv-project(ng-show='editMode' ng-click="removeScreenshotAfterEdit(project, screenshot)")
+								.btn-rmv-project(ng-show='project.editMode' ng-click="removeScreenshotAfterEdit(project, screenshot)")
 									span.glyphicon.glyphicon-trash
 
-							div.col-md-4.col-sm-4.voffset2(ng-if="newScreenshots", ng-repeat="newScreenshot in newScreenshots", ng-attr-id="{{$index}}")
+							div.col-md-4.col-sm-4.voffset2(ng-if="project.newScreenshots", ng-repeat="newScreenshot in project.newScreenshots", ng-attr-id="{{$index}}")
 								div.screenshot-wrap
 									img.img-responsive.screenshot(ngf-src="newScreenshot", ng-click="open(newScreenshot, newScreenshots)" accept="image/*")
-								.btn-rmv-project(ng-show='editMode' ng-click="removeNewScreenshot(newScreenshot)")
+								.btn-rmv-project(ng-show='project.editMode' ng-click="removeNewScreenshot(newScreenshot, project)")
 									span.glyphicon.glyphicon-trash
 
-						.row.voffset3(ng-show='editMode')
+						.row.voffset3(ng-show='project.editMode')
 							div.col-md-4.col-sm-4.voffset2 Add screnshot
 								input#inputFile(type="file", ngf-select="addNewScreenshot($file, project)", accept="image/*")
 
-						.row.voffset4(ng-if="editMode")
+						.row.voffset4(ng-if="project.editMode")
 							div.col-sm-12
 								button.btn.btn-primary(ng-click="updateProject(project)") Save
-								button.btn.btn-danger(ng-click="cancelEditing(project._id)") Cancel
+								button.btn.btn-danger(ng-click="cancelEditing(project._id, project)") Cancel

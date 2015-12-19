@@ -16,13 +16,11 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.showProjectForm1 = false;
 	$scope.showProjectForm2 = false;
 	$scope.technology = {};
-	$scope.originalProject = {};
 	$scope.project = {};
 	$scope.project.technologies = [];
 	$scope.project.screenshots = [];
 	$scope.selProject = {};
 	$scope.selTech = {};
-	$scope.newScreenshots = [];
 	$scope.showSelectTechnology = true;
 	$scope.showTechFormProject = false;
 
@@ -55,7 +53,10 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 
 		for (var i=0; i<$scope.userCV.projects.length; i++) {
 			$scope.userCV.projects[i].path =  $location.protocol() + "://" + $location.host() + 
-			":" + $location.port() + "/#/projects/" + $scope.userCV.projects[i].id; 
+			":" + $location.port() + "/#/projects/" + $scope.userCV.projects[i].id;
+			$scope.userCV.projects[i].editMode = false;
+			$scope.userCV.projects[i].isCollapsed = true;
+			$scope.userCV.projects[i].newScreenshots = [];
 			
 			if($scope.userCV.projects[i].id == $scope.userCV.currentProject ) {
 				$scope.userCV.projects[i].current = true;
@@ -65,7 +66,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		}
 	});
 
-	$scope.addTechnologiesToProject = function(technology) {
+	$scope.addTechnologiesToProject = function(project, technology) {
 		if (technology !== '' && typeof technology == "object") {
 			var correctTechnology = Boolean(_.where($scope.allTechnologies, {name: technology.name, id: technology.id}).length);
 			var technologyExist = Boolean(_.where($scope.project.technologies, {name: technology.name, id: technology.id}).length);
@@ -75,10 +76,10 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		}
 	};
 
-	$scope.enterTechnologyName = function($event, technology) {
+	$scope.enterTechnologyName = function($event, technology, project) {
 		if ($event.keyCode == 13) {
 			$event.preventDefault();
-			$scope.addTechnologiesToProject(technology);
+			$scope.addTechnologiesToProject(project, technology);
 			$scope.projectTechnology = '';
 		}
 	};
@@ -87,7 +88,6 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		$scope.showSelectTechnology = !$scope.checkExistTechnology(technology);
 		if ($event.keyCode == 13) {
 			$event.preventDefault();
-			$scope.addTechnologiesToProject(technology);
 			$scope.projectTechnology = '';
 		}
 	};
@@ -192,8 +192,8 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		form.$setPristine();
 	};
 
-	$scope.selectFile = function(file){
-		if(file) $scope.project.screenshots.push(file);
+	$scope.selectFile = function(file, project){
+		if(file) project.screenshots.push(file);
 	};
 
 	$scope.createProject = function(form, project) {
@@ -212,35 +212,34 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 					});
 				});
 
-				$scope.project = {};
-				$scope.project.technologies = [];
-				$scope.project.screenshots = [];
+				project = {};
+				project.technologies = [];
+				project.screenshots = [];
 				form.$setPristine();
 				$scope.showProjectForm2 = false;
 			});
 		}
 	};
 
-	$scope.cancelCreatingProject = function(form) {
+	$scope.cancelCreatingProject = function(form, project) {
 		$scope.showProjectForm2 = false;
-		$scope.project = {};
-		$scope.project.technologies = [];
-		$scope.project.screenshots = [];
+		project = {};
+		project.technologies = [];
+		project.screenshots = [];
 		form.$setPristine();
 	};
 
 	$scope.updateProject = function(project) {
-		
-		var self = this;
-		uploadService.uploadMultipleFiles($scope.newScreenshots, function(res){
+
+		uploadService.uploadMultipleFiles(project.newScreenshots, function(res){
 			if(res) {
 
-				for(var i = 0; i < $scope.newScreenshots.length; i++) {
-					$scope.newScreenshots[i] = {img: res[i]}
+				for(var i = 0; i < project.newScreenshots.length; i++) {
+					project.newScreenshots[i] = {img: res[i]}
 				}
 
-				project.screenshots = project.screenshots.concat($scope.newScreenshots);
-				$scope.newScreenshots = [];
+				project.screenshots = project.screenshots.concat(project.newScreenshots);
+				project.newScreenshots = [];
 			}
 
 			cvFactory.updateProject(project);
@@ -257,8 +256,8 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 				cvFactory.updateObjectProject(originProject, function(res){
 					if(res[0] + res[1] == "OK"){
 						alert('Project successfully saved');
-						self.editMode = false;                  
-						self.isCollapsed = !self.isCollapsed;
+						project.editMode = false;                  
+						project.isCollapsed = true;
 					}
 				});
 			});
@@ -268,28 +267,29 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.editProject = function($event, project) {
 		$event.stopPropagation();
 
-		if(this.isCollapsed) {
-			this.isCollapsed = !this.isCollapsed;
-		}
-
-		this.editMode = true;
-		$scope.originalProject = angular.copy(project);
+		project.isCollapsed = false;
+		project.editMode = true;
+		project.originalProject = angular.copy(project);
 	};
 
-	$scope.cancelEditing = function(projectID) {
-		this.editMode = false;
+	$scope.cancelEditing = function(projectID, project) {
+
+		project = angular.copy(project.originalProject);
+		project.editMode = false;
+		project.isCollapsed = true;
 
 		for(var i = 0; i < $scope.userCV.projects.length; i++) {
 			if($scope.userCV.projects[i]._id == projectID) {
-				$scope.userCV.projects[i] = $scope.originalProject;
+				$scope.userCV.projects[i] = project;
 				break;
 			}
 		}
+
 	};
 
-	$scope.removeScreenshot = function(screenshot) {
-		var index = $scope.project.screenshots.indexOf(screenshot);
-		$scope.project.screenshots.splice(index, 1);
+	$scope.removeScreenshot = function(project, screenshot) {
+		var index = project.screenshots.indexOf(screenshot);
+		project.screenshots.splice(index, 1);
 	};
 
 	$scope.goToProject = function($event, projectId){
@@ -345,15 +345,15 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		});
 	};
 
-	$scope.removeNewScreenshot = function(newScreenshot){
-		 $scope.newScreenshots = _.reject($scope.newScreenshots, function(item) {
+	$scope.removeNewScreenshot = function(newScreenshot, project){
+		 project.newScreenshots = _.reject(project.newScreenshots, function(item) {
 			return item.$$hashKey === newScreenshot.$$hashKey; 
 		});
 	};
 
 	$scope.addNewScreenshot = function(file, project){
 		if(file){
-			$scope.newScreenshots.push(file);
+			project.newScreenshots.push(file);
 		}
 	};
 
