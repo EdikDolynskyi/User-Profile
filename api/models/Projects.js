@@ -16,8 +16,7 @@ module.exports = {
             type: 'string'
         },
         technologies: {
-            type: 'array',
-            required: true
+            type: 'array'
         },
         screenshots: {
             type: 'array'
