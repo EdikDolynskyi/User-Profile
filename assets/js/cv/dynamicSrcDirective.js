@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.directive('dynamicSrc', function() {
+app.directive('dynamicSrc', function(prefix) {
     return {
         restrict: 'A',
         scope: true,
@@ -12,7 +12,7 @@ app.directive('dynamicSrc', function() {
                     scope.image.index++;
                 }
 
-                var src = scope.images[scope.image.index].img;
+                var src = prefix + scope.images[scope.image.index].img;
                 attrs.$set('ngSrc', src);
             })
         }
