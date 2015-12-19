@@ -2,17 +2,19 @@ var app = require('../angular-app');
 
 app.service('createUserService', createUserService);
 
-function createUserService($resource, prefix) {
+function createUserService($resource) {
+    var vm = this;
 
-    // var prefix = window.location.pathname;
-    // prefix = prefix.substr(0, 9);
+    //cut path for get correct path in server (profile/newuser/ -> 'profile/')
+    vm.prefix = window.location.pathname;
+    vm.prefix = vm.prefix.substr(0, 9);
 
     this.createUser = function (user, cv, pdp, cb) {
-        $resource(prefix + '/api/cvs').save(cv, function (cvRez) {
+        $resource(vm.prefix + '/api/cvs').save(cv, function (cvRez) {
             user.userCV = cvRez.id;
-            $resource(prefix + '/api/pdps').save(pdp, function (pdpRez) {
+            $resource(vm.prefix + '/api/pdps').save(pdp, function (pdpRez) {
                 user.userPDP = pdpRez.id;
-                $resource(prefix + '/api/users').save(user, function (userRez) {
+                $resource(vm.prefix + '/api/users').save(user, function (userRez) {
                     console.log(userRez);
                     cb(userRez);
                 });
@@ -21,7 +23,7 @@ function createUserService($resource, prefix) {
     };
 
     this.getPositions = function (cb) {
-        var Positions = $resource(prefix + '/api/positions');
+        var Positions = $resource(vm.prefix + '/api/positions');
         var positions = Positions.query(function (res) {
             cb(res);
         }, function (err) {
@@ -30,7 +32,7 @@ function createUserService($resource, prefix) {
     }
 
     this.getDirections = function (cb) {
-        var Directions = $resource(prefix + '/api/directions');
+        var Directions = $resource(vm.prefix + '/api/directions');
         var directions = Directions.query(function (res) {
             cb(res);
         }, function (err) {
