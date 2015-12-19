@@ -1,12 +1,14 @@
 var app = require('../angular-app');
 var mongoose = require('mongoose');
 
-app.controller('createUserController', ['createUserService', '$cookies','prefix', '$scope', createUserCtrl]);
+app.controller('createUserController', ['createUserService', '$cookies', '$window', createUserCtrl]);
 
-function createUserCtrl(createUserService, $cookies, prefix, $scope) {
+function createUserCtrl(createUserService, $cookies, $window) {
     var vm = this;
-    $scope.prefix = prefix;
-    // prefix = prefix.substr(0, 9);
+    //cut path for get correct path in server (profile/newuser/ -> 'profile/')
+    vm.prefix = window.location.pathname;
+    vm.prefix = vm.prefix.substr(0, 9);
+
     vm.newUserEmail = $cookies.get('newUserEmail');
     vm.newUserId = $cookies.get('newUserId');
     vm.user = {
@@ -77,6 +79,7 @@ function createUserCtrl(createUserService, $cookies, prefix, $scope) {
                 $cookies.remove('newUserId');
                 $cookies.remove('newUserEmail');
                 alert("User added");
+                $window.location.href = 'http://team.binary-studio.com/auth/#/users';
             });
         }
         else {
