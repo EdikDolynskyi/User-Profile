@@ -1,8 +1,9 @@
 var app = require('../angular-app');
 
-app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', 'PdpService', 'prefix', '$scope', UserProfilePublicCtrl]);
+app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope', '$route', 'PdpService',
+    'prefix', '$scope', 'cvFactory', '$location', UserProfilePublicCtrl]);
 
-function UserProfilePublicCtrl(service, $rootScope, $route, PdpService, prefix, $scope) {
+function UserProfilePublicCtrl(service, $rootScope, $route, PdpService, prefix, $scope, cvFactory, $location) {
     console.log(prefix);
     $scope.prefix = prefix;
     var ctrl = this;
@@ -13,6 +14,10 @@ function UserProfilePublicCtrl(service, $rootScope, $route, PdpService, prefix, 
         var ageDifMs = Date.now() - new Date(birthday);
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
+    };
+
+    ctrl.goToProject = function(projectPath){
+        $location.path(projectPath);
     };
 
     var serverId = $route.current.params.serverId;
@@ -33,6 +38,9 @@ function UserProfilePublicCtrl(service, $rootScope, $route, PdpService, prefix, 
             ctrl.user.age = ctrl.calculateAge(ctrl.user.birthday);
             PdpService.getPDP(user.id, function(pdp){
                 ctrl.pdp = pdp;
+            });
+            cvFactory.getUserProjects(user.id, function(projects) {
+                user.project = service.getUserProject(projects);
             });
         });
     }
