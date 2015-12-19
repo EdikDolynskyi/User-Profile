@@ -90,12 +90,12 @@ form.container-fluid(name='MainProfile')
 		.panel.panel-default
 			.panel-body
 				img.avatar.img-responisve(ng-if="!ctrl.addPhotoByUrl", src= "{{prefix + ctrl.user.avatar.urlAva}}", alt='avatar')
-				img.avatar.img-responisve(ng-if="ctrl.addPhotoByUrl", src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+				//- img.avatar.img-responisve(ng-if="ctrl.addPhotoByUrl", src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
 				br
-				span.glyphicon.glyphicon-upload
-				a(href='javascript: void(0)', ng-click="ctrl.showUrlInput=!ctrl.showUrlInput") Add a photo from a website
-				.form-group
-					input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-change="ctrl.addPhotoByUrl = true", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
+				//- span.glyphicon.glyphicon-upload
+				//- a(href='javascript: void(0)', ng-click="ctrl.showUrlInput=!ctrl.showUrlInput") Add a photo from a website
+				//- .form-group
+				//- 	input.form-control.voffset2(type="url", name="url", ng-model="ctrl.url", ng-show="ctrl.showUrlInput", placeholder="http://", ng-change="ctrl.addPhotoByUrl = true", ng-pattern="/(https?:\/\/.*\.(?:png|jpg))/i")
 				.btn.btn-default(ngf-select, ngf-change="ctrl.upload($file); ctrl.addPhotoByUrl = false", accept="image/*") Change photo
 
 	.col-sm-12.form-group
