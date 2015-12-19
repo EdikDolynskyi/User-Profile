@@ -22,7 +22,6 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.selProject = {};
 	$scope.selTech = {};
 	$scope.showSelectTechnology = true;
-	$scope.showTechFormProject = false;
 
 	$scope.template = prefix + '/js/cv/technologyForm.html';
 	$scope.template2 = prefix + '/js/cv/technologyFormForProject.html';
@@ -57,6 +56,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 			$scope.userCV.projects[i].editMode = false;
 			$scope.userCV.projects[i].isCollapsed = true;
 			$scope.userCV.projects[i].newScreenshots = [];
+			$scope.userCV.projects[i].showTechFormProject = false;
 			
 			if($scope.userCV.projects[i].id == $scope.userCV.currentProject ) {
 				$scope.userCV.projects[i].current = true;
@@ -130,7 +130,6 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 					});
 				});
 			}
-			$scope.showTechFormForProject = !$scope.showTechFormForProject;
 		}
 	};
 
@@ -145,9 +144,8 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		form.$setPristine();
 	};
 
-	$scope.cancelCreatingTechForProject =function(form){
-		$scope.showTechFormForProject = !$scope.showTechFormForProject;
-		form.$setPristine();
+	$scope.cancelCreatingTechForProject =function(project){
+		project.showTechFormProject = false;
 	};
 
 	$scope.updateTechnology = function(tech){

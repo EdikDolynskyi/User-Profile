@@ -1,7 +1,7 @@
-form(name="technologyFormForProjectForProject", novalidate="novalidate")
+form(name="technologyFormForProject", novalidate="novalidate")
 	.panel.panel-default
 		.panel-body
-			.form-group(ng-class="{ 'has-error': technologyFormForProject.technologies.$invalid && technologyFormForProject.$submitted}")
+			.form-group(ng-class="{ 'has-error': technologyFormForProject.technologies.$invalid}")
 				label(for="tech-name") Technology name
 				input#technologies.form-control(type="text",
 					name="technologies", autocomplete="off",
@@ -13,10 +13,10 @@ form(name="technologyFormForProjectForProject", novalidate="novalidate")
 					ng-blur="enterTechnologyNameForTech($event, technology)",
 					ng-focus="enterTechnologyNameForTech($event, technology)",
 					ng-maxlength="15", required)
-				div.help-block(ng-messages="technologyFormForProject.technologies.$error", ng-if="technologyFormForProject.$submitted")
+				div.help-block(ng-messages="technologyFormForProject.technologies.$error")
 					p(ng-message="maxlength") Please use no more than 15 characters
 					p(ng-message="required") Please enter a technology
-				div.help-block(ng-messages="technologyFormForProject.knowledge.$error", ng-if="technologyFormForProject.$submitted")
+				div.help-block(ng-messages="technologyFormForProject.knowledge.$error")
 					p(ng-message="required") Please specify your knowledge level of the technology
 			button.btn.btn-primary(ng-click="addTechnologyToProject(technology, project)") Add techology
-			button.btn.btn-danger(type='reset', ng-click='cancelCreatingTechForProject(technologyFormForProject)') Cancel
+			button.btn.btn-danger(ng-click='cancelCreatingTechForProject(project)') Cancel

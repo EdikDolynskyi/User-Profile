@@ -30,6 +30,25 @@ function UserProfileService($resource, prefix) {
         })
     };
 
+    this.getUserProject =function(projects){
+        var project = {};
+        if(projects.length){
+            for (var i=0; i<projects.length; i++) {
+
+                project.title = projects[i].name;
+                project.path = '/projects/' + projects[i].id;
+                project.type = '';
+    
+                project.state = projects[i].current ? "Current" : "Last";
+                break;
+            }
+        } else {
+            project = null;
+        }
+        return project;
+        
+    };
+
     this.addLog = function (userId, data, cb) {
         $resource(prefix + '/api/logs/?userId=:userId', {userId: userId}).query(function (log) {
 

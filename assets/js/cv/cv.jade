@@ -135,9 +135,9 @@ script(type='text/ng-template', id='dropDownList.html').
 						
 						.row.voffset3
 							div.col-sm-3.project-label Technologies
-								div.btn(ng-show='project.editMode', ng-click="showTechFormProject=true")
+								div.btn(ng-show='project.editMode', ng-click="project.showTechFormProject=true")
 									span.glyphicon.glyphicon-plus-sign
-							div.col-sm-9(ng-show="showTechFormProject && project.editMode", ng-include="template2")
+							div.col-sm-9(ng-show="project.showTechFormProject && project.editMode", ng-include="template2")
 
 						.row.voffset3(ng-repeat="tech in project.technologies | unique")
 							div.col-sm-3.project-label
