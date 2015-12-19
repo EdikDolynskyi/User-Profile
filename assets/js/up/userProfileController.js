@@ -10,6 +10,7 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
 	vm.dataInFields = {}; //here fields, wich changed
 	vm.formValid = true;
 	vm.addPhotoByUrl = false;
+	vm.url = '';
 
 	UserProfileService.get($rootScope.ownerId, function (user) {
 
@@ -83,6 +84,7 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
 
 
 	vm.upload = function (file) {
+		vm.url = "";
 		uploadService.upload(file, function (fileSrc) {
 			vm.user.avatar.urlAva = fileSrc;
 			vm.dataInFields.avatar = angular.copy(vm.user.avatar);
