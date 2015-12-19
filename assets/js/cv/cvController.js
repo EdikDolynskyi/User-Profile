@@ -298,19 +298,23 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	};
 
 	$scope.open = function(selected, screenshots) {
-		var modalInstance = $modal.open({
-			//animation: $scope.animationsEnabled,
-			templateUrl: 'modalImage.html',
-			controller: 'ModalImageCtrl',
-			resolve: {
-				selected: function() {
-					return selected;
-				},
-				images: function () {
-					return screenshots;
+		if(selected.hasOwnProperty('img')){
+			var modalInstance = $modal.open({
+				//animation: $scope.animationsEnabled,
+				templateUrl: 'modalImage.html',
+				controller: 'ModalImageCtrl',
+				resolve: {
+					selected: function() {
+						return selected;
+					},
+					images: function () {
+						return screenshots;
+					}
 				}
-			}
-		});
+			});
+		} else {
+			alert('You can`t view image file. For view image you must save changes.');
+		}
 
 	};
 
