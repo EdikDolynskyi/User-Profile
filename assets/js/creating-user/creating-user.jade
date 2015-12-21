@@ -1,85 +1,97 @@
-div.container-fluid(ng-controller="createUserController as ctrl")
-    .page-header
-        h2 Personal info
-    .col-md-6.col-sm-6.col-xs-12
-        .form-group
-            label Name
-            input(ng-model="ctrl.user.name", class="form-control", placeholder="Name")
+form.container-fluid(name="createUserForm", ng-controller="createUserController as ctrl")
+	.page-header
+		h2 Personal info
+	.col-md-6.col-sm-6.col-xs-12
+		.form-group
+			label Name
+			input(name="userName", ng-model="ctrl.user.name", class="form-control", placeholder="Name",
+			ng-required="true", ng-maxlength=100, ng-pattern="/^[a-zA-ZА-Яа-яЁёіІїЇєЄґҐ\s]+$/",
+			ng-class= "{errorborder: createUserForm.userName.$invalid && createUserForm.userName.$dirty && createUserForm.userName.$touched}")
+			.error-block(ng-show='createUserForm.userName.$invalid && createUserForm.userName.$dirty && createUserForm.userName.$touched')
+				p(ng-show="createUserForm.userName.$error.required") Name is required
+				p(ng-show="createUserForm.userName.$error.maxlength") Name should contain les then 100 letters
+				p(ng-show="createUserForm.userName.$error.pattern") Name should contain only letters
 
-        .form-group
-            label Surname
-            input(ng-model="ctrl.user.surname", class="form-control", placeholder="Surname")
-        .form-group
-            label Birthday
-            .input-group
-                input.form-control(
-                ng-model='ctrl.user.birthday',
-                is-open='showBirthdayDatePicker',
-                min-date="'1900-01-01'",
-                max-date="ctrl.today",
-                datepicker-popup='dd-MM-yyyy',
-                datepicker-append-to-body="true",
-                close-text='Close')
-                span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
-                        i.glyphicon.glyphicon-calendar
-        .form-group
-            label Gender
-                p
-                .radio.radio-info.radio-inline
-                input#inlineRadio1(ng-model="ctrl.user.gender", type='radio', value='male', name='radioInline')
-                label(for='inlineRadio1')
-                    span(aria-hidden='true')
-                    |  Male
-                .radio.radio-inline
-                input#inlineRadio2(ng-model="ctrl.user.gender", type='radio', value='female', name='radioInline')
-                label(for='inlineRadio2')
-                    span(aria-hidden='true')
-                    |  Female
+		.form-group
+			label Surname
+			input(ng-model="ctrl.user.surname", class="form-control", placeholder="Surname")
+		.form-group
+			label Birthday
+			.input-group
+				input.form-control(
+				ng-model='ctrl.user.birthday',
+				is-open='showBirthdayDatePicker',
+				min-date="'1900-01-01'",
+				max-date="ctrl.today",
+				datepicker-popup='dd-MM-yyyy',
+				datepicker-append-to-body="true",
+				close-text='Close')
+				span.input-group-btn
+					button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker')
+						i.glyphicon.glyphicon-calendar
+		.form-group
+			label Gender
+				p
+				.radio.radio-info.radio-inline
+				input#inlineRadio1(ng-model="ctrl.user.gender", type='radio', value='male', name='radioInline')
+				label(for='inlineRadio1')
+					span(aria-hidden='true')
+					|  Male
+				.radio.radio-inline
+				input#inlineRadio2(ng-model="ctrl.user.gender", type='radio', value='female', name='radioInline')
+				label(for='inlineRadio2')
+					span(aria-hidden='true')
+					|  Female
 
-        .form-group
-            label Country
-            input(ng-model="ctrl.user.country", class="form-control", placeholder="Country")
+		.form-group
+			label Country
+			input(ng-model="ctrl.user.country", class="form-control", placeholder="Country")
 
-        .form-group
-            label City
-            input(ng-model="ctrl.user.city", class="form-control", placeholder="City")
+		.form-group
+			label City
+			input(ng-model="ctrl.user.city", class="form-control", placeholder="City")
 
-        .form-group
-            label Start work in Binary Studio
-            .input-group
-                input.form-control(
-                ng-model='ctrl.user.workDate',
-                is-open='showWorkDatePicker',
-                min-date="'1900-01-01'",
-                max-date="ctrl.today",
-                datepicker-popup='dd-MM-yyyy',
-                datepicker-append-to-body="true",
-                close-text='Close')
-                span.input-group-btn
-                    button.btn.btn-default(type='button', ng-click='showWorkDatePicker = !showWorkDatePicker')
-                        i.glyphicon.glyphicon-calendar
+		.form-group
+			label Start work in Binary Studio
+			.input-group
+				input.form-control(
+				ng-model='ctrl.user.workDate',
+				is-open='showWorkDatePicker',
+				min-date="'1900-01-01'",
+				max-date="ctrl.today",
+				datepicker-popup='dd-MM-yyyy',
+				datepicker-append-to-body="true",
+				close-text='Close')
+				span.input-group-btn
+					button.btn.btn-default(type='button', ng-click='showWorkDatePicker = !showWorkDatePicker')
+						i.glyphicon.glyphicon-calendar
 
 
 
-    .col-md-6.col-sm-6.col-xs-12.personal-info
-        .panel.panel-default
-            .panel-body
-                img.avatar.img-responisve(src= "{{ctrl.prefix + ctrl.user.avatar.urlAva}}", alt='avatar')
-                br
-                span.glyphicon.glyphicon-upload
+	.col-md-6.col-sm-6.col-xs-12.personal-info
+		.panel.panel-default
+			.panel-body
+				img.avatar.img-responisve(src= "{{ctrl.prefix + ctrl.user.avatar.urlAva}}", alt='avatar')
 
-    .col-md-12.form-group
-        .form-group
-            label Position
-            .row
-                .col-lg-3
-                    select.form-control(ng-model="ctrl.user.position")
-                        option(ng-repeat="position in ctrl.user.allPositions | orderBy : 'name'", value='{{position.id}}') {{position.name}}
-                .col-lg-5
-                    select.form-control(ng-model="ctrl.user.direction")
-                        option(ng-repeat="direction in ctrl.user.allDirections | orderBy : 'name'", value='{{direction.id}}') {{direction.name}}
 
-    .col-md-12.form-group
-        input.btn.btn-primary(value='Create User', ng-click='ctrl.createUser()', readonly)
-        input.btn.btn-default(value='Cancel', ng-click='ctrl.cancel()', readonly)
+	.col-md-12.form-group
+		.form-group
+			label Position
+			.row
+				.col-lg-3
+					select.form-control(name="userPosition", ng-model="ctrl.user.position", ng-required="true",
+					ng-class= "{errorborder: createUserForm.userPosition.$invalid && createUserForm.userPosition.$dirty && createUserForm.userPosition.$touched}")
+						option(ng-repeat="position in ctrl.user.allPositions | orderBy : 'name'", value='{{position.id}}') {{position.name}}
+					.error-block(ng-show='createUserForm.userPosition.$invalid && createUserForm.userPosition.$dirty && createUserForm.userPosition.$touched')
+						p(ng-show="createUserForm.userPosition.$error.required") User position is required
+
+				.col-lg-5
+					select.form-control(name="userDirection", ng-model="ctrl.user.direction", ng-required="true",
+					ng-class= "{errorborder: createUserForm.userDirection.$invalid && createUserForm.userDirection.$dirty && createUserForm.userDirection.$touched}")
+						option(ng-repeat="direction in ctrl.user.allDirections | orderBy : 'name'", value='{{direction.id}}') {{direction.name}}
+					.error-block(ng-show='createUserForm.userDirection.$invalid && createUserForm.userDirection.$dirty && createUserForm.userDirection.$touched')
+						p(ng-show="createUserForm.userDirection.$error.required") User direction is required
+
+	.col-md-12.form-group
+		input.btn.btn-primary(value='Create User', ng-click='ctrl.createUser(createUserForm)', readonly)
+		input.btn.btn-default(value='Cancel', ng-click='ctrl.cancel()', readonly)
