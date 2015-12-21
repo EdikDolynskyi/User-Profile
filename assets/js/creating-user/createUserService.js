@@ -7,7 +7,7 @@ function createUserService($resource) {
 
     //cut path for get correct path in server (profile/newuser/ -> 'profile/')
     vm.prefix = window.location.pathname;
-    vm.prefix = vm.prefix.substr(0, 9);
+    vm.prefix = vm.prefix.substr(0, 8);
 
     //settings for use local
     //vm.prefix = "";
