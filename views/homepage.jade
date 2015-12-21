@@ -16,29 +16,31 @@ html(ng-app='myApp')
         link(rel="stylesheet", href="styles/techdata.css")
         link(rel="stylesheet", href="styles/user-page.css")
         // STYLES END
+        link(href="http://team.binary-studio.com/app/styles/css/style.css", rel="stylesheet")
     body
-        header.container-fluid
-            .col-lg-1
+        header#header
+            //- .container-fluid
+            //- .col-lg-1
                 img.logo(src="http://academy.binary-studio.com/resources/logo.png")
-            div(ng-controller="MainController as ctrl", class="container-fluid")
-                .col-lg-2
-                .col-lg-10
-                    .container-fluid
-                        .col-lg-8
-                        .col-lg-4
-                            .input-group
-                                input.form-control(ng-model="ctrl.searchText", type='text', ng-keyup='ctrl.search()', placeholder='Search for...')
-                                span.input-group-btn
-                                    //- button.btn.btn-primary(type='button', ng-click='ctrl.search()') Go!
-                                    button.btn.btn-default(type='button', ng-click='ctrl.go("/search")') filters
-                            .list-group(ng-model="ctrl.usersList", ng-cloak)
-                                button#usersListInSearch.list-group-item(ng-repeat="user in ctrl.usersList",type='button', ng-click='ctrl.showUserPage(user.id)')
-                                    .col-md-4
-                                        img.img-responsive.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')
+            //- div(ng-controller="MainController as ctrl", class="container-fluid")
+            //-     .col-lg-2
+            //-     .col-lg-10
+            //-         .container-fluid
+            //-             .col-lg-8
+            //-             .col-lg-4
+            //-                 .input-group
+            //-                     input.form-control(ng-model="ctrl.searchText", type='text', ng-keyup='ctrl.search()', placeholder='Search for...')
+            //-                     span.input-group-btn
+            //-                         //- button.btn.btn-primary(type='button', ng-click='ctrl.search()') Go!
+            //-                         button.btn.btn-default(type='button', ng-click='ctrl.go("/search")') filters
+            //-                 .list-group(ng-model="ctrl.usersList", ng-cloak)
+            //-                     button#usersListInSearch.list-group-item(ng-repeat="user in ctrl.usersList",type='button', ng-click='ctrl.showUserPage(user.id)')
+            //-                         .col-md-4
+            //-                             img.img-responsive.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')
 
-                                    .col-md-8
-                                        | {{user.name}} <br>
-                                        | {{user.department}}
+            //-                         .col-md-8
+            //-                             | {{user.name}} <br>
+            //-                             | {{user.department}}
                                         
         main.container-fluid
             .row(ng-controller='TabsCtrl as ctrl')
@@ -66,3 +68,24 @@ html(ng-app='myApp')
         script(src="js/dependencies/ui-bootstrap-tpls.js")
         script(src="js/main.js")
         // SCRIPTS END
+        script(src="http://team.binary-studio.com/app/javascripts/header.js")
+        script.
+            window.onload = function(){
+                var getHeader = function() {
+                var request = new XMLHttpRequest();
+                request.open('GET', 'http://team.binary-studio.com/app/header', true);
+                    request.send();
+                    request.onreadystatechange = function() {
+                        if (request.readyState != 4) return;
+                        if (request.status != 200) {
+                            alert(request.status + ': ' + request.statusText);
+                        } else {
+                           var headerHtml = request.responseText;
+                           var headerContainer = document.getElementById('header');
+                           headerContainer.innerHTML =headerHtml;
+                           headerFunction();
+                        }
+                    };
+                };
+                getHeader();
+            }
