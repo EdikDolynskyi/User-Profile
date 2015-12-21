@@ -369,6 +369,9 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 
 	$scope.addNewScreenshot = function(file, project){
 		if(file){
+			if(!project.hasOwnProperty('newScreenshots'){
+				project.newScreenshots = [];
+			})
 			project.newScreenshots.push(file);
 		}
 	};
