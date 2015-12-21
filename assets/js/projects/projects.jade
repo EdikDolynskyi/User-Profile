@@ -27,8 +27,8 @@
                             | Participants:
                         div.col-sm-3(ng-repeat='participant in currentProject.participants')
                             img.img-responsive(ng-src='{{prefix + participant.avatar.urlAva}}')
-                    //.row.voffset3
-                    //    div.col-sm-12.project-label
-                    //        | Screenshots:
-                    //    div.col-sm-4(ng-repeat='screenshot in currentProject.screenshots')
-                    //        img.img-responsive(ng-src='{{prefix + screenshot.img}}')
+                    .row.voffset3
+                        div.col-sm-12.project-label
+                            | Screenshots:
+                        div.col-sm-4(ng-repeat='screenshot in currentProject.screenshots')
+                            img.img-responsive(ng-src='{{prefix + screenshot.img}}')

@@ -2,10 +2,10 @@ var app = require('../angular-app');
 
 app.factory('ProjectsFactory', function($resource, $rootScope, prefix) {
 
-    var Technologies = $resource(prefix + 'api/technologies');
-    var Projects = $resource(prefix + 'api/projects');
-    var Categories = $resource(prefix + 'api/categories');
-    var Users_projects = $resource(prefix + 'api/users_projects');
+    var Technologies = $resource(prefix + '/api/technologies');
+    var Projects = $resource(prefix + '/api/projects');
+    var Categories = $resource(prefix + '/api/categories');
+    var Users_projects = $resource(prefix + '/api/users_projects');
 
     var F = {};
 
