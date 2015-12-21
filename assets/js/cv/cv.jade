@@ -64,7 +64,9 @@ script(type='text/ng-template', id='dropDownList.html').
 					div.project-title(ng-click="project.isCollapsed = !project.isCollapsed")
 						b(ng-if="!project.editMode") {{project.name}}
 					.form-group.project-name-edit(ng-if='project.editMode')
-						input.form-control(ng-model="project.name")
+						input.form-control(ng-model="project.name", ng-class= "{errorborder: !project.name}")
+						.error-block(ng-show="!project.name")
+							p(ng-show="!project.name") Project name is required
 					div.pull-right
 						div.btn-rmv-project(tooltip="Copy to clipboard", tooltip-trigger="mouseenter", ngclipboard='', data-clipboard-text="{{project.path}}")
 							span.glyphicon.glyphicon-share
@@ -96,13 +98,13 @@ script(type='text/ng-template', id='dropDownList.html').
 										datepicker-popup='dd-MM-yyyy',
 										datepicker-append-to-body="true",
 										close-text='Close',
-										ng-class= "{errorborder: false}")
+										ng-class= "{errorborder: !project.start}")
 									span.input-group-btn
 										button.btn.btn-default(type='button', ng-click='showProjectCVStartDate = !showProjectCVStartDate', 
-										ng-class= "{errorborder: false}")
+										ng-class= "{errorborder: !project.start}")
 											i.glyphicon.glyphicon-calendar
-								.error-block(ng-show='false')
-									p(ng-show="false") Date is required
+								.error-block(ng-show='!project.start')
+									p(ng-show="!project.start") Date is required
 
 						.row.voffset3(ng-if="project.end && !project.editMode")
 							div.col-sm-3.project-label
@@ -165,15 +167,15 @@ script(type='text/ng-template', id='dropDownList.html').
 								label
 									input(type="checkbox" ng-model="project.current")
 									| Set this project as the current project
-						
-
 						.row.voffset3
 							div.col-sm-3.project-label
 								| Your role:
 							div.col-sm-9
 								span(ng-if="!project.editMode") {{project.userRole}}
-								input.form-control(ng-if="project.editMode", type="text", ng-model="project.userRole")
-						
+								input.form-control(ng-if="project.editMode", type="text", ng-model="project.userRole", 
+								ng-class= "{errorborder: project.userRole == false}")
+								.error-block(ng-show='project.userRole == false')
+									p(ng-show="project.userRole == false") User role is required
 
 						.row.voffset3
 							div.col-sm-3.project-label
@@ -181,6 +183,8 @@ script(type='text/ng-template', id='dropDownList.html').
 							div.col-sm-9
 								span(ng-if="!project.editMode") {{project.startDate | date:"dd/MM/yyyy"}} - {{project.endDate | date:"dd/MM/yyyy"}}
 								span(ng-if='!project.editMode && !project.endDate') present
+
+								
 								.input-group(ng-if='project.editMode')
 									input.form-control(
 										ng-model="project.startDate",
@@ -191,13 +195,13 @@ script(type='text/ng-template', id='dropDownList.html').
 										datepicker-popup='dd-MM-yyyy',
 										datepicker-append-to-body="true",
 										close-text='Close',
-										ng-class= "{errorborder: false}")
+										ng-class= "{errorborder: !project.startDate}")
 									span.input-group-btn
 										button.btn.btn-default(type='button', ng-click='showProjectWorkStartDate = !showProjectWorkStartDate', 
-										ng-class= "{errorborder: false}")
+										ng-class= "{errorborder: !project.startDate}")
 											i.glyphicon.glyphicon-calendar
-								.error-block(ng-show='false')
-									p(ng-show="false") Date is required
+								.error-block(ng-show='!project.startDate')
+									p(ng-show="!project.startDate") Date is required
 
 								br
 								span(ng-if="project.editMode")
