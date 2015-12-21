@@ -22,6 +22,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.selProject = {};
 	$scope.selTech = {};
 	$scope.showSelectTechnology = true;
+	$scope.createProjectFormValid = true;
 
 	$scope.template = prefix + '/js/cv/technologyForm.html';
 	$scope.template2 = prefix + '/js/cv/technologyFormForProject.html';
@@ -217,6 +218,8 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 				$scope.showProjectForm2 = false;
 			});
 		}
+		var fields = ['name', 'start', 'userrole', 'startdate']
+		$scope.setStateOfFields(fields, form);
 	};
 
 	$scope.cancelCreatingProject = function(form, project) {
@@ -356,6 +359,13 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.addNewScreenshot = function(file, project){
 		if(file){
 			project.newScreenshots.push(file);
+		}
+	};
+
+	$scope.setStateOfFields = function(fields, form){
+		for(var i=0; i<fields.length; i++){
+			form[fields[i]].$setDirty();
+			form[fields[i]].$setTouched();
 		}
 	};
 
