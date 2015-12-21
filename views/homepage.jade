@@ -42,7 +42,7 @@ html(ng-app='myApp')
             //-                             | {{user.name}} <br>
             //-                             | {{user.department}}
                                         
-        main.container-fluid
+        main.container-fluid(ng-controller="MainController as ctrl")
             .row(ng-controller='TabsCtrl as ctrl')
                 #nav.col-lg-2.col-lg-offset-1.col-sm-2.col-sm-offset-1
                     div
