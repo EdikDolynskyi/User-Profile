@@ -9,6 +9,9 @@ function createUserService($resource) {
     vm.prefix = window.location.pathname;
     vm.prefix = vm.prefix.substr(0, 9);
 
+    //settings for use local
+    //vm.prefix = "";
+
     this.createUser = function (user, cv, pdp, cb) {
         $resource(vm.prefix + '/api/cvs').save(cv, function (cvRez) {
             user.userCV = cvRez.id;

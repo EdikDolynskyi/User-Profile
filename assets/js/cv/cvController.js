@@ -180,6 +180,10 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 			form.$setPristine();
 			$scope.showProjectForm1 = !$scope.showProjectForm1;
 		}
+		else {
+			var fields = ['project', 'userrole', 'startDateSelectProject']
+			$scope.setStateOfFields(fields, form);
+		}
 	};
 
 	$scope.cancelSelectingProject = function(form) {
@@ -216,6 +220,9 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 				form.$setPristine();
 				$scope.showProjectForm2 = false;
 			});
+		} else{
+			var fields = ['name', 'start', 'userrole', 'startdate']
+		$scope.setStateOfFields(fields, form);
 		}
 	};
 
@@ -229,37 +236,44 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 
 	$scope.updateProject = function(project) {
 
-		uploadService.uploadMultipleFiles(project.newScreenshots, function(res){
-			if(res) {
+		var projectNameValid = Boolean(project.name);
+		var projectStartDateValid = Boolean(project.start);
+		var projectUserRoleValid = Boolean(project.userRole);
+		var projectStartDateJoinValid = Boolean(project.startDate);
 
-				for(var i = 0; i < project.newScreenshots.length; i++) {
-					project.newScreenshots[i] = {img: res[i]}
+		if(projectNameValid && projectStartDateValid && projectUserRoleValid && projectStartDateJoinValid){
+			uploadService.uploadMultipleFiles(project.newScreenshots, function(res){
+				if(res) {
+
+					for(var i = 0; i < project.newScreenshots.length; i++) {
+						project.newScreenshots[i] = {img: res[i]}
+					}
+
+					project.screenshots = project.screenshots.concat(project.newScreenshots);
+					project.newScreenshots = [];
 				}
 
-				project.screenshots = project.screenshots.concat(project.newScreenshots);
-				project.newScreenshots = [];
-			}
-
-			cvFactory.updateProject(project);
-			cvFactory.getObjectProject(project.id, function(originProject) {
-				originProject.screenshots = project.screenshots;
-				originProject.description = project.description;
-				originProject.name = project.name;
-				originProject.start = project.start;
-				originProject.end = project.end;
-				originProject.technologies = _.map(project.technologies, function(item){
-					return item.id;
-				});
-				
-				cvFactory.updateObjectProject(originProject, function(res){
-					if(res[0] + res[1] == "OK"){
-						alert('Project successfully saved');
-						project.editMode = false;                  
-						project.isCollapsed = true;
-					}
+				cvFactory.updateProject(project);
+				cvFactory.getObjectProject(project.id, function(originProject) {
+					originProject.screenshots = project.screenshots;
+					originProject.description = project.description;
+					originProject.name = project.name;
+					originProject.start = project.start;
+					originProject.end = project.end;
+					originProject.technologies = _.map(project.technologies, function(item){
+						return item.id;
+					});
+					
+					cvFactory.updateObjectProject(originProject, function(res){
+						if(res[0] + res[1] == "OK"){
+							alert('Project successfully saved');
+							project.editMode = false;                  
+							project.isCollapsed = true;
+						}
+					});
 				});
 			});
-		});
+		}
 	};
 
 	$scope.editProject = function($event, project) {
@@ -356,6 +370,13 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.addNewScreenshot = function(file, project){
 		if(file){
 			project.newScreenshots.push(file);
+		}
+	};
+
+	$scope.setStateOfFields = function(fields, form){
+		for(var i=0; i<fields.length; i++){
+			form[fields[i]].$setDirty();
+			form[fields[i]].$setTouched();
 		}
 	};
 

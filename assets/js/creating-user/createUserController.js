@@ -30,8 +30,7 @@ function createUserCtrl(createUserService, $cookies, $window) {
         "gender": "male",
         "birthday": vm.today,
         "avatar": {
-            //"urlAva": "api/files/get/Unknown.png",
-            "urlAva": "profile/api/files/get/Unknown.png",
+            "urlAva": "/api/files/get/Unknown.png",
             "thumbnailUrlAva": ""
         },
         "workDate": vm.today,
@@ -71,7 +70,7 @@ function createUserCtrl(createUserService, $cookies, $window) {
         vm.user.allDirections = array;
     });
 
-    vm.createUser = function () {
+    vm.createUser = function (form) {
         if (vm.user.name && vm.user.position && vm.user.direction) {
             vm.userPdp.position = mongoose.Types.ObjectId(vm.user.position);
             vm.userPdp.direction = mongoose.Types.ObjectId(vm.user.direction);
@@ -83,9 +82,18 @@ function createUserCtrl(createUserService, $cookies, $window) {
             });
         }
         else {
-            alert('Please, enter the name of user or select position')
+            var fields = ['userName', 'userPosition', 'userDirection'];
+            vm.setStateOfFields(fields, form);
         }
     };
+    
     vm.cancel = function () {
+    }
+
+    vm.setStateOfFields = function(fields, form){
+        for(var i=0; i<fields.length; i++){
+            form[fields[i]].$setDirty();
+            form[fields[i]].$setTouched();
+        }
     }
 }
