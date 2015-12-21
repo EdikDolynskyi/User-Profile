@@ -5,7 +5,7 @@ app.service('UserProfileService', UserProfileService);
 function UserProfileService($resource, prefix) {
 
     this.get = function (id, cb) {
-        $resource(prefix + '/api/users/:id', {id: id}).get(function (user) {
+        $resource(prefix + '/api/users/:id', {id: id}).query(function (user) {
 
             user.birthday = new Date(user.birthday);
             user.workDate = new Date(user.workDate);
