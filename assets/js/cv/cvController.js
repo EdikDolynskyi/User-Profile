@@ -181,6 +181,10 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 			form.$setPristine();
 			$scope.showProjectForm1 = !$scope.showProjectForm1;
 		}
+		else {
+			var fields = ['project', 'userrole', 'startDateSelectProject']
+			$scope.setStateOfFields(fields, form);
+		}
 	};
 
 	$scope.cancelSelectingProject = function(form) {

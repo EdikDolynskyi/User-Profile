@@ -7,7 +7,7 @@ form(name="projectForm2", ng-show='showProjectForm2' novalidate)
 			ng-maxlength="20",
 			ng-focus="projectForm2.name.$setUntouched()",
 			ng-model="project.name",
-			ng-class="{ 'errorborder': projectForm2.name.$invalid && projectForm2.name.$dirty && projectForm2.name.$touched}"
+			ng-class="{ 'errorborder': projectForm2.name.$invalid && projectForm2.name.$dirty && projectForm2.name.$touched}",
 			required)
 		div.help-block.error-block(ng-show="projectForm2.name.$invalid && projectForm2.name.$dirty && projectForm2.name.$touched")
 			p(ng-show="projectForm2.name.$error.minlength") Please use at least 5 characters
