@@ -31,7 +31,7 @@ script(type='text/ng-template', id='dropDownList.html').
 			h4 Projects
 		div.col-sm-12.voffset3
 			.panel.panel-default.project(ng-repeat='project in userProjects')
-				.panel-heading.project-header(ng-click='isCollapsed = !isCollapsed')
+				.panel-heading.project-header
 					div.project-title(ng-click="project.isCollapsed = !project.isCollapsed")
 						b {{project.name}}
 					div.pull-right
