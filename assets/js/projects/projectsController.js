@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('ProjectsController', function($scope, ProjectsFactory, $routeParams, prefix, $modal) {
+app.controller('ProjectsController', function($scope, ProjectsFactory, $routeParams, prefix, $modal, $location) {
 	var vm = $scope;
 	$scope.prefix = prefix;
 	$scope.currentProject = '';

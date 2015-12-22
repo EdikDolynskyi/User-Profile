@@ -51,8 +51,8 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		$scope.userCV.projects = projects;
 
 		for (var i=0; i<$scope.userCV.projects.length; i++) {
-			$scope.userCV.projects[i].path =  $location.protocol() + "://" + $location.host() + 
-			":" + $location.port() + "/#/projects/" + $scope.userCV.projects[i].id;
+			$scope.userCV.projects[i].path =  $location.protocol() + "://" + $location.host() +
+			"/profile/#/projects/" + $scope.userCV.projects[i].id;
 			$scope.userCV.projects[i].editMode = false;
 			$scope.userCV.projects[i].isCollapsed = true;
 			$scope.userCV.projects[i].newScreenshots = [];

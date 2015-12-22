@@ -20,7 +20,7 @@ app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $ro
 			$scope.userProjects = projects;
 			for (var i = 0; i < $scope.userProjects.length; i++) {
 				$scope.userProjects[i].path =  $location.protocol() + "://" + $location.host() +
-				"profile/#/projects/" + $scope.userProjects[i].id;
+				"/profile/#/projects/" + $scope.userProjects[i].id;
 				if ($scope.userProjects[i].id == $scope.currentProject) {
 					$scope.userProjects[i].current = true;
 
