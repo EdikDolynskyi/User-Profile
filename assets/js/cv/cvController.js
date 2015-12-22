@@ -57,6 +57,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 			$scope.userCV.projects[i].isCollapsed = true;
 			$scope.userCV.projects[i].newScreenshots = [];
 			$scope.userCV.projects[i].showTechFormProject = false;
+			$scope.userCV.projects[i].projectTechFieldValid = true;
 			
 			if($scope.userCV.projects[i].id == $scope.userCV.currentProject ) {
 				$scope.userCV.projects[i].current = true;
@@ -138,7 +139,12 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 
 	//editing mode
 	$scope.addTechnologyToProject = function(technology, project){
-		project.technologies.push(technology.name);
+		if(technology.name){
+			var techName = typeof technology.name == 'object' ? technology.name.name : technology.name
+			var technologyExistInAll = Boolean(_.where($scope.allTechnologies, {name: techName}).length);
+			var technologyExistInProject = Boolean(_.where(project.technologies, {name: techName}).length);
+			if(technologyExistInAll && !technologyExistInProject) project.technologies.push(technology.name);
+		}
 	}
 
 	$scope.cancelCreatingTechnology = function(form) {
