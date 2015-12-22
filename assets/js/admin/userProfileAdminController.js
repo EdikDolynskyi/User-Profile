@@ -55,7 +55,7 @@ function userProfileAdminCtrl($scope, service, upload, $rootScope) {
     this.upload = function (file) {
         if (file) {
             upload.upload({
-                url: '/api/files/upload',
+                url: '/profile/api/files/upload',
                 file: file
             }).success(function (data) {
                 ctrl.user.preModeration.avatar.urlAva = service.getAvatarUrl(data.file);

@@ -16,7 +16,7 @@ function UserProfileAdminService($resource, prefix) {
     };
 
     this.getAvatarUrl = function (filename) {
-        return '/api/files/get/' + filename;
+        return '/profile/api/files/get/' + filename;
     };
 
     this.getUserLog = function (userId, cb) {

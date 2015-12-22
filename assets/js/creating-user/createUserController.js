@@ -30,7 +30,7 @@ function createUserCtrl(createUserService, $cookies, $window) {
         "gender": "male",
         "birthday": vm.today,
         "avatar": {
-            "urlAva": "/api/files/get/Unknown.png",
+            "urlAva": "/profile/api/files/get/Unknown.png",
             "thumbnailUrlAva": ""
         },
         "workDate": vm.today,

@@ -44,7 +44,7 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
 				obj.fileName = './upload/' + fileName;
 
 				downloadService.downloadFile(obj, function () {
-					vm.user.avatar.urlAva = '/api/files/get/' + fileName;
+					vm.user.avatar.urlAva = '/profile/api/files/get/' + fileName;
 					vm.dataInFields.avatar = angular.copy(vm.user.avatar);
 					vm.sendData();
 					vm.showUrlInput = false;

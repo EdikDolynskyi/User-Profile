@@ -21,7 +21,7 @@ function UserProfileService($resource, prefix) {
     };
 
     this.getAvatarUrl = function (filename) {
-        return prefix + '/api/files/get/' + filename;
+        return '/profile/api/files/get/' + filename;
     };
 
     this.getByServerUserId = function(suid, cb) {
