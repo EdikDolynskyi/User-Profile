@@ -21,6 +21,7 @@ app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $ro
 			for (var i = 0; i < $scope.userProjects.length; i++) {
 				$scope.userProjects[i].path =  $location.protocol() + "://" + $location.host() +
 				"/profile/#/projects/" + $scope.userProjects[i].id;
+				$scope.userProjects[i].isCollapsed = true;
 				if ($scope.userProjects[i].id == $scope.currentProject) {
 					$scope.userProjects[i].current = true;
 

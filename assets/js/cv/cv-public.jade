@@ -40,7 +40,7 @@ script(type='text/ng-template', id='dropDownList.html').
 						div.btn-rmv-project(tooltip="Go to", tooltip-trigger="mouseenter", ng-click="goToProject($event,project.id)")
 							span.glyphicon.glyphicon-new-window
 
-				.panel-body(collapse='project.current ? !isCollapsed : isCollapsed')
+				.panel-body(collapse='project.current ? !project.isCollapsed : project.isCollapsed')
 					.row
 						div.col-sm-3.project-label
 							| Start date:
