@@ -130,6 +130,9 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 					});
 				});
 			}
+		} else {
+			var fields = ['technologies', 'category', 'knowledge'];
+			$scope.setStateOfFields(fields, technologyForm);
 		}
 	};
 

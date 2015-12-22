@@ -1,7 +1,7 @@
 form(name="technologyForm", novalidate)
 	.panel.panel-default
 		.panel-body
-			.form-group(ng-class="{ 'has-error': technologyForm.technologies.$invalid}")
+			.form-group()
 				label(for="tech-name") Technology name
 				input#technologies.form-control(type="text", autocomplete="off",
 					name="technologies",
@@ -12,21 +12,25 @@ form(name="technologyForm", novalidate)
 					ng-model="technology.name",
 					ng-blur="enterTechnologyNameForTech($event, technology)",
 					ng-focus="enterTechnologyNameForTech($event, technology)",
-					ng-maxlength="15", required)
-				div.help-block(ng-messages="technologyForm.technologies.$error")
-					p(ng-message="maxlength") Please use no more than 15 characters
-					p(ng-message="required") Please enter a technology
+					ng-maxlength="15", required,
+					ng-class="{ 'errorborder': technologyForm.technologies.$invalid && technologyForm.technologies.$dirty && technologyForm.technologies.$touched}")
+				div.help-block.error-block(ng-show="technologyForm.technologies.$invalid && technologyForm.technologies.$dirty && technologyForm.technologies.$touched")
+					p(ng-show="technologyForm.technologies.$error.maxlength") Please use no more than 15 characters
+					p(ng-show="technologyForm.technologies.$error.required") Please enter a technology
+				
+
 				label(for="sel-category" ng-show="showSelectTechnology") Technology Category
 				select#sel-category.form-control(name="category", ng-show="showSelectTechnology"
 					ng-model="technology.category",
-					ng-required="showSelectTechnology")
+					ng-required="showSelectTechnology",
+					ng-class="{ 'errorborder': technologyForm.category.$invalid && technologyForm.category.$dirty && technologyForm.category.$touched}")
 					option(value="") ---Please select---
 					option(ng-repeat="category in allCategories | orderBy : 'name'", value="{{category.id}}")
 						| {{category.name}}
-			.form-group(ng-class="{ 'has-error': technologyForm.category.$invalid}")
-				div.help-block(ng-messages="technologyForm.category.$error", ng-if="showSelectTechnology")
-					p(ng-message="required") Please select a category
-			.form-group(ng-class="{ 'has-error': technologyForm.knowledge.$invalid}")
+					div.help-block.error-block(ng-show="technologyForm.category.$invalid && technologyForm.category.$dirty && technologyForm.category.$touched && showSelectTechnology")
+						p(ng-show="technologyForm.category.$error.required") Please select a category
+			
+			.form-group()
 				label(for='knowledgelevel') Knowledge level
 				rating#knowledgelevel(name="knowledge",
 					max='5',
@@ -34,8 +38,9 @@ form(name="technologyForm", novalidate)
 					on-leave='overStar = null',
 					readonly='false',
 					ng-model='technology.stars',
-					required)
-				div.help-block(ng-messages="technologyForm.knowledge.$error")
-					p(ng-message="required") Please specify your knowledge level of the technology
+					required,
+					ng-class="{ 'errorborder': technologyForm.knowledge.$invalid && technologyForm.knowledge.$dirty && technologyForm.knowledge.$touched}")
+				div.help-block.error-block(ng-show="technologyForm.knowledge.$invalid && technologyForm.knowledge.$dirty && technologyForm.knowledge.$touched")
+					p(ng-show="technologyForm.knowledge.$error.required") Please specify your knowledge level of the technology
 			button.btn.btn-primary(ng-click="addTechnology(technologyForm, technology)") Add techology
 			button.btn.btn-danger(type='reset', ng-click='cancelCreatingTechnology(technologyForm)') Cancel
