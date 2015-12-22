@@ -76,7 +76,7 @@ form(name="projectForm2", ng-show='showProjectForm2' novalidate)
 		label(for="user-role") Your role
 		input#user-role.form-control(type="text",
 			name="userrole",
-			ng-minlength="5",
+			ng-minlength="2",
 			ng-maxlength="20",
 			ng-focus="projectForm2.userrole.$setUntouched()",
 			ng-pattern="/^[a-zA-Z ]+$/",
@@ -85,8 +85,8 @@ form(name="projectForm2", ng-show='showProjectForm2' novalidate)
 			required)
 		div.help-block.error-block(ng-show="projectForm2.userrole.$invalid && projectForm2.userrole.$dirty && projectForm2.userrole.$touched")
 			p(ng-show="projectForm2.userrole.$error.pattern") You can use only letters
-			p(ng-show="projectForm2.userrole.$error.minlength") Please use at least 5 characters
-			p(ng-show="projectForm2.userrole.$error.maxlength") Please use between 5 and 20 characters
+			p(ng-show="projectForm2.userrole.$error.minlength") Please use at least 2 characters
+			p(ng-show="projectForm2.userrole.$error.maxlength") Please use between 2 and 20 characters
 			p(ng-show="projectForm2.userrole.$error.required") Please enter your role
 	.checkbox
 		label
