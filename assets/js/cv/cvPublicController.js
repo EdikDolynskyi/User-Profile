@@ -1,6 +1,6 @@
 var app = require('../angular-app');
 
-app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $route, $location, prefix) {
+app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $route, $location, prefix, $modal) {
     $scope.prefix = prefix;
     $scope.userId = '';
     $scope.currentProject = '';
@@ -37,6 +37,24 @@ app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $ro
     $scope.goToProject = function($event, projectId){
         $event.preventDefault();
         $location.path('/projects/' + projectId);
+    };
+
+    $scope.open = function(selected, screenshots) {
+        if(selected.hasOwnProperty('img')){
+            var modalInstance = $modal.open({
+                //animation: $scope.animationsEnabled,
+                templateUrl: 'modalImage.html',
+                controller: 'ModalImageCtrl',
+                resolve: {
+                    selected: function() {
+                        return selected;
+                    },
+                    images: function () {
+                        return screenshots;
+                    }
+                }
+            });
+        }
     };
 });
 
