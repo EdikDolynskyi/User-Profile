@@ -87,6 +87,11 @@ app.controller('ProjectsController', function($scope, ProjectsFactory, $routePar
 			});
 		}
 	};
+
+	vm.findUser = function($event, id) {
+		$event.preventDefault();
+		$location.path('/userdata/' + id);
+	};
 });
 
 /****************************************************************************
