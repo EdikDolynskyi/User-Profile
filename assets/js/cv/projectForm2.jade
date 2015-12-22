@@ -27,7 +27,8 @@ form(name="projectForm2", ng-show='showProjectForm2' novalidate)
 				datepicker-popup='dd-MM-yyyy',
 				datepicker-append-to-body="true",
 				close-text='Close',
-				ng-class="{ 'errorborder': projectForm2.start.$invalid && projectForm2.start.$dirty && projectForm2.start.$touched}")
+				ng-class="{ 'errorborder': projectForm2.start.$invalid && projectForm2.start.$dirty && projectForm2.start.$touched}",
+				ng-click='showProjectForm2StartDate = !showProjectForm2StartDate')
 			span.input-group-btn
 				button.btn.btn-default(type='button', ng-click='showProjectForm2StartDate = !showProjectForm2StartDate', 
 				ng-class= "{errorborder: projectForm2.start.$invalid && projectForm2.start.$dirty && projectForm2.start.$touched}")
@@ -46,7 +47,8 @@ form(name="projectForm2", ng-show='showProjectForm2' novalidate)
 				readonly="true",
 				datepicker-popup='dd-MM-yyyy',
 				datepicker-append-to-body="true",
-				close-text='Close')
+				close-text='Close',
+				ng-click='showProjectForm2EndDate = !showProjectForm2EndDate')
 			span.input-group-btn
 				button.btn.btn-default(type='button', ng-click='showProjectForm2EndDate = !showProjectForm2EndDate')
 					i.glyphicon.glyphicon-calendar
@@ -109,7 +111,8 @@ form(name="projectForm2", ng-show='showProjectForm2' novalidate)
 				datepicker-popup='dd-MM-yyyy',
 				datepicker-append-to-body="true",
 				close-text='Close',
-				ng-class="{ 'errorborder': projectForm2.startdate.$invalid && projectForm2.startdate.$dirty && projectForm2.startdate.$touched}")
+				ng-class="{ 'errorborder': projectForm2.startdate.$invalid && projectForm2.startdate.$dirty && projectForm2.startdate.$touched}",
+				ng-click='showProjectForm2StartDateJoin = !showProjectForm2StartDateJoin')
 			span.input-group-btn
 				button.btn.btn-default(type='button', ng-click='showProjectForm2StartDateJoin = !showProjectForm2StartDateJoin', 
 				ng-class= "{errorborder: projectForm2.startdate.$invalid && projectForm2.startdate.$dirty && projectForm2.startdate.$touched}")
@@ -128,7 +131,8 @@ form(name="projectForm2", ng-show='showProjectForm2' novalidate)
 				readonly="true",
 				datepicker-popup='dd-MM-yyyy',
 				datepicker-append-to-body="true",
-				close-text='Close')
+				close-text='Close',
+				ng-click='showProjectForm2EndDateJoin = !showProjectForm2EndDateJoin')
 			span.input-group-btn
 				button.btn.btn-default(type='button', ng-click='showProjectForm2EndDateJoin = !showProjectForm2EndDateJoin')
 					i.glyphicon.glyphicon-calendar

@@ -35,6 +35,7 @@ form.container-fluid(name='MainProfile')
 					datepicker-popup='dd-MM-yyyy',
 					datepicker-append-to-body="true",
 					close-text='Close',
+					ng-click='showBirthdayDatePicker = !showBirthdayDatePicker',
 					ng-class= "{errorborder: MainProfile.userBirthday.$invalid && MainProfile.userBirthday.$dirty && MainProfile.userBirthday.$touched}")
 				span.input-group-btn
 					button.btn.btn-default(type='button', ng-click='showBirthdayDatePicker = !showBirthdayDatePicker', 

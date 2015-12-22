@@ -39,7 +39,8 @@ form(name="projectForm1", ng-show="showProjectForm1", novalidate)
 				datepicker-popup='dd-MM-yyyy',
 				datepicker-append-to-body="true",
 				close-text='Close',
-				ng-class="{ 'errorborder': projectForm1.startDateSelectProject.$invalid && projectForm1.startDateSelectProject.$dirty && projectForm1.startDateSelectProject.$touched}")
+				ng-class="{ 'errorborder': projectForm1.startDateSelectProject.$invalid && projectForm1.startDateSelectProject.$dirty && projectForm1.startDateSelectProject.$touched}",
+				ng-click='showProjectForm1StartDate = !showProjectForm1StartDate')
 			span.input-group-btn
 				button.btn.btn-default(type='button', ng-click='showProjectForm1StartDate = !showProjectForm1StartDate', 
 				ng-class="{ 'errorborder': projectForm1.startDateSelectProject.$invalid && projectForm1.startDateSelectProject.$dirty && projectForm1.startDateSelectProject.$touched}")
@@ -57,7 +58,8 @@ form(name="projectForm1", ng-show="showProjectForm1", novalidate)
 				readonly="true",
 				datepicker-popup='dd-MM-yyyy',
 				datepicker-append-to-body="true",
-				close-text='Close')
+				close-text='Close',
+				ng-click='showProjectForm1EndDate = !showProjectForm1EndDate')
 			span.input-group-btn
 				button.btn.btn-default(type='button', ng-click='showProjectForm1EndDate = !showProjectForm1EndDate', 
 				ng-class= "{errorborder: false}")

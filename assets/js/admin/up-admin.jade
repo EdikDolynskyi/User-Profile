@@ -24,7 +24,8 @@ div.container-fluid(ng-controller="UserProfileAdminController as ctrl")
                     max-date="ctrl.today",
                     datepicker-popup="shortDate",
                     datepicker-append-to-body="true",
-                    close-text='Close')
+                    close-text='Close',
+                    ng-click='showDatePicker = !showDatePicker')
                 span.input-group-btn
                     button.btn.btn-default(type='button', ng-click='showDatePicker = !showDatePicker')
                         i.glyphicon.glyphicon-calendar
