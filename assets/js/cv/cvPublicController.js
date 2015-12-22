@@ -19,6 +19,8 @@ app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $ro
         cvFactory.getUserProjects($scope.userId, function (projects) {
             $scope.userProjects = projects;
             for (var i = 0; i < $scope.userProjects.length; i++) {
+                $scope.userProjects[i].path =  $location.protocol() + "://" + $location.host() + 
+            ":" + $location.port() + "/#/projects/" + $scope.userProjects[i].id;
                 if ($scope.userProjects[i].id == $scope.currentProject) {
                     $scope.userProjects[i].current = true;
 
@@ -30,6 +32,11 @@ app.controller('CVPublicController', function($scope, cvFactory, $rootScope, $ro
     $scope.findUser = function($event, id) {
         $event.preventDefault();
         $location.path('/userdata/' + id);
+    };
+
+    $scope.goToProject = function($event, projectId){
+        $event.preventDefault();
+        $location.path('/projects/' + projectId);
     };
 });
 
