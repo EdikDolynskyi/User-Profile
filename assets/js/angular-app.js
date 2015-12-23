@@ -50,10 +50,10 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
     }
     else {
 		vm.tabs = [
-            {title: 'My profile', href: '/', couldBeHidden: true},
-            {title: 'My experience', href: '/cv', couldBeHidden: true},
-            {title: 'PDP flow', href: '/pdp', couldBeHidden: true},
-            {title: 'Search', href: '/search', couldBeHidden: true}
+            {title: 'My profile', href: '/', active: true},
+            {title: 'My experience', href: '/cv'},
+            {title: 'PDP flow', href: '/pdp'},
+            {title: 'Search', href: '/search'}
         ]
     }
 
