@@ -122,16 +122,22 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 					});
 				});
 			} else {
-				var selectedTech = {
-					id: technology.name.id,
-					stars: technology.stars
-				};
 
-				cvFactory.selectTechnology(selectedTech, cvId, function(technologyId) {
-					cvFactory.getTechnology(cvId, technologyId, function(res) {
-						$scope.userCV.technologies.push(res);
+				var techName = technology.name.name;
+				var technologyExistInAll = Boolean(_.where($scope.allTechnologies, {name: techName}).length);
+				var technologyExistInProject = Boolean(_.where($scope.userCV.technologies, {name: techName}).length);
+				if(technologyExistInAll && !technologyExistInProject){
+					var selectedTech = {
+						id: technology.name.id,
+						stars: technology.stars
+					};
+
+					cvFactory.selectTechnology(selectedTech, cvId, function(technologyId) {
+						cvFactory.getTechnology(cvId, technologyId, function(res) {
+							$scope.userCV.technologies.push(res);
+						});
 					});
-				});
+				}	
 			}
 		} else {
 			var fields = ['technologies', 'category', 'knowledge'];
