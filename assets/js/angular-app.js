@@ -50,7 +50,7 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
     }
     else {
 		vm.tabs = [
-            {title: 'My profile', href: '/'},
+            {title: 'My profile', href: '/', active: true},
             {title: 'My experience', href: '/cv', couldBeHidden: true},
             {title: 'PDP flow', href: '/pdp', couldBeHidden: true}
         ]
@@ -61,7 +61,7 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 	};
 	vm.changeHash = function(data) {
 		if (vm.initialized){
-			//$rootScope.userId = $rootScope.ownerId;
+			$rootScope.userId = $rootScope.ownerId;
 			$location.path(data);
 		} else {
 			vm.initialized = true;
@@ -73,7 +73,6 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 	};
 	vm.deactivateUserProfileTab = function() {
 		vm.tabs[0].active = false;
-		vm.initialized = true;
 	};
 });
 
