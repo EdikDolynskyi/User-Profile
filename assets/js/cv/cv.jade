@@ -31,7 +31,7 @@ script(type='text/ng-template', id='dropDownList.html').
 			div(ng-show="showTechForm" ng-include="template")
 		
 		div.col-sm-12.voffset3
-			| Sort by knowledge level:
+			| Filter by knowledge level:
 			rating(ng-model="knowledge", max="5", readonly="isReadonly", on-hover="hoveringOver(value)", on-leave="overStar=null")
 			ul.technologies-list.voffset3
 				li(ng-repeat="tech in userCV.technologies | unique | orderBy: 'category.name' ")

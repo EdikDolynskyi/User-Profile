@@ -16,7 +16,7 @@ script(type='text/ng-template', id='dropDownList.html').
 		div.col-sm-12.v-center
 			h4 Technologies
 		div.col-sm-12.voffset3
-			| Sort by knowledge level:
+			| Filter by knowledge level:
 			rating(ng-model='knowledge' max='5' readonly='isReadonly' on-hover='hoveringOver(value)' on-leave='overStar = null')
 			ul.technologies-list.voffset3
 				li.categories(ng-repeat='tech in userTechnologies | unique')
