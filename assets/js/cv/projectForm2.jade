@@ -3,15 +3,15 @@ form(name="projectForm2", ng-show='showProjectForm2' novalidate)
 		label(for="project-name") Project name
 		input#project-name.form-control(type="text",
 			name="name",
-			ng-minlength="5",
-			ng-maxlength="20",
+			ng-minlength="1",
+			ng-maxlength="40",
 			ng-focus="projectForm2.name.$setUntouched()",
 			ng-model="project.name",
 			ng-class="{ 'errorborder': projectForm2.name.$invalid && projectForm2.name.$dirty && projectForm2.name.$touched}",
 			required)
 		div.help-block.error-block(ng-show="projectForm2.name.$invalid && projectForm2.name.$dirty && projectForm2.name.$touched")
-			p(ng-show="projectForm2.name.$error.minlength") Please use at least 5 characters
-			p(ng-show="projectForm2.name.$error.maxlength") Please use between 5 and 20 characters
+			p(ng-show="projectForm2.name.$error.minlength") Please use at least 1 characters
+			p(ng-show="projectForm2.name.$error.maxlength") Please use between 1 and 40 characters
 			p(ng-show="projectForm2.name.$error.required") Please enter a name
 	.form-group()
 		label(for="start") Start date
