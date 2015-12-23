@@ -1,5 +1,5 @@
 div(ng-controller='userProfileDataController as updCtrl', ng-init='deactivateUserProfileTab()')
-	button.btn.btn-secondary(type='button', ng-click="updCtrl.goToMyProfile()") Secondary
+	button.btn.btn-secondary(type='button', href="http://team.binary-studio.com/profile/#/") Back to My Profile
 	tabset
 		tab(ng-repeat='tab in updCtrl.tabs',
 			heading='{{tab.title}}',
