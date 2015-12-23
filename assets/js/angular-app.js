@@ -37,7 +37,8 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
     var vm = this;
 	if ($rootScope.isAdmin) {
 		vm.tabs = [
-            {title: 'My profile', href: '/userdata'},
+			//{title: 'My profile', href: '/userdata'},
+            {title: 'My profile', href: '/'},
             {title: 'My experience', href: '/cv'},
             {title: 'My PDP flow', href: '/pdp'},
             {title: 'User Profile', href: '/adminup'},
@@ -60,7 +61,7 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 	};
 	vm.changeHash = function(data) {
 		if (vm.initialized){
-			// $rootScope.userId = $rootScope.ownerId;
+			$rootScope.userId = $rootScope.ownerId;
 			$location.path(data);
 		} else {
 			vm.initialized = true;
