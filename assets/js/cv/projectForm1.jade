@@ -6,7 +6,7 @@ form(name="projectForm1", ng-show="showProjectForm1", novalidate)
 			ng-change="setMinDate(selProject.id)",
 			ng-class="{ 'errorborder': projectForm1.project.$invalid && projectForm1.project.$dirty && projectForm1.project.$touched}")
 			option(value="") ---Please select---
-			option(ng-repeat="project in allProjects | orderBy : 'name'", value="{{project.id}}")
+			option(ng-repeat="project in allNotUserProjects | orderBy : 'name'", value="{{project.id}}")
 				| {{project.name}}
 		div.help-block.error-block(ng-show="projectForm1.project.$invalid && projectForm1.project.$dirty && projectForm1.project.$touched")
 			p(ng-show="projectForm1.project.$error.required") Please enter a name

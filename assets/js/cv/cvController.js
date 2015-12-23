@@ -51,6 +51,8 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	cvFactory.getUserProjects($scope.userId, function(projects) {
 		$scope.userCV.projects = projects;
 
+		$scope.allNotUserProjects = $scope.getAllNotUserProjects($scope.allProjects, projects);
+
 		for (var i=0; i<$scope.userCV.projects.length; i++) {
 			$scope.userCV.projects[i].path =  $location.protocol() + "://" + $location.host() +
 			"/profile/#/projects/" + $scope.userCV.projects[i].id;
@@ -68,6 +70,16 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 			}
 		}
 	});
+
+	$scope.getAllNotUserProjects = function(allProjects, userProjects){
+		var newArray = [];
+		var item;
+		_.each(allProjects, function(project){
+			item = _.findWhere(userProjects, {id: project.id});
+			if(!item) newArray.push(project);
+		});
+		return newArray;
+	};
 
 	$scope.addTechnologiesToProject = function(project, technology) {
 		if (technology !== '' && typeof technology == "object") {
@@ -190,6 +202,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 			cvFactory.selectProject(project, function(id) {
 				cvFactory.getProject(id, function(res) {
 					$scope.userCV.projects.push(res);
+					$scope.allNotUserProjects = $scope.getAllNotUserProjects($scope.allProjects, $scope.userCV.projects);
 				});
 			});
 
