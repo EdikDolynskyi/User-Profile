@@ -10,7 +10,7 @@ script(type='text/ng-template', id='dropDownList.html').
 			<a href="#" class="pull-right" ng-click="cancel($event)">Close</a>
 		</div>
 		<div class="modal-body">
-			<img ng-src="{{'/profile' + images[image.index].img}}" class="img-responsive center-block screenshot" dynamic-src>
+			<img ng-src="{{'images[image.index].img}}" class="img-responsive center-block screenshot" dynamic-src>
 		</div>
 	script(type='text/ng-template', id='modalConfirm.html').
 		<div class="modal-header">
@@ -246,7 +246,7 @@ script(type='text/ng-template', id='dropDownList.html').
 								span Screenshots:
 							div.col-md-4.col-sm-4.voffset2(ng-repeat="screenshot in project.screenshots")
 								div.screenshot-wrap
-									img.img-responsive.screenshot(ng-src="{{prefix + screenshot.img}}", ng-click="open(screenshot, project.screenshots)")
+									img.img-responsive.screenshot(ng-src="{{screenshot.img}}", ng-click="open(screenshot, project.screenshots)")
 								.btn-rmv-project(ng-show='project.editMode' ng-click="removeScreenshotAfterEdit(project, screenshot)")
 									span.glyphicon.glyphicon-trash
 

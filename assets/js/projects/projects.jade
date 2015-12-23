@@ -5,7 +5,7 @@
 			<a href="#" class="pull-right" ng-click="cancel($event)">Close</a>
 		</div>
 		<div class="modal-body">
-			<img ng-src="{{'/profile' + images[image.index].img}}" class="img-responsive center-block screenshot" dynamic-src>
+			<img ng-src="{{images[image.index].img}}" class="img-responsive center-block screenshot" dynamic-src>
 		</div>
 	.row.projects
 		div.col-sm-12.v-center
@@ -46,4 +46,4 @@
 						div.col-sm-12.project-label
 							| Screenshots:
 						div.col-sm-4(ng-repeat='screenshot in currentProject.screenshots')
-							img.img-responsive(ng-src='{{prefix + screenshot.img}}', ng-click="open(screenshot, currentProject.screenshots)")
+							img.img-responsive(ng-src='{{screenshot.img}}', ng-click="open(screenshot, currentProject.screenshots)")

@@ -10,7 +10,7 @@ script(type='text/ng-template', id='dropDownList.html').
 			<a href="#" class="pull-right" ng-click="cancel($event)">Close</a>
 		</div>
 		<div class="modal-body">
-			<img ng-src="{{'/profile' + images[image.index].img}}" class="img-responsive center-block screenshot" dynamic-src>
+			<img ng-src="{{images[image.index].img}}" class="img-responsive center-block screenshot" dynamic-src>
 		</div>
 	.row
 		div.col-sm-12.v-center
@@ -71,4 +71,4 @@ script(type='text/ng-template', id='dropDownList.html').
 						div.col-sm-12.project-label(ng-show='project.screenshots.length')
 							| Screenshots:
 						div.col-sm-4(ng-repeat='screenshot in project.screenshots')
-							img.img-responsive(ng-src='{{prefix + screenshot.img}}', ng-click="open(screenshot, project.screenshots)")
+							img.img-responsive(ng-src='{{screenshot.img}}', ng-click="open(screenshot, project.screenshots)")
