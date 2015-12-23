@@ -19,28 +19,6 @@ html(ng-app='myApp')
         link(href="http://team.binary-studio.com/app/styles/css/style.css", rel="stylesheet")
     body
         header#header
-            //- .container-fluid
-            //- .col-lg-1
-                img.logo(src="http://academy.binary-studio.com/resources/logo.png")
-            //- div(ng-controller="MainController as ctrl", class="container-fluid")
-            //-     .col-lg-2
-            //-     .col-lg-10
-            //-         .container-fluid
-            //-             .col-lg-8
-            //-             .col-lg-4
-            //-                 .input-group
-            //-                     input.form-control(ng-model="ctrl.searchText", type='text', ng-keyup='ctrl.search()', placeholder='Search for...')
-            //-                     span.input-group-btn
-            //-                         //- button.btn.btn-primary(type='button', ng-click='ctrl.search()') Go!
-            //-                         button.btn.btn-default(type='button', ng-click='ctrl.go("/search")') filters
-            //-                 .list-group(ng-model="ctrl.usersList", ng-cloak)
-            //-                     button#usersListInSearch.list-group-item(ng-repeat="user in ctrl.usersList",type='button', ng-click='ctrl.showUserPage(user.id)')
-            //-                         .col-md-4
-            //-                             img.img-responsive.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')
-
-            //-                         .col-md-8
-            //-                             | {{user.name}} <br>
-            //-                             | {{user.department}}
                                         
         main.container-fluid(ng-controller="MainController as ctrl")
             .row(ng-controller='TabsCtrl as ctrl')
