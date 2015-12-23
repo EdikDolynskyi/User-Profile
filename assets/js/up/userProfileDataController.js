@@ -6,7 +6,7 @@ function userProfileDataCtrl(prefix, $scope, $location) {
     $scope.prefix = prefix;
     var vm = this;
     vm.goToMyProfile = function(){
-		$location.path = '/profile/';
+		$location.path('/profile/');
 	};
     var prefix = window.location.pathname;
     vm.tabs = [

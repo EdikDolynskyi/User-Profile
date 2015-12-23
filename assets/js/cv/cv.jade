@@ -10,7 +10,7 @@ script(type='text/ng-template', id='dropDownList.html').
 			<a href="#" class="pull-right" ng-click="cancel($event)">Close</a>
 		</div>
 		<div class="modal-body">
-			<img ng-src="{{'images[image.index].img}}" class="img-responsive center-block screenshot" dynamic-src>
+			<img ng-src="{{images[image.index].img}}" class="img-responsive center-block screenshot" dynamic-src>
 		</div>
 	script(type='text/ng-template', id='modalConfirm.html').
 		<div class="modal-header">
