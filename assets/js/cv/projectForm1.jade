@@ -3,6 +3,7 @@ form(name="projectForm1", ng-show="showProjectForm1", novalidate)
 		label(for="sel-project") Project
 		select#sel-project.form-control(name="project",
 			ng-model="selProject.id", required,
+			ng-change="setMinDate(selProject.id)",
 			ng-class="{ 'errorborder': projectForm1.project.$invalid && projectForm1.project.$dirty && projectForm1.project.$touched}")
 			option(value="") ---Please select---
 			option(ng-repeat="project in allProjects | orderBy : 'name'", value="{{project.id}}")
@@ -33,7 +34,7 @@ form(name="projectForm1", ng-show="showProjectForm1", novalidate)
 				name="startDateSelectProject",
 				ng-model="selProject.startDate",
 				is-open='showProjectForm1StartDate',
-				min-date="'2000-01-01'",
+				min-date="selProject.start",
 				required,
 				readonly="true",
 				datepicker-popup='dd-MM-yyyy',
@@ -55,6 +56,7 @@ form(name="projectForm1", ng-show="showProjectForm1", novalidate)
 				ng-model="selProject.endDate",
 				is-open='showProjectForm1EndDate',
 				min-date="selProject.startDate",
+				max-date="selProject.end",
 				readonly="true",
 				datepicker-popup='dd-MM-yyyy',
 				datepicker-append-to-body="true",

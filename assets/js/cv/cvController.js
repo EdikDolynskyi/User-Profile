@@ -211,6 +211,12 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 		form.$setPristine();
 	};
 
+	$scope.setMinDate = function(projectId){
+		var project = _.findWhere($scope.allProjects, {id: projectId});
+		$scope.selProject.start = project.start;
+		$scope.selProject.end = project.end;
+	};
+
 	$scope.selectFile = function(file, project){
 		if(file) project.screenshots.push(file);
 	};
