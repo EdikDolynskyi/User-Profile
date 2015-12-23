@@ -73,6 +73,7 @@ app.controller('TabsCtrl', function ($scope, $window, $location, $rootScope) {
 	};
 	vm.deactivateUserProfileTab = function() {
 		vm.tabs[0].active = false;
+		vm.initialized = true;
 	};
 });
 
