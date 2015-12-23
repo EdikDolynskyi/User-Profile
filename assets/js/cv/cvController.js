@@ -58,6 +58,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 			$scope.userCV.projects[i].newScreenshots = [];
 			$scope.userCV.projects[i].showTechFormProject = false;
 			$scope.userCV.projects[i].projectTechFieldValid = true;
+			$scope.userCV.projects[i].end = $scope.userCV.projects[i].end > $scope.userCV.projects[i].start ? $scope.userCV.projects[i].end : null;
 			
 			if($scope.userCV.projects[i].id == $scope.userCV.currentProject ) {
 				$scope.userCV.projects[i].current = true;

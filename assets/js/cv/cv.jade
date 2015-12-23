@@ -107,11 +107,12 @@ script(type='text/ng-template', id='dropDownList.html').
 								.error-block(ng-show='!project.start')
 									p(ng-show="!project.start") Date is required
 
-						.row.voffset3(ng-if="project.end && !project.editMode")
+						.row.voffset3(ng-if="!project.editMode")
 							div.col-sm-3.project-label
 								| End date:
 							div.col-sm-9
-								span {{project.end | date:'dd/MM/yyyy'}}
+								span(ng-if="project.end") {{project.end | date:'dd/MM/yyyy'}}
+								span(ng-if='!project.end') present
 						
 						.row.voffset3(ng-if='project.editMode')
 							div.col-sm-3.project-label
@@ -137,8 +138,8 @@ script(type='text/ng-template', id='dropDownList.html').
 								.error-block(ng-show='false')
 									p(ng-show="false") Date is required
 						
-						.row.voffset3
-							div.col-sm-3.project-label Technologies
+						.row.voffset3(ng-hide="!project.editMode && !project.technologies.length") 
+							div.col-sm-3.project-label Technologies:
 								div.btn(ng-show='project.editMode', ng-click="project.showTechFormProject=true")
 									span.glyphicon.glyphicon-plus-sign
 							div.col-sm-9(ng-show="project.showTechFormProject && project.editMode", ng-include="template2")
@@ -156,7 +157,7 @@ script(type='text/ng-template', id='dropDownList.html').
 									| {{tech.name}}
 									span.glyphicon.glyphicon-remove.btn-rmv-tech(ng-click="removeTechnologyFromProject($event, tech, project)")
 						
-						.row.voffset3
+						.row.voffset3(ng-hide="!project.editMode && !project.description") 
 							div.col-sm-3.project-label
 								| Description:
 							div.col-sm-9
