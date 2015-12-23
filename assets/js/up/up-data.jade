@@ -1,5 +1,5 @@
-div(ng-controller='userProfileDataController as updCtrl', ng-init='ctrl.deactivateUserProfileTab()')
-	button.btn.btn-secondary(type='button', ng-click="ctrl.goToMyProfile()") Secondary
+div(ng-controller='userProfileDataController as updCtrl', ng-init='deactivateUserProfileTab()')
+	button.btn.btn-secondary(type='button', ng-click="goToMyProfile()") Secondary
 	tabset
 		tab(ng-repeat='tab in updCtrl.tabs',
 			heading='{{tab.title}}',
