@@ -54,7 +54,7 @@ form(name="projectForm1", ng-show="showProjectForm1", novalidate)
 				name="end-date1",
 				ng-model="selProject.endDate",
 				is-open='showProjectForm1EndDate',
-				min-date="'2000-01-01'",
+				min-date="selProject.startDate",
 				readonly="true",
 				datepicker-popup='dd-MM-yyyy',
 				datepicker-append-to-body="true",

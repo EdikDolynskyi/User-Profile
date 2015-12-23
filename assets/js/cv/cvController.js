@@ -22,6 +22,7 @@ app.controller('CVController', function($scope, $modal, $location, cvFactory, up
 	$scope.selProject = {};
 	$scope.selTech = {};
 	$scope.showSelectTechnology = true;
+	$scope.today = new Date();
 
 	$scope.template = prefix + '/js/cv/technologyForm.html';
 	$scope.template2 = prefix + '/js/cv/technologyFormForProject.html';

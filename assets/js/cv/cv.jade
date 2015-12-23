@@ -123,7 +123,7 @@ script(type='text/ng-template', id='dropDownList.html').
 										name="start-date1",
 										ng-model='project.end',
 										is-open='showProjectEndDate',
-										min-date="'2000-01-01'",
+										min-date="project.start",
 										ng-required="true",
 										readonly="true",
 										datepicker-popup='dd-MM-yyyy',
@@ -192,7 +192,8 @@ script(type='text/ng-template', id='dropDownList.html').
 									input.form-control(
 										ng-model="project.startDate",
 										is-open='showProjectWorkStartDate',
-										min-date="'2000-01-01'",
+										min-date="project.start",
+										max-date="project.end",
 										ng-required="true",
 										readonly="true",
 										datepicker-popup='dd-MM-yyyy',
@@ -213,7 +214,8 @@ script(type='text/ng-template', id='dropDownList.html').
 									input.form-control(	
 										ng-model="project.endDate",
 										is-open='showProjectWorkEndDate',
-										min-date="'2000-01-01'",
+										min-date="project.startDate",
+										max-date="project.end",
 										ng-required="true",
 										readonly="true",
 										datepicker-popup='dd-MM-yyyy',
