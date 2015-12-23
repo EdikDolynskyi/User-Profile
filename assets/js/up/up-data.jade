@@ -1,4 +1,4 @@
-div(ng-controller='userProfileDataController as updCtrl', ng-init='deactivateUserProfileTab()')
+div(ng-controller='userProfileDataController as updCtrl', ng-init='TabsCtrl.deactivateUserProfileTab()')
 	tabset
 		tab(ng-repeat='tab in updCtrl.tabs',
 			heading='{{tab.title}}',
