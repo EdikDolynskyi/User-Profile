@@ -45,7 +45,7 @@
 					.row.voffset3
 						div.col-sm-12.project-label
 							| Screenshots:
-						.row.col-sm-4(ng-repeat='screenshot in currentProject.screenshots')
+						.row(ng-repeat='screenshot in currentProject.screenshots')
 							.col-xs-6.col-md-3
 								.thumbnail
 									img.img-responsive(ng-src='{{screenshot.img}}', ng-click="open(screenshot, currentProject.screenshots)")
