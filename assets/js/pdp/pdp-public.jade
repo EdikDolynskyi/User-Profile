@@ -38,25 +38,25 @@ div.pdp(ng-controller='PdpPublicController as pdp')
                 .panel-heading
                     h3.panel-title Technologies
                 .list-group(ng-show='!pdp.userPDP.technologies.length')
-                    .list-group-item Technologies are not set            
+                    .list-group-item.pdplist Technologies are not set            
                 .list-group(ng-repeat='technology in pdp.userPDP.technologies')
-                    .list-group-item {{technology.name}}
+                    .list-group-item.pdplist {{technology.name}}
 
             .panel.panel-default
                 .panel-heading
                     h3.panel-title Certifications
                 .list-group(ng-show='!pdp.userPDP.certifications.length')
-                    .list-group-item Certifications are not set    
+                    .list-group-item.pdplist Certifications are not set    
                 .list-group(ng-repeat='certification in pdp.userPDP.certifications')
-                    .list-group-item {{certification.name}}
+                    .list-group-item.pdplist {{certification.name}}
 
             .panel.panel-default
                 .panel-heading
                     h3.panel-title Tasks
                 .list-group(ng-show='!pdp.userPDP.tasks.length')
-                    .list-group-item Tasks are not set   
+                    .list-group-item.pdplist Tasks are not set   
                 .list-group(ng-repeat='task in pdp.userPDP.tasks')
-                    .list-group-item {{task.name}}
+                    .list-group-item.pdplist {{task.name}}
 
             //- .panel.panel-default
             //-     .panel-heading
