@@ -48,11 +48,10 @@ div.container-fluid(ng-controller="UserProfilePublicController as ctrl")
     .col-md-6.col-sm-6.col-xs-12
         img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
 
-        .panel.panel-default
+        .panel.panel-default(ng-if="ctrl.user.project")
             .panel-heading
                 h3.panel-title Project
             .panel-body
-                .up-title project
                 .up-data {{ctrl.user.project.state}} project:
                 .up-data
                     a(href="", ng-click="ctrl.goToProject(ctrl.user.project.path)") {{ctrl.user.project.title}}
