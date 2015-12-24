@@ -124,7 +124,7 @@ module.exports = {
                 };
                 tasks.removedUserProjects = function(cb){
                     Users_projects.native(function(err, collection) {
-                        collection.update({user: req.params.id}, {$set: { isDeleted: true }}, {multi: true});
+                        collection.update({userId: req.params.id}, {$set: { isDeleted: true }}, {multi: true});
                         cb(err, collection);
                     });                
                 };
