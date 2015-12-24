@@ -42,9 +42,10 @@
 											a(href="#", ng-click="findUser($event, participant.id)") {{participant.name}} {{participant.surname}}
 									p.participant-role {{participant.role}}
 
-					div.col-sm-12.project-label
-						| Screenshots:
-					.row
-						.col-xs-6.col-md-3(ng-repeat='screenshot in currentProject.screenshots')
-							.thumbnail
-								img.img-responsive(ng-src='{{screenshot.img}}', ng-click="open(screenshot, currentProject.screenshots)")
+					.row.voffset3
+						div.col-sm-12.project-label
+							| Screenshots:
+						.row
+							.col-xs-6.col-md-3(ng-repeat='screenshot in currentProject.screenshots')
+								.thumbnail
+									img.img-responsive(ng-src='{{screenshot.img}}', ng-click="open(screenshot, currentProject.screenshots)")
