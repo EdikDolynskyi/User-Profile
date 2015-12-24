@@ -6,7 +6,7 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
             //- button.list-group-item( type='button', ng-click='ctrl.showUserPageFromFilter(user.id)')
             a.list-group-item.overhidden(ng-href="{{'http://team.binary-studio.com/profile/#/userdata/' + user.id}}")
                 .col-md-3
-                    img.img-responsive.img-thumbnail#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')
+                    img.img-responsive.img-thumb#thumbnailsInFilter(ng-src= "{{user.avatar}}", width='40', height='60', alt='avatar')
 
                 .col-md-9
                     | {{user.name}} <br>
