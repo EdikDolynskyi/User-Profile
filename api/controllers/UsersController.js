@@ -103,7 +103,7 @@ module.exports = {
         },
 
     deleteUser: function(req, res){
-        Users.findOne({_id: Users.mongo.objectId(req.params.id)}).exec(function(err, user){
+        Users.findOne({serverUserId: req.params.id}).exec(function(err, user){
             if (!err){
                 user.isDeleted = true;
                 user.save();
