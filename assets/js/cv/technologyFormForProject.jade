@@ -12,7 +12,7 @@ form(name="technologyFormForProject", novalidate="novalidate")
 					ng-model="technology.name",
 					ng-blur="enterTechnologyNameForTech($event, technology)",
 					ng-focus="enterTechnologyNameForTech($event, technology)",
-					ng-maxlength="15", required, ng-change="project.projectTechFieldValid = false"
+					ng-maxlength="30", required, ng-change="project.projectTechFieldValid = false"
 					ng-class="{ 'errorborder': !project.projectTechFieldValid && !technology.name}")
 				div.help-block.error-block(ng-show="!project.projectTechFieldValid")
 					p(ng-show="!technology.name") Please enter a technology

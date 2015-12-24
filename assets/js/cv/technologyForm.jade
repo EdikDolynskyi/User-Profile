@@ -12,10 +12,10 @@ form(name="technologyForm", novalidate)
 					ng-model="technology.name",
 					ng-blur="enterTechnologyNameForTech($event, technology)",
 					ng-focus="enterTechnologyNameForTech($event, technology)",
-					ng-maxlength="15", required,
+					ng-maxlength="30", required,
 					ng-class="{ 'errorborder': technologyForm.technologies.$invalid && technologyForm.technologies.$dirty && technologyForm.technologies.$touched}")
 				div.help-block.error-block(ng-show="technologyForm.technologies.$invalid && technologyForm.technologies.$dirty && technologyForm.technologies.$touched")
-					p(ng-show="technologyForm.technologies.$error.maxlength") Please use no more than 15 characters
+					p(ng-show="technologyForm.technologies.$error.maxlength") Please use no more than 30 characters
 					p(ng-show="technologyForm.technologies.$error.required") Please enter a technology
 				
 
