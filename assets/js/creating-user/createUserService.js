@@ -18,7 +18,6 @@ function createUserService($resource) {
             $resource(vm.prefix + '/api/pdps').save(pdp, function (pdpRez) {
                 user.userPDP = pdpRez.id;
                 $resource(vm.prefix + '/api/users').save(user, function (userRez) {
-                    console.log(userRez);
                     cb(userRez);
                 });
             });

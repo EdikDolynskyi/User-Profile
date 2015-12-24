@@ -35,7 +35,6 @@ app.controller('ModalCertController', function ($modalInstance, $resource, certi
         var index = vm.certifications.indexOf(certification);
         var Certifications = $resource(prefix + '/api/certifications/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
         var cert = Certifications.delete({id: vm.certification.id}, function(res){
-                console.log("Deleted successfully!")
             }, function(err){
                 console.log(err);
             });

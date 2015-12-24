@@ -107,7 +107,6 @@ app.controller('TechDataController', function($resource , $timeout, $modal, pref
                 vm.positions.splice(index, 1);
                 var Positions = $resource(prefix + '/api/positions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var pos = Positions.delete({id: obj.id}, function(res){
-                        console.log("Deleted successfully!")
                     }, function(err){
                         console.log(err);
                 });
@@ -146,7 +145,6 @@ app.controller('TechDataController', function($resource , $timeout, $modal, pref
                 vm.directions.splice(index, 1);
                 var Directions = $resource(prefix + '/api/directions/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var dir = Directions.delete({id: obj.id}, function(res){
-                        console.log("Deleted successfully!")
                     }, function(err){
                         console.log(err);
                 });
@@ -185,7 +183,6 @@ app.controller('TechDataController', function($resource , $timeout, $modal, pref
                 vm.techCategories.splice(index, 1);
                 var Categories = $resource(prefix + '/api/categories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var cat = Categories.delete({id: obj.id}, function(res){
-                        console.log("Deleted successfully!")
                     }, function(err){
                         console.log(err);
                 });
@@ -224,7 +221,6 @@ app.controller('TechDataController', function($resource , $timeout, $modal, pref
                 vm.achCategories.splice(index, 1);
                 var Categories = $resource(prefix + '/api/achievementcategories/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var cat = Categories.delete({id: obj.id}, function(res){
-                        console.log("Deleted successfully!")
                     }, function(err){
                         console.log(err);
                 });
@@ -275,7 +271,6 @@ app.controller('TechDataController', function($resource , $timeout, $modal, pref
                 vm.technologies.splice(index, 1);
                 var Technologies = $resource(prefix + '/api/technologies/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
                 var tech = Technologies.delete({id: obj.id}, function(res){
-                        console.log("Deleted successfully!")
                     }, function(err){
                         console.log(err);
                 });

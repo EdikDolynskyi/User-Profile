@@ -35,7 +35,6 @@ app.controller('ModalAchController', function ($modalInstance, $resource, achiev
         var index = vm.achievements.indexOf(achievement);
         var Achievements = $resource(prefix + '/api/achievements/:id', {id: '@id'}, {'delete': { method:'DELETE' }});
         var ach = Achievements.delete({id: vm.achievement.id}, function(res){
-                console.log("Deleted successfully!")
             }, function(err){
                 console.log(err);
             });

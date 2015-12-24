@@ -4,7 +4,6 @@ app.controller('UserProfilePublicController', ['UserProfileService', '$rootScope
     'prefix', '$scope', 'cvFactory', '$location', UserProfilePublicCtrl]);
 
 function UserProfilePublicCtrl(service, $rootScope, $route, PdpService, prefix, $scope, cvFactory, $location) {
-    console.log(prefix);
     $scope.prefix = prefix;
     var ctrl = this;
     //Init
