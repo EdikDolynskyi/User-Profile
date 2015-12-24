@@ -1,7 +1,6 @@
 div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ctrl.allUsers();ctrl.allPositions();ctrl.allTechnologies();ctrl.allDirections();ctrl.allPositions();ctrl.allCertificates();')
     h3(class="col-md-12",style="margin-bottom: 0") Search with filters
         p
-        hr
     .col-md-8.col-sm-8.col-xs-12
         .list-group.overhidden(ng-model="allUsersList", ng-repeat="user in ctrl.allUsersList | orderBy:'department'")
             //- button.list-group-item( type='button', ng-click='ctrl.showUserPageFromFilter(user.id)')
@@ -17,7 +16,6 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
     .col-md-4.col-sm-4.col-xs-12.personal-info
         .form-group
             label Technology
-            hr
             select.form-control(
                 ng-model="ctrl.searchParams.technology",
                 ng-options='tech.name as tech.name for tech in ctrl.allTechList',
@@ -26,7 +24,6 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
 
         .form-group
             label Knowledge level
-            hr
             select.form-control.glyphicon(ng-model="ctrl.searchParams.knowlevel", ng-change="ctrl.GlobalSearch()")
                 optgroup(style='font-family:arial')
                     option(value='') none
@@ -38,7 +35,6 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
 
         .form-group
             label Department
-            hr
             select.form-control(
                 ng-model="ctrl.searchParams.direction",
                 ng-options='department.name as department.name for department in ctrl.allDirectionList',
@@ -47,7 +43,6 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
 
         .form-group
             label Level
-            hr
             select.form-control(
                 ng-model="ctrl.searchParams.position",
                 ng-options='position.name as position.name for position in ctrl.allPositionsList',
@@ -57,7 +52,6 @@ div(ng-controller="MainController as ctrl", class="container-fluid", ng-init='ct
 
         .form-group
             label Certificates
-            hr
             select.form-control(
                 ng-model="ctrl.searchParams.certificate",
                 ng-options='certificate.name as certificate.name for certificate in ctrl.allCertificatesList',
