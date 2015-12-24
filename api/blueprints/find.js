@@ -40,8 +40,6 @@ module.exports = function findRecords (req, res) {
   var query = Model.find()
   .where( actionUtil.parseCriteria(req) )
   .where({ isDeleted : false })
-  .limit( actionUtil.parseLimit(req) )
-  .skip( actionUtil.parseSkip(req) )
   .sort( actionUtil.parseSort(req) );
   // TODO: .populateEach(req.options);
   query = actionUtil.populateEach(query, req);
