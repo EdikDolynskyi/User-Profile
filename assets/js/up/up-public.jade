@@ -46,7 +46,7 @@ div.container-fluid(ng-controller="UserProfilePublicController as ctrl")
                 .up-data(ng-bind="ctrl.user.workDate | date:'dd-MMMM-yyyy'")
 
     .col-md-6.col-sm-6.col-xs-12
-        img.avatar.img-thumbnail(src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
+        img.avatar.img-thumbnail(ng-src= "{{ctrl.user.avatar.urlAva}}", alt='avatar')
 
         .panel.panel-default(ng-if="ctrl.user.project")
             .panel-heading
