@@ -54,10 +54,10 @@ div.pdp(ng-controller='PdpController as pdp')
               label.list-group-item
                   input(type='checkbox' ng-model='task.completed' ng-change='pdp.updateTasks(task)')
                   span(ng-class="{completed: task.completed}") {{task.name}}
-          h4 Tests
-            .list-group(ng-show='!pdp.userPDP.tests.length')
-              .list-group-item Tests are not set 
-            .list-group(ng-repeat='test in pdp.userPDP.tests')
-              label.list-group-item
-                  input(type='checkbox' ng-model='test.completed' ng-change='pdp.updateTests(test)')
-                  span(ng-class="{completed: test.completed}") {{test.name}}
+          //- h4 Tests
+          //-   .list-group(ng-show='!pdp.userPDP.tests.length')
+          //-     .list-group-item Tests are not set 
+          //-   .list-group(ng-repeat='test in pdp.userPDP.tests')
+          //-     label.list-group-item
+          //-         input(type='checkbox' ng-model='test.completed' ng-change='pdp.updateTests(test)')
+          //-         span(ng-class="{completed: test.completed}") {{test.name}}

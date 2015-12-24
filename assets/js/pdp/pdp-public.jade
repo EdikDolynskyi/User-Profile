@@ -58,10 +58,10 @@ div.pdp(ng-controller='PdpPublicController as pdp')
                 .list-group(ng-repeat='task in pdp.userPDP.tasks')
                     .list-group-item {{task.name}}
 
-            .panel.panel-default
-                .panel-heading
-                    h3.panel-title Tests
-                .list-group(ng-show='!pdp.userPDP.tests.length')
-                    .list-group-item Tests are not set 
-                .list-group(ng-repeat='test in pdp.userPDP.tests')
-                    .list-group-item {{test.name}}
+            //- .panel.panel-default
+            //-     .panel-heading
+            //-         h3.panel-title Tests
+            //-     .list-group(ng-show='!pdp.userPDP.tests.length')
+            //-         .list-group-item Tests are not set 
+            //-     .list-group(ng-repeat='test in pdp.userPDP.tests')
+            //-         .list-group-item {{test.name}}

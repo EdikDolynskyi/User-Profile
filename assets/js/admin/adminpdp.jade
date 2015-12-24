@@ -157,16 +157,16 @@ div.pdp(ng-controller='PdpController as pdp')
                   span(ng-class="{completed: task.completed}") {{task.name}}
               button.btn.btn-default.btn-xs.round-btn(type='button' ng-click="pdp.removeTask(task)")
                 span.glyphicon.glyphicon-remove
-          h4 Tests
-            .btn-group(dropdown='', keyboard-nav='')
-              button#simple-btn-keyboard-nav.btn.btn-default.btn-xs.round-btn(type='button', dropdown-toggle='')
-                span.glyphicon.glyphicon-plus
-              ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
-                li(role='menuitem' ng-repeat="test in pdp.tests | orderBy : 'name'")
-                  a( ng-click="pdp.addTest(test)") {{test.name}}
-          div.checkbox(ng-repeat='test in pdp.userPDP.tests track by $index')
-              label
-                  input(type='checkbox' ng-model='test.completed' ng-change='pdp.updateTests(test)')
-                  span(ng-class="{completed: test.completed}") {{test.name}}
-              button.btn.btn-default.btn-xs.round-btn(type='button' ng-click="pdp.removeTest(test)")
-                span.glyphicon.glyphicon-remove
+          //- h4 Tests
+          //-   .btn-group(dropdown='', keyboard-nav='')
+          //-     button#simple-btn-keyboard-nav.btn.btn-default.btn-xs.round-btn(type='button', dropdown-toggle='')
+          //-       span.glyphicon.glyphicon-plus
+          //-     ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
+          //-       li(role='menuitem' ng-repeat="test in pdp.tests | orderBy : 'name'")
+          //-         a( ng-click="pdp.addTest(test)") {{test.name}}
+          //- div.checkbox(ng-repeat='test in pdp.userPDP.tests track by $index')
+          //-     label
+          //-         input(type='checkbox' ng-model='test.completed' ng-change='pdp.updateTests(test)')
+          //-         span(ng-class="{completed: test.completed}") {{test.name}}
+          //-     button.btn.btn-default.btn-xs.round-btn(type='button' ng-click="pdp.removeTest(test)")
+          //-       span.glyphicon.glyphicon-remove
