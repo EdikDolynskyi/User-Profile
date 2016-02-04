@@ -1,0 +1,11 @@
+.modal-header
+	h3.modal-title I'm a modal!
+.modal-body
+	.cropArea
+		img-crop(image='image', result-image='myCroppedImage')
+	div Cropped Image:
+	div
+		img(ng-src='{{myCroppedImage}}')
+.modal-footer
+	button.btn.btn-primary(type='button', ng-click='ok()') OK
+	button.btn.btn-warning(type='button', ng-click='cancel()') Cancel

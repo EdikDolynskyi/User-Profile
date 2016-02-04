@@ -1,8 +1,8 @@
 var app = require('../angular-app');
 
-app.controller('UserProfileController', ['$scope', 'UserProfileService', 'uploadService', 'downloadService', '$rootScope', 'PdpService', 'prefix', userProfileCtrl]);
+app.controller('UserProfileController', ['$scope', '$modal', 'UserProfileService', 'uploadService', 'downloadService', '$rootScope', 'PdpService', 'prefix', userProfileCtrl]);
 
-function userProfileCtrl($scope, UserProfileService, uploadService, downloadService, $rootScope, PdpService, prefix) {
+function userProfileCtrl($scope, $modal, UserProfileService, uploadService, downloadService, $rootScope, PdpService, prefix) {
 	$scope.prefix = prefix;
 	var vm = this;
 	//Init
@@ -19,9 +19,9 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
 
 		vm.userOriginal = angular.extend({}, user);
 		vm.user = angular.copy(vm.userOriginal);
-        PdpService.getPDPByID(vm.user.userPDP.id, function(pdp){
-            vm.user.userPDP = pdp;
-        });
+		PdpService.getPDPByID(vm.user.userPDP.id, function(pdp){
+			vm.user.userPDP = pdp;
+		});
 	});
 
 	$scope.$watch(angular.bind(vm, function () {
@@ -84,10 +84,60 @@ function userProfileCtrl($scope, UserProfileService, uploadService, downloadServ
 
 
 	vm.upload = function (file) {
+		var reader = new FileReader();
+		var self = this;
+
+		reader.onload = function (evt) {
+			$scope.$apply(function(vm){
+				vm.myImage = evt.target.result;
+				self.open(vm.myImage, file);
+			});
+		};
+		if (file){
+			reader.readAsDataURL(file);
+		}
+		
 		vm.url = "";
+		// uploadService.upload(file, function (fileSrc) {
+		// 	vm.user.avatar.urlAva = fileSrc;
+		// 	vm.dataInFields.avatar = angular.copy(vm.user.avatar);
+		// });
+	};
+
+	vm.open = function (imageURL, originalFile) {
+
+		var modalInstance = $modal.open({
+			animation: $scope.animationsEnabled,
+			templateUrl: '/js/modals/modalCropImage.html',
+			controller: 'ModalCropImageCtrl',
+			resolve: {
+				image: function () {
+					return imageURL;
+				},
+				originalFile: function () {
+					return originalFile;
+				}
+			}
+		});
+
+		modalInstance.result.then(function (result) {
+		var imageBase64 = result.image;
+		var originalFile = result.originalFile;
+
+		//var dataURL = imageBase64.split(',')[1];
+		var dataURL = var dataURL;
+
+		var blob = new Blob([dataURL], {type: originalFile.type});
+		var file = new File([blob], originalFile.name);
+
+
 		uploadService.upload(file, function (fileSrc) {
 			vm.user.avatar.urlAva = fileSrc;
 			vm.dataInFields.avatar = angular.copy(vm.user.avatar);
+		});
+
+		}, function () {
+			console.log('Modal dismissed at: ' + new Date());
 		});
 	};
 
