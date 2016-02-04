@@ -108,7 +108,7 @@ function userProfileCtrl($scope, $modal, UserProfileService, uploadService, down
 
 		var modalInstance = $modal.open({
 			animation: $scope.animationsEnabled,
-			templateUrl: '/js/modals/modalCropImage.html',
+			templateUrl: '/profile/js/modals/modalCropImage.html',
 			controller: 'ModalCropImageCtrl',
 			resolve: {
 				image: function () {
