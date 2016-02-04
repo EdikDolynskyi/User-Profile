@@ -125,7 +125,7 @@ function userProfileCtrl($scope, $modal, UserProfileService, uploadService, down
 		var originalFile = result.originalFile;
 
 		//var dataURL = imageBase64.split(',')[1];
-		var dataURL = var dataURL;
+		var dataURL = imageBase64;
 
 		var blob = new Blob([dataURL], {type: originalFile.type});
 		var file = new File([blob], originalFile.name);
