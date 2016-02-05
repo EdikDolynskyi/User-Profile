@@ -62,12 +62,16 @@ module.exports = function(grunt) {
 					dest: '.tmp/public/js/dependencies/ngclipboard.min.js'
 				},
 				{
-					src: ['./bower_components/ng-img-crop/compile/minified/ng-img-crop.js'],
-					dest: '.tmp/public/js/dependencies/ng-img-crop.js'
+					src: ['./bower_components/jquery/dist/jquery.js'],
+					dest: '.tmp/public/js/dependencies/jquery.js'
 				},
 				{
-					src: ['./bower_components/ng-img-crop/compile/minified/ng-img-crop.css'],
-					dest: '.tmp/public/styles/dependencies/ng-img-crop.css'
+					src: ['./bower_components/cropper/dist/cropper.min.js'],
+					dest: '.tmp/public/js/dependencies/cropper.min.js'
+				},
+				{
+					src: ['./bower_components/cropper/dist/cropper.min.css'],
+					dest: '.tmp/public/styles/dependencies/cropper.min.css'
 				},
 				{
 					src: ['./bower_components/bootstrap/dist/css/bootstrap.css'],

@@ -1,5 +1,5 @@
 var app = angular.module('myApp', ['ngRoute', 'ngCookies', 'ngResource', 'ngMessages', 'ngFileUpload', 'ui.bootstrap',
-	'ngclipboard', 'ngImgCrop']);
+	'ngclipboard']);
 app.constant('prefix', window.location.pathname.slice(0, -1));
 //app.constant('prefix', '/profile/');
 app.config(function ($routeProvider, prefix) {

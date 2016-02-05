@@ -27,7 +27,7 @@
     "angular-messages": "~1.4.8",
     "ngclipboard": "~1.0.0",
     "clipboard": "~1.5.5",
-    "ng-img-crop": "ngImgCrop#^0.3.2"
+    "cropper": "^2.2.5"
   },
   "resolutions": {
     "angular": "~1.4.3"
