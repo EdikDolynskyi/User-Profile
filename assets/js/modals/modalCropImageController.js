@@ -71,10 +71,10 @@ app.controller('ModalCropImageCtrl', function($scope, $modalInstance, image, ori
 				var previewHeight = previewWidth / previewAspectRatio;
 				var imageScaledRatio = e.width / previewWidth;
 				$preview.height(previewHeight).find('img').css({
-					width: imageData.naturalWidth / imageScaledRatio,
-					height: imageData.naturalHeight / imageScaledRatio,
-					marginLeft: -e.x / imageScaledRatio,
-					marginTop: -e.y / imageScaledRatio
+						width: imageData.naturalWidth / imageScaledRatio,
+						height: imageData.naturalHeight / imageScaledRatio,
+						marginLeft: -e.x / imageScaledRatio,
+						marginTop: -e.y / imageScaledRatio
 					});
 				});
 			}
