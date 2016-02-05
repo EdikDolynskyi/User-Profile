@@ -84,24 +84,24 @@ function userProfileCtrl($scope, $modal, UserProfileService, uploadService, down
 
 
 	vm.upload = function (file) {
-		var reader = new FileReader();
-		var self = this;
+		// var reader = new FileReader();
+		// var self = this;
 
-		reader.onload = function (evt) {
-			$scope.$apply(function(vm){
-				vm.myImage = evt.target.result;
-				self.open(vm.myImage, file);
-			});
-		};
-		if (file){
-			reader.readAsDataURL(file);
-		}
+		// reader.onload = function (evt) {
+		// 	$scope.$apply(function(vm){
+		// 		vm.myImage = evt.target.result;
+		// 		self.open(vm.myImage, file);
+		// 	});
+		// };
+		// if (file){
+		// 	reader.readAsDataURL(file);
+		// }
 		
 		vm.url = "";
-		// uploadService.upload(file, function (fileSrc) {
-		// 	vm.user.avatar.urlAva = fileSrc;
-		// 	vm.dataInFields.avatar = angular.copy(vm.user.avatar);
-		// });
+		uploadService.upload(file, function (fileSrc) {
+			vm.user.avatar.urlAva = fileSrc;
+			vm.dataInFields.avatar = angular.copy(vm.user.avatar);
+		});
 	};
 
 	vm.open = function (imageURL, originalFile) {
