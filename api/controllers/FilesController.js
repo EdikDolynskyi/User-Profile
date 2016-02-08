@@ -34,7 +34,9 @@ module.exports = {
 					  quality: 0.5,
 					  gravity: "North"
 					}, function(err, stdout, stderr){
-					  // foo
+					  console.log('err',err);
+					  console.log('stdout',stdout);
+					  console.log('stderr',stderr);
 					});
 			}
 		);
