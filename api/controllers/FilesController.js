@@ -24,18 +24,18 @@ module.exports = {
 
 				var filepath = files[0].fd;
 
-				 //  im.crop({
-					//   srcPath: filepath,
-					//   dstPath: filepath + '_mini',
-					//   width: 100,
-					//   height: 100,
-					//   quality: 0.5,
-					//   gravity: "North"
-					// }, function(err, stdout, stderr){
-					//   // foo
-					// });
-
 				res.json({status: 200, file: path.basename(filepath)});
+
+				im.crop({
+					  srcPath: filepath,
+					  dstPath: filepath + '_mini',
+					  width: 100,
+					  height: 100,
+					  quality: 0.5,
+					  gravity: "North"
+					}, function(err, stdout, stderr){
+					  // foo
+					});
 			}
 		);
 	},
