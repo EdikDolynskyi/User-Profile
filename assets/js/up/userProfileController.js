@@ -100,7 +100,8 @@ function userProfileCtrl($scope, $modal, UserProfileService, uploadService, down
 	vm.open = function (imageURL, originalFile) {
 		var modalInstance = $modal.open({
 			animation: $scope.animationsEnabled,
-			templateUrl: '/js/modals/modalCropImage.html',
+			//templateUrl: '/js/modals/modalCropImage.html',
+			templateUrl: '/profile/js/modals/modalCropImage.html',
 			controller: 'ModalCropImageCtrl',
 			resolve: {
 				image: function () {
@@ -116,7 +117,7 @@ function userProfileCtrl($scope, $modal, UserProfileService, uploadService, down
 
 		uploadService.upload(result.image, function (fileSrc) {
 			vm.user.avatar.urlAva = fileSrc;
-			//vm.user.avatar.thumbnailUrlAva = fileSrc + '_small';
+			vm.user.avatar.thumbnailUrlAva = fileSrc + '_mini';
 			vm.dataInFields.avatar = angular.copy(vm.user.avatar);
 		});
 		}, function () {

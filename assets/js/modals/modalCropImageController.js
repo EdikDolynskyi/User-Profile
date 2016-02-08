@@ -38,6 +38,7 @@ app.controller('ModalCropImageCtrl', function($scope, $modalInstance, image, ori
 
 	$('#img-crop').cropper({
 		viewMode: 1,
+		modal: true,
 		dragMode: 'move',
 		autoCropArea: 0.65,
 		restore: false,

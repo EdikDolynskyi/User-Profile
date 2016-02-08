@@ -23,11 +23,10 @@ module.exports = {
 				if (err) return res.serverError(err);
 
 				var filepath = files[0].fd;
-				//var write = fs.createWriteStream(filepath + '_resized');
 
 				  im.crop({
 					  srcPath: filepath,
-					  dstPath: filepath + '_resized',
+					  dstPath: filepath + '_mini',
 					  width: 100,
 					  height: 100,
 					  quality: 0.5,

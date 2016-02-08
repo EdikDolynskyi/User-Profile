@@ -9,12 +9,12 @@ app.factory('uploadService', function(Upload, $q, prefix){
 	function upload(file, callback){
 		if (file) {
             Upload.upload({
-                url: prefix + '/api/files/upload',
-                //url: '/profile/api/files/upload',
+                //url: prefix + '/api/files/upload',
+                url: '/profile/api/files/upload',
                 file: file
             }).success(function (data) {
-                var fileSrc = '/api/files/get/' + data.file;
-                //var fileSrc = '/profile/api/files/get/' + data.file;
+                //var fileSrc = '/api/files/get/' + data.file;
+                var fileSrc = '/profile/api/files/get/' + data.file;
                 callback(fileSrc);
             }).error(function (data, status) {
                 console.log('error status: ' + status);
