@@ -26,6 +26,9 @@ module.exports = {
 
 				res.json({status: 200, file: path.basename(filepath)});
 
+				console.log('filepath', filepath);
+				console.log('path.basename(filepath)', path.basename(filepath));
+
 				im.crop({
 					  srcPath: filepath,
 					  dstPath: filepath + '_mini',
