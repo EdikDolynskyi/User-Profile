@@ -115,11 +115,11 @@ function userProfileCtrl($scope, $modal, UserProfileService, uploadService, down
 
 		modalInstance.result.then(function (result) {
 
-		uploadService.upload(result.image, function (fileSrc) {
-			vm.user.avatar.urlAva = fileSrc;
-			vm.user.avatar.thumbnailUrlAva = fileSrc + '_mini';
-			vm.dataInFields.avatar = angular.copy(vm.user.avatar);
-		});
+			uploadService.upload(result.image, function (fileSrc) {
+				vm.user.avatar.urlAva = fileSrc;
+				vm.user.avatar.thumbnailUrlAva = fileSrc + '_mini';
+				vm.dataInFields.avatar = angular.copy(vm.user.avatar);
+			});
 		}, function () {
 			//console.log('Modal dismissed at: ' + new Date());
 		});
