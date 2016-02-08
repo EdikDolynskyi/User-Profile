@@ -3,7 +3,7 @@
 .modal-body.row
 	.col-md-9
 		.label.image-label Original
-		img#img-crop(src="{{image}}")
+		img#img-crop(ng-show='{{open}}' ng-src="{{image}}")
 	.col-md-3
 		.label.image-label Cropped image
 		.preview

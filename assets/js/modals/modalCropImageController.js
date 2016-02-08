@@ -4,6 +4,7 @@ app.controller('ModalCropImageCtrl', function($scope, $modalInstance, image, ori
 	$scope.image = image;
 	$scope.myCroppedImage = '';
 	$scope.originalFile = originalFile
+	$scope.open = true;
 
 	$scope.ok = function () {
 		$('#img-crop').cropper('getCroppedCanvas');
@@ -27,6 +28,7 @@ app.controller('ModalCropImageCtrl', function($scope, $modalInstance, image, ori
 		};
 		
 		$modalInstance.close(result);
+		$scope.image = null;
 	};
 
 	$scope.cancel = function () {
