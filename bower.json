@@ -1,0 +1,35 @@
+{
+  "name": "user-profile",
+  "version": "0.0.0",
+  "homepage": "https://github.com/BinaryStudioAcademy/bsa-2015-user-profile",
+  "authors": [
+    "Boris-Vladimirovich <tuxoh992@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.13.2",
+    "angular-resource": "~1.4.3",
+    "ng-file-upload": "~6.0.4",
+    "bootstrap-datepicker": "~1.4.0",
+    "async": "~1.4.2",
+    "underscore": "~1.8.3",
+    "angular-cookies": "~1.4.5",
+    "angular-messages": "~1.4.8",
+    "ngclipboard": "~1.0.0",
+    "clipboard": "~1.5.5",
+    "cropper": "^2.2.5"
+  },
+  "resolutions": {
+    "angular": "~1.4.3"
+  }
+}

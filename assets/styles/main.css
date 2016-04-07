@@ -1,0 +1,149 @@
+/*body{
+	background-color: #ddd;
+}*/
+/*header{
+height: 70px;
+background-color: gray;
+}
+header>.container-fluid>.col-lg-2{
+	background-color: #ffa500;
+	height: 70px;
+}*/
+
+
+.btn-custom {
+  background-color: hsl(0, 2%, 73%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d9d7d7", endColorstr="#bbb8b8");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#d9d7d7), to(#bbb8b8));
+  background-image: -moz-linear-gradient(top, #d9d7d7, #bbb8b8);
+  background-image: -ms-linear-gradient(top, #d9d7d7, #bbb8b8);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d9d7d7), color-stop(100%, #bbb8b8));
+  background-image: -webkit-linear-gradient(top, #d9d7d7, #bbb8b8);
+  background-image: -o-linear-gradient(top, #d9d7d7, #bbb8b8);
+  background-image: linear-gradient(#d9d7d7, #bbb8b8);
+  border-color: #bbb8b8 #bbb8b8 hsl(0, 2%, 70%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.19);
+  -webkit-font-smoothing: antialiased;
+  margin: 5px;
+}
+
+hr {
+	color: gray;
+	opacity: 0.2;
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+  border-style: solid none;
+  border-width: 2px 0;
+  margin: 18px 0;
+  padding-bottom: 0px;
+  margin-top: -11px;
+
+}
+
+
+.form-group{
+	width: 100%
+}
+
+.page-header{
+	margin: -30px 0 14px;
+}
+/*.text-center{*/
+	/*width: 30%;*/
+/*}*/
+.input-custom{
+  height: 30px;
+  width: 50%;
+}
+
+h3 {
+	margin-top: -10px;
+}
+hr{
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+input {font:small-caption;font-size:18px;}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+     width: 35%;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 10%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#thumbnailsInFilter {
+  //float:right;
+}
+
+
+#usersListInSearch {
+  position: absolute;
+}
+
+/*
+.avatar {
+	width: 40%;
+}
+*/
+
+.status{
+    float: right;
+    display: inline;
+    padding: 5px;
+    font-size: 2.5vh;
+}
+.logs{
+    margin-bottom: 0;
+}
+
+.logs-item{
+    background-color: #d9edf7;
+    color: #000000;
+    border-color: #acbaf7;
+    white-space: pre;
+}
+
+.panel-image{
+    padding-left: 0;
+    padding-right: 0;
+}
+.admin-user-image{
+    padding:10px;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.knovlevel{
+    font-family: inherit;
+}
+
+.list-group {
+    padding-left: 0;
+     margin-bottom: 0;
+}
+.list-group-item{
+    font-size: 15px;
+}

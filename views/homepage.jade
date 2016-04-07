@@ -1,0 +1,73 @@
+doctype html
+html(ng-app='myApp')
+    head(lang='eng')
+        base(href="/")
+        meta(charset='UTF-8')
+        title User Profile
+
+        // STYLES
+        link(rel="stylesheet", href="styles/achievements.css")
+        link(rel="stylesheet", href="styles/cv.css")
+        link(rel="stylesheet", href="styles/dependencies/bootstrap.css")
+        link(rel="stylesheet", href="styles/dependencies/cropper.min.css")
+        link(rel="stylesheet", href="styles/homepage.css")
+        link(rel="stylesheet", href="styles/imageview.css")
+        link(rel="stylesheet", href="styles/main.css")
+        link(rel="stylesheet", href="styles/pdp.css")
+        link(rel="stylesheet", href="styles/profile.css")
+        link(rel="stylesheet", href="styles/techdata.css")
+        link(rel="stylesheet", href="styles/user-page.css")
+        // STYLES END
+        link(href="http://team.binary-studio.com/app/styles/css/style.css", rel="stylesheet")
+    body
+        header#header
+                                        
+        main.container-fluid(ng-controller="MainController as ctrl")
+            .row(ng-controller='TabsCtrl as ctrl')
+                #nav.col-lg-2.col-lg-offset-1.col-sm-2.col-sm-offset-1
+                    div
+                        tabset(vertical="true")
+                            tab(ng-repeat='tab in ctrl.tabs',
+                                ng-hide="tab.couldBeHidden && !ctrl.isMyProfile()",
+                                heading='{{tab.title}}',
+                                active='tab.active',
+                                disable='tab.disabled',
+                                select="ctrl.changeHash(tab.href)")
+                .col-lg-8.col-sm-8.article(ng-view)
+
+        // SCRIPTS
+        script(src="js/dependencies/jquery.js")
+        script(src="js/dependencies/angular.amin.js")
+        script(src="js/dependencies/angular.cookies.min.js")
+        script(src="js/dependencies/angular.messages.js")
+        script(src="js/dependencies/angular.resource.min.js")
+        script(src="js/dependencies/angular.route.min.js")
+        script(src="js/dependencies/clipboard.min.js")
+        script(src="js/dependencies/cropper.min.js")
+        script(src="js/dependencies/ng-file-upload.min.js")
+        script(src="js/dependencies/ngclipboard.min.js")
+        script(src="js/dependencies/sails.io.js")
+        script(src="js/dependencies/ui-bootstrap-tpls.js")
+        script(src="js/main.js")
+        // SCRIPTS END
+        script(src="http://team.binary-studio.com/app/javascripts/header.js")
+        script.
+            window.onload = function(){
+                var getHeader = function() {
+                var request = new XMLHttpRequest();
+                request.open('GET', 'http://team.binary-studio.com/app/header', true);
+                    request.send();
+                    request.onreadystatechange = function() {
+                        if (request.readyState != 4) return;
+                        if (request.status != 200) {
+                            alert(request.status + ': ' + request.statusText);
+                        } else {
+                           var headerHtml = request.responseText;
+                           var headerContainer = document.getElementById('header');
+                           headerContainer.innerHTML =headerHtml;
+                           headerFunction();
+                        }
+                    };
+                };
+                getHeader();
+            }

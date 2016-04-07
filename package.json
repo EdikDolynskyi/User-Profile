@@ -5,24 +5,35 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "ejs": "~0.8.4",
+    "angular-resource": "^1.4.3",
+    "async": "^1.4.2",
+    "bcrypt-nodejs": "0.0.3",
+    "bower": "^1.4.1",
+    "browserify": "^11.0.1",
+    "cookies": "^0.5.0",
     "grunt": "0.4.2",
+    "grunt-browserify": "^4.0.0",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-coffee": "~0.10.1",
-    "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-jade": "^0.15.0",
     "grunt-contrib-jst": "~0.6.0",
-    "grunt-contrib-less": "0.11.1",
+    "grunt-contrib-stylus": "^0.22.0",
     "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-watch": "^0.5.3",
     "grunt-sails-linker": "~0.9.5",
     "grunt-sync": "~0.0.4",
+    "imagemagick": "^0.1.3",
     "include-all": "~0.1.3",
+    "jade": "^1.11.0",
+    "jsonwebtoken": "^5.0.5",
+    "mime": "^1.3.4",
+    "mongoose": "^4.1.7",
     "rc": "~0.5.0",
+    "request": "^2.61.0",
     "sails": "~0.11.0",
     "sails-disk": "~0.10.0",
-    "sails-mongo": "^0.11.2"
+    "sails-mongo": "^0.11.2",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "start": "node app.js",
@@ -34,5 +45,10 @@
     "url": "git://github.com/mykyta/user-profile.git"
   },
   "author": "mykyta",
-  "license": ""
+  "license": "ISC",
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/mykyta/user-profile/issues"
+  },
+  "homepage": "https://github.com/mykyta/user-profile#readme"
 }

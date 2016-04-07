@@ -4,3 +4,6 @@ node_modules/
 bower_components/
 *.log
 .tmp/
+/.idea
+/.tmp
+/upload/*

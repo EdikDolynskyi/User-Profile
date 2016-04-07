@@ -1,0 +1,151 @@
+div(ng-controller="TechDataController as techdata")
+	script(type='text/ng-template', id='modalConfirmDelete.html').
+		<div class="modal-header">
+			<h3 class="modal-title">Confirm</h3>
+		</div>
+		<div class="modal-body row">
+			<span class="col-md-offset-1">Are you sure want to delete it?</span>
+		</div>
+		<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="modalconf.ok()">OK</button>
+		<button class="btn btn-warning" type="button" ng-click="modalconf.cancel()">Cancel</button>
+		</div>
+	.row
+		h4.col-sm-12 Positions
+		.col-sm-8
+			input.form-control(type="text" placeholder="Search position" ng-model="searchPosition") 
+		.btn-group.col-sm-4
+			button.btn.btn-primary(type='button', ng-click='techdata.isPositionCollapsed = false') Add new position
+		.col-sm-12
+			.alert.alert-success.voffset3(role="alert", ng-show="techdata.positionAlert") Position has been created successfully!
+		div(collapse="techdata.isPositionCollapsed")
+			.col-sm-8
+				input.form-control(ng-model="techdata.position.name" placeholder="New position name")
+			.btn-group.col-sm-4
+				.btn.btn-success(ng-click="techdata.createPositionInCollection()")
+					span.glyphicon.glyphicon-ok
+				.btn.btn-warning(ng-click="techdata.positionCancel()")
+					span.glyphicon.glyphicon-remove-circle
+		div.voffset4
+			div(ng-repeat="position in techdata.positions | filter:searchPosition track by $index")
+				.col-sm-8
+					input.form-control(ng-model="position.name")
+				.btn-group.col-sm-4
+					.btn.btn-primary(ng-click="techdata.updatePositionInCollection(position)")
+						span.glyphicon.glyphicon-floppy-disk
+					.btn.btn-danger(ng-click="techdata.removePositionFromCollection(position)")
+						span.glyphicon.glyphicon-remove
+		hr.voffset4
+		h4.col-sm-12.voffset4 Directions
+		.col-sm-8
+			input.form-control(type="text" placeholder="Search direction" ng-model="searchDirection") 
+		.btn-group.col-sm-4
+			button.btn.btn-primary(type='button', ng-click='techdata.isDirectionCollapsed = false') Add new direction
+		.col-sm-12
+			.alert.alert-success.voffset3(role="alert", ng-show="techdata.directionAlert") Direction has been created successfully!
+		div(collapse="techdata.isDirectionCollapsed")
+			.col-sm-8
+				input.form-control(ng-model="techdata.direction.name" placeholder="New direction name")
+			.btn-group.col-sm-4
+				.btn.btn-success(ng-click="techdata.createDirectionInCollection()")
+					span.glyphicon.glyphicon-ok
+				.btn.btn-warning(ng-click="techdata.directionCancel()")
+					span.glyphicon.glyphicon-remove-circle
+		div.voffset4
+			div(ng-repeat="direction in techdata.directions | filter:searchDirection track by $index")
+				.col-sm-8
+					input.form-control(ng-model="direction.name")
+				.btn-group.col-sm-4
+					.btn.btn-primary(ng-click="techdata.updateDirectionInCollection(direction)")
+						span.glyphicon.glyphicon-floppy-disk
+					.btn.btn-danger(ng-click="techdata.removeDirectionFromCollection(direction)")
+						span.glyphicon.glyphicon-remove
+		hr.voffset4
+		h4.col-sm-12.voffset4 Technology categories
+		.col-sm-8
+			input.form-control(type="text" placeholder="Search category" ng-model="searchTechCategory") 
+		.btn-group.col-sm-4
+			button.btn.btn-primary(type='button', ng-click='techdata.isTechCategoryCollapsed = false') Add new category
+		.col-sm-12
+			.alert.alert-success.voffset3(role="alert", ng-show="techdata.techCategoryAlert") Category has been created successfully!
+		div(collapse="techdata.isTechCategoryCollapsed")
+			.col-sm-8
+				input.form-control(ng-model="techdata.techCategory.name" placeholder="New category name")
+			.btn-group.col-sm-4
+				.btn.btn-success(ng-click="techdata.createTechCategoryInCollection()")
+					span.glyphicon.glyphicon-ok
+				.btn.btn-warning(ng-click="techdata.techCategoryCancel()")
+					span.glyphicon.glyphicon-remove-circle
+		div.voffset4
+			div(ng-repeat="techCategory in techdata.techCategories | filter:searchTechCategory track by $index")
+				.col-sm-8
+					input.form-control(ng-model="techCategory.name")
+				.btn-group.col-sm-4
+					.btn.btn-primary(ng-click="techdata.updateTechCategoryInCollection(techCategory)")
+						span.glyphicon.glyphicon-floppy-disk
+					.btn.btn-danger(ng-click="techdata.removeTechCategoryFromCollection(techCategory)")
+						span.glyphicon.glyphicon-remove
+		hr.voffset4
+		h4.col-sm-12.voffset4 Achievement categories
+		.col-sm-8
+			input.form-control(type="text" placeholder="Search category" ng-model="searchAchCategory") 
+		.btn-group.col-sm-4
+			button.btn.btn-primary(type='button', ng-click='techdata.isAchCategoryCollapsed = false') Add new category
+		.col-sm-12
+			.alert.alert-success.voffset3(role="alert", ng-show="techdata.achCategoryAlert") Category has been created successfully!
+		div(collapse="techdata.isAchCategoryCollapsed")
+			.col-sm-8
+				input.form-control(ng-model="techdata.achCategory.name" placeholder="New category name")
+			.btn-group.col-sm-4
+				.btn.btn-success(ng-click="techdata.createAchCategoryInCollection()")
+					span.glyphicon.glyphicon-ok
+				.btn.btn-warning(ng-click="techdata.achCategoryCancel()")
+					span.glyphicon.glyphicon-remove-circle
+		div.voffset4
+			div(ng-repeat="achCategory in techdata.achCategories | filter:searchAchCategory track by $index")
+				.col-sm-8
+					input.form-control(ng-model="achCategory.name")
+				.btn-group.col-sm-4
+					.btn.btn-primary(ng-click="techdata.updateAchCategoryInCollection(achCategory)")
+						span.glyphicon.glyphicon-floppy-disk
+					.btn.btn-danger(ng-click="techdata.removeAchCategoryFromCollection(achCategory)")
+						span.glyphicon.glyphicon-remove
+		hr.voffset4
+		h4.col-sm-12.voffset4 Technologies
+		.col-sm-8
+			input.form-control(type="text" placeholder="Search technology" ng-model="searchTechnology") 
+		.btn-group.col-sm-4
+			button.btn.btn-primary(type='button', ng-click='techdata.isTechnologyCollapsed = false') Add new technology
+		.col-sm-12
+			.alert.alert-success.voffset3(role="alert", ng-show="techdata.technologyAlert") Technology has been created successfully!
+		div(collapse="techdata.isTechnologyCollapsed")
+			.col-sm-4
+				input.form-control(ng-model="techdata.technology.name" placeholder="New technology name")
+			.btn-group.col-sm-4(dropdown='', keyboard-nav='')
+					button.btn.btn-default.col-md-10(type='button') {{techdata.technology.category.name}}
+					button#simple-btn-keyboard-nav.btn.btn-default.col-md-2(type='button', dropdown-toggle='')
+						span.caret
+					ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
+						li(role='menuitem' ng-repeat="category in techdata.techCategories | orderBy : 'name'")
+							a(ng-click="techdata.selectCategory(techdata.technology, category)") {{category.name}}
+			.btn-group.col-sm-4
+				.btn.btn-success(ng-click="techdata.createTechnologyInCollection()")
+					span.glyphicon.glyphicon-ok
+				.btn.btn-warning(ng-click="techdata.technologyCancel()")
+					span.glyphicon.glyphicon-remove-circle
+		div.voffset4
+			div(ng-repeat="technology in techdata.technologies | filter:searchTechnology track by $index")
+				.col-sm-4
+					input.form-control(ng-model="technology.name")
+				.btn-group.col-sm-4(dropdown='', keyboard-nav='')
+					button.btn.btn-default.col-md-10(type='button') {{technology.category.name}}
+					button#simple-btn-keyboard-nav.btn.btn-default.col-md-2(type='button', dropdown-toggle='')
+						span.caret
+					ul.dropdown-menu.scrollable-menu(role='menu', aria-labelledby='simple-btn-keyboard-nav')
+						li(role='menuitem' ng-repeat="category in techdata.techCategories | orderBy : 'name'")
+							a(ng-click="techdata.selectCategory(technology, category)") {{category.name}}
+				.btn-group.col-sm-4
+					.btn.btn-primary(ng-click="techdata.updateTechnologyInCollection(technology)")
+						span.glyphicon.glyphicon-floppy-disk
+					.btn.btn-danger(ng-click="techdata.removeTechnologyFromCollection(technology)")
+						span.glyphicon.glyphicon-remove

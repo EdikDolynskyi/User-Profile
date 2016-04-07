@@ -1,0 +1,16 @@
+.modal-header
+	h3.modal-title Crop your avatar
+.modal-body.row
+	.col-md-9
+		.label.image-label Original
+		img#img-crop(ng-show='{{open}}' ng-src="{{image}}")
+	.col-md-3
+		.label.image-label Cropped image
+		.preview
+		
+		.thimbnal-container
+			.label.image-label Miniature 
+			.preview#mini-thumbnail
+.modal-footer
+	button.btn.btn-primary(type='button', ng-click='ok()') OK
+	button.btn.btn-warning(type='button', ng-click='cancel()') Cancel

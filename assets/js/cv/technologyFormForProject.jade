@@ -1,0 +1,21 @@
+form(name="technologyFormForProject", novalidate="novalidate")
+	.panel.panel-default
+		.panel-body
+			.form-group
+				label(for="tech-name") Technology name
+				input#technologies.form-control(type="text",
+					name="technologies", autocomplete="off",
+					ng-keyup ='enterTechnologyNameForTech($event, technology)',
+					typeahead="tech as tech.name for tech in allTechnologies | filter:{name:$viewValue}",
+					typeahead-template-url="dropDownList.html",
+					ng-click="enterTechnologyNameForTech($event, technology)",
+					ng-model="technology.name",
+					ng-blur="enterTechnologyNameForTech($event, technology)",
+					ng-focus="enterTechnologyNameForTech($event, technology)",
+					ng-maxlength="30", required, ng-change="project.projectTechFieldValid = false"
+					ng-class="{ 'errorborder': !project.projectTechFieldValid && !technology.name}")
+				div.help-block.error-block(ng-show="!project.projectTechFieldValid")
+					p(ng-show="!technology.name") Please enter a technology
+
+			button.btn.btn-primary(ng-click="addTechnologyToProject(technology, project)") Add techology
+			button.btn.btn-danger(ng-click='cancelCreatingTechForProject(project)') Cancel

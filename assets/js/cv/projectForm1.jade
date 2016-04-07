@@ -1,0 +1,74 @@
+form(name="projectForm1", ng-show="showProjectForm1", novalidate)
+	.form-group()
+		label(for="sel-project") Project
+		select#sel-project.form-control(name="project",
+			ng-model="selProject.id", required,
+			ng-change="setMinDate(selProject.id)",
+			ng-class="{ 'errorborder': projectForm1.project.$invalid && projectForm1.project.$dirty && projectForm1.project.$touched}")
+			option(value="") ---Please select---
+			option(ng-repeat="project in allNotUserProjects | orderBy : 'name'", value="{{project.id}}")
+				| {{project.name}}
+		div.help-block.error-block(ng-show="projectForm1.project.$invalid && projectForm1.project.$dirty && projectForm1.project.$touched")
+			p(ng-show="projectForm1.project.$error.required") Please enter a name
+
+	.form-group()
+		label(for="user-role1") Your role
+		input#user-role1.form-control(type="text",
+			name="userrole",
+			ng-model="selProject.userRole",
+			ng-minlength="2",
+			ng-maxlength="20",
+			ng-pattern="/^[a-zA-Z ]+$/",
+			ng-class="{ 'errorborder': projectForm1.userrole.$invalid && projectForm1.userrole.$dirty && projectForm1.userrole.$touched}", required)
+		div.help-block.error-block(ng-show="projectForm1.userrole.$invalid && projectForm1.userrole.$dirty && projectForm1.userrole.$touched")
+			p(ng-show="projectForm1.project.$error.pattern") You can use only letters
+			p(ng-show="projectForm1.project.$error.minlength") Please use between 2 and 20 characters
+			p(ng-show="projectForm1.project.$error.maxlength") Please use between 2 and 20 characters
+			p(ng-show="projectForm1.project.$error.required") Please enter your role
+
+
+	.form-group()
+		label(for="start-date1") Date of joining the project
+		.input-group
+			input#start-date1.form-control(
+				name="startDateSelectProject",
+				ng-model="selProject.startDate",
+				is-open='showProjectForm1StartDate',
+				min-date="selProject.start",
+				required,
+				readonly="true",
+				datepicker-popup='dd-MM-yyyy',
+				datepicker-append-to-body="true",
+				close-text='Close',
+				ng-class="{ 'errorborder': projectForm1.startDateSelectProject.$invalid && projectForm1.startDateSelectProject.$dirty && projectForm1.startDateSelectProject.$touched}",
+				ng-click='showProjectForm1StartDate = !showProjectForm1StartDate')
+			span.input-group-btn
+				button.btn.btn-default(type='button', ng-click='showProjectForm1StartDate = !showProjectForm1StartDate', 
+				ng-class="{ 'errorborder': projectForm1.startDateSelectProject.$invalid && projectForm1.startDateSelectProject.$dirty && projectForm1.startDateSelectProject.$touched}")
+					i.glyphicon.glyphicon-calendar
+		.error-block(ng-show='projectForm1.startDateSelectProject.$invalid && projectForm1.startDateSelectProject.$dirty && projectForm1.startDateSelectProject.$touched')
+			p(ng-show="projectForm1.startDateSelectProject.$error.required") Date is required
+
+		label(for="end-date1") Date of finishing working on the project
+		.input-group
+			input#end-date1.form-control(
+				name="end-date1",
+				ng-model="selProject.endDate",
+				is-open='showProjectForm1EndDate',
+				min-date="selProject.startDate",
+				max-date="selProject.end",
+				readonly="true",
+				datepicker-popup='dd-MM-yyyy',
+				datepicker-append-to-body="true",
+				close-text='Close',
+				ng-click='showProjectForm1EndDate = !showProjectForm1EndDate')
+			span.input-group-btn
+				button.btn.btn-default(type='button', ng-click='showProjectForm1EndDate = !showProjectForm1EndDate', 
+				ng-class= "{errorborder: false}")
+					i.glyphicon.glyphicon-calendar
+	.checkbox
+		label
+			input(type='checkbox', ng-model='selProject.current')
+			b Set this project as the current project
+	button.btn.btn-primary(ng-click="selectProject(projectForm1, selProject)") Add project
+	button.btn.btn-danger(type="reset", ng-click="cancelSelectingProject(projectForm1)") Cancel
